@@ -122,38 +122,6 @@ INSERT INTO  `registration` (`Reg_ID`, `Course_ID`, `Staff_ID`, `Reg_Status`, `C
 (4,'C5',3,'Registered','Not Complete'),
 (5,'C1',2,'Rejected','Not Complete');
 
---------------------------------
---
--- Table structure for table `ljroles`
---
-
-
-DROP TABLE IF EXISTS `ljroles`;
-CREATE TABLE IF NOT EXISTS `ljroles` (
-    `LJRole_ID` int(5) NOT NULL AUTO_INCREMENT,
-    `LJRole_Name` varchar(50) NOT NULL,
-    `LJRole_Description` varchar(225),
-    `Department` varchar(50) NOT NULL,
-    `Key_Task` varchar(225),
-    `LJRole_Status` enum('Active','Inactive') default 'Active',
-    `LJRole_img` varchar(2083),
-    `Skill_ID` int(5) NOT NULL,
-  PRIMARY KEY (`ljrole_id`,`Skill_ID`),
-  FOREIGN KEY (`Skill_ID`) REFERENCES skills(`Skill_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `ljroles`
---
-
-INSERT INTO `ljroles` (`LJRole_ID`, `LJRole_Name`, `LJRole_Description`, `Department`, `Key_Task`,`LJRole_Status`,`LJRole_img`,`Skill_ID`) VALUES
-(00001, 'Regional Data Analyst', 'The Data Analyst partners with Regional Operations teams to provide analytical support to help the team achieve objectives.The Data Analyst masters both the data and business domains to play a key role in decision-making','Operation','1) Sourcing and analysing new data sources. 2)Provide actionable recommendations based on data insights to drive business outcomes. 3)Create reports and visualisation tools (dashboards) to facilitate understanding of data','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00001),
-(00002, 'Business Intelligence Analyst','The Business Intelligence Analyst will gather, analyze, and compile data needed to identify trends and patterns, then make recommendations for business actions.','Operation','1) Assesses market strategies by analysing related products, markets, or trends. 2) Identifies markets for future product development and methods to improve sales of existing products by analysing technology trends.','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00001),
-(00003, 'Operation Manager','An Operations Manager oversees company organisational processes and adds improvements. Duties include hiring, training, implementing policies, strategies to improve productivity and building an enjoyable company culture.','Operation','1) Make important policy, planning, and strategy decisions. 2) Develop, implement, and review operational policies and procedures. 3)Work with the board of directors to plan for short and long-term goals','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00002),
-(00004, 'UIUX Developer','Hiring a passionate, user centred UIUX Designer to join a collaborative and innovative team to create visually delightful and easy-to-use digital products. A highly collaborative work with product managers and engineers.','Technology', '1) Create user-centred designs by understanding business requirements and user feedback 2)Create user flows, wireframes, prototypes, mockups 3) Incorporate customer feedback, usage metrics, and usability findings into design','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00003),
-(00005, 'Finance Officer','Finance Officer involves providing financial and administrative support to colleagues, clients and stakeholders of the business. It’s a role that may attract applicants keen to move up the financial corporate ladder','Finance','1) Assist in the preparation of budgets. 2) Manage records and receipts. 3) Reconcile daily, monthly and yearly transactions 4) Prepare balance sheets 4) Point of contact for other dept on financial and accounting issues','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00004),
-(00006, 'Sales Executive','Responsible for helping build up a business by identifying new business prospects and selling products to them. They must maintain relationships with current clients and build and maintain relationships with new clients.','Sales','1) Research and recommend prospects for new business opportunities. 2)Research and analyse sales options. 3)Build and maintain relationships with clients and prospects. 4) Build and maintain professional networks','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00005);
-
 -- --------------------------------------------------------
 --
 -- Table structure for table `skills`
@@ -171,7 +139,7 @@ CREATE TABLE IF NOT EXISTS `skills` (
     `Course_ID` varchar(20),
   PRIMARY KEY (`Skill_ID`,`Course_ID`),
   FOREIGN KEY (`Course_ID`) REFERENCES course(`Course_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `skills`
@@ -184,6 +152,41 @@ INSERT INTO `skills` (`Skill_ID`, `Skill_Name`, `Type_of_Skills`, `Level_of_Comp
 (00003, 'Interaction Design','Technical','Beginner','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','Active','C1'),
 (00004, 'Finance','Technical','Advanced','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','Active','C6'),
 (00005, 'Marketing and Sales','Soft','Beginner','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','InActive','C4');
+
+
+-- --------------------------------------------------------
+--
+-- Table structure for table `ljroles`
+--
+
+
+
+DROP TABLE IF EXISTS `ljroles`;
+CREATE TABLE IF NOT EXISTS `ljroles` (
+    `LJRole_ID` int(5) NOT NULL AUTO_INCREMENT,
+    `LJRole_Name` varchar(50) NOT NULL,
+    `LJRole_Description` varchar(225),
+    `Department` varchar(50) NOT NULL,
+    `Key_Task` varchar(225),
+    `LJRole_Status` enum('Active','Inactive') default 'Active',
+    `LJRole_img` varchar(2083),
+    `Skill_ID` int(5) NOT NULL,
+  PRIMARY KEY (`ljrole_id`,`Skill_ID`),
+  FOREIGN KEY (`Skill_ID`) REFERENCES skills(`Skill_ID`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `ljroles`
+--
+
+INSERT INTO `ljroles` (`LJRole_ID`, `LJRole_Name`, `LJRole_Description`, `Department`, `Key_Task`,`LJRole_Status`,`LJRole_img`,`Skill_ID`) VALUES
+(00001, 'Regional Data Analyst', 'The Data Analyst partners with Regional Operations teams to provide analytical support to help the team achieve objectives.The Data Analyst masters both the data and business domains to play a key role in decision-making','Operation','1) Sourcing and analysing new data sources. 2)Provide actionable recommendations based on data insights to drive business outcomes. 3)Create reports and visualisation tools (dashboards) to facilitate understanding of data','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00001),
+(00002, 'Business Intelligence Analyst','The Business Intelligence Analyst will gather, analyze, and compile data needed to identify trends and patterns, then make recommendations for business actions.','Operation','1) Assesses market strategies by analysing related products, markets, or trends. 2) Identifies markets for future product development and methods to improve sales of existing products by analysing technology trends.','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00001),
+(00003, 'Operation Manager','An Operations Manager oversees company organisational processes and adds improvements. Duties include hiring, training, implementing policies, strategies to improve productivity and building an enjoyable company culture.','Operation','1) Make important policy, planning, and strategy decisions. 2) Develop, implement, and review operational policies and procedures. 3)Work with the board of directors to plan for short and long-term goals','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00002),
+(00004, 'UIUX Developer','Hiring a passionate, user centred UIUX Designer to join a collaborative and innovative team to create visually delightful and easy-to-use digital products. A highly collaborative work with product managers and engineers.','Technology', '1) Create user-centred designs by understanding business requirements and user feedback 2)Create user flows, wireframes, prototypes, mockups 3) Incorporate customer feedback, usage metrics, and usability findings into design','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00003),
+(00005, 'Finance Officer','Finance Officer involves providing financial and administrative support to colleagues, clients and stakeholders of the business. It’s a role that may attract applicants keen to move up the financial corporate ladder','Finance','1) Assist in the preparation of budgets. 2) Manage records and receipts. 3) Reconcile daily, monthly and yearly transactions 4) Prepare balance sheets 4) Point of contact for other dept on financial and accounting issues','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00004),
+(00006, 'Sales Executive','Responsible for helping build up a business by identifying new business prospects and selling products to them. They must maintain relationships with current clients and build and maintain relationships with new clients.','Sales','1) Research and recommend prospects for new business opportunities. 2)Research and analyse sales options. 3)Build and maintain relationships with clients and prospects. 4) Build and maintain professional networks','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00005);
+
 
 -- --------------------------------------------------------
 --
