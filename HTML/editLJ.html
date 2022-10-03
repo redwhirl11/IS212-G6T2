@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Learning Journey</title>
+    <link rel="stylesheet" href="../CSS/Role_Specific.css">
+    <link href='https://fonts.googleapis.com/css?family=Inter:600,400' rel='stylesheet'>
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+</head>
+
+<body>
+
+
+    <div class='contianer' id="myHeader">
+        <div class="row my-5">
+            <div class="row">
+                <div class="col-9"><img id='logo' src="../Icons/Component 1.png"></div>
+                <div class="col">
+                    <button type="button" class="btn btn-light mx-2 px-4" id="backBtn" style="border-radius: 20px">Back</button>
+                    <button type="button" class="btn btn-light mx-2 px-4" id="saveBtn" style="border-radius: 20px">Save</button>
+                </div>
+            </div>
+
+            <img src="../Icons/Vector 1.png" alt="Nature" class="responsive">
+
+            <p class="h1 text-center" id="Header">
+                Your Role: <span id="roleName">UI/UX Designer - Tech </span>
+            </p>
+        </div>
+
+        <!-- 
+
+        <div class="RoleInfo">
+            <div style="margin-bottom: 10px;">
+                <img src="../Icons/Role Description.png"
+                    style="display: inline-block; width: 31px; height: 31px; margin-bottom: 15px; margin-right: 15px;">
+                <h1>Role Description</h1>
+            </div>
+            <p id="content">
+                With Learning Journey Planner, you can explore the With Learning Journey Planner, you can explore
+                thousands of learning journeys tailored to your preference and needs. ousands of learning journeys
+                tailored to your preferences and needs. With Learning Journey Planner, you can explore the With Learning
+                Journey Planner, you can explore thousands of learning journeys tailored to your
+                preferences and needs. ousands of learning journeys tailored to your preferences and needs.
+                you can explore the With Learning Journey Planner, you can explore thousands of learning journeys.
+            </p>
+        </div> -->
+
+
+        <!-- <div class="RoleInfo" style="margin-top:41px; height: 290px; margin-bottom: 1000px;">
+            <div style="margin-bottom: 10px;">
+                <img src="../Icons/Keytask.png"
+                    style="display: inline-block; width: 31px; height: 31px; margin-bottom: 12px; margin-right: 15px;">
+                <h1>Key Tasks</h1>
+            </div>
+            <p id="content">
+                &#x2022; Analyse relevant software and hardware tools, interdependencies, limitations with reference to
+                functional requirements, system architecture, industry's standards and budget.</br>
+                &#x2022; Design migration plans with relevant components.</br>
+                &#x2022; Design software applications in accordance to the agreed requirement specifications, system
+                limitations and industry standards.</br>
+                &#x2022; Develop models based on existing architecture, organisational policies and standards.</br>
+                &#x2022; Gather clients' feedback and evaluation of the software applications for post-implementation
+                follow-up.</br>
+            </p>
+        </div> -->
+        <div class="row m-5">
+            <div class="col accordion">
+                <div class="accordion-item">
+                    <div class="accordion-body" id="ljDetails">
+                        &#x2022; Analyse relevant software and hardware tools, interdependencies, limitations with
+                        reference to
+                        functional requirements, system architecture, industry's standards and budget.</br>
+                        &#x2022; Design migration plans with relevant components.</br>
+                        &#x2022; Design software applications in accordance to the agreed requirement
+                        specifications, system
+                        limitations and industry standards.</br>
+                        &#x2022; Develop models based on existing architecture, organisational policies and
+                        standards.</br>
+                        &#x2022; Gather clients' feedback and evaluation of the software applications for
+                        post-implementation
+                        follow-up.</br>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-5 mx-5">
+            <div class="col">
+                <div class="accordion" id="accordionPanelsStayOpenExample">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                                aria-controls="panelsStayOpen-collapseOne">
+                                <img src="../Icons/Role Description.png"
+                                    style="display: inline-block; width: 31px; height: 31px; margin-right: 15px;">
+                                <h1>Role Description</h1>
+                            </button>
+                        </h2>
+                        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show"
+                            aria-labelledby="panelsStayOpen-headingOne">
+                            <div class="accordion-body" id="roleContent">
+                                With Learning Journey Planner, you can explore the With Learning Journey Planner, you
+                                can explore
+                                thousands of learning journeys tailored to your preference and needs. ousands of
+                                learning journeys
+                                tailored to your preferences and needs. With Learning Journey Planner, you can explore
+                                the With Learning
+                                Journey Planner, you can explore thousands of learning journeys tailored to your
+                                preferences and needs. ousands of learning journeys tailored to your preferences and
+                                needs.
+                                you can explore the With Learning Journey Planner, you can explore thousands of learning
+                                journeys.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row m-5">
+            <div class="col accordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <img src="../Icons/Keytask.png"
+                                style="display: inline-block; width: 31px; height: 31px; margin-right: 15px;">
+                            <h1>Key Tasks</h1>
+                        </button>
+                    </h2>
+                    <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body" id="taskContent">
+                            &#x2022; Analyse relevant software and hardware tools, interdependencies, limitations with
+                            reference to
+                            functional requirements, system architecture, industry's standards and budget.</br>
+                            &#x2022; Design migration plans with relevant components.</br>
+                            &#x2022; Design software applications in accordance to the agreed requirement
+                            specifications, system
+                            limitations and industry standards.</br>
+                            &#x2022; Develop models based on existing architecture, organisational policies and
+                            standards.</br>
+                            &#x2022; Gather clients' feedback and evaluation of the software applications for
+                            post-implementation
+                            follow-up.</br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row m-5">
+            <div class="col accordion">
+                <div class="accordion-item">
+                    <h2 class="accordion-header" id="headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                            data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                            <img src="../Icons/skills.jpg"
+                                style="display: inline-block; width: 31px; height: 31px; margin-right: 15px;">
+                            <h1>Skills & Courses</h1>
+                        </button>
+                    </h2>
+                    <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
+                        data-bs-parent="#accordionExample">
+                        <div class="accordion-body" id="skillContent">
+                            <div class="card mb-3">
+                                <div class="row g-0">
+                                    <div class="col-md-4">
+                                        <img src="../Icons/sampleImg.jpg" class="img-fluid rounded-start" alt="...">
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="card-body">
+                                            <h5 class="card-title" id="skillName">User Interface Design</h5>
+                                            <div class="row">
+                                                <div class="col fw-bold">Type of skills: <span
+                                                        class="skillCat fw-normal"> Technical</span></div>
+                                                <div class="col fw-bold">Competency level: <span
+                                                        class="skillLvl fw-normal"> Intermediate</span></div>
+                                            </div>
+                                            <h5 class="card-title mt-4 mb-2">Courses</h5>
+                                            <div class="row">
+                                                <ul >
+                                                    <li class="list-group-item m-2">
+                                                      <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                                                     User Experience Design
+                                                     <i class="bi bi-info-circle me-2" style="color:#919CF8"></i>
+                                                     <span class="badge rounded-pill bg-success statusComplete">Completed</span>
+                                                    </li>
+                                                    <li class="list-group-item m-2">
+                                                      <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                                                      User Experience Design
+                                                    </li>
+                                                    <li class="list-group-item m-2">
+                                                      <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                                                      TUser Experience Design
+                                                    </li>
+                                                  </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+    crossorigin="anonymous"></script>
