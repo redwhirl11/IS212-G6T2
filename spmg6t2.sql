@@ -71,7 +71,13 @@ VALUES
 	'Active','Internal','Technical'),
     ('C6','Investments',
 	'This course is an elementary to investments. The objective of this course is to provide and equip you with a solid knowledge and skills in investment and portfolio management.',
-    'Active','External','Finance');
+    'Active','External','Finance'),
+    ('C7','Visual Analytics for Business Intelligence',
+	'This course is to learn how to use data visualization and interactive analytic tools and techniques to interact with data of different formats from various sources, explore the expected relationships and discover unexpected correlations and patterns.',
+    'Active','External','Technical'),
+    ('C8','Introduction to Machine Learning',
+	'This course covers both fundamental theory and practical algorithms for machine learning from a variety of perspectives. It includes a range of topics, from supervised learning to unsupervised learning (, and from traditional learning to recent state-of-the-art deep learning methods.',
+    'Active','Internal','Technical');
 
 -- --------------------------------------------------------
 
@@ -151,7 +157,9 @@ INSERT INTO `skills` (`Skill_ID`, `Skill_Name`, `Type_of_Skills`, `Level_of_Comp
 (00002, 'Enterprise Risk Management','Technical','Intermediate','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','Active','C3'),
 (00003, 'Interaction Design','Technical','Beginner','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','Active','C1'),
 (00004, 'Finance','Technical','Advanced','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','Active','C6'),
-(00005, 'Marketing and Sales','Soft','Beginner','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','InActive','C4');
+(00005, 'Marketing and Sales','Soft','Beginner','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','InActive','C4'),
+(00001, 'Data Analytics','Technical','Beginner','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','Active','C7'),
+(00001, 'Data Analytics','Technical','Beginner','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','Active','C8');
 
 
 -- --------------------------------------------------------
