@@ -20,7 +20,6 @@ class RoleDetails {
         $this->LJRole_Description= $LJRole_Description;
         $this->Department = $Department;
         $this->Key_Task = $Key_Task;
-        $this->LJRole_Status= $LJRole_Status;
         $this->LJRole_img = $LJRole_img;
         $this->Skill_Name = $Skill_Name;
         $this->Type_of_Skills = $Type_of_Skills;
