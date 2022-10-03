@@ -62,3 +62,7 @@
     width: 51.35px;
     height: 34.8px;
   }
+
+  .search-bar {
+    border-radius: 30px;
+  }
