@@ -49,7 +49,8 @@ class PostDAO {
         // STEP 2
         $sql = "SELECT
                      *
-                FROM ljroles"; 
+                FROM ljroles 
+                WHERE LJRole_Status = 'Active'"; 
         $stmt = $conn->prepare($sql);
 
         // $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);
