@@ -10,7 +10,7 @@ class PostDAO {
 
         // STEP 2
         $sql = "SELECT
-                     SubmittedLJRole_ID, SubmittedSkill_ID, Submitted_CourseID
+                    SubmittedLJRole_ID, SubmittedSkill_ID, Submitted_CourseID
                 FROM learning_journey
                 WHERE
                 LJ_ID= :LJ_ID"; 
@@ -80,6 +80,49 @@ class PostDAO {
 
         // STEP 6
         return $AllRoles;
+    }
+
+    public function getLJRoleDetails($LJRole_ID) {
+        // STEP 1
+        $connMgr = new ConnectionManager();
+        $conn = $connMgr->connect();
+
+
+        // STEP 2
+        $sql = "SELECT
+                    * 
+                FROM ljroles
+                WHERE
+                LJRole_ID= :LJRole_ID and LJRole_status = 'Active'"; 
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bindParam(':LJRole_ID', $LJRole_ID, PDO::PARAM_STR);
+
+        // STEP 3
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        // STEP 4
+        $LJRoleDetails = []; // Indexed Array of Post objects
+        while( $row = $stmt->fetch() ) {
+            $LJRoleDetails[] =
+                new AllRoles (
+                    $row['LJRole_Name'],
+                    $row['LJRole_Description'],
+                    $row['Department'],
+                    $row['Key_Task'],
+                    $row['LJRole_Status'],
+                    $row['LJRole_img'],
+                    $row['Skill_ID']
+                    );
+        }
+
+        // STEP 5
+        $stmt = null;
+        $conn = null;
+
+        // STEP 6
+        return $LJRoleDetails;
     }
     
 }
