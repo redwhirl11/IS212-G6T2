@@ -86,14 +86,15 @@ class PostDAO {
         // STEP 1
         $connMgr = new ConnectionManager();
         $conn = $connMgr->connect();
-
-
+        
         // STEP 2
         $sql = "SELECT
-                    * 
+                    LJRole_Name, LJRole_Description, Department, Key_Task,LJRole_img, Skill_Name, Type_of_Skills, Level_of_Competencies, Skill_img, Course_Name, Course_Desc, Course_Type,Course_Category 
                 FROM ljroles
+                JOIN skills ON skills.Skill_ID = ljroles.Skill_ID  
+                JOIN course ON skills.Course_ID = course.Course_ID
                 WHERE
-                LJRole_ID= :LJRole_ID and LJRole_status = 'Active'"; 
+                LJRole_ID= :LJRole_ID and LJRole_status = 'Active' and Skill_Status = 'Active' and Course_Status = 'Active'"; 
         $stmt = $conn->prepare($sql);
 
         $stmt->bindParam(':LJRole_ID', $LJRole_ID, PDO::PARAM_STR);
@@ -106,14 +107,20 @@ class PostDAO {
         $LJRoleDetails = []; // Indexed Array of Post objects
         while( $row = $stmt->fetch() ) {
             $LJRoleDetails[] =
-                new AllRoles (
+                new RoleDetails (
                     $row['LJRole_Name'],
                     $row['LJRole_Description'],
                     $row['Department'],
                     $row['Key_Task'],
-                    $row['LJRole_Status'],
                     $row['LJRole_img'],
-                    $row['Skill_ID']
+                    $row['Skill_Name'],
+                    $row['Type_of_Skills'],
+                    $row['Level_of_Competencies'],
+                    $row['Skill_img'],
+                    $row['Course_Name'],
+                    $row['Course_Desc'],
+                    $row['Course_Type'],
+                    $row['Course_Category']
                     );
         }
 

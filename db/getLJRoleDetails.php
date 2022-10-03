@@ -22,9 +22,15 @@ foreach( $posts as $post_object ) {
     $item["LJRole_Description"] = $post_object->getLJRole_Description();
     $item["Department"] = $post_object->getDepartment();
     $item["Key_Task"] = $post_object->getKey_Task();
-    $item["LJRole_Status"] = $post_object->getLJRole_Status();
     $item["LJRole_img"] = $post_object->getLJRole_img();
-    $item["Skill_ID"] = $post_object->getSkill_ID();
+    $item["Skill_Name"] = $post_object->getSkill_Name();
+    $item["Type_of_Skills"] = $post_object->getType_of_Skills();
+    $item["Level_of_Competencies"] = $post_object->getLevel_of_Competencies();
+    $item["Skill_img"] = $post_object->getSkill_img();
+    $item["Course_Name"] = $post_object->getCourse_Name();
+    $item["Course_Desc"] = $post_object->getCourse_Desc();
+    $item["Course_Type"] = $post_object->getCourse_Type();
+    $item["Course_Category"] = $post_object->getCourse_Category();
     $items[] = $item;
 }
 // make posts into json and return json data
