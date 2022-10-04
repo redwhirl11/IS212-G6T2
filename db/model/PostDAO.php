@@ -142,7 +142,7 @@ class PostDAO {
         
         // STEP 2
         $sql = "SELECT
-                    LJ_ID, Staff_ID, LJRole_Name, LJRole_Description, Department, Key_Task, LJRole_img, Skill_Name, Type_of_Skills,Level_of_Competencies, Skill_img, course.Course_ID , Course_Name, Course_Desc,Course_Type, Course_Category  
+                    LJ_ID, Staff_ID, LJRole_Name, LJRole_Description, Department, Key_Task, LJRole_img, learning_journey.Submitted_Skill_ID, Skill_Name, Type_of_Skills,Level_of_Competencies, Skill_img, course.Course_ID , Course_Name, Course_Desc,Course_Type, Course_Category  
                 FROM learning_journey 
                 JOIN ljroles ON ljroles.LJRole_ID = learning_journey.SubmittedLJRole_ID
                 JOIN skills ON skills.Skill_ID = learning_journey.Submitted_Skill_ID
@@ -169,6 +169,7 @@ class PostDAO {
                     $row['Department'],
                     $row['Key_Task'],
                     $row['LJRole_img'],
+                    $row['Skill_ID'],
                     $row['Skill_Name'],
                     $row['Type_of_Skills'],
                     $row['Level_of_Competencies'],
