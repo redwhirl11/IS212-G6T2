@@ -124,7 +124,7 @@
                     </h2>
                     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
                         data-bs-parent="#accordionExample">
-                        <div class="accordion-body" id="skillContent">
+                        <div class="accordion-body" id="skillContent" v-for = "skill in Allskill_dict">
                             <div class="card mb-3 border-0">
                                 <div class="row g-0">
                                     <div class="col-md-4">
@@ -132,20 +132,20 @@
                                     </div>
                                     <div class="col-md-8">
                                         <div class="card-body">
-                                            <h5 class="card-title" id="skillName">User Interface Design</h5>
+                                            <h5 class="card-title" id="skillName">{{skill.SkillName}}</h5>
                                             <div class="row">
                                                 <div class="col fw-bold">Type of skills: <span class="fw-normal"
-                                                        id="skillCat"> Technical</span></div>
+                                                        id="skillCat">{{skill.Type_of_Skills}}</span></div>
                                                 <div class="col fw-bold">Competency level: <span class="fw-normal"
-                                                        id="skillLvl"> Intermediate</span></div>
+                                                        id="skillLvl"> {{skill.Level_of_Competencies}}</span></div>
                                             </div>
                                             <h5 class="card-title mt-4 mb-2">Courses</h5>
                                             <div class="row">
                                                 <ul>
-                                                    <li class="list-group-item m-2">
+                                                    <li class="list-group-item m-2" v-for = 'course in Allcourse_dict'>
                                                         <input class="form-check-input me-1" type="checkbox" value=""
                                                             aria-label="...">
-                                                        User Experience Design
+                                                        {{course.Course_Name}}
                                                         <i class="bi bi-info-circle me-2" type="button"
                                                             style="color:#919CF8" data-bs-toggle="modal"
                                                             data-bs-target="#courseModal"></i>
@@ -157,14 +157,19 @@
                                                             <div class="modal-dialog modal-dialog-scrollable">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header">
-                                                                        <h5 class="modal-title" id="courseName">Course
-                                                                            title</h5>
+                                                                        <h5 class="modal-title" id="courseName">{{course.Course_Name}}</h5>
                                                                         <button type="button" class="btn-close"
                                                                             data-bs-dismiss="modal"
                                                                             aria-label="Close"></button>
                                                                     </div>
                                                                     <div class="modal-body">
-                                                                        ...
+                                                                        <b>Course Type:</b> {{course.Course_Type}}
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <b>Course Category:</b>{{course.Course_Category}}
+                                                                    </div>
+                                                                    <div class="modal-body">
+                                                                        <b>Course Description: </b>{{course.Course_Desc}}
                                                                     </div>
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary"
@@ -177,7 +182,7 @@
                                                         <span
                                                             class="badge rounded-pill bg-success statusComplete">Completed</span>
                                                     </li>
-                                                    <li class="list-group-item m-2">
+                                                    <!-- <li class="list-group-item m-2">
                                                         <input class="form-check-input me-1" type="checkbox" value=""
                                                             aria-label="...">
                                                         User Experience Design
@@ -186,7 +191,7 @@
                                                         <input class="form-check-input me-1" type="checkbox" value=""
                                                             aria-label="...">
                                                         TUser Experience Design
-                                                    </li>
+                                                    </li> -->
                                                 </ul>
                                             </div>
                                         </div>
@@ -194,6 +199,7 @@
                                 </div>
                             </div>
                         </div>
+                        
                     </div>
                 </div>
             </div>
