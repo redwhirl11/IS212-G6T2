@@ -1,0 +1,101 @@
+body{
+    font-family: 'Inter' !important;
+    letter-spacing: 0.01em !important;
+}
+
+img{
+    position: absolute;
+    width: 100%;
+    height: auto;
+    z-index: -1;
+}
+
+p{
+    text-align: center;
+}
+
+#logo {
+    left: 5.6vw;
+    top: 35.2px;
+    width: 51.35px;
+    height: 34.8px;
+}
+
+#homebgImg {
+    top: 12.8vw;
+  }
+
+#TopHeader {
+    position: absolute;
+    width: 55%;
+    left: 23%;
+    top: 15vw;
+    font-weight: 600;
+    font-size: 4.5vw;
+    line-height: 5.5vw;
+    color: #6A79F3;
+} 
+
+#TopDesc {
+    position: absolute;
+    width: 50%;
+    height: 57px;
+    left: 25%;
+    top: 32.3vw;
+    font-weight: 400;
+    font-size: 1.5vw;
+    line-height: 2vw;
+} 
+
+.button {
+    border-radius: 40px;
+    width: 16.5vw;
+    height: 4vw;
+    border:0px;
+    font-size:1vw;
+    font-weight: 500;
+    background: white;
+  }
+
+.button1 {
+    background: #4C5BDD;
+    color: #FFFFFF;
+}
+
+#semiRecImg{
+    height:fit-content;
+}
+
+#HomeBottomImg{
+    height: 6.3vw;
+    left: 0px;
+    top: 75vw;
+}
+
+#BottomHeader {
+    top: 59vw;
+    font-weight: 600;
+    font-size: 3.5vw;
+    padding-top: 7vw;
+    color: #FFFFFF;
+} 
+
+#BottomDesc {
+    font-weight: 400;
+    font-size: 1vw;
+    color: #FFFFFF;
+
+} 
+
+.LJboxes {
+    position: relative;
+    width: 90%;
+    margin: auto;
+    background: #FFFFFF;
+    border: 1px solid #E4EBFF;
+    box-shadow: 0px 0px 10px
+    rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    
+  }
+
