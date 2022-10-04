@@ -9,18 +9,19 @@
 
 #Header {
   position: absolute;
-  top: 196px;
-  padding-right: 100px;
-  padding-left: 100px ;
-  margin: auto;
-
+  width: 748px;
+  height: 227px;
+  left: 381px;
+  top: 168px;
+  
   font-family: 'Inter';
+  font-style: normal;
   font-weight: 600;
-  font-size: 3.5vw;
+  font-size: 50px;
   line-height: 61px;
   text-align: center;
   letter-spacing: 0.01em;
-
+  
   color: #FFFFFF;
   } 
 
@@ -29,21 +30,6 @@
     width: 100%;
     height: auto;
     top: 95px;
-  }
-
-  .RoleInfo {
-    position: relative;
-    width: 90%;
-    height: 246px;
-    margin: auto;
-    top: 430px;
-    padding: 40px 40px 40px 40px;
-    background: #FFFFFF;
-    border: 1px solid #E4EBFF;
-    box-shadow: 0px 0px 10px
-    rgba(0, 0, 0, 0.05);
-    border-radius: 10px;
-    
   }
 
   #content1 {
@@ -63,6 +49,67 @@
     height: 34.8px;
   }
 
-  .search-bar {
-    border-radius: 30px;
+  #search-bar {
+    position: absolute;
+    width: 663px;
+    height: 68px;
+    left: 419px;
+    top: 355px;
+    
+    background: #4C5BDD;
+    border-radius: 40px;
+
+    color: #FFFFFF;
+
   }
+
+  #search-bar::placeholder{
+    /* position: absolute;
+    width: 593px;
+    height: 27px;
+    left: 454px;
+    top: 376px; */
+    
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+    display: flex;
+    align-items: center;
+    letter-spacing: 0.01em;
+    
+    color: #FFFFFF;
+  }
+
+  .card{
+    box-sizing: border-box;
+
+    /* width: 436px; */
+    /* height: 730px; */
+    top: 539px;
+    margin-right: 24px;
+
+    background: #FFFFFF;
+    border: 1px solid #E4EBFF;
+    box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+  }
+
+
+  .card-img-top{
+    width: 436px;
+    height: 404px;
+    /* left: 76px; */
+    /* top: 539px; */
+  }
+
+  #styled{
+    width: 330px;
+    height: 64px;
+    line-height: 50px;
+    
+    background: #4C5BDD;
+    border-radius: 5px;
+  }
+  
