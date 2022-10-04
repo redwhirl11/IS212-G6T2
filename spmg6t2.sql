@@ -10,28 +10,6 @@ drop database if exists spmg6t2;
 create database spmg6t2;
 use spmg6t2;
 -- --------------------------------------------------------
-
---
--- Table structure for table `role`
---
-
-DROP TABLE IF EXISTS `role`;
-CREATE TABLE IF NOT EXISTS `role` (
-    `Role_ID` int(20) NOT NULL,
-    `Role_Name` varchar(20) NOT NULL,
-    PRIMARY KEY (`Role_ID`)
-);
-
---
--- Dumping data for table `role`
---
-INSERT INTO `role` (`Role_ID`,`Role_Name`)
-VALUES
-(1, 'Admin'),
-(2, 'User'),
-(3, 'Manager');
-
--- --------------------------------------------------------
 --
 -- Table structure for table `staff`
 --
@@ -103,6 +81,27 @@ VALUES
 
 -- --------------------------------------------------------
 
+--
+-- Table structure for table `role`
+--
+
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE IF NOT EXISTS `role` (
+    `Role_ID` int(20) NOT NULL,
+    `Role_Name` varchar(20) NOT NULL,
+    PRIMARY KEY (`Role_ID`)
+);
+
+--
+-- Dumping data for table `role`
+--
+INSERT INTO `role` (`Role_ID`,`Role_Name`)
+VALUES
+(1, 'Admin'),
+(2, 'User'),
+(3, 'Manager');
+
+-- --------------------------------------------------------
 
 --
 -- Table structure for table `registration`
@@ -210,8 +209,8 @@ CREATE TABLE IF NOT EXISTS `learning_journey` (
     `SubmittedLJRole_ID` int NOT NULL,
     `Submitted_Skill_ID`int(5) NOT NULL,
     `Submitted_CourseID` varchar(20) NOT NULL,
-    PRIMARY KEY (`LJ_ID`),
-    FOREIGN KEY (`Staff_ID`,`Submitted_CourseID`,`Submitted_Skill_ID`) REFERENCES staff(`Staff_ID`),
+    PRIMARY KEY (`LJ_ID`,`Submitted_Skill_ID`,`Submitted_CourseID`),
+    FOREIGN KEY (`Staff_ID`) REFERENCES staff(`Staff_ID`),
     FOREIGN KEY (`Submitted_CourseID`) REFERENCES course(`Course_ID`),
     FOREIGN KEY (`SubmittedLJRole_ID`) REFERENCES ljroles(`LJRole_ID`),
     FOREIGN KEY (`Submitted_Skill_ID`) REFERENCES skills(`Skill_ID`)
