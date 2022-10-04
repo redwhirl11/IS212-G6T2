@@ -29,7 +29,19 @@ const app = Vue.createApp({
 
     methods: {
         getRoleName() {
-            // var ljId = 
+            var LJRole_ID  = 1
+            url='../db/getLJRoleDetails.php'
+            const data={LJRole_ID :LJRole_ID }
+
+            axios.get(url,{
+                params:data
+            })
+            .then(response=>{
+                this.roleName=response.data
+                console.log('testing')
+            })
         }
     }
 })
+
+const vm=app.mount('#learningJourney')
