@@ -82,6 +82,46 @@ class PostDAO {
         return $AllRoles;
     }
 
+    public function getAllCourses() {
+        // STEP 1
+        $connMgr = new ConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2
+        $sql = "SELECT
+                     *
+                FROM course 
+                WHERE Course_Status = 'Active'"; 
+        $stmt = $conn->prepare($sql);
+
+        // $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);
+
+        // STEP 3
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        // STEP 4
+        $AllCourses = []; // Indexed Array of Post objects
+        while( $row = $stmt->fetch() ) {
+            $AllCourses[] =
+                new AllCourses (
+                    $row['Course_ID'],
+                    $row['Course_Name'],
+                    $row['Course_Desc'],
+                    $row['Course_Status'],
+                    $row['Course_Type'],
+                    $row['Course_Category'],
+                    );
+        }
+
+        // STEP 5
+        $stmt = null;
+        $conn = null;
+
+        // STEP 6
+        return $AllCourses;
+    }
+
     public function getLJRoleDetails($LJRole_ID) {
         // STEP 1
         $connMgr = new ConnectionManager();

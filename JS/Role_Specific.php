@@ -99,6 +99,7 @@ function reqListener () {
       // The actual data is found on this.responseText
       console.log(this.responseText); // Will alert: 42
       //insert for loop to populate skills and courses
+      console.log(this.responseText.length)
   };
   oReq.open("get", "../db/getLJRoleDetails.php", true);
   //                               ^ Don't block the rest of the execution.
