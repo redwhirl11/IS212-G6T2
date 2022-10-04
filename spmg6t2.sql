@@ -54,6 +54,27 @@ VALUES
 
 -- --------------------------------------------------------
 --
+-- Table structure for table `role`
+--
+
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE IF NOT EXISTS `role` (
+    `Role_ID` int(20) NOT NULL,
+    `Role_Name` varchar(20) NOT NULL,
+    PRIMARY KEY (`Role_ID`)
+);
+
+--
+-- Dumping data for table `role`
+--
+INSERT INTO `role` (`Role_ID`,`Role_Name`)
+VALUES
+(1, 'Admin'),
+(2, 'User'),
+(3, 'Manager');
+
+-- --------------------------------------------------------
+--
 -- Table structure for table `staff`
 --
 
