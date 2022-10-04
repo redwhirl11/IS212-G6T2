@@ -24,12 +24,12 @@ const app = Vue.createApp({
         }
     },
     mounted: function () {
-        this.getRoleName()
+        this.getRoleDetails()
     },
 
     methods: {
-        getRoleName() {
-            var LJRole_ID  = 1
+        getRoleDetails() {
+            var LJRole_ID  = 00001
             url='../db/getLJRoleDetails.php'
             const data={LJRole_ID :LJRole_ID }
 
@@ -37,8 +37,11 @@ const app = Vue.createApp({
                 params:data
             })
             .then(response=>{
-                this.roleName=response.data
-                console.log('testing')
+                console.log(response.data)
+                this.roleName=response.data[0].LJRole_Name
+                this.roleDesc=response.data[0].LJRole_Description
+                this.tasks=response.data[0].Key_Task
+                // console.log('testing')
             })
         }
     }
