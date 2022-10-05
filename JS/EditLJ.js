@@ -36,10 +36,12 @@ const app = Vue.createApp({
     methods: {
         getRoleDetails(RoleDetails) {
             this.roleName = RoleDetails[0].LJRole_Name
+            this.department=RoleDetails[0].Department
             this.roleDesc = RoleDetails[0].LJRole_Description
             var keyTasks = RoleDetails[0].Key_Task
             this.tasks = keyTasks.split('.')
-            console.log(this.tasks)
+            // console.log(this.tasks)
+            console.log(RoleDetails)
         },
         getSkillandCourseDetails(RoleDetails) {
             var temp_skill_dict = [];
@@ -62,7 +64,7 @@ const app = Vue.createApp({
                 // pass the skill ID and role details 
 
                 this.getCourseDetails(SkillID, RoleDetails);
-                console.log(this.Allcourse_dict);
+                // console.log(this.Allcourse_dict);
 
             }
             return this.Allskill_dict;
