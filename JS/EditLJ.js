@@ -10,6 +10,7 @@ const app = Vue.createApp({
             //AllXX_dict means retrieve from Role Details
             Allskill_dict: [],
             Allcourse_dict: [],
+            Course_Name: '',
             reg_status: '',
             complete_status: '',
             courseDesc: ''
@@ -38,6 +39,7 @@ const app = Vue.createApp({
             this.getSkillandCourseDetails(RoleDetails);
         })
     },
+    props:['course'],
 
     methods: {
         getRoleDetails(RoleDetails) {
@@ -64,7 +66,10 @@ const app = Vue.createApp({
                     this.Allskill_dict.push({SkillName:SkillName,Type_of_Skills:Type_of_Skills,Level_of_Competencies:Level_of_Competencies,Skill_img:Skill_img})
                 }
                 // pass the skill ID and role details 
+                
                 this.getCourseDetails(SkillID,RoleDetails);
+                console.log(this.Allcourse_dict);
+                
             }            
             return this.Allskill_dict;
         },
@@ -84,7 +89,18 @@ const app = Vue.createApp({
                     this.Allcourse_dict.push({Course_ID:courseID,Course_Name:courseName,Course_Desc:courseDesc,Course_Type:coursetype,Course_Category:coursecat})
                 }
             }
+            
             return this.Allcourse_dict;
+        },
+        getCoursePopUp(Course_Name,Course_Desc,Course_Type,Course_Category){
+            Swal.fire({
+                title: '<span style="color: #6A79F3">'+Course_Name + '</span>',
+                html: '<strong> Course_Type: </strong>' + Course_Type +'<br><strong> Course_Category: </strong>'+ Course_Category +'<br><strong>Course_Desc: </strong>'+ Course_Desc,
+                width: '40rem',
+                showCloseButton: true,
+                focusConfirm: true,
+                confirmButtonText: 'Back!'
+              })
         }
 
     }
