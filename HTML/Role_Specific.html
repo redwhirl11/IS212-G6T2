@@ -8,9 +8,17 @@
     <title>UI/UX Designer (LJPS)</title>
     <link rel="stylesheet" href="../CSS/Role_Specific.css">
     <link href='https://fonts.googleapis.com/css?family=Inter:600,400,550,500' rel='stylesheet'>
+
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <!--Axios-->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+    <!--Sweetalert2-->
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma/bulma.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
     <script src="../JS/Role_Specific.js"></script>
 </head>
 <body>
@@ -62,12 +70,22 @@
 
 
 
+      
     <div id="skills"></div>
-    <input type="hidden" id="course_pairs">
-    <input type="hidden" id="unique_skill_id">
+    
 
    <script>
 
+        
+        /*Sweetalert2*/
+        Swal.bindClickHandler()
+
+        Swal.mixin({
+        toast: true,
+        }).bindClickHandler('data-swal-toast-template')
+
+
+        /*Function to populate skills*/
         function populateSkills() {
         var url = "../db/getSkills.php"
 
@@ -101,18 +119,18 @@
             for (let i = 0; i < unique_skills.length; i++){
 
                 let indiv_skill_html =                     
-                    `
-                    <div class="RoleInfo" style="margin-top:41px; padding: 0px 0px 0px 0px">
+                    `<div class="RoleInfo" style="margin-top:41px; padding: 0px 0px 0px 0px">
                         <div class="row">
                             <div class="col">
                                 <img src=${unique_skills[i].Skill_img} style="width: 497px; height: 408px; border-radius: 5px">
                             </div>
-                            <div class="col-lg-7" style="margin:auto">
+                            <div class="col" style="margin:auto">
                                 <div class="card-body">
                                     <div class="card-text" id=${unique_skills[i].Skill_ID}>
                                         <h1 style="font-family: Inter; font-weight: 550; font-size: 25px;">${unique_skills[i].Skill_Name}</h1>
                                         <p style="display: inline-block; font-family: Inter; font-weight: 500;">Type of Skills: &nbsp;</p><p style="display: inline-block;">${unique_skills[i].Type_of_Skills}</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <p style="display: inline-block; font-family: Inter; font-weight: 500;">Competency level: &nbsp;</p><p style="display: inline-block;">${unique_skills[i].Level_of_Competencies}</p><br>`
+                                        <p style="display: inline-block; font-family: Inter; font-weight: 500;">Competency level: &nbsp;</p><p style="display: inline-block;">${unique_skills[i].Level_of_Competencies}</p><br><br>
+                                        <h1 style="font-family: Inter; font-weight: 550; font-size: 20px;">Courses</h1>`
                     
                 document.getElementById("skills").innerHTML += indiv_skill_html
             }
@@ -135,14 +153,24 @@
             for (let i = 0; i < unique_skill_id.length; i++){
                 for (let j = 0; j < all_course_pairs[i].length; j++){
                         let indv_course_html =    
-           `               <div id=${all_course_pairs[i][j]} class="form-check" style="display:inline-block; margin-top: 20px">
+                           `<div id=${all_course_pairs[i][j]} class="form-check" style="display:inline-block; margin-top: 20px">
                                 <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
                                 <label class="form-check-label" for="flexCheckDefault">
                                 User Experience Design 
                                 </label>
-                                <img src= "../Icons/MoreInfo.png" style="margin-left: 5px"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                 
                                 
+                                <template id='my-template'>
+                                    <swal-title>Hey!</swal-title>
+                                    <swal-button type="confirm">
+                                        Back!
+                                    </swal-button>
+                                </template>
+
+                                <img src= "../Icons/MoreInfo.png" style="margin-right: 5px" data-bs-target="#staticBackdrop" data-swal-template='#my-template'>
+                                    
+                                   
+
                                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-scrollable">
                                     <div class="modal-content">
@@ -160,10 +188,10 @@
                                     </div>
                                 </div>
                             </div> 
-
+                        
 `
-
-                        document.getElementById(unique_skill_id[i]).innerHTML += indv_course_html                    
+                        document.getElementById(unique_skill_id[i]).innerHTML += indv_course_html 
+                        document.getElementById(unique_skill_id[i]).innerHTML += `</div></div></div></div></div>`                
                 }
             }
         })
@@ -173,13 +201,15 @@
         }
 
 
+
+        /*Function to populate skills*/
         function getCourseData() {
         var url = "../db/getCourses.php"
 
         axios.get(url).
         then(response => {
             console.log(response.data)
-            console.log(document.getElementById("unique_skill_id").value)
+            
         })
         .catch(error => {
             console.log(error.message)
@@ -189,6 +219,7 @@
         populateSkills()
 
 
+        
    </script>
 
 
