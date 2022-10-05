@@ -39,8 +39,6 @@ const app = Vue.createApp({
             this.getSkillandCourseDetails(RoleDetails);
         })
     },
-    props:['course'],
-
     methods: {
         getRoleDetails(RoleDetails) {
             this.roleName=RoleDetails[0].LJRole_Name
