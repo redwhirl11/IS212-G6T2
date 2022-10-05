@@ -24,6 +24,12 @@
 
     <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma/bulma.css" rel="stylesheet">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+    <style>
+        .swal2-container{
+            overflow-x: hidden
+        }
+    </style>
 </head>
 
 <body>
@@ -43,7 +49,7 @@
             <img src="../Icons/Vector 1.png" alt="Nature" class="responsive">
             <!-- Role name -->
             <p class="h1 text-center" id="Header">
-              <span id="roleName">{{roleName}}</span>
+                <span id="roleName">{{roleName}}</span>
             </p>
         </div>
 
@@ -107,7 +113,9 @@
                     <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo"
                         data-bs-parent="#accordionExample">
                         <div class="accordion-body" id="taskContent">
-                            {{tasks}}
+                            <ul>
+                                <li v-for='task in tasks' style="list-style: none;">{{task}}</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
@@ -127,7 +135,7 @@
                     </h2>
                     <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree"
                         data-bs-parent="#accordionExample">
-                        <div class="accordion-body" id="skillContent" v-for = "skill in Allskill_dict">
+                        <div class="accordion-body" id="skillContent" v-for="skill in Allskill_dict">
                             <div class="card mb-3 border-0">
                                 <div class="row g-0">
                                     <div class="col-md-4">
@@ -145,45 +153,15 @@
                                             <h5 class="card-title mt-4 mb-2">Courses</h5>
                                             <div class="row">
                                                 <ul>
-                                                    <li class="list-group-item m-2" v-for = 'course in Allcourse_dict'>
-                                                        <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                                                        {{course.Course_Name}}
-                                                        <i class="bi bi-info-circle me-2" type="button"
-                                                            style="color:#919CF8" @click ="getCoursePopUp(course.Course_Name,course.Course_Desc,course.Course_Type,course.Course_Category)"></i>
-                                                        
-                                                    
-                                                        <!-- Course details modal -->
-                                                        
-                                                        <!-- <div class="modal fade" id="courseModal"
-                                                            data-bs-backdrop="static" data-bs-keyboard="false"
-                                                            tabindex="-1" aria-labelledby="courseName"
-                                                            aria-hidden="true">
-                                                            {{course.Course_Name}}
-                                                            <div class="modal-dialog modal-dialog-scrollable">
-                                                                <div class="modal-content">
-                                                                    
-                                                                    <div class="modal-header">
-                                                                        <h5 class="modal-title" id="courseName">{{course.Course_Name}}</h5>
-                                                                        <button type="button" class="btn-close"
-                                                                            data-bs-dismiss="modal"
-                                                                            aria-label="Close"></button>
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <b>Course Type:</b> {{course.Course_Type}}
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <b>Course Category:</b>{{course.Course_Category}}
-                                                                    </div>
-                                                                    <div class="modal-body">
-                                                                        <b>Course Description: </b>{{course.Course_Desc}}
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary"
-                                                                            data-bs-dismiss="modal">Close</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div> -->
+                                                    <li class="list-group-item m-2" v-for='course in Allcourse_dict'>
+                                                        <input class="form-check-input me-1" type="checkbox" value=""
+                                                            aria-label="...">
+                                                            <span @click="getCoursePopUp(course.Course_Name,course.Course_Desc,course.Course_Type,course.Course_Category)">  {{course.Course_Name}}</span>
+                                        
+                                                        <i class="bi bi-info-circle mx-2" type="button"
+                                                            style="color:#919CF8"
+                                                            @click="getCoursePopUp(course.Course_Name,course.Course_Desc,course.Course_Type,course.Course_Category)"></i>
+
                                                         <!-- show completion status of the course -->
                                                         <span
                                                             class="badge rounded-pill bg-success statusComplete">Completed</span>
@@ -195,7 +173,7 @@
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             </div>
