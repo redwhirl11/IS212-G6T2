@@ -153,14 +153,14 @@ CREATE TABLE IF NOT EXISTS `skills` (
 --
 
 INSERT INTO `skills` (`Skill_ID`, `Skill_Name`, `Type_of_Skills`, `Level_of_Competencies`, `Skill_img`,`Skill_Status`,`Course_ID`) VALUES
-(00001, 'Data Analytics','Technical','Beginner','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','Active','C2'),
-(00001, 'Data Analytics','Technical','Beginner','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','Active','C5'),
-(00002, 'Enterprise Risk Management','Technical','Intermediate','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','Active','C3'),
-(00003, 'Interaction Design','Technical','Beginner','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','Active','C1'),
-(00004, 'Finance','Technical','Advanced','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','Active','C6'),
-(00005, 'Marketing and Sales','Soft','Beginner','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','InActive','C4'),
-(00001, 'Data Analytics','Technical','Beginner','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','Active','C7'),
-(00001, 'Data Analytics','Technical','Beginner','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','Active','C8');
+(00001, 'Data Analytics','Technical','Beginner','https://images.unsplash.com/photo-1587440871875-191322ee64b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2942&q=80','Active','C2'),
+(00001, 'Data Analytics','Technical','Beginner','https://images.unsplash.com/photo-1587440871875-191322ee64b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2942&q=80','Active','C5'),
+(00002, 'Enterprise Risk Management','Technical','Intermediate','https://images.unsplash.com/photo-1587440871875-191322ee64b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2942&q=80','Active','C3'),
+(00003, 'Interaction Design','Technical','Beginner','https://images.unsplash.com/photo-1587440871875-191322ee64b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2942&q=80','Active','C1'),
+(00004, 'Finance','Technical','Advanced','https://images.unsplash.com/photo-1587440871875-191322ee64b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2942&q=80','Active','C6'),
+(00005, 'Marketing and Sales','Soft','Beginner','https://images.unsplash.com/photo-1587440871875-191322ee64b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2942&q=80','InActive','C4'),
+(00001, 'Data Analytics','Technical','Beginner','https://images.unsplash.com/photo-1587440871875-191322ee64b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2942&q=80','Active','C7'),
+(00001, 'Data Analytics','Technical','Beginner','https://images.unsplash.com/photo-1587440871875-191322ee64b0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2942&q=80','Active','C8');
 
 
 -- --------------------------------------------------------
