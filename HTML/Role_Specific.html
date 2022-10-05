@@ -33,17 +33,7 @@
     </div>
 
      <!-- Role Description-->
-    <div class="RoleInfo">
-        <div style="margin-bottom: 10px;">
-            <img src="../Icons/Role Description.png" style="display: inline-block; width: 31px; height: 31px; margin-bottom: 15px; margin-right: 15px;">
-            <h1 style="display: inline-block; font-family: Inter; font-weight: 550; font-size: 25px;">Role Description</h1>
-        </div>
-        <p>
-            With Learning Journey Planner, you can explore the With Learning Journey Planner, you can explore thousands of learning journeys tailored to your preference and needs. ousands of learning journeys tailored to your preferences and needs.  With Learning Journey Planner, you can explore the With Learning Journey Planner, you can explore thousands of learning journeys tailored to your
-            preferences and needs. ousands of learning journeys tailored to your preferences and needs. 
-            you can explore the With Learning Journey Planner, you can explore thousands of learning journeys.
-        </p>
-    </div>
+    <div id="roledescription"></div>
 
       <!-- Key Task-->
     <div class="RoleInfo" style="margin-top:41px;">
@@ -201,7 +191,6 @@
         }
 
 
-
         /*Function to populate skills*/
         function getCourseData() {
         var url = "../db/getCourses.php"
@@ -215,10 +204,41 @@
             console.log(error.message)
         })
         }
+
+        
+        /* Functuon to populate role*/getCourseData
+        function populateRoleDescription() {
+        var url = "../db/getAllRoles.php"
+
+        axios.get(url).
+        then(response => {
+            let roledescription = response.data[2]['LJRole_Description']
+            let roledescription_html =  
+            `
+            <div class="RoleInfo" style="margin-top: 20px">
+                <div style="margin-bottom: 10px;">
+                    <img src="../Icons/Role Description.png" style="display: inline-block; width: 31px; height: 31px; margin-bottom: 15px; margin-right: 15px;">
+                    <h1 style="display: inline-block; font-family: Inter; font-weight: 550; font-size: 25px;">Role Description</h1>
+                </div>
+                <p>
+                   ${roledescription}
+                </p>
+            </div>
+                    
+            `      
+
+            document.getElementById("roledescription").innerHTML += roledescription_html
+
+        })
+        .catch(error => {
+            console.log(error.message)
+        })
+
+        }
+
         getCourseData()
         populateSkills()
-
-
+        populateRoleDescription()
         
    </script>
 
