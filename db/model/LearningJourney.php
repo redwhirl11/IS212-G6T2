@@ -9,6 +9,7 @@ class LearningJourney {
     private $Department;
     private $Key_Task;
     private $LJRole_img;
+    private $Skill_ID;
     private $Skill_Name;
     private $Type_of_Skills;
     private $Level_of_Competencies;
@@ -20,7 +21,7 @@ class LearningJourney {
     private $Course_Category;
 
 
-    public function __construct($LJ_ID,$Staff_ID,$LJRole_Name, $LJRole_Description, $Department,$Key_Task,$LJRole_img, $Skill_Name,$Type_of_Skills,$Level_of_Competencies,$Skill_img, $Course_ID,$Course_Name,$Course_Desc,$Course_Type,$Course_Category) { 
+    public function __construct($LJ_ID,$Staff_ID,$LJRole_Name, $LJRole_Description, $Department,$Key_Task,$LJRole_img, $Skill_ID,$Skill_Name,$Type_of_Skills,$Level_of_Competencies,$Skill_img, $Course_ID,$Course_Name,$Course_Desc,$Course_Type,$Course_Category) { 
         $this->LJ_ID = $LJ_ID;
         $this->Staff_ID= $Staff_ID;
         $this->LJRole_Name = $LJRole_Name;
@@ -28,6 +29,7 @@ class LearningJourney {
         $this->Department = $Department;
         $this->Key_Task = $Key_Task;
         $this->LJRole_img = $LJRole_img;
+        $this->Skill_ID = $Skill_ID;
         $this->Skill_Name = $Skill_Name;
         $this->Type_of_Skills = $Type_of_Skills;
         $this->Level_of_Competencies= $Level_of_Competencies;
@@ -66,6 +68,10 @@ class LearningJourney {
 
     public function getLJRole_img() {
         return $this->LJRole_img;
+    }
+
+    public function getSkill_ID() {
+        return $this->Skill_ID;
     }
 
     public function getSkill_Name() {
