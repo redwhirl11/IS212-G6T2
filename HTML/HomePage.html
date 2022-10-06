@@ -58,23 +58,28 @@
         <p id="BottomDesc">Feel free to edit your previously created learning journeys.</p>
 
         <div id="homepage">
-            <div class="LJboxes">
-                <div>
-                    <h1>UI/UX Designer (Tech)</h1>
+            <div class="LJboxes" v-for="roles in AllRoles_dict">
+                <div >
+                    <h1>{{roles.LJrole}}</h1>
                 </div>
-                Chosen Skills & Courses: 
-                <div v-for="lj_obj in learning_journey">
-                    {{lj_obj}}
-                </div>
-                <ul>
-                    Skills
-                </ul>
-                <ul>
-                    Skills
+                <strong>Chosen Skills & Courses: </strong> 
+
+                <ul v-for="skills in roles.skill">
+                    <li><b>Skills : </b>{{skills.SkillName}}&nbsp|&nbsp
+                        <strong>Courses: </strong> 
+                        <span v-for="courses in Allcourses_dict">
+                            
+                            <span v-if="roles.LJid == courses.LJid && skills.SkillId==courses.SkillId">
+                                {{courses.CourseName}} &nbsp&nbsp
+                                <span class="badge rounded-pill bg-success statusComplete">Completed</span>&nbsp&nbsp
+                            </span>
+                        </span>
+                    </li>
                 </ul>
             </div>
         </div>
-     </div>
+
+
 
     <!-- Custom JS-->
     <script src="../js/homepage.js"></script>
