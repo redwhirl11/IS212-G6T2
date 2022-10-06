@@ -255,14 +255,19 @@
             <div class="RoleInfo" style="margin-top:41px;">
             <div style="margin-bottom: 10px;">
             <img src="../Icons/Keytask.png" style="display: inline-block; width: 31px; height: 31px; margin-bottom: 12px; margin-right: 15px;">
-            <h1 style="display: inline-block; font-family: Inter; font-weight: 550; font-size: 25px;">Key Tasks</h1><br/>`
+            <h1 style="display: inline-block; font-family: Inter; font-weight: 550; font-size: 25px;">Key Tasks</h1>
+            </div>`
 
             
             for (i=0; i < new_array.length; i++){
-                console.log(new_array[i])
-                keytask_html += `<br/>${new_array[i]}<br/>`
+                if(i == new_array.length - 1 ){
+                    keytask_html += `${new_array[i]}`
+                } else {
+                    keytask_html += `${new_array[i]}<br/>`
+                }
             }
-    
+            console.log(keytask_html)
+            
             document.getElementById("keytask").innerHTML += keytask_html
 
         })
