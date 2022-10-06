@@ -82,13 +82,55 @@
     color: #FFFFFF;
   }
 
-  .card{
+  #search-icon{
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    left: 966px;
+    top: 372px;    
+  }
+
+  #filterlist-icon{
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    left: 1014px;
+    top: 370px;
+  }
+
+  #back-btn{
+    position: absolute;
+    width: 119px;
+    height: 56px;
+    left: 1318px;
+    top: 34px;
+
+    background: #FFFFFF;
+    border-radius: 40px;
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 1000;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0.01em;
+  }
+
+  #content{
+    position: absolute;
+    top: 539px ;
+    left: 76px;
+    right: 75px;
+  }
+
+  .col-4{
     box-sizing: border-box;
 
-    /* width: 436px; */
-    /* height: 730px; */
-    top: 539px;
-    margin-right: 24px;
+    margin: 0px 24px 32px 0px;
+    width: 412px !important;
+    height: 698px !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
 
     background: #FFFFFF;
     border: 1px solid #E4EBFF;
@@ -96,12 +138,36 @@
     border-radius: 10px;
   }
 
-
   .card-img-top{
-    width: 436px;
-    height: 404px;
-    /* left: 76px; */
-    /* top: 539px; */
+    width: 412px;
+    height: 395px;
+  }
+
+  .card-body{
+    height: 301px;
+    padding: 26px 33px 37px !important;
+  }
+
+  .card-title{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-size: 25px;
+    line-height: 30px;
+    letter-spacing: 0.01em;
+
+    color: #000000;
+  }
+
+  .card-text{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0.01em;
+    min-height: 114px;
+    color: #000000;
   }
 
   #styled{
