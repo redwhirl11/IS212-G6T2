@@ -48,11 +48,7 @@
 
         
         /*Sweetalert2*/
-        Swal.bindClickHandler()
 
-        Swal.mixin({
-        toast: true,
-        }).bindClickHandler('data-swal-toast-template')
 
 
         /*Function to populate skills*/
@@ -124,21 +120,15 @@
                 for (let j = 0; j < all_course_pairs[i].length; j++){
                         let indv_course_html =    
                            `<div id=${all_course_pairs[i][j]} class="form-check courses" style="display:inline-block; margin-top: 20px">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" value="" id=${all_course_pairs[i][j]}name>
+                                <label class="form-check-label" for=${all_course_pairs[i][j]}name>
                                 User Experience Design 
                                 </label>
                                 
                                 
-                                <template id='my-template'>
-                                    <swal-title>Hey!</swal-title>
-                                    <swal-button type="confirm">
-                                        Back!
-                                    </swal-button>
-                                </template>
-
-                                <img src= "../Icons/MoreInfo.png" style="margin-right: 5px" data-bs-target="#staticBackdrop" data-swal-template='#my-template'>
-                                    
+                                <button id=${all_course_pairs[i][j]}info type="button" style="background-color: Transparent; border: none">
+                                <img src= "../Icons/MoreInfo.png"  data-bs-target="#staticBackdrop">
+                                </button>
                                    
 
                                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -182,6 +172,8 @@
             let all_courses = response.data
             let all_course_ids = []
             let displayed_courses = []
+            let valid_courses = []
+
 
             for (let i = 0; i < all_courses.length; i++){
 
@@ -208,6 +200,37 @@
                 if (!all_course_ids.includes(displayed_courses[i])){
                     document.getElementById(displayed_courses[i]).remove()
                 }
+            }
+
+            console.log(document.getElementsByClassName("courses"))
+
+            for (let i = 0; i < document.getElementsByClassName("courses").length; i++){
+                valid_courses.push(document.getElementsByClassName("courses")[i].id)
+            }
+            
+            console.log(valid_courses)
+
+            for (let i = 0; i < all_courses.length; i++){
+                if (!valid_courses.includes(all_courses[i].Course_ID)){
+                    all_courses.splice(i,1)
+                }
+            }
+            
+
+            for (let i = 0; i < all_courses.length; i++){
+                document.getElementById(all_courses[i].Course_ID + "info").addEventListener("click", function(){
+                    Swal.fire({
+                        title: '<span style="color: #6A79F3">' + all_courses[i].Course_Name + '</span>',
+                        html: `<div class="row" style="overflow-x: hidden;">
+                                <div class="col-6"><strong> Course_Type: </strong>`+ all_courses[i].Course_Type + `</div>
+                                <div class="col-6"> <strong> Course_Category: </strong>`+ all_courses[i].Course_Category + `</div> <br><br>
+                                <div class="col" style="overflow-x: hidden;word-wrap:break-word"> <strong> Course Description: </strong>`+ all_courses[i].Course_Desc + `</div></div>`,
+                        width: '40rem',
+                        showCloseButton: true,
+                        focusConfirm: true,
+                        confirmButtonText: 'Back!'
+                    })
+                })
             }
             
         })
