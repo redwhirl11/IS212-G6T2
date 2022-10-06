@@ -23,15 +23,9 @@
 </head>
 <body>
     
-       <!--Header-->
-    <div class='contianer-fluid' id="myHeader">
-        <img id= 'logo' src="../Icons/Component 1.png">
-        <img src="../Icons/Vector 1.png" alt="Nature" class="responsive">
-        <p id="Header">
-            Step 2:  Select the skills & courses for your chosen role (UI/UX Designer - Tech) 
-        </p>
-    </div>
-
+    <!--Header-->    
+    <div id='header'></div>
+    
      <!-- Role Description-->
     <div id="roledescription"></div>
 
@@ -47,10 +41,8 @@
         </div>
     </div>
 
-
-
-      
-    <div id="skills"></div>
+    <!-- Skills-->
+     <div id="skills"></div>
     
 
    <script>
@@ -279,11 +271,41 @@
 
         }
 
+        
+        /* Functuon to populate header*/
+        function populateHeader() {
+        var url = "../db/getAllRoles.php"
+        
+        axios.get(url).
+        then(response => {
+            role = response.data[2]['LJRole_Name'] 
+            dept = response.data[2]['Department']
+            let header_html =  
+            `
+            <div class='contianer-fluid' id="myHeader">
+                <img id= 'logo' src="../Icons/Component 1.png">
+                <img src="../Icons/Vector 1.png" alt="Nature" class="responsive">
+                <p id="Header">
+                    Step 2:  Select the skills & courses for your chosen role ${role} - ${dept}
+                </p>
+            </div>    
+                
+            `      
+            document.getElementById("header").innerHTML += header_html
+
+        })
+        .catch(error => {
+            console.log(error.message)
+        })
+
+    }
+
 
         getCourseData()
         populateSkills()
         populateRole()
         populateTask()
+        populateHeader() 
         
    </script>
 
