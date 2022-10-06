@@ -10,6 +10,7 @@ const app = Vue.createApp({
             //AllXX_dict means retrieve from Role Details
             Allskill_dict: [],
             Allcourse_dict: [],
+            selected_course:[],
             Course_Name: '',
             reg_status: '',
             complete_status: '',
@@ -17,7 +18,7 @@ const app = Vue.createApp({
         };
     },
     created() {
-        var LJRole_ID = 00004
+        var LJRole_ID = 00002
         RoleDetailsUrl = '../db/getLJRoleDetails.php'
         RegCourseurl='../db/getRegCourse.php'
         LjDetailsurl='../db/getLearningJourney.php'
@@ -29,9 +30,10 @@ const app = Vue.createApp({
             .then(response => {
                 var RoleDetails = response.data;
                 this.getRoleDetails(RoleDetails);
-                this.getSkillandCourseDetails(RoleDetails);
+                this.getSkillDetails(RoleDetails);
                 this.getCourseDetails(RoleDetails);
-                this.getRegStatus()
+                this.getRegStatus();
+                
             })
     },
     methods: {
@@ -44,9 +46,8 @@ const app = Vue.createApp({
             // console.log(this.tasks)
             console.log(RoleDetails)
         },
-        getSkillandCourseDetails(RoleDetails) {
+        getSkillDetails(RoleDetails) {
             var temp_skill_dict = [];
-            var temp_course_dict =[];
             //for loop to get (multiple) skill's info 
             for (i = 0; i < RoleDetails.length; i++) {
                 var SkillID = RoleDetails[i].Skill_ID;
@@ -64,16 +65,16 @@ const app = Vue.createApp({
                     //e.g. of Allskill_dict = {SkillName:Python, Type of Skills: Technical, LOC: Beginner}
                     this.Allskill_dict.push({ Skill_ID:SkillID,SkillName: SkillName, Type_of_Skills: Type_of_Skills, Level_of_Competencies: Level_of_Competencies, Skill_img: Skill_img })
                 }
-                // pass the skill ID and role details
             }
             
             return this.Allskill_dict;
         },
         getCourseDetails(RoleDetails) {
-            
+            //for each skillID
             for (var j = 0; j < this.Allskill_dict.length; j++){
                 var Skill_ID = this.Allskill_dict[j].Skill_ID
                 
+                //for each skill in ljroles
                 for (i = 0; i < RoleDetails.length; i++) {
                     var SkillID = RoleDetails[i].Skill_ID;
                     var courseID = RoleDetails[i].Course_ID;
@@ -97,13 +98,42 @@ const app = Vue.createApp({
             Swal.fire({
                 title: '<span style="color: #6A79F3">' + Course_Name + '</span>',
                 html: `<div class="row" style="overflow-x: hidden;">
-                       <div class="col-6"><strong> Course_Type: </strong>`+ Course_Type + `</div>
-                       <div class="col-6"> <strong> Course_Category: </strong>`+ Course_Category + `</div> 
-                       <div class="col" style="overflow-x: hidden;word-wrap:break-word"> <strong> Course Description: </strong>`+ Course_Desc + `</div></div>`,
+                        <div class="col-6"><strong> Course_Type: </strong>`+ Course_Type + `</div>
+                        <div class="col-6"> <strong> Course_Category: </strong>`+ Course_Category + `</div> 
+                        <div class="col" style="overflow-x: hidden;word-wrap:break-word"> <strong> Course Description: </strong>`+ Course_Desc + `</div></div>`,
                 width: '40rem',
                 showCloseButton: true,
                 focusConfirm: true,
                 confirmButtonText: 'Back!'
+            })
+        },
+        saveLJ(){
+            Swal.fire({
+                title: 'Save your Learning Journey?',
+                text: "Please check information before saving!",
+                icon: "warning",
+                showCancelButton: true,
+                cancelButtonColor: '#c7c6c5',
+                confirmButtonColor: '#6A79F3',        
+                confirmButtonText: 'Yes, save it!',
+                cancelButtonText: 'No, Cancel',
+                width: 'auto',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if(this.selected_course.length>0){
+                        Swal.fire(
+                            'Congratulations!',
+                            'Your changes have been successfully saved!',
+                            'success',
+                        )
+                    }else{
+                        Swal.fire(
+                            'Cancelled',
+                            'Oops, you must pick a least 1 course :(',
+                            'error',
+                        )
+                    }
+                }
             })
         },
 

@@ -5,7 +5,7 @@ $dao = new PostDAO();
 $posts=[];
 
 // need to modify -- hardcode method
-$Staff_ID = 00003;
+$Staff_ID = 00002;
 $posts = $dao->getLearningJourney($Staff_ID);
 
 //dynamic method
