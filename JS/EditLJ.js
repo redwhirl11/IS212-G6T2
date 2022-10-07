@@ -10,7 +10,7 @@ const app = Vue.createApp({
             //AllXX_dict means retrieve from Role Details
             Allskill_dict: [],
             Allcourse_dict: [],
-            selected_course:[],
+            new_selected_course:[],
             Course_Name: '',
             reg_status: '',
             complete_status: '',
@@ -19,10 +19,12 @@ const app = Vue.createApp({
     },
     created() {
         var LJRole_ID = 00002
+        var Staff_ID = 00002
         RoleDetailsUrl = '../db/getLJRoleDetails.php'
         RegCourseurl='../db/getRegCourse.php'
         LjDetailsurl='../db/getLearningJourney.php'
         const RoleDetaildata = { LJRole_ID: LJRole_ID }
+        const LJDetaildata = { Staff_ID: Staff_ID }
 
         axios.get(RoleDetailsUrl, {
             params: RoleDetaildata
@@ -35,6 +37,13 @@ const app = Vue.createApp({
                 this.getRegStatus();
                 
             })
+            axios.get(LjDetailsurl, {
+                params: LJDetaildata
+            })
+                .then(response => {
+                    var LJDetails = response.data;
+                    console.log(LJDetails);
+                })
     },
     methods: {
         getRoleDetails(RoleDetails) {
@@ -120,7 +129,7 @@ const app = Vue.createApp({
                 width: 'auto',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    if(this.selected_course.length>0){
+                    if(this.new_selected_course.length>0){
                         Swal.fire(
                             'Congratulations!',
                             'Your changes have been successfully saved!',

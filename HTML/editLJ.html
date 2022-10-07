@@ -159,7 +159,7 @@
                                                         <div v-if="skill.Skill_ID == course.Skill_ID">
                                                             <!-- <div>Checked names: {{ selected_course }}</div> -->
                                                             <input class="form-check-input me-1" type="checkbox" :id="course.Course_ID" :value="course.Course_ID" 
-                                                                aria-label="..." v-model = 'selected_course'>
+                                                                aria-label="..." v-model = 'new_selected_course'>
                                                                 <span @click="getCoursePopUp(course.Course_Name,course.Course_Desc,course.Course_Type,course.Course_Category)">  {{course.Course_Name}}</span>
                                             
                                                             <i class="bi bi-info-circle mx-2" type="button"
