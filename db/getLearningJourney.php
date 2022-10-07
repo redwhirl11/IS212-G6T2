@@ -5,7 +5,7 @@ $dao = new PostDAO();
 $posts=[];
 
 // need to modify -- hardcode method
-$Staff_ID = 00003;
+$Staff_ID = 00002;
 $posts = $dao->getLearningJourney($Staff_ID);
 
 //dynamic method
@@ -20,6 +20,7 @@ foreach( $posts as $post_object ) {
     $item = [];
     $item["LJ_ID"] = $post_object->getLJ_ID();
     $item["Staff_ID"] = $post_object->getStaff_ID();
+    $item["LJRole_ID"] = $post_object->getLJRole_ID();
     $item["LJRole_Name"] = $post_object->getLJRole_Name();
     $item["LJRole_Description"] = $post_object->getLJRole_Description();
     $item["Department"] = $post_object->getDepartment();
