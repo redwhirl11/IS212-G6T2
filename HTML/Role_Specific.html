@@ -197,15 +197,16 @@
             for (let i = 0; i < all_courses.length; i++){
                 document.getElementById(all_courses[i].Course_ID + "info").addEventListener("click", function(){
                     Swal.fire({
-                        title: '<span style="color: #6A79F3">' + all_courses[i].Course_Name + '</span>',
-                        html: `<div class="row" style="overflow-x: hidden;">
-                                <div class="col-6"><strong> Course_Type: </strong>`+ all_courses[i].Course_Type + `</div>
-                                <div class="col-6"> <strong> Course_Category: </strong>`+ all_courses[i].Course_Category + `</div> <br><br>
-                                <div class="col" style="overflow-x: hidden;word-wrap:break-word"> <strong> Course Description: </strong>`+ all_courses[i].Course_Desc + `</div></div>`,
+                        title: '<div style="text-align: left"><span style="color: #6A79F3;">' + all_courses[i].Course_Name + '</span></div>',
+                        html: ` <div style='text-align: left'>
+                                <div style="color: #000000; display: inline-block"><span style="font-family: Inter; font-weight: 500; color: #000000;"> Course_Type: &nbsp</span>`+ all_courses[i].Course_Type + `</div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <div style="color: #000000; display: inline-block"><span style="font-family: Inter; font-weight: 500; color: #000000;"> Course_Category: &nbsp </span>`+ all_courses[i].Course_Category + `</div> <br><br>
+                                <div style="overflow-x: hidden;word-wrap:break-word; color: #000000"> <span style="font-family: Inter; font-weight: 500; color: #000000"> Course Description: </span>`+ all_courses[i].Course_Desc + `</div></div></div>`,
                         width: '40rem',
-                        showCloseButton: true,
                         focusConfirm: true,
-                        confirmButtonText: 'Back!'
+                        confirmButtonText: 'I understand now!',
+                        confirmButtonColor: '#6A79F3',
+                        cancelButtonColor: '#d33',
                     })
                 })
             }
