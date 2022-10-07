@@ -4,6 +4,7 @@
 class LearningJourney {
     private $LJ_ID;
     private $Staff_ID;
+    private $LJRole_ID;
     private $LJRole_Name;
     private $LJRole_Description;
     private $Department;
@@ -21,8 +22,9 @@ class LearningJourney {
     private $Course_Category;
 
 
-    public function __construct($LJ_ID,$Staff_ID,$LJRole_Name, $LJRole_Description, $Department,$Key_Task,$LJRole_img, $Skill_ID,$Skill_Name,$Type_of_Skills,$Level_of_Competencies,$Skill_img, $Course_ID,$Course_Name,$Course_Desc,$Course_Type,$Course_Category) { 
+    public function __construct($LJ_ID,$Staff_ID,$LJRole_ID,$LJRole_Name, $LJRole_Description, $Department,$Key_Task,$LJRole_img, $Skill_ID,$Skill_Name,$Type_of_Skills,$Level_of_Competencies,$Skill_img, $Course_ID,$Course_Name,$Course_Desc,$Course_Type,$Course_Category) { 
         $this->LJ_ID = $LJ_ID;
+        $this->LJRole_ID= $LJRole_ID;
         $this->Staff_ID= $Staff_ID;
         $this->LJRole_Name = $LJRole_Name;
         $this->LJRole_Description= $LJRole_Description;
@@ -47,6 +49,9 @@ class LearningJourney {
 
     public function getStaff_ID() {
         return $this->Staff_ID;
+    }
+    public function getLJRole_ID() {
+        return $this->LJRole_ID;
     }
 
     public function getLJRole_Name() {
