@@ -9,10 +9,15 @@
     <link href='https://fonts.googleapis.com/css?family=Inter:600,400' rel='stylesheet'>
     <!-- CSS only -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
-</head>
-<body>
-    
+    <!-- Javascript -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!--Axios-->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../Javascript/role.js"></script>
 
+  </head>
+<body>
 
     <div class='contianer-fluid' id="myHeader">
         <img id= 'logo' src="../Icons/Component 1.png">
@@ -29,71 +34,13 @@
 
 
     <div class="container" id="content">
-        <div class="row">
-            <div class="col-4">
-                <div class="card">
-                    <img class="card-img-top" src="../images/ux-indonesia-pqzRfBhd9r0-unsplash.jpg" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">Role title</h5>
-                      <p class="card-text">With Learning Journey Planner, you can explore the With Learning Journey Planner, you can explore thousands of learning journeys tailored to your preferences and needs. Thousands of learning journeys tailored to your prefere.</p>
-                      <a href="#" class="btn btn-primary" id="styled">View More</a>
-                    </div>
-                  </div>
-            </div>
-
-
-            <div class="col-4">
-                <div class="card">
-                    <img class="card-img-top" src="../images/ux-indonesia-pqzRfBhd9r0-unsplash.jpg" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">Role title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary" id="styled">View More</a>
-                    </div>
-                  </div>
-            </div>
-
-
-            <div class="col-4">
-                <div class="card">
-                    <img class="card-img-top" src="../images/ux-indonesia-pqzRfBhd9r0-unsplash.jpg" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">Role title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary" id="styled">View More</a>
-                    </div>
-                  </div>
-            </div>
-
-            
-            <div class="col-4">
-                <div class="card">
-                    <img class="card-img-top" src="../images/ux-indonesia-pqzRfBhd9r0-unsplash.jpg" alt="Card image cap">
-                    <div class="card-body">
-                      <h5 class="card-title">Role title</h5>
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                      <a href="#" class="btn btn-primary" id="styled">View More</a>
-                    </div>
-                  </div>
-            </div>
-
-        </div>
+        <div class="row"></div>
     </div>
 
-
-
-
-
-   
-
-
-
-
-            
-
-    
-
-
+    <script>
+      getAllRoles()
+      populateHeader()
+    </script>
 
 </body>
 </html>

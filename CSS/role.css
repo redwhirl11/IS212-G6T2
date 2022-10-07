@@ -58,18 +58,14 @@
     
     background: #4C5BDD;
     border-radius: 40px;
+    border-color: #4C5BDD;
 
     color: #FFFFFF;
 
   }
 
   #search-bar::placeholder{
-    /* position: absolute;
-    width: 593px;
-    height: 27px;
-    left: 454px;
-    top: 376px; */
-    
+
     font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
@@ -126,9 +122,10 @@
   .col-4{
     box-sizing: border-box;
 
-    margin: 0px 24px 32px 0px;
+    margin: 0px 24px 32px 0px ;
     width: 412px !important;
-    height: 698px !important;
+    height: 730px !important;
+    /* height: 698px !important; */
     padding-left: 0 !important;
     padding-right: 0 !important;
 
@@ -138,17 +135,19 @@
     border-radius: 10px;
   }
 
+
   .card-img-top{
     width: 412px;
     height: 395px;
   }
 
   .card-body{
-    height: 301px;
+    height: 335px;
     padding: 26px 33px 37px !important;
   }
 
   .card-title{
+
     font-family: 'Inter';
     font-style: normal;
     font-weight: 600;
@@ -160,6 +159,9 @@
   }
 
   .card-text{
+    margin-top: 21px;
+    margin-bottom: 47px;
+    
     font-family: 'Inter';
     font-style: normal;
     font-weight: 400;
