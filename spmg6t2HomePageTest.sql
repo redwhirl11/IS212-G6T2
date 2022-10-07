@@ -148,10 +148,10 @@ INSERT INTO  `registration` (`Reg_ID`, `Course_ID`, `Staff_ID`, `Reg_Status`, `C
 (3,'C2',3,'Registered','Completed'),
 (4,'C5',3,'Registered','Not Complete'),
 (5,'C1',2,'Rejected','Not Complete'),
-(6,'C5',2,'Registered',' Complete'),
-(7,'C3',2,'Registered','Complete'),
+(6,'C5',2,'Registered',' Completed'),
+(7,'C3',2,'Registered','Completed'),
 (8,'C6',2,'Waiting','Not Complete'),
-(9,'C2',2,'Registered','Complete');
+(9,'C2',2,'Registered','Completed');
 
 -- --------------------------------------------------------
 --
