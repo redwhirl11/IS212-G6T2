@@ -16,7 +16,9 @@ const app = Vue.createApp({
             Allcourse_dict: [],
             new_selected_course:[],
             //retrieve data from getLJ.php
-            SubmittedCourse_dict:[]
+            SubmittedCourse_dict:[],
+            submittedCourseID:'',
+            checked: false
             
         };
     },
@@ -31,6 +33,14 @@ const app = Vue.createApp({
         const LJDetaildata = { LJ_ID: LJ_ID }
         const RegCourseData={ Staff_ID:Staff_ID}
 
+        axios.get(LjDetailsurl, {
+            params: LJDetaildata
+        })
+            .then(response => {
+                var LJDetails = response.data;
+                console.log('LJDetails',LJDetails)
+                this.getSubmittedCourse_ID(LJDetails);
+            })
         axios.get(RoleDetailsUrl, {
             params: RoleDetaildata
         })
@@ -41,16 +51,8 @@ const app = Vue.createApp({
                 this.getCourseDetails(RoleDetails);
                 this.getRegStatus();
                 
-            })
-        axios.get(LjDetailsurl, {
-                params: LJDetaildata
-            })
-                .then(response => {
-                    var LJDetails = response.data;
-                    console.log('LJDetails',LJDetails)
-                    this.getSubmittedCourse_ID(LJDetails);
-                    console.log(this.SubmittedCourse_dict);
-                })
+            })   
+           
         axios.get(RegCourseurl,{
             params:RegCourseData
         })
@@ -91,6 +93,13 @@ const app = Vue.createApp({
             
             return this.Allskill_dict;
         },
+        getSubmittedCourse_ID(LJDetails){
+            for (i = 0; i < LJDetails.length; i++){
+                var SubmittedC_ID = LJDetails[i].Course_ID;
+                this.SubmittedCourse_dict.push({SubmittedC_ID: SubmittedC_ID})
+            }
+            return this.SubmittedCourse_dict;
+        },
         getCourseDetails(RoleDetails) {
             //for each skillID
             for (var j = 0; j < this.Allskill_dict.length; j++){
@@ -104,16 +113,27 @@ const app = Vue.createApp({
                     var courseDesc = RoleDetails[i].Course_Desc;
                     var coursetype = RoleDetails[i].Course_Type;
                     var coursecat = RoleDetails[i].Course_Category;
-
+                    // console.log(this.SubmittedCourse_dict);
                     // check if the passed skill_ID = the skill id in the role details
                     // if yes == under same skill, will put the course info in one dict
                     if (Skill_ID == SkillID) {
-                        this.Allcourse_dict.push({ Skill_ID:SkillID, Course_ID: courseID, Course_Name: courseName, Course_Desc: courseDesc, Course_Type: coursetype, Course_Category: coursecat})
+                        var index = '';
+                        console.log(this.SubmittedCourse_dict.SubmittedC_ID);
+                        index = this.SubmittedCourse_dict.map(object =>object.SubmittedC_ID).indexOf(courseID); 
+                        console.log(courseID);
+                        console.log(index);
+                        //this.SubmittedCourse_dict.find(({ SubmittedC_ID }) => SubmittedC_ID == courseID)
+
+                        if(index != -1){
+                            this.Allcourse_dict.push({ Skill_ID:SkillID, Course_ID: courseID, Course_Name: courseName, Course_Desc: courseDesc, Course_Type: coursetype, Course_Category: coursecat, checked: true})
+                        }else{
+                            this.Allcourse_dict.push({ Skill_ID:SkillID, Course_ID: courseID, Course_Name: courseName, Course_Desc: courseDesc, Course_Type: coursetype, Course_Category: coursecat, checked: this.checked})
+                        }
                     }
                     //console.log(this.Allcourse_dict);
                 }
             }
-            
+            //console.log(this.Allcourse_dict);
             return this.Allcourse_dict;
         },
         getCoursePopUp(Course_Name, Course_Desc, Course_Type, Course_Category) {
@@ -142,6 +162,10 @@ const app = Vue.createApp({
                 width: 'auto',
             }).then((result) => {
                 if (result.isConfirmed) {
+                    //check the latest selected courses
+                    this.getNewSelectedCourse();
+                    console.log(this.new_selected_course);
+                    //if learner select >1 courses -> confirmation pop up
                     if(this.new_selected_course.length>0){
                         Swal.fire(
                             'Congratulations!',
@@ -158,12 +182,22 @@ const app = Vue.createApp({
                 }
             })
         },
-        getSubmittedCourse_ID(LJDetails){
-            for (i = 0; i < LJDetails.length; i++){
-                var SubmittedC_ID = LJDetails[i].Course_ID;
-                this.SubmittedCourse_dict.push({SubmittedC_ID: SubmittedC_ID})
+        getNewSelectedCourse(){
+            //reset the new_selected_course
+            this.new_selected_course=[];
+
+            //find the latest selected courses by learner
+            for (var i = 0; i < this.Allcourse_dict.length; i++){
+                var selectedCourse = this.Allcourse_dict[i].Course_ID
+                var selected = this.Allcourse_dict[i].checked
+                console.log(selected);
+
+                //if checkbox is checked, add the courseID to the new_selected_course list
+                if (selected==true){
+                    this.new_selected_course.push(selectedCourse)
+                }
             }
-            return this.SubmittedCourse_dict;
+            return this.new_selected_course;
         },
 
         getRegStatus(){

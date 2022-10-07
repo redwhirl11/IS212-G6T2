@@ -160,8 +160,9 @@
                                                             <!-- <div>Checked names: {{ selected_course }}</div> -->
                                                     
 
-                                                            <input class="form-check-input me-1" type="checkbox"  :id="course.Course_ID" :value="course.Course_ID" 
-                                                                :aria-label="course.Course_ID" v-model = 'new_selected_course'>
+                                                            <input class="form-check-input me-1" type="checkbox" :checked="course.checked" :id="course.Course_ID" :value="course.Course_ID" 
+                                                                :aria-label="course.Course_ID" v-model = 'course.checked'>
+                                                                <!-- {{course.checked}} -->
                                                                 <span @click="getCoursePopUp(course.Course_Name,course.Course_Desc,course.Course_Type,course.Course_Category)">  {{course.Course_Name}}</span>
                                             
                                                             <i class="bi bi-info-circle mx-2" type="button"
