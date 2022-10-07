@@ -216,11 +216,12 @@ class PostDAO {
 
         // STEP 2
         $sql = "SELECT *  
-                FROM registration"; 
+                FROM registration
+                WHERE Staff_ID= :Staff_ID "; 
 
         $stmt = $conn->prepare($sql);
 
-        // $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);
+        $stmt->bindParam(':Staff_ID', $Staff_ID, PDO::PARAM_STR);
 
         // STEP 3
         $stmt->execute();
