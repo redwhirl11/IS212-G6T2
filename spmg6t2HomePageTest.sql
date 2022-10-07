@@ -151,7 +151,7 @@ INSERT INTO  `registration` (`Reg_ID`, `Course_ID`, `Staff_ID`, `Reg_Status`, `C
 (6,'C5',2,'Registered',' Complete'),
 (7,'C3',2,'Registered','Complete'),
 (8,'C6',2,'Waiting','Not Complete'),
-(9,'C6',2,'Registered','Complete');
+(9,'C2',2,'Registered','Complete');
 
 -- --------------------------------------------------------
 --
@@ -185,7 +185,7 @@ INSERT INTO `skills` (`Skill_ID`, `Skill_Name`, `Type_of_Skills`, `Level_of_Comp
 (00005, 'Marketing and Sales','Soft','Beginner','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','InActive','C4'),
 (00001, 'Data Analytics','Technical','Beginner','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','Active','C7'),
 (00001, 'Data Analytics','Technical','Beginner','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','Active','C8'),
-(00005, 'Marketing and Sales','Soft','Beginner','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','Active','C6');
+(00004, 'Finance','Technical','Advanced','https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.dgvaishnavcollege.edu.in%2Fdummy-profile-pic%2F&psig=AOvVaw08g7CCVOO4ZqEMCs5VEuNK&ust=1664700123877000&source=images&cd=vfe&ved=0CAwQjRxqFwoTCKCE5K7RvvoCFQAAAAAdAAAAABAD','Active','C2');
 
 
 -- --------------------------------------------------------
@@ -221,8 +221,7 @@ INSERT INTO `ljroles` (`LJRole_ID`, `LJRole_Name`, `LJRole_Description`, `Depart
 (00003, 'Operation Manager','An Operations Manager oversees company organisational processes and adds improvements. Duties include hiring, training, implementing policies, strategies to improve productivity and building an enjoyable company culture.','Operation','1) Make important policy, planning, and strategy decisions. 2) Develop, implement, and review operational policies and procedures. 3)Work with the board of directors to plan for short and long-term goals','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00002),
 (00004, 'UIUX Developer','Hiring a passionate, user centred UIUX Designer to join a collaborative and innovative team to create visually delightful and easy-to-use digital products. A highly collaborative work with product managers and engineers.','Technology', '1) Create user-centred designs by understanding business requirements and user feedback 2)Create user flows, wireframes, prototypes, mockups 3) Incorporate customer feedback, usage metrics, and usability findings into design','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00003),
 (00005, 'Finance Officer','Finance Officer involves providing financial and administrative support to colleagues, clients and stakeholders of the business. It’s a role that may attract applicants keen to move up the financial corporate ladder','Finance','1) Assist in the preparation of budgets. 2) Manage records and receipts. 3) Reconcile daily, monthly and yearly transactions 4) Prepare balance sheets 4) Point of contact for other dept on financial and accounting issues','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00004),
-(00006, 'Sales Executive','Responsible for helping build up a business by identifying new business prospects and selling products to them. They must maintain relationships with current clients and build and maintain relationships with new clients.','Sales','1) Research and recommend prospects for new business opportunities. 2)Research and analyse sales options. 3)Build and maintain relationships with clients and prospects. 4) Build and maintain professional networks','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00004),
-(00006, 'Sales Executive','Responsible for helping build up a business by identifying new business prospects and selling products to them. They must maintain relationships with current clients and build and maintain relationships with new clients.','Sales','1) Research and recommend prospects for new business opportunities. 2)Research and analyse sales options. 3)Build and maintain relationships with clients and prospects. 4) Build and maintain professional networks','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00005);
+(00006, 'Sales Executive','Responsible for helping build up a business by identifying new business prospects and selling products to them. They must maintain relationships with current clients and build and maintain relationships with new clients.','Sales','1) Research and recommend prospects for new business opportunities. 2)Research and analyse sales options. 3)Build and maintain relationships with clients and prospects. 4) Build and maintain professional networks','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00004);
 
 
 -- --------------------------------------------------------
@@ -257,6 +256,6 @@ INSERT INTO  `learning_journey` (`LJ_ID`, `Staff_ID`,  `SubmittedLJRole_ID`,`Sub
 (00006,2,00002,00001,'C5'),
 (00006,2,00002,00002,'C3'),
 (00006,2,00002,00004,'C6'),
-(00006,2,00002,00005,'C6');
+(00006,2,00002,00004,'C2');
 
 COMMIT;
