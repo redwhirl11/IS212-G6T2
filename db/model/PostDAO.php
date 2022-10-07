@@ -191,18 +191,19 @@ class PostDAO {
         return $LearningJourney;
     }
 
-    public function getRegCourse() {
+    public function getRegCourse($Staff_ID) {
         // STEP 1
         $connMgr = new ConnectionManager();
         $conn = $connMgr->connect();
 
         // STEP 2
         $sql = "SELECT *  
-                FROM registration"; 
+                FROM registration
+                WHERE Staff_ID= :Staff_ID "; 
 
         $stmt = $conn->prepare($sql);
 
-        // $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);
+        $stmt->bindParam(':Staff_ID', $Staff_ID, PDO::PARAM_STR);
 
         // STEP 3
         $stmt->execute();
