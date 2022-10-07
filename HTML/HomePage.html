@@ -11,7 +11,7 @@
     <link href='https://fonts.googleapis.com/css?family=Inter:600,400,550,500' rel='stylesheet'>
     
     <!-- axios -->
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.2/axios.min.js"></script>
 
     <!-- Vue -->
     <script src="https://unpkg.com/vue@next"></script>
@@ -70,12 +70,13 @@
                     <strong>Chosen Skills & Courses: </strong> 
                     <div>
                         <ul v-for="skills in roles.skill">
-                            <li><b>Skills : </b>{{skills.SkillName}}&nbsp|&nbsp
+                            <li><b>Skill : </b>{{skills.SkillName}}&nbsp|&nbsp
                                 <strong>Courses: </strong> 
                                 <span v-for="courses in Allcourses_dict">
                                     <span v-if="roles.LJid == courses.LJid && skills.SkillId==courses.SkillId">
                                         {{courses.CourseName}} &nbsp&nbsp
-                                        <span class="badge rounded-pill bg-success statusComplete">Completed</span>&nbsp&nbsp
+                                        <span class="badge rounded-pill" style="background-color: #5EE1AA" v-if="courses.CompletionStatus =='Completed'">Completed</span>&nbsp&nbsp
+                                        <span class="badge rounded-pill" style="background-color: #919CF8" v-else>Registered</span>&nbsp&nbsp
                                     </span>
                                 </span>
                             </li>
