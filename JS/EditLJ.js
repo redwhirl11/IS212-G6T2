@@ -23,11 +23,13 @@ const app = Vue.createApp({
     created() {
         var LJRole_ID = 00002
         var LJ_ID = 00006
+        var Staff_ID=00002
         RoleDetailsUrl = '../db/getLJRoleDetails.php'
         RegCourseurl='../db/getRegCourse.php'
         LjDetailsurl='../db/getSubmittedLJRoleDetails.php'
         const RoleDetaildata = { LJRole_ID: LJRole_ID }
         const LJDetaildata = { LJ_ID: LJ_ID }
+        const RegCourseData={ Staff_ID:Staff_ID}
 
         axios.get(RoleDetailsUrl, {
             params: RoleDetaildata
@@ -45,9 +47,16 @@ const app = Vue.createApp({
             })
                 .then(response => {
                     var LJDetails = response.data;
+                    console.log('LJDetails',LJDetails)
                     this.getSubmittedCourse_ID(LJDetails);
                     console.log(this.SubmittedCourse_dict);
                 })
+        axios.get(RegCourseurl,{
+            params:RegCourseData
+        })
+        .then(response=>{
+            var RegCourse=response.data;
+        })
     },
     methods: {
         getRoleDetails(RoleDetails) {
@@ -133,7 +142,7 @@ const app = Vue.createApp({
                 width: 'auto',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    if(this.selected_course.length>0){
+                    if(this.new_selected_course.length>0){
                         Swal.fire(
                             'Congratulations!',
                             'Your changes have been successfully saved!',

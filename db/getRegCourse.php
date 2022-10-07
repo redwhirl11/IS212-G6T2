@@ -4,7 +4,8 @@ $dao = new PostDAO();
 
 $posts=[];
 
-$posts = $dao->getRegCourse();
+$Reg_ID = 00002;
+$posts = $dao->getRegCourse($Reg_ID);
 
  // Get an Indexed Array of Post objects
 $items = [];

@@ -209,7 +209,7 @@ class PostDAO {
         return $LearningJourney;
     }
 
-    public function getRegCourse() {
+    public function getRegCourse($Staff_ID) {
         // STEP 1
         $connMgr = new ConnectionManager();
         $conn = $connMgr->connect();
