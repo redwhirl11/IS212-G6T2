@@ -7,24 +7,27 @@ const app = Vue.createApp({
             department: '',
             tasks: '',
             role_img: '',
+            Course_Name: '',
+            reg_status: '',
+            complete_status: '',
+            courseDesc: '',
             //AllXX_dict means retrieve from Role Details
             Allskill_dict: [],
             Allcourse_dict: [],
             new_selected_course:[],
-            Course_Name: '',
-            reg_status: '',
-            complete_status: '',
-            courseDesc: ''
+            //retrieve data from getLJ.php
+            SubmittedCourse_dict:[]
+            
         };
     },
     created() {
         var LJRole_ID = 00002
-        var Staff_ID = 00002
+        var LJ_ID = 00006
         RoleDetailsUrl = '../db/getLJRoleDetails.php'
         RegCourseurl='../db/getRegCourse.php'
-        LjDetailsurl='../db/getLearningJourney.php'
+        LjDetailsurl='../db/getSubmittedLJRoleDetails.php'
         const RoleDetaildata = { LJRole_ID: LJRole_ID }
-        const LJDetaildata = { Staff_ID: Staff_ID }
+        const LJDetaildata = { LJ_ID: LJ_ID }
 
         axios.get(RoleDetailsUrl, {
             params: RoleDetaildata
@@ -37,12 +40,13 @@ const app = Vue.createApp({
                 this.getRegStatus();
                 
             })
-            axios.get(LjDetailsurl, {
+        axios.get(LjDetailsurl, {
                 params: LJDetaildata
             })
                 .then(response => {
                     var LJDetails = response.data;
-                    console.log(LJDetails);
+                    this.getSubmittedCourse_ID(LJDetails);
+                    console.log(this.SubmittedCourse_dict);
                 })
     },
     methods: {
@@ -129,7 +133,7 @@ const app = Vue.createApp({
                 width: 'auto',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    if(this.new_selected_course.length>0){
+                    if(this.selected_course.length>0){
                         Swal.fire(
                             'Congratulations!',
                             'Your changes have been successfully saved!',
@@ -144,6 +148,13 @@ const app = Vue.createApp({
                     }
                 }
             })
+        },
+        getSubmittedCourse_ID(LJDetails){
+            for (i = 0; i < LJDetails.length; i++){
+                var SubmittedC_ID = LJDetails[i].Course_ID;
+                this.SubmittedCourse_dict.push({SubmittedC_ID: SubmittedC_ID})
+            }
+            return this.SubmittedCourse_dict;
         },
 
         getRegStatus(){
