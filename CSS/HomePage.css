@@ -63,7 +63,7 @@ p{
 }
 
 #semiRecImg{
-    height: auto;
+    height: 100%;
 }
 
 #HomeBottomImg{
@@ -84,20 +84,16 @@ p{
     font-weight: 400;
     font-size: 1vw;
     color: #FFFFFF;
-
+    padding-bottom: 3vw;
 } 
 
 .LJboxes {
     position: relative;
     width: 90%;
     margin: auto;
-    margin-bottom: 1vw;
+    margin-bottom: 2vw;
     background: #FFFFFF;
-    border: 1px solid #E4EBFF;
-    box-shadow: 0px 0px 10px
-    rgba(0, 0, 0, 0.05);
     border-radius: 10px;    
-    padding: 5vw;
-    
+    padding: 2vw;
   }
 

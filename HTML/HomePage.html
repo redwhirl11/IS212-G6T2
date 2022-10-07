@@ -40,7 +40,7 @@
     </div>
 
      <!-- lower portion Create learning journey-->
-     <div class='contianer-fluid'>
+     <div class='contianer-fluid' id="homepage">
         <div>
             <img src="../Icons/Rectangle 6.png" id="semiRecImg" >
             <img src="../Icons/HomepageBottom.png" id="HomeBottomImg" >
@@ -48,37 +48,42 @@
         </div>
 
         <!-- Empty Data -->
-        <div class="text-center">
+        <div class="text-center" v-if="AllRoles_dict.length < 1">
             <p id="BottomDesc">Oh no! you do not have any learning journays at the moment :( </p>
             <button class="button">Create Learning Journey</button>
         </div>
 
-        <p><br>------------if have data----------------</p>
         <!-- With Learning Journey Data -->
-        <p id="BottomDesc">Feel free to edit your previously created learning journeys.</p>
-
-        <div id="homepage">
+        <div v-else>
+            <p id="BottomDesc">Feel free to edit your previously created learning journeys.</p>
             <div class="LJboxes" v-for="roles in AllRoles_dict">
-                <div >
-                    <h1>{{roles.LJrole}}</h1>
+                <div class="row" style="margin: auto; font-size: 1vw;">
+                    <div class="col">
+                        <span style="font-size:2vw"><strong>{{roles.LJrole}}</strong></span>
+                    </div>
+                    <div class="col col-1">
+                        <span style="color: #4C5BDD;">Edit</span>
+                    </div>
+                    <div class="col col-1">
+                        <span>Delete</span>
+                    </div>
+                    <strong>Chosen Skills & Courses: </strong> 
+                    <div>
+                        <ul v-for="skills in roles.skill">
+                            <li><b>Skills : </b>{{skills.SkillName}}&nbsp|&nbsp
+                                <strong>Courses: </strong> 
+                                <span v-for="courses in Allcourses_dict">
+                                    <span v-if="roles.LJid == courses.LJid && skills.SkillId==courses.SkillId">
+                                        {{courses.CourseName}} &nbsp&nbsp
+                                        <span class="badge rounded-pill bg-success statusComplete">Completed</span>&nbsp&nbsp
+                                    </span>
+                                </span>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
-                <strong>Chosen Skills & Courses: </strong> 
-
-                <ul v-for="skills in roles.skill">
-                    <li><b>Skills : </b>{{skills.SkillName}}&nbsp|&nbsp
-                        <strong>Courses: </strong> 
-                        <span v-for="courses in Allcourses_dict">
-                            
-                            <span v-if="roles.LJid == courses.LJid && skills.SkillId==courses.SkillId">
-                                {{courses.CourseName}} &nbsp&nbsp
-                                <span class="badge rounded-pill bg-success statusComplete">Completed</span>&nbsp&nbsp
-                            </span>
-                        </span>
-                    </li>
-                </ul>
             </div>
         </div>
-
 
 
     <!-- Custom JS-->

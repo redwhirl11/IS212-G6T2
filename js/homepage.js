@@ -68,7 +68,6 @@ const homepage = Vue.createApp({
                     this.Allcourses_dict.push({LJid: LJid, SkillId:SkillId, CourseId:CourseId, CourseName:CourseName})
                 }
             }
-            console.log(this.Allcourses_dict)
             return this.Allcourses_dict
         }
     }
