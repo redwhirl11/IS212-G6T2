@@ -14,21 +14,26 @@
     <!--Axios-->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script src="../Javascript/role.js"></script>
+    <script src="../js/role.js"></script>
 
   </head>
 <body>
 
-    <div class='contianer-fluid' id="myHeader">
+    <div class='container-fluid' id="myHeader">
         <img id= 'logo' src="../Icons/Component 1.png">
         <img src="../Icons/Vector 1.png" alt="Nature" class="responsive">
-        <div class="h1" id="Header">
-            Step 1:  Select a job role that you are interested in 
+
+        <div class="container-fluid" id="container1">
+            <div class="h1" id="Header">
+                Step 1:  Select a job role that you are interested in 
+            </div>
+            
+            <input class="form-control" id="search-bar" type="text" placeholder="For E.g. Business Analyst, Operations Manager">
+            <span><a href=""><img src="../images/search icon.png" id="search-icon" alt=""></a></span>
+            <span><a href=""><img src="../images/Filter list.png" id="filterlist-icon" alt=""></a></span>
+            <button type="button" class="btn btn-light" id="back-btn">Back</button>
         </div>
-        <input class="form-control" id="search-bar" type="text" placeholder="For E.g. Business Analyst, Operations Manager">
-        <a href=""><img src="../images/search icon.png" id="search-icon" alt=""></a>
-        <a href=""><img src="../images/Filter list.png" id="filterlist-icon" alt=""></a>
-        <button type="button" class="btn btn-light" id="back-btn">Back</button>
+        
 
     </div>
 

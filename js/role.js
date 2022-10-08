@@ -6,7 +6,7 @@ function getAllRoles(){
         var card = '';
         for (i=0; i<response.data.length; i++) {
           card += 
-          `<div class="col-4">
+          `<div class="col-sm-6 col-lg-4">
             <div class="card">
               <img class="card-img-top" src=" ${response.data[i].LJRole_img} " alt="Card image cap">
                 <div class="card-body">

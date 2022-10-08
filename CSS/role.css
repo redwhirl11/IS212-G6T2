@@ -30,16 +30,9 @@
     width: 100%;
     height: auto;
     top: 95px;
+    left: 0px;
   }
 
-  #content1 {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 16px;
-    line-height: 19px;
-    letter-spacing: 0.01em;
-  }
 
   #logo {
     position: absolute;
@@ -119,7 +112,7 @@
     right: 75px;
   }
 
-  .col-4{
+  .col-sm-6.col-lg-4{
     box-sizing: border-box;
 
     margin: 0px 24px 32px 0px ;
@@ -180,4 +173,52 @@
     background: #4C5BDD;
     border-radius: 5px;
   }
+
+  @media all and (max-width: 1476px){
+    #back-btn {
+      display:inline-block;
+      left: calc(100% - 220px);;
+    }
+  }
+
+  @media all and (max-width: 1390px){
+    .row{
+      width: fit-content;
+    }
+
+    #Header{
+      width: 50vw;
+      left: 25vw;
+      font-size: 5vh;
+    }
+
+    #search-bar{
+      width: 50vw;
+      left: 25vw;    
+    }
+
+    #search-icon{
+      left: 66vw;
+      size: 10vw;
+    }
   
+    #filterlist-icon{
+      left: 70vw;
+    }
+  }
+  
+  @media all and (max-width: 948px){
+
+    #search-icon{
+      left: 62vw;
+      size: 10vw;
+    }
+  
+    #filterlist-icon{
+      left: 67vw;
+    }
+  
+    #search-bar::placeholder{
+      font-size: 1.5vw;
+    }
+  }
