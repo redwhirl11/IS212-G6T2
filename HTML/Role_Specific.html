@@ -331,18 +331,27 @@
 
         }
         
+        window.addEventListener('DOMContentLoaded', (event) => {
+            
+            console.log('DOM fully loaded and parsed')
 
-        function getSelectedCoursesandSkills(){
-            console.log(document.getElementById("C5"))
-            /* ^Not sure why output is undefined even though DOM is already loaded*/
-        }
+            let selected_courses = []
+            let course_checkboxes = document.getElementsByTagName("input")
+            for (let i = 0; i < course_checkboxes.length; i++){
+                if (course_checkboxes[i].checked){
+                    selected_courses.push(course_checkboxes[i].value)
+                }
+            }
+            console.log(selected_courses)
+         })
+
+
         
         populateSkills()
         populateRole()
         populateTask()
         populateHeader() 
         getCourseData()
-        getSelectedCoursesandSkills()
 
    </script>
 
