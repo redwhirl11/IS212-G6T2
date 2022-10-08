@@ -331,20 +331,39 @@
 
         }
         
+        /* Handle user input */
+
+        let selected_courses = []
+
         window.addEventListener('DOMContentLoaded', (event) => {
             
             console.log('DOM fully loaded and parsed')
 
-            let selected_courses = []
             let course_checkboxes = document.getElementsByTagName("input")
-            for (let i = 0; i < course_checkboxes.length; i++){
-                if (course_checkboxes[i].checked){
-                    selected_courses.push(course_checkboxes[i].value)
-                }
-            }
-            console.log(selected_courses)
-         })
 
+            for (let i = 0; i < course_checkboxes.length; i++){
+                document.getElementById(course_checkboxes[i].id).addEventListener("change", function(){
+                    if (document.getElementById(course_checkboxes[i].id).checked){
+                        console.log(course_checkboxes[i].value + " is selected")
+                        selected_courses.push(course_checkboxes[i].value)
+                        console.log(selected_courses)
+                    }
+                    else{
+                        console.log(course_checkboxes[i].value + " is removed")
+                        for (let j = 0; j < selected_courses.length; j++){
+                            if (selected_courses[j] == course_checkboxes[i].value){
+                                selected_courses.splice(selected_courses.indexOf(course_checkboxes[i].value), 1)
+                            }
+                        }
+                        console.log(selected_courses)
+                    }
+                    
+                })
+            }
+            
+
+         })
+         
 
         
         populateSkills()
