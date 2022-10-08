@@ -314,7 +314,20 @@
             let header_html =  
             `
             <div class='contianer-fluid' id="myHeader">
-                <img id= 'logo' src="../Icons/Component 1.png">
+                <div class="row">
+
+                    <div class="col-lg-9 col-md-8">
+                        <img id= 'logo' src="../Icons/Component 1.png">
+                    </div>
+
+                    <div class="col-lg-3 col-md-4">
+                        <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="backBtn"
+                            style="border-radius: 20px">Back</button>
+                        <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="submitBtn"
+                            style="border-radius: 20px">Submit</button>
+                    </div>
+
+                </div>
                 <img src="../Icons/Vector 1.png" alt="Nature" class="responsive">
                 <p id="Header">
                     Step 2:  Select the skills & courses for your chosen role ${role} - ${dept}
