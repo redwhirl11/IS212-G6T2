@@ -54,7 +54,6 @@
         then(response => {
             console.log(response.data)
 
-            const skill_course_pairs = new Object()
             let all_course_pairs = []
             let unique_skills = []
             let all_skills = response.data
@@ -218,7 +217,7 @@
         }
 
         
-        /* Functuon to populate role*/
+        /* Function to populate role*/
         function populateRole() {
         var url = "../db/getAllRoles.php"
 
@@ -249,7 +248,7 @@
         }
 
 
-        /* Functuon to populate role*/
+        /* Function to populate role*/
         function populateTask(){
         var url = "../db/getAllRoles.php"
         
@@ -303,7 +302,7 @@
         }
 
         
-        /* Functuon to populate header*/
+        /* Function to populate header*/
         function populateHeader() {
         var url = "../db/getAllRoles.php"
         
@@ -347,6 +346,8 @@
         /* Handle user input */
 
         let selected_courses = []
+        let selected_skills = []
+        let submitted_coursesandskills = {}
 
         window.addEventListener('DOMContentLoaded', (event) => {
             
@@ -374,6 +375,40 @@
                 })
             }
             
+            document.getElementById("submitBtn").addEventListener("click", function(){
+
+                let coursesArranged = []
+                submitted_coursesandskills = {}
+
+                if (selected_skills.length > 0){
+                    selected_skills = []
+                }
+                for (let i = 0; i < selected_courses.length; i++){
+                    if (!selected_skills.includes(document.getElementById(selected_courses[i]).parentElement.id)){
+                            selected_skills.push(document.getElementById(selected_courses[i]).parentElement.id)
+                    }                   
+                }
+                console.log(selected_skills)
+
+                for (let i = 0; i < selected_skills.length; i++){
+                    let attached_courses = []
+                    for (let j = 0; j < selected_courses.length; j++){
+                        if (document.getElementById(selected_courses[j]).parentElement.id == selected_skills[i]){
+                            attached_courses.push(selected_courses[j])
+                        }
+                    }
+                    coursesArranged.push(attached_courses)
+                }
+                console.log(coursesArranged)
+
+                for (let i = 0; i < selected_skills.length; i++){
+                    submitted_coursesandskills[selected_skills[i]] = coursesArranged[i]
+                }
+                console.log("The object displayed below shows the skills and courses the user wants to submit \n\n key: skill ID \n value: array of course ID(s)")
+                console.log(submitted_coursesandskills)
+
+                /* need to redirect to learning journey page */
+            })
 
          })
          
