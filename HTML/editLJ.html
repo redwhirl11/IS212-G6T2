@@ -27,7 +27,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
     <style>
-        .swal2-container{
+        .swal2-container {
             overflow-x: hidden
         }
     </style>
@@ -156,22 +156,45 @@
                                             <div class="row">
                                                 <ul>
                                                     <!-- show courses -->
-                                                    <li class="list-group-item m-2" v-for='course in Allcourse_dict' v-for="c in courseRegStatus_dict">
+                                                    <li class="list-group-item m-2" v-for='course in Allcourse_dict'>
                                                         <div v-if="skill.Skill_ID == course.Skill_ID">
                                                             <!-- <div>Checked names: {{ new_selected_course }}</div> -->
 
-                                                            <input class="form-check-input me-1" type="checkbox" :checked="course.checked" :id="course.Course_ID" :value="course.Course_ID" 
-                                                                :aria-label="course.Course_ID" v-model = 'course.checked'>
-                                                                <!-- {{course.checked}} -->
-                                                                <!-- show course details -->
-                                                                <span @click="getCoursePopUp(course.Course_Name,course.Course_Desc,course.Course_Type,course.Course_Category)">  {{course.Course_Name}}</span>
-                                            
-                                                            <i class="bi bi-info-circle mx-2" type="button"
+                                                            <input class="form-check-input me-1" type="checkbox"
+                                                                :checked="course.checked" :id="course.Course_ID"
+                                                                :value="course.Course_ID" :aria-label="course.Course_ID"
+                                                                v-model='course.checked'>
+                                                            <!-- {{course.checked}} -->
+                                                            <!-- show course details -->
+                                                            <span
+                                                                @click="getCoursePopUp(course.Course_Name,course.Course_Desc,course.Course_Type,course.Course_Category)">
+                                                                {{course.Course_Name}}
+                                                            
+                                                                <i class="bi bi-info-circle mx-2" type="button"
                                                                 style="color:#919CF8"
                                                                 @click="getCoursePopUp(course.Course_Name,course.Course_Desc,course.Course_Type,course.Course_Category)"></i>
-    
+
                                                             <!-- show completion status of the course -->
-                                                            <span class="badge rounded-pill bg-success statusComplete"></span>
+                                                            <span class="badge rounded-pill"
+                                                                style="background-color: #5EE1AA"
+                                                                v-if="course.CompletionStatus =='Complete' || course.CompletionStatus ==' Complete' || course.CompletionStatus =='Completed'"> {{course.CompletionStatus}}</span>&nbsp&nbsp
+                                                                <span class="badge rounded-pill"
+                                                                style="background-color:gold"
+                                                                v-else-if="course.CompletionStatus =='Not Complete'"> {{course.CompletionStatus}}</span>
+                                                            <span class="badge rounded-pill"
+                                                                style="background-color: red"
+                                                                v-else-if="course.RegStatus=='Rejected'"> {{course.RegStatus}}</span>&nbsp&nbsp
+                                                            <span class="badge rounded-pill"
+                                                                style="background-color: skyblue"
+                                                                v-else-if="course.RegStatus=='Waiting'"> {{course.RegStatus}} </span>&nbsp&nbsp
+                                                            <!-- <span class="badge rounded-pill"
+                                                                style="background-color: #919CF8"
+                                                                v-else>Registered</span>&nbsp&nbsp -->
+                                                            
+                                                            
+                                                            </span>
+
+                                                            
                                                         </div>
                                                     </li>
                                                 </ul>

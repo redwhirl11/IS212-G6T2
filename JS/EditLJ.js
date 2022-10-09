@@ -240,12 +240,19 @@ const app = Vue.createApp({
 
         getRegStatus(RegCourse) {
             for (i = 0; i < RegCourse.length; i++) {
-                var courseID = RegCourse[i].Course_ID;
-                var completionStatus = RegCourse[i].Completion_Status;
-                this.courseRegStatus_dict.push({ course_ID: courseID, completion_Status: completionStatus })
-            }
+                var Course_ID = RegCourse[i].Course_ID;
+                var Reg_Status = RegCourse[i].Reg_Status;
+                var Completion_Status = RegCourse[i].Completion_Status;
 
-            return this.courseRegStatus_dict
+                for (j = 0; j < this.Allcourse_dict.length; j++) {
+                    if (this.Allcourse_dict[j].Course_ID == Course_ID) {
+                        this.Allcourse_dict[j]['RegStatus'] = Reg_Status
+                        this.Allcourse_dict[j]['CompletionStatus'] = Completion_Status
+                    }
+                }
+            }
+            console.log('testing',this.Allcourse_dict)
+            return this.Allcourse_dict
         },
 
     }
