@@ -1,7 +1,6 @@
 const app = Vue.createApp({
     data() {
-        return {
-            ljId: '',
+        return {      
             roleName: '',
             roleDesc: '',
             department: '',
@@ -11,6 +10,11 @@ const app = Vue.createApp({
             reg_status: '',
             complete_status: '',
             courseDesc: '',
+            
+            //default information
+            LJ_ID: '',
+            Staff_ID: '',
+            SubmittedLJRole_ID: '',
             //AllXX_dict means retrieve from Role Details
             Allskill_dict: [],
             Allcourse_dict: [],
@@ -23,9 +27,12 @@ const app = Vue.createApp({
         };
     },
     created() {
+        //modify the code -- wait for kw to pass the data LJRole_ID,LJ_ID,Staff_ID
         var LJRole_ID = 00002
         var LJ_ID = 00006
         var Staff_ID=00002
+
+        //relevant php file
         RoleDetailsUrl = '../db/getLJRoleDetails.php'
         RegCourseurl='../db/getRegCourse.php'
         LjDetailsurl='../db/getSubmittedLJRoleDetails.php'
@@ -33,6 +40,13 @@ const app = Vue.createApp({
         const LJDetaildata = { LJ_ID: LJ_ID }
         const RegCourseData={ Staff_ID:Staff_ID}
 
+        //get the default information
+        this.LJ_ID = LJ_ID;
+        this.Staff_ID = Staff_ID;
+        this.SubmittedLJRole_ID = LJRole_ID;
+
+        
+        //retrieve data from the php 
         axios.get(LjDetailsurl, {
             params: LJDetaildata
         })
@@ -52,7 +66,7 @@ const app = Vue.createApp({
                 this.getRegStatus();
                 
             })   
-           
+
         axios.get(RegCourseurl,{
             params:RegCourseData
         })
@@ -118,19 +132,19 @@ const app = Vue.createApp({
                     // if yes == under same skill, will put the course info in one dict
                     if (Skill_ID == SkillID) {
                         var index = '';
-                        console.log(this.SubmittedCourse_dict.SubmittedC_ID);
+                        
+                        // find the index of ljcourseid in the submittedcourse_dict
                         index = this.SubmittedCourse_dict.map(object =>object.SubmittedC_ID).indexOf(courseID); 
-                        console.log(courseID);
-                        console.log(index);
-                        //this.SubmittedCourse_dict.find(({ SubmittedC_ID }) => SubmittedC_ID == courseID)
-
+                        // console.log(courseID);
+                        // console.log(index);
+                        
+                        //if index == -1 means the course has not been submitted before, checkbox checked = false (not selected)
                         if(index != -1){
                             this.Allcourse_dict.push({ Skill_ID:SkillID, Course_ID: courseID, Course_Name: courseName, Course_Desc: courseDesc, Course_Type: coursetype, Course_Category: coursecat, checked: true})
                         }else{
                             this.Allcourse_dict.push({ Skill_ID:SkillID, Course_ID: courseID, Course_Name: courseName, Course_Desc: courseDesc, Course_Type: coursetype, Course_Category: coursecat, checked: this.checked})
                         }
                     }
-                    //console.log(this.Allcourse_dict);
                 }
             }
             //console.log(this.Allcourse_dict);
@@ -167,11 +181,34 @@ const app = Vue.createApp({
                     console.log(this.new_selected_course);
                     //if learner select >1 courses -> confirmation pop up
                     if(this.new_selected_course.length>0){
-                        Swal.fire(
-                            'Congratulations!',
-                            'Your changes have been successfully saved!',
-                            'success',
-                        )
+                        for (let i=0; i<this.new_selected_course.length;i++){  
+                            //save the latest selected courses to the database
+                            const Surl = '../db/saveEditedLJ.php'
+                            var Submitted_Skill_ID = parseInt(this.new_selected_course[i].skill)    
+                            var Submitted_CourseID = this.new_selected_course[i].selectedCourse                       
+                            const data = { LJ_ID: this.LJ_ID, Staff_ID: this.Staff_ID,
+                                            SubmittedLJRole_ID: this.SubmittedLJRole_ID, 
+                                            Submitted_Skill_ID:Submitted_Skill_ID,
+                                            Submitted_CourseID:Submitted_CourseID,
+                                            }
+                            axios.get(Surl, {
+                                params: data
+                            })
+                                
+                                .then(response => {
+                                    // console.log(response);
+                                    Swal.fire(
+                                            'Congratulations!',
+                                            'Your changes have been successfully saved!',
+                                            'success',
+                                        )                                
+                                    })
+                                        
+                                .catch(error => {
+                                    console.log(error);
+                                    alert('Error: ${error}. <br/> Please Try Again Later')
+                                })                       
+                        }
                     }else{
                         Swal.fire(
                             'Cancelled',
@@ -190,15 +227,16 @@ const app = Vue.createApp({
             for (var i = 0; i < this.Allcourse_dict.length; i++){
                 var selectedCourse = this.Allcourse_dict[i].Course_ID
                 var selected = this.Allcourse_dict[i].checked
-                console.log(selected);
-
-                //if checkbox is checked, add the courseID to the new_selected_course list
+                var skill = this.Allcourse_dict[i].Skill_ID
+                
+                //if checkbox is checked(selected by the learner), add the skillID, courseID to the new_selected_course list
                 if (selected==true){
-                    this.new_selected_course.push(selectedCourse)
+                    this.new_selected_course.push({skill,selectedCourse})
                 }
             }
             return this.new_selected_course;
         },
+        
 
         getRegStatus(){
 
