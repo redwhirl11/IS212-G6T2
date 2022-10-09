@@ -156,7 +156,7 @@
                                             <div class="row">
                                                 <ul>
                                                     <!-- show courses -->
-                                                    <li class="list-group-item m-2" v-for='course in Allcourse_dict' >
+                                                    <li class="list-group-item m-2" v-for='course in Allcourse_dict' v-for="c in courseRegStatus_dict">
                                                         <div v-if="skill.Skill_ID == course.Skill_ID">
                                                             <!-- <div>Checked names: {{ new_selected_course }}</div> -->
 
@@ -171,8 +171,7 @@
                                                                 @click="getCoursePopUp(course.Course_Name,course.Course_Desc,course.Course_Type,course.Course_Category)"></i>
     
                                                             <!-- show completion status of the course -->
-                                                            <span
-                                                                class="badge rounded-pill bg-success statusComplete">Completed</span>
+                                                            <span class="badge rounded-pill bg-success statusComplete"></span>
                                                         </div>
                                                     </li>
                                                 </ul>
