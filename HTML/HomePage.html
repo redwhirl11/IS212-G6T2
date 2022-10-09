@@ -10,8 +10,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Inter:600,400,550,500' rel='stylesheet'>
     
-    <!-- axios -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.2/axios.min.js"></script>
+    <!--  Axios library -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
     <!-- Vue -->
     <script src="https://unpkg.com/vue@next"></script>
@@ -76,6 +77,8 @@
                                     <span v-if="roles.LJid == courses.LJid && skills.SkillId==courses.SkillId">
                                         {{courses.CourseName}} &nbsp&nbsp
                                         <span class="badge rounded-pill" style="background-color: #5EE1AA" v-if="courses.CompletionStatus =='Completed'">Completed</span>&nbsp&nbsp
+                                        <span class="badge rounded-pill" style="background-color: red" v-else-if="courses.RegStatus=='Rejected'">Rejected</span>&nbsp&nbsp
+                                        <span class="badge rounded-pill" style="background-color: skyblue" v-else-if="courses.RegStatus=='Waiting'">Waiting</span>&nbsp&nbsp
                                         <span class="badge rounded-pill" style="background-color: #919CF8" v-else>Registered</span>&nbsp&nbsp
                                     </span>
                                 </span>

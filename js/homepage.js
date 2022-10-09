@@ -91,19 +91,14 @@ const homepage = Vue.createApp({
 
                 for(j=0; j<this.Allcourses_dict.length; j++){
                     if(this.Allcourses_dict[j].CourseId== Course_ID){
-                        // if course not registered, remove the entry from dict
-                        if(Reg_Status !== "Registered"){
-                            this.Allcourses_dict.splice(j,1)
-                        }
-                        // as long as registered, save the completion status in respective dict
-                        else{
-                            if(Completion_Status){
-                                this.Allcourses_dict[j]['CompletionStatus']= Completion_Status
-                            }
-                        }
+                        this.Allcourses_dict[j]['RegStatus']= Reg_Status
+                        this.Allcourses_dict[j]['CompletionStatus']= Completion_Status
+                            
+                        
                     }
                 }
             }
+            console.log(this.Allcourses_dict)
             return this.Allcourses_dict
         },       
     }
