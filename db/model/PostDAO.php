@@ -287,6 +287,29 @@ class PostDAO {
         // STEP 5
         return $status;
     }
+
+    public function deleteEditedLJcourses($LJ_ID, $Staff_ID) {
+        // STEP 1   
+        $connMgr = new ConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2
+        $sql = "DELETE FROM learning_journey 
+                WHERE LJ_ID = :LJ_ID and Staff_ID = :Staff_ID";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);
+        $stmt->bindParam(':Staff_ID', $Staff_ID, PDO::PARAM_STR);
+
+        //STEP 3
+        $status = $stmt->execute();
+        
+        // STEP 4
+        $stmt = null;
+        $conn = null;
+
+        // STEP 5
+        return $status;
+    }
     
 }
 

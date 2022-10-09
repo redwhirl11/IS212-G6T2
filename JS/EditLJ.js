@@ -10,7 +10,6 @@ const app = Vue.createApp({
             reg_status: '',
             complete_status: '',
             courseDesc: '',
-            
             //default information
             LJ_ID: '',
             Staff_ID: '',
@@ -135,8 +134,8 @@ const app = Vue.createApp({
                         
                         // find the index of ljcourseid in the submittedcourse_dict
                         index = this.SubmittedCourse_dict.map(object =>object.SubmittedC_ID).indexOf(courseID); 
-                        // console.log(courseID);
-                        // console.log(index);
+                        console.log(courseID);
+                        console.log(index);
                         
                         //if index == -1 means the course has not been submitted before, checkbox checked = false (not selected)
                         if(index != -1){
