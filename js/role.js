@@ -3,20 +3,25 @@ function getAllRoles(){
     axios.get(url).
     then(response => {
         console.log(response.data)
+        const key = 'LJRole_Name';
+        const arrayUniqueByKey = [...new Map(response.data.map(item =>[item[key], item])).values()];    
+        console.log('here',arrayUniqueByKey)
         var card = '';
-        for (i=0; i<response.data.length; i++) {
+        for (i=0; i<arrayUniqueByKey.length; i++) {
+          console.log(arrayUniqueByKey[i])
           card += 
           `<div class="col-sm-6 col-lg-4">
             <div class="card">
-              <img class="card-img-top" src=" ${response.data[i].LJRole_img} " alt="Card image cap">
+              <img class="card-img-top" src=" ${arrayUniqueByKey[i].LJRole_img} " alt="Card image cap">
                 <div class="card-body">
-                  <h5 class="card-title"> ${response.data[i].LJRole_Name} </h5>
-                  <p class="card-text">${response.data[i].Key_Task}</p>
+                  <h5 class="card-title"> ${arrayUniqueByKey[i].LJRole_Name} </h5>
+                  <p class="card-text">${arrayUniqueByKey[i].Key_Task}</p>
                   <a href="#" class="btn btn-primary" id="styled" onClick="populateHeader(${i})">View More</a>
                 </div>
             </div>
           </div>`
         }
+
         document.getElementsByClassName('row')[0].innerHTML = card 
 
     })

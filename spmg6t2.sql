@@ -9,29 +9,9 @@ SET time_zone = "+00:00";
 drop database if exists spmg6t2;
 create database spmg6t2;
 use spmg6t2;
--- --------------------------------------------------------
-
---
--- Table structure for table `role`
---
-
-DROP TABLE IF EXISTS `role`;
-CREATE TABLE IF NOT EXISTS `role` (
-    `Role_ID` int(20) NOT NULL,
-    `Role_Name` varchar(20) NOT NULL,
-    PRIMARY KEY (`Role_ID`)
-);
-
---
--- Dumping data for table `role`
---
-INSERT INTO `role` (`Role_ID`,`Role_Name`)
-VALUES
-(1, 'Admin'),
-(2, 'User'),
-(3, 'Manager');
 
 -- --------------------------------------------------------
+
 --
 -- Table structure for table `role`
 --
@@ -236,7 +216,8 @@ INSERT INTO `ljroles` (`LJRole_ID`, `LJRole_Name`, `LJRole_Description`, `Depart
 (00003, 'Operation Manager','An Operations Manager oversees company organisational processes and adds improvements. Duties include hiring, training, implementing policies, strategies to improve productivity and building an enjoyable company culture.','Operation','1) Make important policy, planning, and strategy decisions. 2) Develop, implement, and review operational policies and procedures. 3)Work with the board of directors to plan for short and long-term goals','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00002),
 (00004, 'UIUX Developer','Hiring a passionate, user centred UIUX Designer to join a collaborative and innovative team to create visually delightful and easy-to-use digital products. A highly collaborative work with product managers and engineers.','Technology', '1) Create user-centred designs by understanding business requirements and user feedback 2)Create user flows, wireframes, prototypes, mockups 3) Incorporate customer feedback, usage metrics, and usability findings into design','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00003),
 (00005, 'Finance Officer','Finance Officer involves providing financial and administrative support to colleagues, clients and stakeholders of the business. It’s a role that may attract applicants keen to move up the financial corporate ladder','Finance','1) Assist in the preparation of budgets. 2) Manage records and receipts. 3) Reconcile daily, monthly and yearly transactions 4) Prepare balance sheets 4) Point of contact for other dept on financial and accounting issues','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00004),
-(00006, 'Sales Executive','Responsible for helping build up a business by identifying new business prospects and selling products to them. They must maintain relationships with current clients and build and maintain relationships with new clients.','Sales','1) Research and recommend prospects for new business opportunities. 2)Research and analyse sales options. 3)Build and maintain relationships with clients and prospects. 4) Build and maintain professional networks','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00005);
+(00006, 'Sales Executive','Responsible for helping build up a business by identifying new business prospects and selling products to them. They must maintain relationships with current clients and build and maintain relationships with new clients.','Sales','1) Research and recommend prospects for new business opportunities. 2)Research and analyse sales options. 3)Build and maintain relationships with clients and prospects. 4) Build and maintain professional networks','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00005),
+(00006, 'Sales Executive','Responsible for helping build up a business by identifying new business prospects and selling products to them. They must maintain relationships with current clients and build and maintain relationships with new clients.','Sales','1) Research and recommend prospects for new business opportunities. 2)Research and analyse sales options. 3)Build and maintain relationships with clients and prospects. 4) Build and maintain professional networks','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00002);
 
 
 -- --------------------------------------------------------
@@ -252,7 +233,7 @@ CREATE TABLE IF NOT EXISTS `learning_journey` (
     `SubmittedLJRole_ID` int NOT NULL,
     `Submitted_Skill_ID`int(5) NOT NULL,
     `Submitted_CourseID` varchar(20) NOT NULL,
-    PRIMARY KEY (`LJ_ID`),
+    PRIMARY KEY (`LJ_ID`,`Submitted_Skill_ID`,`Submitted_CourseID`),
     FOREIGN KEY (`Staff_ID`) REFERENCES staff(`Staff_ID`),
     FOREIGN KEY (`Submitted_CourseID`) REFERENCES course(`Course_ID`),
     FOREIGN KEY (`SubmittedLJRole_ID`) REFERENCES ljroles(`LJRole_ID`),
@@ -265,7 +246,7 @@ CREATE TABLE IF NOT EXISTS `learning_journey` (
 INSERT INTO  `learning_journey` (`LJ_ID`, `Staff_ID`,  `SubmittedLJRole_ID`,`Submitted_Skill_ID`,`Submitted_CourseID`) VALUES 
 (00001,1,00003,00002,'C3'),
 (00002,3,00001,00001,'C2'),
-(00003,3, 00001,00001,'C5'),
+(00002,3, 00001,00001,'C5'),
 (00004,1,00005,00004,'C6'),
 (00005,2,00004,00003,'C1');
 
