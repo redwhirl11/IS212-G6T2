@@ -54,7 +54,6 @@
         then(response => {
             console.log(response.data)
 
-            const skill_course_pairs = new Object()
             let all_course_pairs = []
             let unique_skills = []
             let all_skills = response.data
@@ -218,7 +217,7 @@
         }
 
         
-        /* Functuon to populate role*/
+        /* Function to populate role*/
         function populateRole() {
         var url = "../db/getAllRoles.php"
 
@@ -249,7 +248,7 @@
         }
 
 
-        /* Functuon to populate role*/
+        /* Function to populate role*/
         function populateTask(){
         var url = "../db/getAllRoles.php"
         
@@ -303,7 +302,7 @@
         }
 
         
-        /* Functuon to populate header*/
+        /* Function to populate header*/
         function populateHeader() {
         var url = "../db/getAllRoles.php"
         
@@ -314,7 +313,20 @@
             let header_html =  
             `
             <div class='contianer-fluid' id="myHeader">
-                <img id= 'logo' src="../Icons/Component 1.png">
+                <div class="row">
+
+                    <div class="col-lg-9 col-md-8">
+                        <img id= 'logo' src="../Icons/Component 1.png">
+                    </div>
+
+                    <div class="col-lg-3 col-md-4">
+                        <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="backBtn"
+                            style="border-radius: 20px">Back</button>
+                        <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="submitBtn"
+                            style="border-radius: 20px">Submit</button>
+                    </div>
+
+                </div>
                 <img src="../Icons/Vector 1.png" alt="Nature" class="responsive">
                 <p id="Header">
                     Step 2:  Select the skills & courses for your chosen role ${role} - ${dept}
@@ -332,17 +344,92 @@
         }
         
 
-        function getSelectedCoursesandSkills(){
-            console.log(document.getElementById("C5"))
-            /* ^Not sure why output is undefined even though DOM is already loaded*/
+        /* Function to redirect webpage when back button is clicked*/
+        
+        /*
+        function backbtnredirect(){
+            window.location.href = "role.html"
         }
+        */
+        
+        /* Handle user input */
+
+        let selected_courses = []
+        let selected_skills = []
+        let submitted_coursesandskills = {}
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            
+            console.log('DOM fully loaded and parsed')
+
+            let course_checkboxes = document.getElementsByTagName("input")
+
+            for (let i = 0; i < course_checkboxes.length; i++){
+                document.getElementById(course_checkboxes[i].id).addEventListener("change", function(){
+                    if (document.getElementById(course_checkboxes[i].id).checked){
+                        console.log(course_checkboxes[i].value + " is selected")
+                        selected_courses.push(course_checkboxes[i].value)
+                        console.log(selected_courses)
+                    }
+                    else{
+                        console.log(course_checkboxes[i].value + " is removed")
+                        for (let j = 0; j < selected_courses.length; j++){
+                            if (selected_courses[j] == course_checkboxes[i].value){
+                                selected_courses.splice(selected_courses.indexOf(course_checkboxes[i].value), 1)
+                            }
+                        }
+                        console.log(selected_courses)
+                    }
+                    
+                })
+            }
+            
+            document.getElementById("submitBtn").addEventListener("click", function(){
+
+                let coursesArranged = []
+                submitted_coursesandskills = {}
+
+                if (selected_skills.length > 0){
+                    selected_skills = []
+                }
+                for (let i = 0; i < selected_courses.length; i++){
+                    if (!selected_skills.includes(document.getElementById(selected_courses[i]).parentElement.id)){
+                            selected_skills.push(document.getElementById(selected_courses[i]).parentElement.id)
+                    }                   
+                }
+                console.log(selected_skills)
+
+                for (let i = 0; i < selected_skills.length; i++){
+                    let attached_courses = []
+                    for (let j = 0; j < selected_courses.length; j++){
+                        if (document.getElementById(selected_courses[j]).parentElement.id == selected_skills[i]){
+                            attached_courses.push(selected_courses[j])
+                        }
+                    }
+                    coursesArranged.push(attached_courses)
+                }
+                console.log(coursesArranged)
+
+                for (let i = 0; i < selected_skills.length; i++){
+                    submitted_coursesandskills[selected_skills[i]] = coursesArranged[i]
+                }
+                console.log("The object displayed below shows the skills and courses the user wants to submit \n\n key: skill ID \n value: array of course ID(s)")
+                console.log(submitted_coursesandskills)
+
+                /* need to redirect to learning journey page */
+            })
+
+            /* adding onclick event to back button (redirect to role page)*/
+            //document.getElementById("backBtn").addEventListener("click", backbtnredirect)
+         })
+         
+
         
         populateSkills()
         populateRole()
         populateTask()
         populateHeader() 
         getCourseData()
-        getSelectedCoursesandSkills()
 
    </script>
 
