@@ -9,29 +9,9 @@ SET time_zone = "+00:00";
 drop database if exists spmg6t2;
 create database spmg6t2;
 use spmg6t2;
--- --------------------------------------------------------
-
---
--- Table structure for table `role`
---
-
-DROP TABLE IF EXISTS `role`;
-CREATE TABLE IF NOT EXISTS `role` (
-    `Role_ID` int(20) NOT NULL,
-    `Role_Name` varchar(20) NOT NULL,
-    PRIMARY KEY (`Role_ID`)
-);
-
---
--- Dumping data for table `role`
---
-INSERT INTO `role` (`Role_ID`,`Role_Name`)
-VALUES
-(1, 'Admin'),
-(2, 'User'),
-(3, 'Manager');
 
 -- --------------------------------------------------------
+
 --
 -- Table structure for table `role`
 --
@@ -275,7 +255,7 @@ CREATE TABLE IF NOT EXISTS `learning_journey` (
     `SubmittedLJRole_ID` int NOT NULL,
     `Submitted_Skill_ID`int(5) NOT NULL,
     `Submitted_CourseID` varchar(20) NOT NULL,
-    PRIMARY KEY (`LJ_ID`),
+    PRIMARY KEY (`LJ_ID`,`Submitted_Skill_ID`,`Submitted_CourseID`),
     FOREIGN KEY (`Staff_ID`) REFERENCES staff(`Staff_ID`),
     FOREIGN KEY (`Submitted_CourseID`) REFERENCES course(`Course_ID`),
     FOREIGN KEY (`SubmittedLJRole_ID`) REFERENCES ljroles(`LJRole_ID`),
@@ -288,7 +268,7 @@ CREATE TABLE IF NOT EXISTS `learning_journey` (
 INSERT INTO  `learning_journey` (`LJ_ID`, `Staff_ID`,  `SubmittedLJRole_ID`,`Submitted_Skill_ID`,`Submitted_CourseID`) VALUES 
 (00001,1,00003,00002,'C3'),
 (00002,3,00001,00001,'C2'),
-(00003,3, 00001,00001,'C5'),
+(00002,3, 00001,00001,'C5'),
 (00004,1,00005,00004,'C6'),
 (00005,2,00004,00003,'C1');
 
