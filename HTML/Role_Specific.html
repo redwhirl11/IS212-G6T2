@@ -45,6 +45,8 @@
     
 
    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const indexValue = urlParams.get('index');
         
         /*Function to populate skills*/
         function populateSkills() {
@@ -223,7 +225,7 @@
 
         axios.get(url).
         then(response => {
-            let roledescription = response.data[2]['LJRole_Description']
+            let roledescription = response.data[indexValue]['LJRole_Description']
             let roledescription_html =  
             `
             <div class="RoleInfo" style="margin-top: 20px">
@@ -255,7 +257,7 @@
         axios.get(url).
         then(response => {
             console.log(response.data)
-            let keytask = response.data[2]['Key_Task']
+            let keytask = response.data[indexValue]['Key_Task']
             new_array = []
             string_concatenation = ""
             for (i=0; i < keytask.length; i++){
@@ -303,13 +305,15 @@
 
         
         /* Function to populate header*/
-        function populateHeader() {
+        console.log(indexValue);  
+        function populateHeader(indexValue) {
         var url = "../db/getAllRoles.php"
         
         axios.get(url).
         then(response => {
-            role = response.data[2]['LJRole_Name'] 
-            dept = response.data[2]['Department']
+            console.log('im here',response)
+            role = response.data[indexValue]['LJRole_Name'] 
+            dept = response.data[indexValue]['Department']
             let header_html =  
             `
             <div class='contianer-fluid' id="myHeader">
@@ -428,7 +432,7 @@
         populateSkills()
         populateRole()
         populateTask()
-        populateHeader() 
+        populateHeader(indexValue) 
         getCourseData()
 
    </script>

@@ -12,7 +12,7 @@ function getAllRoles(){
                 <div class="card-body">
                   <h5 class="card-title"> ${response.data[i].LJRole_Name} </h5>
                   <p class="card-text">${response.data[i].Key_Task}</p>
-                  <a href="#" class="btn btn-primary" id="styled" onClick="populateHeader(${i})">View More</a>
+                  <a href="Role_Specific.html?index=${i}" class="btn btn-primary" id="styled">View More</a>
                 </div>
             </div>
           </div>`
@@ -25,12 +25,3 @@ function getAllRoles(){
     })
 
   }
-
-function populateHeader(index) {
-    console.log(index)
-    var url = "../db/getAllRoles.php"
-    axios.get(url).
-    then(response => {
-        console.log(response.data[index])
-    })
-}
