@@ -26,20 +26,35 @@ const app = Vue.createApp({
         };
     },
     created() {
-        //modify the code -- wait for kw to pass the data LJRole_ID,LJ_ID,Staff_ID
+        //hardcode method-- wait for kw to pass the data LJRole_ID,LJ_ID,Staff_ID
         var LJRole_ID = 00002
         var LJ_ID = 00006
         var Staff_ID = 00002
+
+        //dynamic method
+        // const dataValue = localStorage.getItem('data');
+        // console.log(dataValue[0],dataValue[2],dataValue[4]);  
+        // this.LJ_ID = dataValue[0];
+        // this.Staff_ID = dataValue[2];
+        // this.SubmittedLJRole_ID = dataValue[4];
+        
 
         //relevant php file
         RoleDetailsUrl = '../db/getLJRoleDetails.php'
         RegCourseurl = '../db/getRegCourse.php'
         LjDetailsurl = '../db/getSubmittedLJRoleDetails.php'
+        //hardcode method
         const RoleDetaildata = { LJRole_ID: LJRole_ID }
-        const LJDetaildata = { LJ_ID: LJ_ID }
-        const RegCourseData = { Staff_ID: Staff_ID }
+        const LJDetaildata = { LJ_ID:LJ_ID }
+        const RegCourseData = { Staff_ID: Staff_ID}
+        
+        //dynamic method
+        // const RoleDetaildata = { LJRole_ID: this.SubmittedLJRole_ID }
+        // const LJDetaildata = { LJ_ID: this.LJ_ID  }
+        // const RegCourseData = { Staff_ID: this.Staff_ID }
 
-        //get the default information
+
+        ////hardcode method=get the default information 
         this.LJ_ID = LJ_ID;
         this.Staff_ID = Staff_ID;
         this.SubmittedLJRole_ID = LJRole_ID;
