@@ -47,6 +47,8 @@ const homepage = Vue.createApp({
                 var LJroleName = LJdata[i].LJRole_Name;
                 var SkillId = LJdata[i].Skill_ID; //a LJ can have zero-many skills
                 var SkillName = LJdata[i].Skill_Name;
+                var StaffId = LJdata[i].Staff_ID;
+                var RoleId = LJdata[i].LJRole_ID ;
 
                 //if it is a new LJ
                 if(!tempRoleDict[LJid]){
@@ -57,7 +59,7 @@ const homepage = Vue.createApp({
                         tempSkillDict[SkillId]= {SkillId:SkillId, SkillName: SkillName}
                     }
                     tempRoleDict[LJid] ={role:LJroleName, skill:tempSkillDict}
-                    this.AllRoles_dict.push({LJid: LJid, LJrole:LJroleName, skill:tempSkillDict})
+                    this.AllRoles_dict.push({LJid: LJid, LJrole:LJroleName, skill:tempSkillDict, StaffId:StaffId,RoleId:RoleId })
                 }
 
                 //if LJ already exist but another skills & course
@@ -98,9 +100,13 @@ const homepage = Vue.createApp({
                     }
                 }
             }
-            console.log(this.Allcourses_dict)
             return this.Allcourses_dict
-        },       
+        },
+        getDataSend(LJid,StaffId,RoleId){
+            localStorage.setItem('data', [LJid,StaffId,RoleId])
+            console.log(localStorage)
+
+        }    
     }
 })
 const homepagevm = homepage.mount("#homepage");
