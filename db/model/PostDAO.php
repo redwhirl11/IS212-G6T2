@@ -4,41 +4,59 @@ require_once 'common.php';
 
 class PostDAO {
     public function getSubmittedRoleDetails($LJ_ID) {
-        // STEP 1
-        $connMgr = new ConnectionManager();
-        $conn = $connMgr->connect();
-
-        // STEP 2
-        $sql = "SELECT
-                    SubmittedLJRole_ID, Submitted_Skill_ID, Submitted_CourseID
-                FROM learning_journey
+         // STEP 1
+         $connMgr = new ConnectionManager();
+         $conn = $connMgr->connect();
+         
+         // STEP 2
+         $sql = "SELECT
+                    LJ_ID, Staff_ID, LJRole_ID, LJRole_Name, LJRole_Description, Department, Key_Task, LJRole_img, skills.Skill_ID, Skill_Name, Type_of_Skills,Level_of_Competencies, Skill_img, course.Course_ID , Course_Name, Course_Desc,Course_Type, Course_Category  
+                FROM learning_journey 
+                JOIN ljroles ON ljroles.LJRole_ID = learning_journey.SubmittedLJRole_ID
+                JOIN skills ON skills.Skill_ID = learning_journey.Submitted_Skill_ID
+                JOIN course ON course.Course_ID = learning_journey.Submitted_CourseID
                 WHERE
-                LJ_ID= :LJ_ID"; 
-        $stmt = $conn->prepare($sql);
-
-        $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);
-
-        // STEP 3
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-        // STEP 4
-        $SubmittedLJRole = []; // Indexed Array of Post objects
-        while( $row = $stmt->fetch() ) {
-            $SubmittedLJRole[] =
-                new Post (
-                    $row['SubmittedLJRole_ID'],
-                    $row['SubmittedSkill_ID'],
-                    $row['Submitted_CourseID']
-                    );
-        }
-
-        // STEP 5
-        $stmt = null;
-        $conn = null;
-
-        // STEP 6
-        return $SubmittedLJRole;
+                LJ_ID= :LJ_ID and skills.Skill_ID =ljroles.Skill_ID and  skills.Course_ID = course.Course_ID"; 
+         $stmt = $conn->prepare($sql);
+ 
+         $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);
+ 
+         // STEP 3
+         $stmt->execute();
+         $stmt->setFetchMode(PDO::FETCH_ASSOC);
+ 
+         // STEP 4
+         $SubmittedLJRole = []; // Indexed Array of Post objects
+         while( $row = $stmt->fetch() ) {
+             $SubmittedLJRole[] =
+                 new SubmittedLJRole (
+                     $row['LJ_ID'],
+                     $row['Staff_ID'],
+                     $row['LJRole_ID'],
+                     $row['LJRole_Name'],
+                     $row['LJRole_Description'],
+                     $row['Department'],
+                     $row['Key_Task'],
+                     $row['LJRole_img'],
+                     $row['Skill_ID'],
+                     $row['Skill_Name'],
+                     $row['Type_of_Skills'],
+                     $row['Level_of_Competencies'],
+                     $row['Skill_img'],
+                     $row['Course_ID'],
+                     $row['Course_Name'],
+                     $row['Course_Desc'],
+                     $row['Course_Type'],
+                     $row['Course_Category']
+                     );
+         }
+ 
+         // STEP 5
+         $stmt = null;
+         $conn = null;
+ 
+         // STEP 6
+         return $SubmittedLJRole;
     }
 
     public function getAllRoles() {
@@ -229,6 +247,70 @@ class PostDAO {
         // STEP 6
         return $RegCourses;
     }
+
+    public function saveEditedLJ($LJ_ID, $Staff_ID, $SubmittedLJRole_ID,$Submitted_Skill_ID,$Submitted_CourseID) {
+        // STEP 1   
+        $connMgr = new ConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2
+        $sql = "INSERT INTO learning_journey
+                    (
+                        LJ_ID, 
+                        Staff_ID,
+                        SubmittedLJRole_ID,
+                        Submitted_Skill_ID,
+                        Submitted_CourseID
+                    )
+                VALUES
+                    (
+                        :LJ_ID,
+                        :Staff_ID,
+                        :SubmittedLJRole_ID,
+                        :Submitted_Skill_ID,
+                        :Submitted_CourseID
+                    )";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);
+        $stmt->bindParam(':Staff_ID', $Staff_ID, PDO::PARAM_STR);
+        $stmt->bindParam(':SubmittedLJRole_ID', $SubmittedLJRole_ID, PDO::PARAM_STR);
+        $stmt->bindParam(':Submitted_Skill_ID', $Submitted_Skill_ID, PDO::PARAM_STR);
+        $stmt->bindParam(':Submitted_CourseID', $Submitted_CourseID, PDO::PARAM_STR);
+
+        //STEP 3
+        $status = $stmt->execute();
+        
+        // STEP 4
+        $stmt = null;
+        $conn = null;
+
+        // STEP 5
+        return $status;
+    }
+
+    public function deleteEditedLJcourses($LJ_ID, $Staff_ID) {
+        // STEP 1   
+        $connMgr = new ConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2
+        $sql = "DELETE FROM learning_journey 
+                WHERE LJ_ID = :LJ_ID and Staff_ID = :Staff_ID";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);
+        $stmt->bindParam(':Staff_ID', $Staff_ID, PDO::PARAM_STR);
+
+        //STEP 3
+        $status = $stmt->execute();
+        
+        // STEP 4
+        $stmt = null;
+        $conn = null;
+
+        // STEP 5
+        return $status;
+    }
+    
 }
 
 ?>

@@ -1,0 +1,69 @@
+/* #learningJourney{
+    position: absolute;
+    width: 100%;
+    height: 80%;
+    left: 0px;
+    top: 0px;
+    background: #6A79F3;
+  }  */
+
+#Header {
+  position: absolute;
+  top: 196px;
+  padding-right: 100px;
+  padding-left: 100px ;
+  margin: auto;
+  font-family: 'Inter';
+  font-weight: 600;
+  font-size: 3.5vw;
+  line-height: 61px;
+  text-align: center;
+  letter-spacing: 0.01em;
+  color: #FFFFFF;
+  } 
+
+.accordion-header h1{
+  display: inline-block; 
+  font-family: 'Inter'; 
+  font-weight: 600; 
+  font-size: 20px;
+}
+
+  /* .responsive {
+    position: absolute;
+    width: 100%;
+    height: auto;
+    top: 95px;
+  } */
+
+  /* .RoleInfo {
+    position: relative;
+    width: 90%;
+    height: 246px;
+    margin: auto;
+    top: 430px;
+    padding: 40px 40px 40px 40px;
+    background: #FFFFFF;
+    border: 1px solid #E4EBFF;
+    box-shadow: 0px 0px 10px
+    rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+    
+  } */
+
+  /* #content1 {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0.01em;
+  } */
+
+  #logo {
+    position: absolute;
+    left: 77px;
+    top: 35.2px;
+    width: 51.35px;
+    height: 34.8px;
+  }
