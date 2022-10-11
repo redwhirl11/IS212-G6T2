@@ -31,17 +31,21 @@
       <!-- Key Task-->
     <div id="keytask"></div>
 
-
-     <!-- Skills & Courses Header-->
-    <div class="RoleInfo" style="margin-top:41px; height: 110px;">
-        <div>
-            <img src="../Icons/skillsandcourses.png" style="display: inline-block; width: 31px; height: 31px; margin-bottom: 12px; margin-right: 15px;">
-            <h1 style="display: inline-block; font-family: Inter; font-weight: 550; font-size: 25px;">Skills & Courses</h1>
-        </div>
-    </div>
-
     <!-- Skills-->
-     <div id="skills"></div>
+    
+     <div class="accordion RoleInfo" id="accordionExample" style="margin-top: 41px; margin-bottom: 500px;">
+        <div class="accordion-item border-0">
+            <h2 class="accordion-header" id="flush-headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                <img src="../Icons/skillsandcourses.png" style="display: inline-block; width: 31px; height: 31px; margin-bottom: 12px; margin-right: 15px;">
+                <h1 style="display: inline-block; font-family: Inter; font-weight: 550; font-size: 25px;">Skills & Courses</h1>
+              </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body" id="skills"></div>
+            </div>
+          </div>
+     </div>
     
 
    <script>
@@ -117,7 +121,7 @@
             console.log(Role_Skills[i])
 
             let indiv_skill_html =                     
-                    `<div class="RoleInfo" style="margin-top:41px; padding: 0px 0px 0px 0px">
+                    `<div class="RoleInfo2" style="margin-bottom:41px; padding: 0px 0px 0px 0px">
                         <div class="row">
                             <div class="col">
                                 <img src=${Role_Skills[i].Skill_img} style="width: 497px; height: 408px; border-radius: 5px">
@@ -366,14 +370,20 @@
             let roledescription = response.data[2]['LJRole_Description']
             let roledescription_html =  
             `
-            <div class="RoleInfo" style="margin-top: 20px">
-                <div style="margin-bottom: 10px;">
-                    <img src="../Icons/Role Description.png" style="display: inline-block; width: 31px; height: 31px; margin-bottom: 15px; margin-right: 15px;">
-                    <h1 style="display: inline-block; font-family: Inter; font-weight: 550; font-size: 25px;">Role Description</h1>
+            <div class="accordion RoleInfo" id="accordionExample" style="margin-top: 130px;">
+                <div class="accordion-item border-0">
+                    <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <img src="../Icons/Role Description.png" style="display: inline-block; width: 31px; height: 31px; margin-bottom: 15px; margin-right: 15px;">
+                        <h1 style="display: inline-block; font-family: Inter; font-weight: 550; font-size: 25px;">Role Description</h1>
+                    </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        ${roledescription}
+                    </div>
+                    </div>
                 </div>
-                <p>
-                   ${roledescription}
-                </p>
             </div>
                     
             `      
@@ -386,6 +396,7 @@
         })
 
         }
+
 
 
         /* Function to populate role*/
@@ -414,11 +425,19 @@
             
             let keytask_html =  
             `
-            <div class="RoleInfo" style="margin-top:41px;">
-            <div style="margin-bottom: 10px;">
-            <img src="../Icons/Keytask.png" style="display: inline-block; width: 31px; height: 31px; margin-bottom: 12px; margin-right: 15px;">
-            <h1 style="display: inline-block; font-family: Inter; font-weight: 550; font-size: 25px;">Key Tasks</h1>
-            </div>`
+            <div class="accordion RoleInfo" id="accordionExample" style="margin-top: 41px;">
+                <div class="accordion-item border-0">
+                        <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            <img src="../Icons/Keytask.png" style="display: inline-block; width: 31px; height: 31px; margin-bottom: 12px; margin-right: 15px;">
+                            <h1 style="display: inline-block; font-family: Inter; font-weight: 550; font-size: 25px;">Key Tasks</h1>
+                        </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+
+                        
+                   `
 
             
             for (i=0; i < new_array.length; i++){
@@ -430,7 +449,12 @@
             }
             console.log(keytask_html)
             
-            document.getElementById("keytask").innerHTML += keytask_html
+            document.getElementById("keytask").innerHTML += keytask_html + 
+            
+            ` </div>
+                    </div>
+                </div>
+            </div>`
 
         })
         .catch(error => {
