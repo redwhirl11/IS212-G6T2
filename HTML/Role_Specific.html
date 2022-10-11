@@ -45,10 +45,35 @@
     
 
    <script>
-        
-        /*Function to populate skills*/
+
+         /*Function to populate skills*/
         function populateSkills() {
+        var LJRole_ID = 00004
+        var LJurl = "../db/getLJRoleDetails.php"
         var url = "../db/getSkills.php"
+        const ROLEDETAILS = {LJRole_ID:LJRole_ID}
+        var Skill_IDs = []
+        var Role_Skills = []
+
+        axios.get(LJurl, {
+            params: ROLEDETAILS
+        })
+        .then(response => {
+            console.log(response.data)
+            for (let i = 0; i < response.data.length; i++){
+                if (!Skill_IDs.includes(response.data[i]['Skill_ID'])){
+                    Skill_IDs.push(response.data[i]['Skill_ID'])
+                }
+            }
+        
+            console.log(Skill_IDs)
+
+
+        })
+        .catch(error => {
+            console.log(error.message)
+        })
+
 
         axios.get(url).
         then(response => {
@@ -75,43 +100,62 @@
             }
             console.log(unique_skills)
 
+        for (let i = 0; i < Skill_IDs.length; i++){
+            for (let j = 0; j < unique_skills.length; j++){
+                if(Skill_IDs[i] == unique_skills[j]['Skill_ID']){
+      
+                    Role_Skills.push(unique_skills[j])
 
-            for (let i = 0; i < unique_skills.length; i++){
+                }
+        }
+        }
 
-                let indiv_skill_html =                     
+        console.log(Role_Skills)
+
+        for (let i= 0; i < Role_Skills.length; i++){
+
+            console.log(Role_Skills[i])
+
+            let indiv_skill_html =                     
                     `<div class="RoleInfo" style="margin-top:41px; padding: 0px 0px 0px 0px">
                         <div class="row">
                             <div class="col">
-                                <img src=${unique_skills[i].Skill_img} style="width: 497px; height: 408px; border-radius: 5px">
+                                <img src=${Role_Skills[i].Skill_img} style="width: 497px; height: 408px; border-radius: 5px">
                             </div>
                             <div class="col" style="margin:auto">
                                 <div class="card-body">
-                                    <div class="card-text" id=${unique_skills[i].Skill_ID}>
-                                        <h1 style="font-family: Inter; font-weight: 550; font-size: 25px;">${unique_skills[i].Skill_Name}</h1>
-                                        <p style="display: inline-block; font-family: Inter; font-weight: 500;">Type of Skills: &nbsp;</p><p style="display: inline-block;">${unique_skills[i].Type_of_Skills}</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <p style="display: inline-block; font-family: Inter; font-weight: 500;">Competency level: &nbsp;</p><p style="display: inline-block;">${unique_skills[i].Level_of_Competencies}</p><br><br>
+                                    <div class="card-text" id=${Role_Skills[i].Skill_ID}>
+                                        <h1 style="font-family: Inter; font-weight: 550; font-size: 25px;">${Role_Skills[i].Skill_Name}</h1>
+                                        <p style="display: inline-block; font-family: Inter; font-weight: 500;">Type of Skills: &nbsp;</p><p style="display: inline-block;">${Role_Skills[i].Type_of_Skills}</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <p style="display: inline-block; font-family: Inter; font-weight: 500;">Competency level: &nbsp;</p><p style="display: inline-block;">${Role_Skills[i].Level_of_Competencies}</p><br><br>
                                         <h1 style="font-family: Inter; font-weight: 550; font-size: 20px;">Courses</h1>`
                     
                 document.getElementById("skills").innerHTML += indiv_skill_html
-            }
 
-            for (let i = 0; i < unique_skill_id.length; i++){
+        }
+
+        console.log(all_skills)
+        console.log(Skill_IDs)
+
+
+        for (let i = 0; i < Skill_IDs.length; i++){
+                
                 let course_pairs = []
                 
                 for (let j = 0; j < all_skills.length; j++){
-                    if (unique_skill_id[i] == all_skills[j].Skill_ID){
+                    if (Skill_IDs[i] == all_skills[j].Skill_ID){
                         course_pairs.push(all_skills[j].Course_ID)
                     }
                 }
                 
                 all_course_pairs.push(course_pairs)
-            }
+                }
 
             console.log(all_course_pairs)
 
-
-            for (let i = 0; i < unique_skill_id.length; i++){
+            for (let i = 0; i < Skill_IDs.length; i++){
                 for (let j = 0; j < all_course_pairs[i].length; j++){
+
                         let indv_course_html =    
                            `<div id=${all_course_pairs[i][j]} class="form-check courses" style="display:inline-block; margin-top: 20px">
                                 <input class="form-check-input" type="checkbox" value=${all_course_pairs[i][j]} id=${all_course_pairs[i][j]}name>
@@ -126,15 +170,110 @@
                             </div> 
                         
 `
-                        document.getElementById(unique_skill_id[i]).innerHTML += indv_course_html 
-                        document.getElementById(unique_skill_id[i]).innerHTML += `</div></div></div></div></div>`                
+                        document.getElementById(Skill_IDs[i]).innerHTML += indv_course_html 
+                        document.getElementById(Skill_IDs[i]).innerHTML += `</div></div></div></div></div>`                
                 }
             }
+
+
         })
         .catch(error => {
             console.log(error.message)
         })
-        }
+    }
+        
+
+
+        /*Function to populate skills*/
+//         function populateSkills() {
+
+//         var url = "../db/getSkills.php"
+
+//         axios.get(url).
+//         then(response => {
+//             console.log(response.data)
+
+//             let all_course_pairs = []
+//             let unique_skills = []
+//             let all_skills = response.data
+//             let unique_skill_id = []
+//             for (let i = 0; i < all_skills.length; i++){
+//                 if (!unique_skill_id.includes(all_skills[i].Skill_ID)){
+//                     unique_skill_id.push(all_skills[i].Skill_ID)
+//                 }
+//             }
+//             console.log(unique_skill_id)
+
+//             for (let i = 0; i < unique_skill_id.length; i++){
+//                 for (let j = 0; j < all_skills.length; j++){
+//                     if (unique_skill_id[i] == all_skills[j].Skill_ID){
+//                         unique_skills.push(all_skills[j])
+//                         break
+//                     }
+//                 }
+//             }
+//             console.log(unique_skills)
+
+
+//             for (let i = 0; i < unique_skills.length; i++){
+
+//                 let indiv_skill_html =                     
+//                     `<div class="RoleInfo" style="margin-top:41px; padding: 0px 0px 0px 0px">
+//                         <div class="row">
+//                             <div class="col">
+//                                 <img src=${unique_skills[i].Skill_img} style="width: 497px; height: 408px; border-radius: 5px">
+//                             </div>
+//                             <div class="col" style="margin:auto">
+//                                 <div class="card-body">
+//                                     <div class="card-text" id=${unique_skills[i].Skill_ID}>
+//                                         <h1 style="font-family: Inter; font-weight: 550; font-size: 25px;">${unique_skills[i].Skill_Name}</h1>
+//                                         <p style="display: inline-block; font-family: Inter; font-weight: 500;">Type of Skills: &nbsp;</p><p style="display: inline-block;">${unique_skills[i].Type_of_Skills}</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+//                                         <p style="display: inline-block; font-family: Inter; font-weight: 500;">Competency level: &nbsp;</p><p style="display: inline-block;">${unique_skills[i].Level_of_Competencies}</p><br><br>
+//                                         <h1 style="font-family: Inter; font-weight: 550; font-size: 20px;">Courses</h1>`
+                    
+//                 document.getElementById("skills").innerHTML += indiv_skill_html
+//             }
+
+//             for (let i = 0; i < unique_skill_id.length; i++){
+//                 let course_pairs = []
+                
+//                 for (let j = 0; j < all_skills.length; j++){
+//                     if (unique_skill_id[i] == all_skills[j].Skill_ID){
+//                         course_pairs.push(all_skills[j].Course_ID)
+//                     }
+//                 }
+                
+//                 all_course_pairs.push(course_pairs)
+//             }
+
+//             console.log(all_course_pairs)
+
+
+//             for (let i = 0; i < unique_skill_id.length; i++){
+//                 for (let j = 0; j < all_course_pairs[i].length; j++){
+//                         let indv_course_html =    
+//                            `<div id=${all_course_pairs[i][j]} class="form-check courses" style="display:inline-block; margin-top: 20px">
+//                                 <input class="form-check-input" type="checkbox" value=${all_course_pairs[i][j]} id=${all_course_pairs[i][j]}name>
+//                                 <label class="form-check-label" for=${all_course_pairs[i][j]}name>
+//                                 User Experience Design 
+//                                 </label>
+                                                              
+//                                 <button id=${all_course_pairs[i][j]}info type="button" style="background-color: Transparent; border: none">
+//                                 <img src= "../Icons/MoreInfo.png"  data-bs-target="#staticBackdrop">
+//                                 </button>
+                                   
+//                             </div> 
+                        
+// `
+//                         document.getElementById(unique_skill_id[i]).innerHTML += indv_course_html 
+//                         document.getElementById(unique_skill_id[i]).innerHTML += `</div></div></div></div></div>`                
+//                 }
+//             }
+//         })
+//         .catch(error => {
+//             console.log(error.message)
+//         })
+//     }
 
 
         /*Function to populate courses*/
@@ -143,6 +282,7 @@
 
         axios.get(url).
         then(response => {
+            
             console.log(response.data)
 
             let all_courses = response.data
@@ -425,11 +565,13 @@
          
 
         
-        populateSkills()
+        // populateSkills()
         populateRole()
         populateTask()
         populateHeader() 
+        populateSkills()
         getCourseData()
+
 
    </script>
 
