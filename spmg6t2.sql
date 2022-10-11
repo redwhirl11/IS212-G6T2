@@ -124,6 +124,8 @@ VALUES
     'Active','Internal','Technical');
 
 -- --------------------------------------------------------
+
+
 --
 -- Table structure for table `registration`
 --
