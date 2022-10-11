@@ -312,8 +312,11 @@
         axios.get(url).
         then(response => {
             console.log('im here',response)
-            role = response.data[indexValue]['LJRole_Name'] 
-            dept = response.data[indexValue]['Department']
+            const key = 'LJRole_Name';
+            const arrayUniqueByKey = [...new Map(response.data.map(item =>[item[key], item])).values()];    
+            console.log('here',arrayUniqueByKey)
+            role = arrayUniqueByKey[indexValue]['LJRole_Name'] 
+            dept = arrayUniqueByKey[indexValue]['Department']
             let header_html =  
             `
             <div class='contianer-fluid' id="myHeader">
