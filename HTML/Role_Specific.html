@@ -46,6 +46,8 @@
 
    <script>
         
+        
+
         /*Function to populate skills*/
         function populateSkills() {
         var url = "../db/getSkills.php"
@@ -416,7 +418,40 @@
                 console.log("The object displayed below shows the skills and courses the user wants to submit \n\n key: skill ID \n value: array of course ID(s)")
                 console.log(submitted_coursesandskills)
 
-                /* need to redirect to learning journey page */
+
+                if (Object.keys(submitted_coursesandskills).length === 0){
+                    Swal.fire({
+                        title: 'No courses selected',
+                        icon: 'warning',
+                        focusConfirm: true,
+                        confirmButtonText: 'Back',
+                        confirmButtonColor: '#6A79F3',
+                        cancelButtonColor: '#d33',
+                    })
+                }
+                else {
+                    Swal.fire({
+                                title: 'Submit your Learning Journey?',
+                                text: "Please check information before submitting!",
+                                icon: "warning",
+                                showCancelButton: true,
+                                cancelButtonColor: '#c7c6c5',
+                                confirmButtonColor: '#6A79F3',        
+                                confirmButtonText: 'Submit',
+                                cancelButtonText: 'Cancel',
+                                width: 'auto',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    Swal.fire(
+                                            'Congratulations!',
+                                            'Your Learning Journey has been successfully saved!',
+                                            'success',
+                                        )
+                                    // redirect to home page
+                                }
+                            })
+                }
+                
             })
 
             /* adding onclick event to back button (redirect to role page)*/
