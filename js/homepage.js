@@ -3,6 +3,9 @@ const homepage = Vue.createApp({
         return {
             AllRoles_dict: [],
             Allcourses_dict: [],
+            lj_id : '',
+            staffid : '',
+            roleid : ''
 
         }
     },
@@ -103,9 +106,15 @@ const homepage = Vue.createApp({
             return this.Allcourses_dict
         },
         getDataSend(LJid,StaffId,RoleId){
-            localStorage.setItem('data', [LJid,StaffId,RoleId])
-            console.log(localStorage)
+            this.lj_id = LJid;
+            this.staffid = StaffId;
+            this.roleid = RoleId;
+            localStorage.setItem('data', [this.lj_id,this.staffid ,this.roleid ])
 
+            window.location.href = "editLJ.html";
+            this.lj_id = '';
+            this.staffid = '';
+            this.roleid = '';
         }    
     }
 })
