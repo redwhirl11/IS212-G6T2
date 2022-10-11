@@ -48,7 +48,7 @@
 
          /*Function to populate skills*/
         function populateSkills() {
-        var LJRole_ID = 00004
+        var LJRole_ID = 00002
         var LJurl = "../db/getLJRoleDetails.php"
         var url = "../db/getSkills.php"
         const ROLEDETAILS = {LJRole_ID:LJRole_ID}
@@ -599,11 +599,12 @@
 
         
         // populateSkills()
+        populateSkills()
+        getCourseData()
         populateRole()
         populateTask()
         populateHeader() 
-        populateSkills()
-        getCourseData()
+
 
 
    </script>
