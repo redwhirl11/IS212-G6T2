@@ -78,8 +78,8 @@
                                         {{courses.CourseName}} &nbsp&nbsp
                                         <span class="badge rounded-pill" style="background-color: #5EE1AA" v-if="courses.CompletionStatus =='Completed'">Completed</span>&nbsp&nbsp
                                         <span class="badge rounded-pill" style="background-color: red" v-else-if="courses.RegStatus=='Rejected'">Rejected</span>&nbsp&nbsp
-                                        <span class="badge rounded-pill" style="background-color: skyblue" v-else-if="courses.RegStatus=='Waiting'">Waiting</span>&nbsp&nbsp
-                                        <span class="badge rounded-pill" style="background-color: #919CF8" v-else>Registered</span>&nbsp&nbsp
+                                        <span class="badge rounded-pill" style="background-color: skyblue" v-else-if="courses.RegStatus=='Registered'">Registered</span>&nbsp&nbsp
+                                        <span class="badge rounded-pill" style="background-color: #919CF8" v-else>Waiting</span>&nbsp&nbsp
                                     </span>
                                 </span>
                             </li>

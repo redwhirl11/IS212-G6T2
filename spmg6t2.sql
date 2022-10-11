@@ -124,8 +124,6 @@ VALUES
     'Active','Internal','Technical');
 
 -- --------------------------------------------------------
-
-
 --
 -- Table structure for table `registration`
 --
@@ -148,8 +146,9 @@ INSERT INTO  `registration` (`Reg_ID`, `Course_ID`, `Staff_ID`, `Reg_Status`, `C
 (1,'C3',1,'Registered','Not Complete'),
 (2,'C6',1,'Waiting','Not Complete'),
 (3,'C2',3,'Registered','Completed'),
-(4,'C5',3,'Registered','Not Complete'),
-(5,'C1',2,'Rejected','Not Complete');
+(4,'C5',3,'Rejected','Not Complete'),
+(5,'C5',2,'Registered','Completed'),
+(6,'C3',2,'Waiting','Not Complete');
 
 -- --------------------------------------------------------
 --
@@ -212,7 +211,9 @@ CREATE TABLE IF NOT EXISTS `ljroles` (
 
 INSERT INTO `ljroles` (`LJRole_ID`, `LJRole_Name`, `LJRole_Description`, `Department`, `Key_Task`,`LJRole_Status`,`LJRole_img`,`Skill_ID`) VALUES
 (00001, 'Regional Data Analyst', 'The Data Analyst partners with Regional Operations teams to provide analytical support to help the team achieve objectives.The Data Analyst masters both the data and business domains to play a key role in decision-making','Operation','1) Sourcing and analysing new data sources. 2)Provide actionable recommendations based on data insights to drive business outcomes. 3)Create reports and visualisation tools (dashboards) to facilitate understanding of data','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00001),
-(00002, 'Business Intelligence Analyst','The Business Intelligence Analyst will gather, analyze, and compile data needed to identify trends and patterns, then make recommendations for business actions.','Operation','1) Assesses market strategies by analysing related products, markets, or trends. 2) Identifies markets for future product development and methods to improve sales of existing products by analysing technology trends.','InActive','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00001),
+(00002, 'Business Intelligence Analyst','The Business Intelligence Analyst will gather, analyze, and compile data needed to identify trends and patterns, then make recommendations for business actions.','Operation','1) Assesses market strategies by analysing related products, markets, or trends. 2) Identifies markets for future product development and methods to improve sales of existing products by analysing technology trends.','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00001),
+(00002, 'Business Intelligence Analyst','The Business Intelligence Analyst will gather, analyze, and compile data needed to identify trends and patterns, then make recommendations for business actions.','Operation','1) Assesses market strategies by analysing related products, markets, or trends. 2) Identifies markets for future product development and methods to improve sales of existing products by analysing technology trends.','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00002),
+(00002, 'Business Intelligence Analyst','The Business Intelligence Analyst will gather, analyze, and compile data needed to identify trends and patterns, then make recommendations for business actions.','Operation','1) Assesses market strategies by analysing related products, markets, or trends. 2) Identifies markets for future product development and methods to improve sales of existing products by analysing technology trends.','InActive','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00004),
 (00003, 'Operation Manager','An Operations Manager oversees company organisational processes and adds improvements. Duties include hiring, training, implementing policies, strategies to improve productivity and building an enjoyable company culture.','Operation','1) Make important policy, planning, and strategy decisions. 2) Develop, implement, and review operational policies and procedures. 3)Work with the board of directors to plan for short and long-term goals','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00002),
 (00004, 'UIUX Developer','Hiring a passionate, user centred UIUX Designer to join a collaborative and innovative team to create visually delightful and easy-to-use digital products. A highly collaborative work with product managers and engineers.','Technology', '1) Create user-centred designs by understanding business requirements and user feedback 2)Create user flows, wireframes, prototypes, mockups 3) Incorporate customer feedback, usage metrics, and usability findings into design','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00003),
 (00005, 'Finance Officer','Finance Officer involves providing financial and administrative support to colleagues, clients and stakeholders of the business. It’s a role that may attract applicants keen to move up the financial corporate ladder','Finance','1) Assist in the preparation of budgets. 2) Manage records and receipts. 3) Reconcile daily, monthly and yearly transactions 4) Prepare balance sheets 4) Point of contact for other dept on financial and accounting issues','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00004),
@@ -247,6 +248,9 @@ INSERT INTO  `learning_journey` (`LJ_ID`, `Staff_ID`,  `SubmittedLJRole_ID`,`Sub
 (00002,3,00001,00001,'C2'),
 (00002,3, 00001,00001,'C5'),
 (00004,1,00005,00004,'C6'),
-(00005,2,00004,00003,'C1');
+(00005,2,00004,00003,'C1'),
+(00006,2,00002,00001,'C5'),
+(00006,2,00002,00002,'C3');
+-- (00006,2,00002,00004,'C6');
 
 COMMIT;
