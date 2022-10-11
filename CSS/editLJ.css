@@ -1,11 +1,11 @@
-#learningJourney{
+/* #learningJourney{
     position: absolute;
     width: 100%;
     height: 80%;
     left: 0px;
     top: 0px;
     background: #6A79F3;
-  } 
+  }  */
 
 #Header {
   position: absolute;
@@ -19,7 +19,6 @@
   line-height: 61px;
   text-align: center;
   letter-spacing: 0.01em;
-
   color: #FFFFFF;
   } 
 
