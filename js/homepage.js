@@ -12,7 +12,7 @@ const homepage = Vue.createApp({
     mounted:function()  {
             //calling LJ data
             LJurl="../db/getLearningJourney.php"
-            var Staff_ID = 00000
+            var Staff_ID = 00002
             const data ={Staff_ID:Staff_ID}
 
             axios.get(LJurl, {
@@ -103,6 +103,7 @@ const homepage = Vue.createApp({
                     }
                 }
             }
+            console.log(this.Allcourses_dict);
             return this.Allcourses_dict
         },
         getDataSend(LJid,StaffId,RoleId){
