@@ -53,7 +53,7 @@
 
          /*Function to populate skills*/
         function populateSkills() {
-        var LJRole_ID = 00001
+        var LJRole_ID = 00002
         var LJurl = "../db/getLJRoleDetails.php"
         var url = "../db/getSkills.php"
         const ROLEDETAILS = {LJRole_ID:LJRole_ID}
@@ -516,6 +516,7 @@
 
         }
         
+        
         function latestLJ_ID(){
             var url = "../db/getLatestLJ_ID.php"
 
@@ -651,14 +652,15 @@
                                                 })
                                                 .then(response=>{
                                                     console.log(response.data)
-                                                    Swal.fire(
-                                                        'Congratulations!',
-                                                        'Your changes have been successfully saved!',
-                                                        'success',
-                                                    )
+                                                    Swal.fire({
+                                                        icon:  'success',
+                                                        title: 'Your learning journey have been successfully created!',
+                                                        showConfirmButton: true,
+                                                        confirmButtonColor: '#6A79F3',
+                                                    })
                                                     // code below is supposed to redirect to home page but haven't merge with home page
                                                     // so role specific page will just refresh after submitting user input for now
-                                                    window.location.reload()
+                                                    // window.location.reload()
                                                 })
                                                 .catch(error=>{
                                                     console.log(error.message)
@@ -687,14 +689,15 @@
                                         })
                                         .then(response=>{
                                             console.log(response.data)
-                                            Swal.fire(
-                                                'Congratulations!',
-                                                'Your changes have been successfully saved!',
-                                                'success',
-                                            )
+                                            Swal.fire({
+                                                icon: 'success',
+                                                title: 'Your learning journey have been successfully created!',
+                                                showConfirmButton: true,
+                                                confirmButtonColor: '#6A79F3',
+                                            })
                                             // code below is supposed to redirect to home page but haven't merge with home page
                                             // so role specific page will just refresh after submitting user input for now
-                                            window.location.reload()
+                                            // window.location.reload()
                                         })
                                         .catch(error=>{
                                             console.log(error.message)
