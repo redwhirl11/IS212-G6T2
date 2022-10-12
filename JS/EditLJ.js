@@ -218,7 +218,7 @@ const app = Vue.createApp({
                                         'Your changes have been successfully saved!',
                                         'success',
                                     ).then(function() {
-                                        window.location.href = "DuplicateHome.html";
+                                        window.location.href = "homepage.html";
                                     })
                                 })
 
