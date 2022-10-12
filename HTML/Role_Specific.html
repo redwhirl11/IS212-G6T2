@@ -24,7 +24,8 @@
     
     <!--Header-->    
     <div id='header'></div>
-    
+    <input type="hidden" id="LJRole_ID" value="">
+
      <!-- Role Description-->
     <div id="roledescription"></div>
 
@@ -58,6 +59,8 @@
         const ROLEDETAILS = {LJRole_ID:LJRole_ID}
         var Skill_IDs = []
         var Role_Skills = []
+
+        document.getElementById("LJRole_ID").value = LJRole_ID
 
         axios.get(LJurl, {
             params: ROLEDETAILS
@@ -293,7 +296,7 @@
             let all_course_ids = []
             let displayed_courses = []
             let valid_courses = []
-
+            let valid_courses_objs = []
 
             for (let i = 0; i < all_courses.length; i++){
 
@@ -328,25 +331,26 @@
                 valid_courses.push(document.getElementsByClassName("courses")[i].id)
             }
 
-            console.log(valid_courses) //shows courses for the currently selected role
-            console.log(all_courses) //shows all courses from database
-            for (let i = 0; i < all_courses.length; i++){
-                if (!valid_courses.includes(all_courses[i].Course_ID)){
-                    console.log(all_courses[i].Course_ID) //shows courses that are not selected for the current role
-                    all_courses.splice(i,1)
+            console.log(valid_courses) 
+
+            for (let i = 0; i < valid_courses.length; i++){
+                for (let j = 0; j < all_courses.length; j++){
+                    if (all_courses[j].Course_ID == valid_courses[i]){
+                        valid_courses_objs.push(all_courses[j])
+                    }
                 }
             }
-            console.log(all_courses)
 
-            for (let i = 0; i < all_courses.length; i++){
-                console.log(all_courses[i])
-                document.getElementById(all_courses[i].Course_ID + "info").addEventListener("click", function(){
+
+            for (let i = 0; i < valid_courses_objs.length; i++){
+                console.log(valid_courses_objs[i])
+                document.getElementById(valid_courses_objs[i].Course_ID + "info").addEventListener("click", function(){
                     Swal.fire({
-                        title: '<div style="text-align: left"><span style="color: #6A79F3;">' + all_courses[i].Course_Name + '</span></div>',
+                        title: '<div style="text-align: left"><span style="color: #6A79F3;">' + valid_courses_objs[i].Course_Name + '</span></div>',
                         html: ` <div style='text-align: left'>
-                                <div style="color: #000000; display: inline-block"><span style="font-family: Inter; font-weight: 500; color: #000000;"> Course_Type: &nbsp</span>`+ all_courses[i].Course_Type + `</div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-                                <div style="color: #000000; display: inline-block"><span style="font-family: Inter; font-weight: 500; color: #000000;"> Course_Category: &nbsp </span>`+ all_courses[i].Course_Category + `</div> <br><br>
-                                <div style="overflow-x: hidden;word-wrap:break-word; color: #000000"> <span style="font-family: Inter; font-weight: 500; color: #000000"> Course Description: </span>`+ all_courses[i].Course_Desc + `</div></div></div>`,
+                                <div style="color: #000000; display: inline-block"><span style="font-family: Inter; font-weight: 500; color: #000000;"> Course_Type: &nbsp</span>`+ valid_courses_objs[i].Course_Type + `</div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <div style="color: #000000; display: inline-block"><span style="font-family: Inter; font-weight: 500; color: #000000;"> Course_Category: &nbsp </span>`+ valid_courses_objs[i].Course_Category + `</div> <br><br>
+                                <div style="overflow-x: hidden;word-wrap:break-word; color: #000000"> <span style="font-family: Inter; font-weight: 500; color: #000000"> Course Description: </span>`+ valid_courses_objs[i].Course_Desc + `</div></div></div>`,
                         width: '40rem',
                         focusConfirm: true,
                         confirmButtonText: 'I understand now!',
@@ -482,7 +486,6 @@
             <div class='contianer-fluid' id="myHeader">
                 <div class="row">
 
-                    <input type="hidden" id="LJRole_ID" value=${response.data[2]['LJRole_ID']}>
                     <input type="hidden" id="LatestLJ_ID" value="">
 
                     <div class="col-lg-3 col-md-4 col-sm-5">
@@ -715,11 +718,11 @@
 
         
         // populateSkills()
+        populateSkills()
+        getCourseData()
         populateRole()
         populateTask()
         populateHeader() 
-        populateSkills()
-        getCourseData()
         latestLJ_ID()
 
 
