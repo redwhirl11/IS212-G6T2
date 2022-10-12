@@ -166,7 +166,7 @@
                         let indv_course_html =    
                            `<div id=${all_course_pairs[i][j]} class="form-check courses" style="display:inline-block; margin-top: 20px">
                                 <input class="form-check-input" type="checkbox" value=${all_course_pairs[i][j]} id=${all_course_pairs[i][j]}name>
-                                <label class="form-check-label" for=${all_course_pairs[i][j]}name>
+                                <label id=${all_course_pairs[i][j]}course>
                                 User Experience Design 
                                 </label>
                                                               
@@ -358,6 +358,22 @@
                         cancelButtonColor: '#d33',
                     })
                 })
+
+                document.getElementById(valid_courses_objs[i].Course_ID + "course").addEventListener("click", function(){
+                    Swal.fire({
+                        title: '<div style="text-align: left"><span style="color: #6A79F3;">' + valid_courses_objs[i].Course_Name + '</span></div>',
+                        html: ` <div style='text-align: left'>
+                                <div style="color: #000000; display: inline-block"><span style="font-family: Inter; font-weight: 500; color: #000000;"> Course_Type: &nbsp</span>`+ valid_courses_objs[i].Course_Type + `</div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <div style="color: #000000; display: inline-block"><span style="font-family: Inter; font-weight: 500; color: #000000;"> Course_Category: &nbsp </span>`+ valid_courses_objs[i].Course_Category + `</div> <br><br>
+                                <div style="overflow-x: hidden;word-wrap:break-word; color: #000000"> <span style="font-family: Inter; font-weight: 500; color: #000000"> Course Description: </span>`+ valid_courses_objs[i].Course_Desc + `</div></div></div>`,
+                        width: '40rem',
+                        focusConfirm: true,
+                        confirmButtonText: 'I understand now!',
+                        confirmButtonColor: '#6A79F3',
+                        cancelButtonColor: '#d33',
+                    })
+                })
+               
             }
             
         })
