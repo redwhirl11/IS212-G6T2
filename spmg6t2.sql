@@ -216,7 +216,7 @@ CREATE TABLE IF NOT EXISTS `learning_journey` (
     FOREIGN KEY (`Submitted_CourseID`) REFERENCES course(`Course_ID`),
     FOREIGN KEY (`SubmittedLJRole_ID`) REFERENCES ljroles(`LJRole_ID`),
     FOREIGN KEY (`Submitted_Skill_ID`) REFERENCES skills(`Skill_ID`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM CHARSET=latin1;
 
 --
 -- Dumping data for table `learning_journey`

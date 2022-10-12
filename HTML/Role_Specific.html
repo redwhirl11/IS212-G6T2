@@ -53,7 +53,7 @@
 
          /*Function to populate skills*/
         function populateSkills() {
-        var LJRole_ID = 00002
+        var LJRole_ID = 00001
         var LJurl = "../db/getLJRoleDetails.php"
         var url = "../db/getSkills.php"
         const ROLEDETAILS = {LJRole_ID:LJRole_ID}
@@ -670,7 +670,7 @@
                                                     console.log(response.data)
                                                     Swal.fire({
                                                         icon:  'success',
-                                                        title: 'Your learning journey have been successfully created!',
+                                                        title: 'Your learning journey has been successfully created!',
                                                         showConfirmButton: true,
                                                         confirmButtonColor: '#6A79F3',
                                                     })
@@ -682,7 +682,7 @@
                                                     console.log(error.message)
                                                 })
                                             }
-                                            
+                                            LJ_ID++         
                                         }
                                     }
                                     else{
@@ -707,7 +707,7 @@
                                             console.log(response.data)
                                             Swal.fire({
                                                 icon: 'success',
-                                                title: 'Your learning journey have been successfully created!',
+                                                title: 'Your learning journey has been successfully created!',
                                                 showConfirmButton: true,
                                                 confirmButtonColor: '#6A79F3',
                                             })
@@ -719,11 +719,6 @@
                                             console.log(error.message)
                                         })
                                     }
-
-
-
-                                    
-                                    // redirect to home page
                                 }
                             })
                 }
