@@ -5,14 +5,14 @@ $dao = new PostDAO();
 $posts=[];
 
 // need to modify -- hardcode method
-$Staff_ID = 00002;
-$posts = $dao->getLearningJourney($Staff_ID);
+// $Staff_ID = 00002;
+// $posts = $dao->getLearningJourney($Staff_ID);
 
 //dynamic method
-// if(isset($_REQUEST['Staff_ID'])){
-//     $Staff_ID= $_REQUEST['Staff_ID'];
-//     $posts = $dao->getSubmittedRoleDetails($Staff_ID);
-// }
+if(isset($_REQUEST['Staff_ID'])){
+    $Staff_ID= $_REQUEST['Staff_ID'];
+    $posts = $dao->getLearningJourney($Staff_ID);
+}
 
  // Get an Indexed Array of Post objects
 $items = [];
