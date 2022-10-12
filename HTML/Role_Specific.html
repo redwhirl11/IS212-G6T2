@@ -52,7 +52,7 @@
 
          /*Function to populate skills*/
         function populateSkills() {
-        var LJRole_ID = 00002
+        var LJRole_ID = 00001
         var LJurl = "../db/getLJRoleDetails.php"
         var url = "../db/getSkills.php"
         const ROLEDETAILS = {LJRole_ID:LJRole_ID}
@@ -288,7 +288,7 @@
         then(response => {
             
             console.log(response.data)
-
+            
             let all_courses = response.data
             let all_course_ids = []
             let displayed_courses = []
@@ -329,15 +329,17 @@
             }
 
             console.log(valid_courses)
-
+            console.log(all_courses)
             for (let i = 0; i < all_courses.length; i++){
                 if (!valid_courses.includes(all_courses[i].Course_ID)){
+                    console.log(all_courses[i].Course_ID)
                     all_courses.splice(i,1)
                 }
             }
-            
+            console.log(all_courses)
 
             for (let i = 0; i < all_courses.length; i++){
+                console.log(all_courses[i])
                 document.getElementById(all_courses[i].Course_ID + "info").addEventListener("click", function(){
                     Swal.fire({
                         title: '<div style="text-align: left"><span style="color: #6A79F3;">' + all_courses[i].Course_Name + '</span></div>',
@@ -367,6 +369,7 @@
 
         axios.get(url).
         then(response => {
+            console.log(response.data)
             let roledescription = response.data[2]['LJRole_Description']
             let roledescription_html =  
             `
@@ -479,6 +482,9 @@
             <div class='contianer-fluid' id="myHeader">
                 <div class="row">
 
+                    <input type="hidden" id="LJRole_ID" value=${response.data[2]['LJRole_ID']}>
+                    <input type="hidden" id="LatestLJ_ID" value="">
+
                     <div class="col-lg-3 col-md-4 col-sm-5">
                         <img id= 'logo' src="../Icons/Component 1.png">
                     </div>
@@ -507,6 +513,20 @@
 
         }
         
+        function latestLJ_ID(){
+            var url = "../db/getLatestLJ_ID.php"
+
+            axios.get(url).
+            then(response=>{
+                console.log(response.data)
+                document.getElementById("LatestLJ_ID").value = response.data
+            })
+            .catch(error=>{
+                console.log(error.message)
+            })
+
+            
+        }
 
         /* Function to redirect webpage when back button is clicked*/
         
@@ -604,11 +624,83 @@
                                 width: 'auto',
                             }).then((result) => {
                                 if (result.isConfirmed) {
-                                    Swal.fire(
-                                            'Congratulations!',
-                                            'Your Learning Journey has been successfully saved!',
-                                            'success',
-                                        )
+                                    if (selected_courses.length > 1){
+                                        for (let x in submitted_coursesandskills){
+                                            var LJ_ID = parseInt(document.getElementById("LatestLJ_ID").value) + 1
+
+                                            for (let i = 0; i < submitted_coursesandskills[x].length; i++){
+                                                const url = "../db/addRole.php"
+                                                
+                                                
+                                                var Staff_ID = 2
+                                                var SubmittedLJRole_ID = document.getElementById("LJRole_ID").value
+                                                var Submitted_Skill_ID = x
+                                                var Submitted_CourseID = submitted_coursesandskills[x][i]
+                                                const data = {
+                                                    LJ_ID: LJ_ID,
+                                                    Staff_ID: Staff_ID,
+                                                    SubmittedLJRole_ID: SubmittedLJRole_ID,
+                                                    Submitted_Skill_ID: Submitted_Skill_ID,
+                                                    Submitted_CourseID: Submitted_CourseID,
+                                                }
+                                                axios.get(url, {
+                                                    params: data
+                                                })
+                                                .then(response=>{
+                                                    console.log(response.data)
+                                                    Swal.fire(
+                                                        'Congratulations!',
+                                                        'Your changes have been successfully saved!',
+                                                        'success',
+                                                    )
+                                                    // code below is supposed to redirect to home page but haven't merge with home page
+                                                    // so role specific page will just refresh after submitting user input for now
+                                                    window.location.reload()
+                                                })
+                                                .catch(error=>{
+                                                    console.log(error.message)
+                                                })
+                                            }
+                                            
+                                        }
+                                    }
+                                    else{
+                                        const url = "../db/addRole.php"
+                                        var LJ_ID = parseInt(document.getElementById("LatestLJ_ID").value) + 1
+                                        console.log(LJ_ID)
+                                        var Staff_ID = 2
+                                        var SubmittedLJRole_ID = document.getElementById("LJRole_ID").value
+                                        var Submitted_Skill_ID = selected_skills[0]
+                                        var Submitted_CourseID = selected_courses[0]
+                                        const data = {
+                                            LJ_ID: LJ_ID,
+                                            Staff_ID: Staff_ID,
+                                            SubmittedLJRole_ID: SubmittedLJRole_ID,
+                                            Submitted_Skill_ID: Submitted_Skill_ID,
+                                            Submitted_CourseID: Submitted_CourseID,
+                                        }
+                                        axios.get(url, {
+                                            params: data
+                                        })
+                                        .then(response=>{
+                                            console.log(response.data)
+                                            Swal.fire(
+                                                'Congratulations!',
+                                                'Your changes have been successfully saved!',
+                                                'success',
+                                            )
+                                            // code below is supposed to redirect to home page but haven't merge with home page
+                                            // so role specific page will just refresh after submitting user input for now
+                                            window.location.reload()
+                                        })
+                                        .catch(error=>{
+                                            console.log(error.message)
+                                        })
+                                    }
+
+
+
+                                    
                                     // redirect to home page
                                 }
                             })
@@ -629,6 +721,7 @@
         populateTask()
         populateHeader() 
 
+        latestLJ_ID()
 
 
    </script>

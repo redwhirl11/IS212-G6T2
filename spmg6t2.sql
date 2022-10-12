@@ -190,6 +190,7 @@ CREATE TABLE IF NOT EXISTS `ljroles` (
 
 INSERT INTO `ljroles` (`LJRole_ID`, `LJRole_Name`, `LJRole_Description`, `Department`, `Key_Task`,`LJRole_Status`,`LJRole_img`,`Skill_ID`) VALUES
 (00001, 'Regional Data Analyst', 'The Data Analyst partners with Regional Operations teams to provide analytical support to help the team achieve objectives.The Data Analyst masters both the data and business domains to play a key role in decision-making','Operation','1) Sourcing and analysing new data sources. 2)Provide actionable recommendations based on data insights to drive business outcomes. 3)Create reports and visualisation tools (dashboards) to facilitate understanding of data','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00001),
+(00001, 'Regional Data Analyst', 'The Data Analyst partners with Regional Operations teams to provide analytical support to help the team achieve objectives.The Data Analyst masters both the data and business domains to play a key role in decision-making','Operation','1) Sourcing and analysing new data sources. 2)Provide actionable recommendations based on data insights to drive business outcomes. 3)Create reports and visualisation tools (dashboards) to facilitate understanding of data','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00004),
 (00002, 'Business Intelligence Analyst','The Business Intelligence Analyst will gather, analyze, and compile data needed to identify trends and patterns, then make recommendations for business actions.','Operation','1) Assesses market strategies by analysing related products, markets, or trends. 2) Identifies markets for future product development and methods to improve sales of existing products by analysing technology trends.','InActive','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00001),
 (00003, 'Operation Manager','An Operations Manager oversees company organisational processes and adds improvements. Duties include hiring, training, implementing policies, strategies to improve productivity and building an enjoyable company culture.','Operation','1) Make important policy, planning, and strategy decisions. 2) Develop, implement, and review operational policies and procedures. 3)Work with the board of directors to plan for short and long-term goals','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00002),
 (00004, 'UIUX Developer','Hiring a passionate, user centred UIUX Designer to join a collaborative and innovative team to create visually delightful and easy-to-use digital products. A highly collaborative work with product managers and engineers.','Technology', '1) Create user-centred designs by understanding business requirements and user feedback 2)Create user flows, wireframes, prototypes, mockups 3) Incorporate customer feedback, usage metrics, and usability findings into design','Active','https://www.dgvaishnavcollege.edu.in/dgvaishnav-c/uploads/2021/01/dummy-profile-pic.jpg',00003),
@@ -205,17 +206,17 @@ INSERT INTO `ljroles` (`LJRole_ID`, `LJRole_Name`, `LJRole_Description`, `Depart
 
 DROP TABLE IF EXISTS `learning_journey`;
 CREATE TABLE IF NOT EXISTS `learning_journey` (
-    `LJ_ID` int(5) NOT NULL AUTO_INCREMENT,
+    `LJ_ID` int(5) NOT NULL,
     `Staff_ID` int NOT NULL,
     `SubmittedLJRole_ID` int NOT NULL,
     `Submitted_Skill_ID`int(5) NOT NULL,
     `Submitted_CourseID` varchar(20) NOT NULL,
-    PRIMARY KEY (`LJ_ID`),
+    PRIMARY KEY (`LJ_ID`, `Submitted_Skill_ID`, `Submitted_CourseID`),
     FOREIGN KEY (`Staff_ID`) REFERENCES staff(`Staff_ID`),
     FOREIGN KEY (`Submitted_CourseID`) REFERENCES course(`Course_ID`),
     FOREIGN KEY (`SubmittedLJRole_ID`) REFERENCES ljroles(`LJRole_ID`),
     FOREIGN KEY (`Submitted_Skill_ID`) REFERENCES skills(`Skill_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `learning_journey`
