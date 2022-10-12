@@ -52,7 +52,7 @@
 
          /*Function to populate skills*/
         function populateSkills() {
-        var LJRole_ID = 00004
+        var LJRole_ID = 00001
         var LJurl = "../db/getLJRoleDetails.php"
         var url = "../db/getSkills.php"
         const ROLEDETAILS = {LJRole_ID:LJRole_ID}
@@ -332,7 +332,7 @@
             console.log(all_courses) //shows all courses from database
             for (let i = 0; i < all_courses.length; i++){
                 if (!valid_courses.includes(all_courses[i].Course_ID)){
-                    console.log(all_courses[i].Course_ID)
+                    console.log(all_courses[i].Course_ID) //shows courses that are not selected for the current role
                     all_courses.splice(i,1)
                 }
             }
