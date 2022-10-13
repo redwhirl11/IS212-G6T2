@@ -65,28 +65,28 @@ const app = Vue.createApp({
         })
             .then(response => {
                 var LJDetails = response.data;
-                console.log('LJDetails', LJDetails)
+                //console.log('LJDetails', LJDetails)
                 this.getSubmittedCourse_ID(LJDetails);
-            })
-        axios.get(RoleDetailsUrl, {
-            params: RoleDetaildata
-        })
-            .then(response => {
-                var RoleDetails = response.data;
-                this.getRoleDetails(RoleDetails);
-                this.getSkillDetails(RoleDetails);
-                this.getCourseDetails(RoleDetails);
-            })
-
-        axios.get(RegCourseurl, {
-            params: RegCourseData
-        })
-            .then(response => {
-                var RegCourse = response.data;
-                // console.log('reg course', RegCourse)
-                this.getRegStatus(RegCourse)
-                console.log('course status', this.courseRegStatus_dict)
-                // this.matchStatusWithCourse()
+                axios.get(RoleDetailsUrl, {
+                    params: RoleDetaildata
+                })
+                    .then(response => {
+                        var RoleDetails = response.data;
+                        this.getRoleDetails(RoleDetails);
+                        this.getSkillDetails(RoleDetails);
+                        this.getCourseDetails(RoleDetails);
+                
+                        axios.get(RegCourseurl, {
+                            params: RegCourseData
+                        })
+                            .then(response => {
+                                var RegCourse = response.data;
+                                // console.log('reg course', RegCourse)
+                                this.getRegStatus(RegCourse)
+                                console.log('course status', this.courseRegStatus_dict)
+                                // this.matchStatusWithCourse()
+                            })
+                    })
             })
     },
     methods: {
@@ -97,7 +97,7 @@ const app = Vue.createApp({
             var keyTasks = RoleDetails[0].Key_Task
             this.tasks = keyTasks.split('.')
             // console.log(this.tasks)
-            console.log(RoleDetails)
+            //console.log(RoleDetails)
         },
         getSkillDetails(RoleDetails) {
             var temp_skill_dict = [];
@@ -196,37 +196,47 @@ const app = Vue.createApp({
                     console.log(this.new_selected_course);
                     //if learner select >1 courses -> confirmation pop up
                     if (this.new_selected_course.length > 0) {
-                        for (let i = 0; i < this.new_selected_course.length; i++) {
-                            //save the latest selected courses to the database
-                            const Surl = '../db/saveEditedLJ.php'
-                            var Submitted_Skill_ID = parseInt(this.new_selected_course[i].skill)
-                            var Submitted_CourseID = this.new_selected_course[i].selectedCourse
-                            const data = {
-                                LJ_ID: this.LJ_ID, Staff_ID: this.Staff_ID,
-                                SubmittedLJRole_ID: this.SubmittedLJRole_ID,
-                                Submitted_Skill_ID: Submitted_Skill_ID,
-                                Submitted_CourseID: Submitted_CourseID,
-                            }
-                            axios.get(Surl, {
-                                params: data
-                            })
-
-                                .then(response => {
-                                    // console.log(response);
-                                    Swal.fire(
-                                        'Congratulations!',
-                                        'Your changes have been successfully saved!',
-                                        'success',
-                                    ).then(function() {
-                                        window.location.href = "homepage.html";
-                                    })
-                                })
-
-                                .catch(error => {
-                                    console.log(error);
-                                    alert('Error: ${error}. <br/> Please Try Again Later')
-                                })
+                        const Surl = '../db/deleteLJ.php'
+                        const data = {
+                            LJ_ID: this.LJ_ID, Staff_ID: this.Staff_ID
                         }
+                        axios.get(Surl, {
+                            params: data
+                        })
+                            .then(response => {
+                                for (let i = 0; i < this.new_selected_course.length; i++) {
+                                    //save the latest selected courses to the database
+                                    const Surl = '../db/saveEditedLJ.php'
+                                    var Submitted_Skill_ID = parseInt(this.new_selected_course[i].skill)
+                                    var Submitted_CourseID = this.new_selected_course[i].selectedCourse
+                                    const data = {
+                                        LJ_ID: this.LJ_ID, Staff_ID: this.Staff_ID,
+                                        SubmittedLJRole_ID: this.SubmittedLJRole_ID,
+                                        Submitted_Skill_ID: Submitted_Skill_ID,
+                                        Submitted_CourseID: Submitted_CourseID,
+                                    }
+                                    axios.get(Surl, {
+                                        params: data
+                                    })
+        
+                                        .then(response => {
+                                            // console.log(response);
+                                            Swal.fire(
+                                                'Congratulations!',
+                                                'Your changes have been successfully saved!',
+                                                'success',
+                                            ).then(function() {
+                                                window.location.href = "homepage.html";
+                                            })
+                                        })
+        
+                                        .catch(error => {
+                                            console.log(error);
+                                            alert('Error: ${error}. <br/> Please Try Again Later')
+                                        })
+                                }
+                                
+                        })
                     } else {
                         Swal.fire(
                             'Cancelled',

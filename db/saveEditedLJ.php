@@ -21,7 +21,7 @@ if( isset($_REQUEST['LJ_ID']) && isset($_REQUEST['Staff_ID']) && isset($_REQUEST
     $Submitted_CourseID= $_REQUEST['Submitted_CourseID'];
     
     $dao = new PostDAO();
-    $delete = $dao->deleteEditedLJcourses($LJ_ID, $Staff_ID);
+    // $delete = $dao->deleteEditedLJcourses($LJ_ID, $Staff_ID);
     $status = $dao->saveEditedLJ($LJ_ID, $Staff_ID, $SubmittedLJRole_ID,$Submitted_Skill_ID,$Submitted_CourseID);
 }
 if ($status)
