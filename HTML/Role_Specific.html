@@ -53,7 +53,7 @@
 
          /*Function to populate skills*/
         function populateSkills() {
-        var LJRole_ID = 00001
+        var LJRole_ID = 00006
         var LJurl = "../db/getLJRoleDetails.php"
         var url = "../db/getSkills.php"
         const ROLEDETAILS = {LJRole_ID:LJRole_ID}
@@ -118,7 +118,7 @@
         }
 
         console.log(Role_Skills)
-
+        if (Role_Skills.length > 0){
         for (let i= 0; i < Role_Skills.length; i++){
 
             console.log(Role_Skills[i])
@@ -139,6 +139,9 @@
                     
                 document.getElementById("skills").innerHTML += indiv_skill_html
 
+        } 
+        } else {
+            document.getElementById("skills").innerHTML += `<span>No relevant skills can be found</span>`
         }
 
         console.log(all_skills)
@@ -156,11 +159,12 @@
                 }
                 
                 all_course_pairs.push(course_pairs)
-                }
+            }
 
             console.log(all_course_pairs)
 
             for (let i = 0; i < Skill_IDs.length; i++){
+                
                 for (let j = 0; j < all_course_pairs[i].length; j++){
 
                         let indv_course_html =    
