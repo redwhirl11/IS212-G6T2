@@ -15,10 +15,10 @@ if(isset($_REQUEST['LJ_ID']) && isset($_REQUEST['Staff_ID']) && isset($_REQUEST[
 }
 
 if ($status){
-    $result["status"] = "Post added successfully";
+    $result["status"] = "Course(s) added successfully";
 }
 else{
-    $result["status"] = "Post was not added";
+    $result["status"] = "Course(s) was not added";
 } 
 
 $postJSON = json_encode($result);

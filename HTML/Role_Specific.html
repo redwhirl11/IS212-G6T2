@@ -668,12 +668,25 @@
                                                 })
                                                 .then(response=>{
                                                     console.log(response.data)
-                                                    Swal.fire({
+                                                    if (response.data["status"] == "Course(s) was not added"){
+                                                        Swal.fire({
+                                                                title: response.data["status"],
+                                                                text: 'Please refresh the page and try again.',
+                                                                icon: 'warning',
+                                                                focusConfirm: true,
+                                                                confirmButtonText: 'Back',
+                                                                confirmButtonColor: '#6A79F3',
+                                                                cancelButtonColor: '#d33',
+                                                            })
+                                                    }
+                                                    else{
+                                                        Swal.fire({
                                                         icon:  'success',
                                                         title: 'Your learning journey has been successfully created!',
                                                         showConfirmButton: true,
                                                         confirmButtonColor: '#6A79F3',
-                                                    })
+                                                        })
+                                                    }
                                                     // code below is supposed to redirect to home page but haven't merge with home page
                                                     // so role specific page will just refresh after submitting user input for now
                                                     // window.location.reload()
@@ -704,13 +717,26 @@
                                             params: data
                                         })
                                         .then(response=>{
-                                            console.log(response.data)
-                                            Swal.fire({
+                                            console.log(response.data["status"])
+                                            if (response.data["status"] == "Course(s) was not added"){
+                                                Swal.fire({
+                                                        title: response.data["status"],
+                                                        text: 'Please refresh the page and try again.',
+                                                        icon: 'warning',
+                                                        focusConfirm: true,
+                                                        confirmButtonText: 'Back',
+                                                        confirmButtonColor: '#6A79F3',
+                                                        cancelButtonColor: '#d33',
+                                                    })
+                                            }
+                                            else{
+                                                Swal.fire({
                                                 icon: 'success',
                                                 title: 'Your learning journey has been successfully created!',
                                                 showConfirmButton: true,
                                                 confirmButtonColor: '#6A79F3',
-                                            })
+                                                })
+                                            }
                                             // code below is supposed to redirect to home page but haven't merge with home page
                                             // so role specific page will just refresh after submitting user input for now
                                             // window.location.reload()
