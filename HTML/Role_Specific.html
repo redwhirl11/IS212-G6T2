@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="../Icons/Logo(Purple).png">
+    <title>UI/UX Designer (LJPS)</title>
+    <link rel="stylesheet" href="../CSS/Role_Specific.css">
+    <link href='https://fonts.googleapis.com/css?family=Inter:600,400,550,500' rel='stylesheet'>
+
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+
+    <!--Axios-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <!--Sweetalert2-->
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma/bulma.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
+
+</head>
+<body>
+    
+    <!--Header-->    
+    <div id='header'></div>
+    <input type="hidden" id="LJRole_ID" value="">
+
+     <!-- Role Description-->
+    <div id="roledescription"></div>
+
+      <!-- Key Task-->
+    <div id="keytask"></div>
+
+    <!-- Skills-->
+    
+     <div class="accordion RoleInfo" id="accordionExample" style="margin-top: 41px; margin-bottom: 500px;">
+        <div class="accordion-item border-0">
+            <h2 class="accordion-header" id="flush-headingThree">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                <img src="../Icons/skillsandcourses.png" style="display: inline-block; width: 31px; height: 31px; margin-bottom: 12px; margin-right: 15px;">
+                <h1 style="display: inline-block; font-family: Inter; font-weight: 550; font-size: 25px;">Skills & Courses</h1>
+              </button>
+            </h2>
+            <div id="flush-collapseThree" class="accordion-collapse collapse show" aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
+              <div class="accordion-body" id="skills"></div>
+            </div>
+          </div>
+     </div>
+    
+
+   <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const indexValue = urlParams.get('roleID');
+
+        console.log(indexValue)
+
+         /*Function to populate skills*/
+        function populateSkills() {
+        var LJRole_ID = 00006
+        var LJurl = "../db/getLJRoleDetails.php"
+        var url = "../db/getSkills.php"
+        const ROLEDETAILS = {LJRole_ID:LJRole_ID}
+        var Skill_IDs = []
+        var Role_Skills = []
+
+        document.getElementById("LJRole_ID").value = LJRole_ID
+
+        axios.get(LJurl, {
+            params: ROLEDETAILS
+        })
+        .then(response => {
+            console.log(response.data)
+            for (let i = 0; i < response.data.length; i++){
+                if (!Skill_IDs.includes(response.data[i]['Skill_ID'])){
+                    Skill_IDs.push(response.data[i]['Skill_ID'])
+                }
+            }
+        
+            console.log(Skill_IDs)
+
+
+        })
+        .catch(error => {
+            console.log(error.message)
+        })
+
+
+        axios.get(url).
+        then(response => {
+            console.log(response.data)
+
+            let all_course_pairs = []
+            let unique_skills = []
+            let all_skills = response.data
+            let unique_skill_id = []
+            for (let i = 0; i < all_skills.length; i++){
+                if (!unique_skill_id.includes(all_skills[i].Skill_ID)){
+                    unique_skill_id.push(all_skills[i].Skill_ID)
+                }
+            }
+            console.log(unique_skill_id)
+
+            for (let i = 0; i < unique_skill_id.length; i++){
+                for (let j = 0; j < all_skills.length; j++){
+                    if (unique_skill_id[i] == all_skills[j].Skill_ID){
+                        unique_skills.push(all_skills[j])
+                        break
+                    }
+                }
+            }
+            console.log(unique_skills)
+
+        for (let i = 0; i < Skill_IDs.length; i++){
+            for (let j = 0; j < unique_skills.length; j++){
+                if(Skill_IDs[i] == unique_skills[j]['Skill_ID']){
+      
+                    Role_Skills.push(unique_skills[j])
+
+                }
+        }
+        }
+
+        console.log(Role_Skills)
+        if (Role_Skills.length > 0){
+        for (let i= 0; i < Role_Skills.length; i++){
+
+            console.log(Role_Skills[i])
+
+            let indiv_skill_html =                     
+                    `<div class="RoleInfo2" style="margin-bottom:41px; margin-top:15px; padding: 0px 0px 0px 0px">
+                        <div class="row">
+                            <div class="col">
+                                <img src=${Role_Skills[i].Skill_img} style="width: 497px; height: 408px; border-radius: 5px">
+                            </div>
+                            <div class="col" style="margin:auto">
+                                <div class="card-body">
+                                    <div class="card-text" id=${Role_Skills[i].Skill_ID}>
+                                        <h1 style="font-family: Inter; font-weight: 550; font-size: 25px;">${Role_Skills[i].Skill_Name}</h1>
+                                        <p style="display: inline-block; font-family: Inter; font-weight: 500;">Type of Skills: &nbsp;</p><p style="display: inline-block;">${Role_Skills[i].Type_of_Skills}</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <p style="display: inline-block; font-family: Inter; font-weight: 500;">Competency level: &nbsp;</p><p style="display: inline-block;">${Role_Skills[i].Level_of_Competencies}</p><br><br>
+                                        <h1 style="font-family: Inter; font-weight: 550; font-size: 20px;">Courses</h1>`
+                    
+                document.getElementById("skills").innerHTML += indiv_skill_html
+
+        } 
+        } else {
+            document.getElementById("skills").innerHTML += `<span>No relevant skills can be found</span>`
+        }
+
+        console.log(all_skills)
+        console.log(Skill_IDs)
+
+
+        for (let i = 0; i < Skill_IDs.length; i++){
+                
+                let course_pairs = []
+                
+                for (let j = 0; j < all_skills.length; j++){
+                    if (Skill_IDs[i] == all_skills[j].Skill_ID){
+                        course_pairs.push(all_skills[j].Course_ID)
+                    }
+                }
+                
+                all_course_pairs.push(course_pairs)
+            }
+
+            console.log(all_course_pairs)
+
+            for (let i = 0; i < Skill_IDs.length; i++){
+                
+                for (let j = 0; j < all_course_pairs[i].length; j++){
+
+                        let indv_course_html =    
+                           `<div id=${all_course_pairs[i][j]} class="form-check courses" style="display:inline-block; margin-top: 20px">
+                                <input class="form-check-input" type="checkbox" value=${all_course_pairs[i][j]} id=${all_course_pairs[i][j]}name>
+                                <label id=${all_course_pairs[i][j]}course>
+                                User Experience Design 
+                                </label>
+                                                              
+                                <button id=${all_course_pairs[i][j]}info type="button" style="background-color: Transparent; border: none">
+                                <img src= "../Icons/MoreInfo.png"  data-bs-target="#staticBackdrop">
+                                </button>
+                                   
+                            </div> 
+                        
+`
+                        document.getElementById(Skill_IDs[i]).innerHTML += indv_course_html 
+                        document.getElementById(Skill_IDs[i]).innerHTML += `</div></div></div></div></div>`                
+                }
+            }
+
+
+        })
+        .catch(error => {
+            console.log(error.message)
+        })
+    }
+        
+
+
+        /*Function to populate skills*/
+//         function populateSkills() {
+
+//         var url = "../db/getSkills.php"
+
+//         axios.get(url).
+//         then(response => {
+//             console.log(response.data)
+
+//             let all_course_pairs = []
+//             let unique_skills = []
+//             let all_skills = response.data
+//             let unique_skill_id = []
+//             for (let i = 0; i < all_skills.length; i++){
+//                 if (!unique_skill_id.includes(all_skills[i].Skill_ID)){
+//                     unique_skill_id.push(all_skills[i].Skill_ID)
+//                 }
+//             }
+//             console.log(unique_skill_id)
+
+//             for (let i = 0; i < unique_skill_id.length; i++){
+//                 for (let j = 0; j < all_skills.length; j++){
+//                     if (unique_skill_id[i] == all_skills[j].Skill_ID){
+//                         unique_skills.push(all_skills[j])
+//                         break
+//                     }
+//                 }
+//             }
+//             console.log(unique_skills)
+
+
+//             for (let i = 0; i < unique_skills.length; i++){
+
+//                 let indiv_skill_html =                     
+//                     `<div class="RoleInfo" style="margin-top:41px; padding: 0px 0px 0px 0px">
+//                         <div class="row">
+//                             <div class="col">
+//                                 <img src=${unique_skills[i].Skill_img} style="width: 497px; height: 408px; border-radius: 5px">
+//                             </div>
+//                             <div class="col" style="margin:auto">
+//                                 <div class="card-body">
+//                                     <div class="card-text" id=${unique_skills[i].Skill_ID}>
+//                                         <h1 style="font-family: Inter; font-weight: 550; font-size: 25px;">${unique_skills[i].Skill_Name}</h1>
+//                                         <p style="display: inline-block; font-family: Inter; font-weight: 500;">Type of Skills: &nbsp;</p><p style="display: inline-block;">${unique_skills[i].Type_of_Skills}</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+//                                         <p style="display: inline-block; font-family: Inter; font-weight: 500;">Competency level: &nbsp;</p><p style="display: inline-block;">${unique_skills[i].Level_of_Competencies}</p><br><br>
+//                                         <h1 style="font-family: Inter; font-weight: 550; font-size: 20px;">Courses</h1>`
+                    
+//                 document.getElementById("skills").innerHTML += indiv_skill_html
+//             }
+
+//             for (let i = 0; i < unique_skill_id.length; i++){
+//                 let course_pairs = []
+                
+//                 for (let j = 0; j < all_skills.length; j++){
+//                     if (unique_skill_id[i] == all_skills[j].Skill_ID){
+//                         course_pairs.push(all_skills[j].Course_ID)
+//                     }
+//                 }
+                
+//                 all_course_pairs.push(course_pairs)
+//             }
+
+//             console.log(all_course_pairs)
+
+
+//             for (let i = 0; i < unique_skill_id.length; i++){
+//                 for (let j = 0; j < all_course_pairs[i].length; j++){
+//                         let indv_course_html =    
+//                            `<div id=${all_course_pairs[i][j]} class="form-check courses" style="display:inline-block; margin-top: 20px">
+//                                 <input class="form-check-input" type="checkbox" value=${all_course_pairs[i][j]} id=${all_course_pairs[i][j]}name>
+//                                 <label class="form-check-label" for=${all_course_pairs[i][j]}name>
+//                                 User Experience Design 
+//                                 </label>
+                                                              
+//                                 <button id=${all_course_pairs[i][j]}info type="button" style="background-color: Transparent; border: none">
+//                                 <img src= "../Icons/MoreInfo.png"  data-bs-target="#staticBackdrop">
+//                                 </button>
+                                   
+//                             </div> 
+                        
+// `
+//                         document.getElementById(unique_skill_id[i]).innerHTML += indv_course_html 
+//                         document.getElementById(unique_skill_id[i]).innerHTML += `</div></div></div></div></div>`                
+//                 }
+//             }
+//         })
+//         .catch(error => {
+//             console.log(error.message)
+//         })
+//     }
+
+
+        /*Function to populate courses*/
+        function getCourseData() {
+        var url = "../db/getCourses.php"
+
+        axios.get(url).
+        then(response => {
+            
+            console.log(response.data)
+            
+            let all_courses = response.data
+            let all_course_ids = []
+            let displayed_courses = []
+            let valid_courses = []
+            let valid_courses_objs = []
+
+            for (let i = 0; i < all_courses.length; i++){
+
+                if (!document.body.contains(document.getElementById(all_courses[i].Course_ID))){
+                    continue
+                }
+                else{
+                    document.getElementById(all_courses[i].Course_ID).getElementsByTagName("label")[0].innerText = all_courses[i].Course_Name
+                }
+                
+            }
+
+
+            for (let i = 0; i < document.getElementsByClassName("courses").length; i++){
+                displayed_courses.push(document.getElementsByClassName("courses")[i].id)
+            }
+
+            for (let i = 0; i < all_courses.length; i++){
+                all_course_ids.push(all_courses[i].Course_ID)
+            }
+
+            
+            for (let i = 0; i < displayed_courses.length; i++){
+                if (!all_course_ids.includes(displayed_courses[i])){
+                    document.getElementById(displayed_courses[i]).remove()
+                }
+            }
+
+            console.log(document.getElementsByClassName("courses"))
+
+            for (let i = 0; i < document.getElementsByClassName("courses").length; i++){
+                valid_courses.push(document.getElementsByClassName("courses")[i].id)
+            }
+
+            console.log(valid_courses) 
+
+            for (let i = 0; i < valid_courses.length; i++){
+                for (let j = 0; j < all_courses.length; j++){
+                    if (all_courses[j].Course_ID == valid_courses[i]){
+                        valid_courses_objs.push(all_courses[j])
+                    }
+                }
+            }
+
+
+            for (let i = 0; i < valid_courses_objs.length; i++){
+                console.log(valid_courses_objs[i])
+                document.getElementById(valid_courses_objs[i].Course_ID + "info").addEventListener("click", function(){
+                    Swal.fire({
+                        title: '<div style="text-align: left"><span style="color: #6A79F3;">' + valid_courses_objs[i].Course_Name + '</span></div>',
+                        html: ` <div style='text-align: left'>
+                                <div style="color: #000000; display: inline-block"><span style="font-family: Inter; font-weight: 500; color: #000000;"> Course_Type: &nbsp</span>`+ valid_courses_objs[i].Course_Type + `</div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <div style="color: #000000; display: inline-block"><span style="font-family: Inter; font-weight: 500; color: #000000;"> Course_Category: &nbsp </span>`+ valid_courses_objs[i].Course_Category + `</div> <br><br>
+                                <div style="overflow-x: hidden;word-wrap:break-word; color: #000000"> <span style="font-family: Inter; font-weight: 500; color: #000000"> Course Description: </span>`+ valid_courses_objs[i].Course_Desc + `</div></div></div>`,
+                        width: '40rem',
+                        focusConfirm: true,
+                        confirmButtonText: 'I understand now!',
+                        confirmButtonColor: '#6A79F3',
+                        cancelButtonColor: '#d33',
+                    })
+                })
+
+                document.getElementById(valid_courses_objs[i].Course_ID + "course").addEventListener("click", function(){
+                    Swal.fire({
+                        title: '<div style="text-align: left"><span style="color: #6A79F3;">' + valid_courses_objs[i].Course_Name + '</span></div>',
+                        html: ` <div style='text-align: left'>
+                                <div style="color: #000000; display: inline-block"><span style="font-family: Inter; font-weight: 500; color: #000000;"> Course_Type: &nbsp</span>`+ valid_courses_objs[i].Course_Type + `</div>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+                                <div style="color: #000000; display: inline-block"><span style="font-family: Inter; font-weight: 500; color: #000000;"> Course_Category: &nbsp </span>`+ valid_courses_objs[i].Course_Category + `</div> <br><br>
+                                <div style="overflow-x: hidden;word-wrap:break-word; color: #000000"> <span style="font-family: Inter; font-weight: 500; color: #000000"> Course Description: </span>`+ valid_courses_objs[i].Course_Desc + `</div></div></div>`,
+                        width: '40rem',
+                        focusConfirm: true,
+                        confirmButtonText: 'I understand now!',
+                        confirmButtonColor: '#6A79F3',
+                        cancelButtonColor: '#d33',
+                    })
+                })
+               
+            }
+            
+        })
+        .catch(error => {
+            console.log(error.message)
+        })
+        }
+
+        
+        /* Function to populate role*/
+        function populateRole() {
+        var url = "../db/getAllRoles.php"
+
+        axios.get(url).
+        then(response => {
+            console.log(response.data)
+            let roledescription = response.data[2]['LJRole_Description']
+            let roledescription_html =  
+            `
+            <div class="accordion RoleInfo" id="accordionExample" style="margin-top: 130px;">
+                <div class="accordion-item border-0">
+                    <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                        <img src="../Icons/Role Description.png" style="display: inline-block; width: 31px; height: 31px; margin-bottom: 15px; margin-right: 15px;">
+                        <h1 style="display: inline-block; font-family: Inter; font-weight: 550; font-size: 25px;">Role Description</h1>
+                    </button>
+                    </h2>
+                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                        ${roledescription}
+                    </div>
+                    </div>
+                </div>
+            </div>
+                    
+            `      
+
+            document.getElementById("roledescription").innerHTML += roledescription_html
+
+        })
+        .catch(error => {
+            console.log(error.message)
+        })
+
+        }
+
+
+
+        /* Function to populate role*/
+        function populateTask(){
+        var url = "../db/getAllRoles.php"
+        
+        axios.get(url).
+        then(response => {
+            console.log(response.data)
+            let keytask = response.data[2]['Key_Task']
+            new_array = []
+            string_concatenation = ""
+            for (i=0; i < keytask.length; i++){
+                if (parseInt(keytask[i]) && i != 0 ) {
+                    new_array.push(string_concatenation)
+                    string_concatenation = ""
+                    string_concatenation += keytask[i]
+                } else if(i === keytask.length-1) {
+                    string_concatenation += keytask[i]
+                    new_array.push(string_concatenation)
+                } else { 
+                    string_concatenation += keytask[i]
+                }
+            }
+            console.log(new_array)
+            
+            let keytask_html =  
+            `
+            <div class="accordion RoleInfo" id="accordionExample" style="margin-top: 41px;">
+                <div class="accordion-item border-0">
+                        <h2 class="accordion-header" id="flush-headingTwo">
+                        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            <img src="../Icons/Keytask.png" style="display: inline-block; width: 31px; height: 31px; margin-bottom: 12px; margin-right: 15px;">
+                            <h1 style="display: inline-block; font-family: Inter; font-weight: 550; font-size: 25px;">Key Tasks</h1>
+                        </button>
+                        </h2>
+                        <div id="flush-collapseTwo" class="accordion-collapse collapse show" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">
+
+                        
+                   `
+
+            
+            for (i=0; i < new_array.length; i++){
+                if(i == new_array.length - 1 ){
+                    keytask_html += `${new_array[i]}`
+                } else {
+                    keytask_html += `${new_array[i]}<br/>`
+                }
+            }
+            console.log(keytask_html)
+            
+            document.getElementById("keytask").innerHTML += keytask_html + 
+            
+            ` </div>
+                    </div>
+                </div>
+            </div>`
+
+        })
+        .catch(error => {
+            console.log(error.message)
+        })
+
+        
+
+        }
+
+        
+        /* Function to populate header*/
+        function populateHeader() {
+        var url = "../db/getAllRoles.php"
+        
+        axios.get(url).
+        then(response => {
+            role = response.data[2]['LJRole_Name'] 
+            dept = response.data[2]['Department']
+            let header_html =  
+            `
+            <div class='contianer-fluid' id="myHeader">
+                <div class="row">
+
+                    <input type="hidden" id="LatestLJ_ID" value="">
+
+                    <div class="col-lg-3 col-md-4 col-sm-5">
+                        <img id= 'logo' src="../Icons/Component 1.png">
+                    </div>
+
+                    <div class="col-lg-9 col-md-8 col-sm-7">
+                        <button type="button" class="btn btn-light float-end me-5 px-4 d-lg-inline-block " id="backBtn"
+                            style="border-radius: 30px; margin-top: 27px; padding: 10px 25px 10px 25px">Back</button>
+                        <button type="button" class="btn btn-light float-end mx-3 px-4 d-lg-inline-block" id="submitBtn"
+                            style="border-radius: 30px; margin-top: 27px; padding: 10px 25px 10px 25px">Submit</button>
+                    </div>
+
+                </div>
+                <img src="../Icons/Vector 1.png" alt="Nature" class="responsive">
+                <p id="Header">
+                    Step 2:  Select the skills & courses for your chosen role ${role} - ${dept}
+                </p>
+            </div>    
+                
+            `      
+            document.getElementById("header").innerHTML += header_html
+
+        })
+        .catch(error => {
+            console.log(error.message)
+        })
+
+        }
+        
+        
+        function latestLJ_ID(){
+            var url = "../db/getLatestLJ_ID.php"
+
+            axios.get(url).
+            then(response=>{
+                console.log(response.data)
+                document.getElementById("LatestLJ_ID").value = response.data
+            })
+            .catch(error=>{
+                console.log(error.message)
+            })
+
+            
+        }
+
+        /* Function to redirect webpage when back button is clicked*/
+        
+        /*
+        function backbtnredirect(){
+            window.location.href = "role.html"
+        }
+        */
+        
+        /* Handle user input */
+
+        let selected_courses = []
+        let selected_skills = []
+        let submitted_coursesandskills = {}
+
+        window.addEventListener('DOMContentLoaded', (event) => {
+            
+            console.log('DOM fully loaded and parsed')
+
+            let course_checkboxes = document.getElementsByTagName("input")
+
+            for (let i = 0; i < course_checkboxes.length; i++){
+                document.getElementById(course_checkboxes[i].id).addEventListener("change", function(){
+                    if (document.getElementById(course_checkboxes[i].id).checked){
+                        console.log(course_checkboxes[i].value + " is selected")
+                        selected_courses.push(course_checkboxes[i].value)
+                        console.log(selected_courses)
+                    }
+                    else{
+                        console.log(course_checkboxes[i].value + " is removed")
+                        for (let j = 0; j < selected_courses.length; j++){
+                            if (selected_courses[j] == course_checkboxes[i].value){
+                                selected_courses.splice(selected_courses.indexOf(course_checkboxes[i].value), 1)
+                            }
+                        }
+                        console.log(selected_courses)
+                    }
+                    
+                })
+            }
+            
+            document.getElementById("submitBtn").addEventListener("click", function(){
+
+                let coursesArranged = []
+                submitted_coursesandskills = {}
+
+                if (selected_skills.length > 0){
+                    selected_skills = []
+                }
+                for (let i = 0; i < selected_courses.length; i++){
+                    if (!selected_skills.includes(document.getElementById(selected_courses[i]).parentElement.id)){
+                            selected_skills.push(document.getElementById(selected_courses[i]).parentElement.id)
+                    }                   
+                }
+                console.log(selected_skills)
+
+                for (let i = 0; i < selected_skills.length; i++){
+                    let attached_courses = []
+                    for (let j = 0; j < selected_courses.length; j++){
+                        if (document.getElementById(selected_courses[j]).parentElement.id == selected_skills[i]){
+                            attached_courses.push(selected_courses[j])
+                        }
+                    }
+                    coursesArranged.push(attached_courses)
+                }
+                console.log(coursesArranged)
+
+                for (let i = 0; i < selected_skills.length; i++){
+                    submitted_coursesandskills[selected_skills[i]] = coursesArranged[i]
+                }
+                console.log("The object displayed below shows the skills and courses the user wants to submit \n\n key: skill ID \n value: array of course ID(s)")
+                console.log(submitted_coursesandskills)
+
+
+                if (Object.keys(submitted_coursesandskills).length === 0){
+                    Swal.fire({
+                        title: 'No courses selected',
+                        icon: 'warning',
+                        focusConfirm: true,
+                        confirmButtonText: 'Back',
+                        confirmButtonColor: '#6A79F3',
+                        cancelButtonColor: '#d33',
+                    })
+                }
+                else {
+                    Swal.fire({
+                                title: 'Submit your Learning Journey?',
+                                text: "Please check information before submitting!",
+                                icon: "warning",
+                                showCancelButton: true,
+                                cancelButtonColor: '#c7c6c5',
+                                confirmButtonColor: '#6A79F3',        
+                                confirmButtonText: 'Submit',
+                                cancelButtonText: 'Cancel',
+                                width: 'auto',
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    if (selected_courses.length > 1){
+                                        for (let x in submitted_coursesandskills){
+                                            var LJ_ID = parseInt(document.getElementById("LatestLJ_ID").value) + 1
+
+                                            for (let i = 0; i < submitted_coursesandskills[x].length; i++){
+                                                const url = "../db/addRole.php"
+                                                
+                                                
+                                                var Staff_ID = 2
+                                                var SubmittedLJRole_ID = document.getElementById("LJRole_ID").value
+                                                var Submitted_Skill_ID = x
+                                                var Submitted_CourseID = submitted_coursesandskills[x][i]
+                                                const data = {
+                                                    LJ_ID: LJ_ID,
+                                                    Staff_ID: Staff_ID,
+                                                    SubmittedLJRole_ID: SubmittedLJRole_ID,
+                                                    Submitted_Skill_ID: Submitted_Skill_ID,
+                                                    Submitted_CourseID: Submitted_CourseID,
+                                                }
+                                                axios.get(url, {
+                                                    params: data
+                                                })
+                                                .then(response=>{
+                                                    console.log(response.data)
+                                                    if (response.data["status"] == "Course(s) was not added"){
+                                                        Swal.fire({
+                                                                title: response.data["status"],
+                                                                text: 'Please refresh the page and try again.',
+                                                                icon: 'warning',
+                                                                focusConfirm: true,
+                                                                confirmButtonText: 'Back',
+                                                                confirmButtonColor: '#6A79F3',
+                                                                cancelButtonColor: '#d33',
+                                                            })
+                                                    }
+                                                    else{
+                                                        Swal.fire({
+                                                        icon:  'success',
+                                                        title: 'Your learning journey has been successfully created!',
+                                                        showConfirmButton: true,
+                                                        confirmButtonColor: '#6A79F3',
+                                                        })
+                                                    }
+                                                    // code below is supposed to redirect to home page but haven't merge with home page
+                                                    // so role specific page will just refresh after submitting user input for now
+                                                    // window.location.reload()
+                                                })
+                                                .catch(error=>{
+                                                    console.log(error.message)
+                                                })
+                                            }
+                                              
+                                        }
+                                    }
+                                    else{
+                                        const url = "../db/addRole.php"
+                                        var LJ_ID = parseInt(document.getElementById("LatestLJ_ID").value) + 1
+                                        console.log(LJ_ID)
+                                        var Staff_ID = 2
+                                        var SubmittedLJRole_ID = document.getElementById("LJRole_ID").value
+                                        var Submitted_Skill_ID = selected_skills[0]
+                                        var Submitted_CourseID = selected_courses[0]
+                                        const data = {
+                                            LJ_ID: LJ_ID,
+                                            Staff_ID: Staff_ID,
+                                            SubmittedLJRole_ID: SubmittedLJRole_ID,
+                                            Submitted_Skill_ID: Submitted_Skill_ID,
+                                            Submitted_CourseID: Submitted_CourseID,
+                                        }
+                                        axios.get(url, {
+                                            params: data
+                                        })
+                                        .then(response=>{
+                                            console.log(response.data["status"])
+                                            if (response.data["status"] == "Course(s) was not added"){
+                                                Swal.fire({
+                                                        title: response.data["status"],
+                                                        text: 'Please refresh the page and try again.',
+                                                        icon: 'warning',
+                                                        focusConfirm: true,
+                                                        confirmButtonText: 'Back',
+                                                        confirmButtonColor: '#6A79F3',
+                                                        cancelButtonColor: '#d33',
+                                                    })
+                                            }
+                                            else{
+                                                Swal.fire({
+                                                icon: 'success',
+                                                title: 'Your learning journey has been successfully created!',
+                                                showConfirmButton: true,
+                                                confirmButtonColor: '#6A79F3',
+                                                })
+                                            }
+                                            // code below is supposed to redirect to home page but haven't merge with home page
+                                            // so role specific page will just refresh after submitting user input for now
+                                            // window.location.reload()
+                                        })
+                                        .catch(error=>{
+                                            console.log(error.message)
+                                        })
+                                    }
+                                }
+                            })
+                }
+                
+            })
+
+            /* adding onclick event to back button (redirect to role page)*/
+            //document.getElementById("backBtn").addEventListener("click", backbtnredirect)
+         })
+         
+
+        
+        // populateSkills()
+        populateSkills()
+        getCourseData()
+        populateRole()
+        populateTask()
+        populateHeader() 
+        latestLJ_ID()
+
+
+   </script>
+
+
+
+
+    <!-- HTML template for skill
+    <div class="RoleInfo" style="margin-top:41px; padding: 0px 0px 0px 0px">
+        <div class="row">
+            <div class="col">
+                <img src="../Icons/Skills Image.png">
+            </div>
+            <div class="col-lg-7" style="margin:auto">
+                <div class="card-body">
+                    <div class="card-text">
+                        <h1 style="font-family: Inter; font-weight: 550; font-size: 25px;">User Interface Design</h1>
+                        <p style="display: inline-block; font-family: Inter; font-weight: 500;">Type of Skills: &nbsp;</p><p style="display: inline-block;">Technical</p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        <p style="display: inline-block; font-family: Inter; font-weight: 500;">Competency level: &nbsp;</p><p style="display: inline-block;">Intermediate</p><br>
+
+                        
+                            <div class="form-check" style="display:inline-block; margin-top: 20px">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                User Experience Design 
+                                </label>
+                                <img src= "../Icons/MoreInfo.png" style="margin-left: 5px"  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                
+                                
+                                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-scrollable">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                        <h5 class="modal-title" id="staticBackdropLabel">IS213: User Experience Design</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            With Learning Journey Planner, you can explore the With Learning Journey Planner, you can explore thousands of learning journeys tailored to your preference and needs. ousands of learning journeys tailored to your preferences and needs.  With Learning Journey Planner, you can explore the With Learning Journey Planner, you can explore thousands of learning journeys tailored to your
+                                            preferences and needs. ousands of learning journeys tailored to your preferences and needs. 
+                                            you can explore the With Learning Journey Planner, you can explore thousands of learning journeys.
+                                            With Learning Journey Planner, you can explore the With Learning Journey Planner, you can explore thousands of learning journeys tailored to your preference and needs. ousands of learning journeys tailored to your preferences and needs.  With Learning Journey Planner, you can explore the With Learning Journey Planner, you can explore thousands of learning journeys tailored to your
+                                            preferences and needs. ousands of learning journeys tailored to your preferences and needs. 
+                                            you can explore the With Learning Journey Planner, you can explore thousands of learning journeys.
+                                            With Learning Journey Planner, you can explore the With Learning Journey Planner, you can explore thousands of learning journeys tailored to your preference and needs. ousands of learning journeys tailored to your preferences and needs.  With Learning Journey Planner, you can explore the With Learning Journey Planner, you can explore thousands of learning journeys tailored to your
+                                            preferences and needs. ousands of learning journeys tailored to your preferences and needs. 
+                                            you can explore the With Learning Journey Planner, you can explore thousands of learning journeys.
+                                        </div>
+                                        <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            
+
+                            <div class="form-check" style="display:inline-block; margin-top: 20px; margin-left: 50px;">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                User Experience Design 
+                                </label>
+                                <img src= "../Icons/MoreInfo.png" style="margin-left: 5px">
+                            </div><br>
+
+                            <div class="form-check" style="display:inline-block; margin-top: 20px">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                User Experience Design 
+                                </label>
+                                <img src= "../Icons/MoreInfo.png" style="margin-left: 5px">
+                            </div>
+
+                            <div class="form-check" style="display:inline-block; margin-top: 20px;  margin-left: 50px;">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                User Experience Design 
+                                </label>
+                                <img src= "../Icons/MoreInfo.png" style="margin-left: 5px">
+                            </div><br>
+                        
+                            <div class="form-check" style="display:inline-block; margin-top: 20px">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                User Experience Design 
+                                </label>
+                                <img src= "../Icons/MoreInfo.png" style="margin-left: 5px">
+                            </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    -->
+     
+   
+
+
+
+</body>
+</html>
+<!-- JavaScript Bundle with Popper -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
