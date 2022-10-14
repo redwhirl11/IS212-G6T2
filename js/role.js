@@ -12,6 +12,7 @@ function getAllRoles(){
           console.log('here',arrayUniqueByKey)
           var card = '';
           for (i=0; i<arrayUniqueByKey.length; i++) {
+            console.log(i)
             console.log(arrayUniqueByKey[i])
             card += 
             `<div class="col-lg-4 col-md-4 col-sm-6">
@@ -20,7 +21,7 @@ function getAllRoles(){
                   <div class="card-body">
                     <h5 class="card-title"> ${arrayUniqueByKey[i].LJRole_Name} </h5>
                     <p class="card-text">${arrayUniqueByKey[i].Key_Task}</p>
-                    <a href="Role_Specific.html?index=${i}" class="btn btn-primary" id="styled" onClick="populateHeader(${i})">View More</a>
+                    <a href="Role_Specific1.html?index=${i}" class="btn btn-primary" id="styled" onClick="populateHeader(${i})">View More</a>
                   </div>
               </div>
             </div>`
