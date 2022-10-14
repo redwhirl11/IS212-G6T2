@@ -11,7 +11,7 @@ class AllRoles {
     private $Skill_ID;
 
 
-    public function __construct($LJRole_ID,$LJRole_Name, $LJRole_Description, $Department,$Key_Task,$LJRole_Status,$LJRole_img,$Skill_ID) { 
+    public function __construct($LJRole_ID, $LJRole_Name, $LJRole_Description, $Department,$Key_Task,$LJRole_Status,$LJRole_img,$Skill_ID) { 
         $this->LJRole_ID = $LJRole_ID;
         $this->LJRole_Name = $LJRole_Name;
         $this->LJRole_Description= $LJRole_Description;
