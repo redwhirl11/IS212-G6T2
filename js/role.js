@@ -15,6 +15,7 @@ function getAllRoles(){
           var card = '';
           for (i=0; i<arrayUniqueByKey.length; i++) {
             console.log(arrayUniqueByKey[i].LJRole_ID)
+
             card += 
             `<div class="col-lg-4 col-md-4 col-sm-6">
               <div class="card">
