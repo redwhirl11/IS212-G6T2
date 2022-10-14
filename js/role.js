@@ -20,7 +20,7 @@ function getAllRoles(){
                   <div class="card-body">
                     <h5 class="card-title"> ${arrayUniqueByKey[i].LJRole_Name} </h5>
                     <p class="card-text">${arrayUniqueByKey[i].Key_Task}</p>
-                    <a href="#" class="btn btn-primary" id="styled" onClick="populateHeader(${i})">View More</a>
+                    <a href="Role_Specific.html?index=${i}" class="btn btn-primary" id="styled" onClick="populateHeader(${i})">View More</a>
                   </div>
               </div>
             </div>`
