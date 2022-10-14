@@ -398,28 +398,35 @@
         axios.get(url).
         then(response => {
             console.log(response.data)
-            let roledescription = response.data[indexValue]['LJRole_Description']
-            let roledescription_html =  
-            `
-            <div class="accordion RoleInfo" id="accordionExample" style="margin-top: 130px;">
-                <div class="accordion-item border-0">
-                    <h2 class="accordion-header" id="headingOne">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                        <img src="../Icons/Role Description.png" style="display: inline-block; width: 31px; height: 31px; margin-bottom: 15px; margin-right: 15px;">
-                        <h1 style="display: inline-block; font-family: Inter; font-weight: 550; font-size: 25px;">Role Description</h1>
-                    </button>
-                    </h2>
-                    <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                    <div class="accordion-body">
-                        ${roledescription}
-                    </div>
+            for (let i = 0; i < response.data.length; i++){
+                if (response.data[i].LJRole_ID == indexValue){
+                    let roledescription = response.data[i]['LJRole_Description']
+                let roledescription_html =  
+                `
+                <div class="accordion RoleInfo" id="accordionExample" style="margin-top: 130px;">
+                    <div class="accordion-item border-0">
+                        <h2 class="accordion-header" id="headingOne">
+                        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            <img src="../Icons/Role Description.png" style="display: inline-block; width: 31px; height: 31px; margin-bottom: 15px; margin-right: 15px;">
+                            <h1 style="display: inline-block; font-family: Inter; font-weight: 550; font-size: 25px;">Role Description</h1>
+                        </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                        <div class="accordion-body">
+                            ${roledescription}
+                        </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-                    
-            `      
+                        
+                `      
 
-            document.getElementById("roledescription").innerHTML += roledescription_html
+                document.getElementById("roledescription").innerHTML += roledescription_html
+                break
+                }
+
+                }
+
 
         })
         .catch(error => {
@@ -437,7 +444,9 @@
         axios.get(url).
         then(response => {
             console.log(response.data)
-            let keytask = response.data[indexValue]['Key_Task']
+            for (let i = 0; i < response.data.length; i++){
+                if (response.data[i].LJRole_ID == indexValue){
+                    let keytask = response.data[i]['Key_Task']
             new_array = []
             string_concatenation = ""
             for (i=0; i < keytask.length; i++){
@@ -486,8 +495,11 @@
                     </div>
                 </div>
             </div>`
+                break
+                }
 
-        })
+
+        }})
         .catch(error => {
             console.log(error.message)
         })
@@ -503,12 +515,12 @@
         
         axios.get(url).
         then(response => {
-            console.log(reponse.data)
+            console.log(response.data)
             
             
             for (let i = 0; i < response.data.length; i++){
-                console.log(reponse.data[i].LJRole_ID)
-                if (reponse.data[i]['LJRole_ID'] == indexValue){
+                console.log(response.data[i].LJRole_ID)
+                if (response.data[i].LJRole_ID == indexValue){
 
                     role = response.data[i]['LJRole_Name'] 
                     dept = response.data[i]['Department']
@@ -539,9 +551,9 @@
                         
                     `      
                     document.getElementById("header").innerHTML += header_html
-
+                    break
                 }
-                break
+                
 
             }
 
