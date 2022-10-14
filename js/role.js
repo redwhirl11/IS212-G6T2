@@ -22,7 +22,7 @@ function getAllRoles(){
                   <div class="card-body">
                     <h5 class="card-title"> ${arrayUniqueByKey[i].LJRole_Name} </h5>
                     <p class="card-text">${arrayUniqueByKey[i].Key_Task}</p>
-                    <a href="Role_Specific1.html?roleID=${arrayUniqueByKey[i].LJRole_ID}" class="btn btn-primary" id="styled" onClick="populateHeader(${arrayUniqueByKey[i].LJRole_ID})">View More</a>
+                    <a href="Role_Specific.html?roleID=${arrayUniqueByKey[i].LJRole_ID}" class="btn btn-primary" id="styled" onClick="populateHeader(${arrayUniqueByKey[i].LJRole_ID})">View More</a>
                   </div>
               </div>
             </div>`
