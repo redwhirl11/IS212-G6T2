@@ -46,7 +46,7 @@
 
    <script>
         const urlParams = new URLSearchParams(window.location.search);
-        const indexValue = urlParams.get('index');
+        const idValue = urlParams.get('id');
         
         /*Function to populate skills*/
         function populateSkills() {
@@ -225,24 +225,27 @@
 
         axios.get(url).
         then(response => {
-            const key = 'LJRole_Name';
-            const arrayUniqueByKey = [...new Map(response.data.map(item =>[item[key], item])).values()]; 
-            let roledescription = arrayUniqueByKey[indexValue]['LJRole_Description']
-            let roledescription_html =  
-            `
-            <div class="RoleInfo" style="margin-top: 20px">
-                <div style="margin-bottom: 10px;">
-                    <img src="../Icons/Role Description.png" style="display: inline-block; width: 31px; height: 31px; margin-bottom: 15px; margin-right: 15px;">
-                    <h1 style="display: inline-block; font-family: Inter; font-weight: 550; font-size: 25px;">Role Description</h1>
-                </div>
-                <p>
-                   ${roledescription}
-                </p>
-            </div>
-                    
-            `      
 
-            document.getElementById("roledescription").innerHTML += roledescription_html
+            for (i=0; i < response.data.length; i++){
+                if (response.data[i]['LJRole_ID'] == idValue) {
+
+                    let roledescription = response.data[i]['LJRole_Description']
+                    let roledescription_html =  
+                    `
+                    <div class="RoleInfo" style="margin-top: 20px">
+                        <div style="margin-bottom: 10px;">
+                            <img src="../Icons/Role Description.png" style="display: inline-block; width: 31px; height: 31px; margin-bottom: 15px; margin-right: 15px;">
+                            <h1 style="display: inline-block; font-family: Inter; font-weight: 550; font-size: 25px;">Role Description</h1>
+                        </div>
+                        <p>
+                        ${roledescription}
+                        </p>
+                    </div>
+                            
+                    `      
+
+                    document.getElementById("roledescription").innerHTML += roledescription_html
+                }}
 
         })
         .catch(error => {
@@ -259,44 +262,47 @@
         axios.get(url).
         then(response => {
             console.log(response.data)
-            const key = 'LJRole_Name';
-            const arrayUniqueByKey = [...new Map(response.data.map(item =>[item[key], item])).values()]; 
-            let keytask = arrayUniqueByKey[indexValue]['Key_Task']
-            new_array = []
-            string_concatenation = ""
-            for (i=0; i < keytask.length; i++){
-                if (parseInt(keytask[i]) && i != 0 ) {
-                    new_array.push(string_concatenation)
-                    string_concatenation = ""
-                    string_concatenation += keytask[i]
-                } else if(i === keytask.length-1) {
-                    string_concatenation += keytask[i]
-                    new_array.push(string_concatenation)
-                } else { 
-                    string_concatenation += keytask[i]
-                }
-            }
-            console.log(new_array)
-            
-            let keytask_html =  
-            `
-            <div class="RoleInfo" style="margin-top:41px;">
-            <div style="margin-bottom: 10px;">
-            <img src="../Icons/Keytask.png" style="display: inline-block; width: 31px; height: 31px; margin-bottom: 12px; margin-right: 15px;">
-            <h1 style="display: inline-block; font-family: Inter; font-weight: 550; font-size: 25px;">Key Tasks</h1>
-            </div>`
+            for (i=0; i < response.data.length; i++){
+                if (response.data[i]['LJRole_ID'] == idValue) {
+                    console.log('bye',response.data[i])
 
-            
-            for (i=0; i < new_array.length; i++){
-                if(i == new_array.length - 1 ){
-                    keytask_html += `${new_array[i]}`
-                } else {
-                    keytask_html += `${new_array[i]}<br/>`
-                }
-            }
-            console.log(keytask_html)
-            
-            document.getElementById("keytask").innerHTML += keytask_html
+                    let keytask = response.data[i]['Key_Task']
+                    new_array = []
+                    string_concatenation = ""
+                    for (i=0; i < keytask.length; i++){
+                        if (parseInt(keytask[i]) && i != 0 ) {
+                            new_array.push(string_concatenation)
+                            string_concatenation = ""
+                            string_concatenation += keytask[i]
+                        } else if(i === keytask.length-1) {
+                            string_concatenation += keytask[i]
+                            new_array.push(string_concatenation)
+                        } else { 
+                            string_concatenation += keytask[i]
+                        }
+                    }
+                    console.log(new_array)
+                    
+                    let keytask_html =  
+                    `
+                    <div class="RoleInfo" style="margin-top:41px;">
+                    <div style="margin-bottom: 10px;">
+                    <img src="../Icons/Keytask.png" style="display: inline-block; width: 31px; height: 31px; margin-bottom: 12px; margin-right: 15px;">
+                    <h1 style="display: inline-block; font-family: Inter; font-weight: 550; font-size: 25px;">Key Tasks</h1>
+                    </div>`
+
+                    
+                    for (i=0; i < new_array.length; i++){
+                        if(i == new_array.length - 1 ){
+                            keytask_html += `${new_array[i]}`
+                        } else {
+                            keytask_html += `${new_array[i]}<br/>`
+                        }
+                    }
+                    console.log(keytask_html)
+                    
+                    document.getElementById("keytask").innerHTML += keytask_html
+                }}
 
         })
         .catch(error => {
@@ -309,43 +315,49 @@
 
         
         /* Function to populate header*/
-        console.log(indexValue);  
-        function populateHeader(indexValue) {
+        console.log(idValue);  
+        function populateHeader(idValue) {
         var url = "../db/getAllRoles.php"
         
         axios.get(url).
         then(response => {
             console.log('im here',response)
-            const key = 'LJRole_Name';
-            const arrayUniqueByKey = [...new Map(response.data.map(item =>[item[key], item])).values()];    
-            console.log('here',arrayUniqueByKey)
-            role = arrayUniqueByKey[indexValue]['LJRole_Name'] 
-            dept = arrayUniqueByKey[indexValue]['Department']
-            let header_html =  
-            `
-            <div class='contianer-fluid' id="myHeader">
-                <div class="row">
 
-                    <div class="col-lg-9 col-md-8">
-                        <img id= 'logo' src="../Icons/Component 1.png">
-                    </div>
+            for (i=0; i < response.data.length; i++){
+                if (response.data[i]['LJRole_ID'] == idValue) {
+                    console.log('bye',response.data[i])
 
-                    <div class="col-lg-3 col-md-4">
-                        <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="backBtn"
-                            style="border-radius: 20px">Back</button>
-                        <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="submitBtn"
-                            style="border-radius: 20px">Submit</button>
-                    </div>
+                    role = response.data[i]['LJRole_Name'] 
+                    dept = response.data[i]['Department']
 
-                </div>
-                <img src="../Icons/Vector 1.png" alt="Nature" class="responsive">
-                <p id="Header">
-                    Step 2:  Select the skills & courses for your chosen role ${role} - ${dept}
-                </p>
-            </div>    
-                
-            `      
-            document.getElementById("header").innerHTML += header_html
+                    let header_html =  
+                    `
+                    <div class='contianer-fluid' id="myHeader">
+                        <div class="row">
+
+                            <div class="col-lg-9 col-md-8">
+                                <img id= 'logo' src="../Icons/Component 1.png">
+                            </div>
+
+                            <div class="col-lg-3 col-md-4">
+                                <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="backBtn"
+                                    style="border-radius: 20px">Back</button>
+                                <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="submitBtn"
+                                    style="border-radius: 20px">Submit</button>
+                            </div>
+
+                        </div>
+                        <img src="../Icons/Vector 1.png" alt="Nature" class="responsive">
+                        <p id="Header">
+                            Step 2:  Select the skills & courses for your chosen role ${role} - ${dept}
+                        </p>
+                    </div>    
+                        
+                    `    
+                    
+                    document.getElementById("header").innerHTML += header_html
+
+                }}
 
         })
         .catch(error => {
@@ -439,7 +451,7 @@
         populateSkills()
         populateRole()
         populateTask()
-        populateHeader(indexValue) 
+        populateHeader(idValue) 
         getCourseData()
 
    </script>
