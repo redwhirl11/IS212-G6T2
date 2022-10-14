@@ -250,7 +250,7 @@ INSERT INTO `ljroles` (`LJRole_ID`, `LJRole_Name`, `LJRole_Description`, `Depart
 
 DROP TABLE IF EXISTS `learning_journey`;
 CREATE TABLE IF NOT EXISTS `learning_journey` (
-    `LJ_ID` int(5) NOT NULL AUTO_INCREMENT,
+    `LJ_ID` int(5) NOT NULL,
     `Staff_ID` int NOT NULL,
     `SubmittedLJRole_ID` int NOT NULL,
     `Submitted_Skill_ID`int(5) NOT NULL,
@@ -260,7 +260,7 @@ CREATE TABLE IF NOT EXISTS `learning_journey` (
     FOREIGN KEY (`Submitted_CourseID`) REFERENCES course(`Course_ID`),
     FOREIGN KEY (`SubmittedLJRole_ID`) REFERENCES ljroles(`LJRole_ID`),
     FOREIGN KEY (`Submitted_Skill_ID`) REFERENCES skills(`Skill_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `learning_journey`
