@@ -64,6 +64,7 @@ class PostDAO {
         while( $row = $stmt->fetch() ) {
             $AllRoles[] =
                 new AllRoles (
+                    $row['LJRole_ID'],
                     $row['LJRole_Name'],
                     $row['LJRole_Description'],
                     $row['Department'],
