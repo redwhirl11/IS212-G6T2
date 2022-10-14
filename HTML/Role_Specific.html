@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+    <META HTTP-EQUIV="Expires" CONTENT="-1">
     <link rel="icon" href="../Icons/Logo(Purple).png">
     <title>UI/UX Designer (LJPS)</title>
     <link rel="stylesheet" href="../CSS/Role_Specific.css">
@@ -50,6 +52,21 @@
     
 
    <script>
+       /* (function()
+                    {
+                    if( window.localStorage )
+                    {
+                        if( !localStorage.getItem('firstLoad') )
+                        {
+                        localStorage['firstLoad'] = true;
+                        window.location.reload();
+                        }  
+                        else
+                        localStorage.removeItem('firstLoad');
+                    }
+                    })()*/
+                    
+
         const urlParams = new URLSearchParams(window.location.search);
         const indexValue = urlParams.get('roleID');
 
@@ -78,13 +95,12 @@
             }
         
             console.log(Skill_IDs)
-
+            
 
         })
         .catch(error => {
             console.log(error.message)
         })
-
 
         axios.get(url).
         then(response => {
@@ -191,10 +207,16 @@
             }
 
 
+
         })
         .catch(error => {
             console.log(error.message)
         })
+
+        const reloadUsingLocationHash = () => {
+            window.location.hash = "reload";
+        }
+        window.onload = reloadUsingLocationHash();
     }
         
 
@@ -388,6 +410,11 @@
         .catch(error => {
             console.log(error.message)
         })
+
+        const reloadUsingLocationHash = () => {
+            window.location.hash = "reload";
+        }
+        window.onload = reloadUsingLocationHash();
         }
 
         
