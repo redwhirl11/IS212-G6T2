@@ -9,12 +9,10 @@ class LearningJourney {
     private $LJRole_Description;
     private $Department;
     private $Key_Task;
-    private $LJRole_img;
     private $Skill_ID;
     private $Skill_Name;
     private $Type_of_Skills;
     private $Level_of_Competencies;
-    private $Skill_img;
     private $Course_ID;
     private $Course_Name;
     private $Course_Desc;
@@ -22,7 +20,7 @@ class LearningJourney {
     private $Course_Category;
 
 
-    public function __construct($LJ_ID,$Staff_ID,$LJRole_ID,$LJRole_Name, $LJRole_Description, $Department,$Key_Task,$LJRole_img, $Skill_ID,$Skill_Name,$Type_of_Skills,$Level_of_Competencies,$Skill_img, $Course_ID,$Course_Name,$Course_Desc,$Course_Type,$Course_Category) { 
+    public function __construct($LJ_ID,$Staff_ID,$LJRole_ID,$LJRole_Name, $LJRole_Description, $Department,$Key_Task, $Skill_ID,$Skill_Name,$Type_of_Skills,$Level_of_Competencies,$Course_ID,$Course_Name,$Course_Desc,$Course_Type,$Course_Category) { 
         $this->LJ_ID = $LJ_ID;
         $this->LJRole_ID= $LJRole_ID;
         $this->Staff_ID= $Staff_ID;
@@ -30,12 +28,10 @@ class LearningJourney {
         $this->LJRole_Description= $LJRole_Description;
         $this->Department = $Department;
         $this->Key_Task = $Key_Task;
-        $this->LJRole_img = $LJRole_img;
         $this->Skill_ID = $Skill_ID;
         $this->Skill_Name = $Skill_Name;
         $this->Type_of_Skills = $Type_of_Skills;
         $this->Level_of_Competencies= $Level_of_Competencies;
-        $this->Skill_img = $Skill_img;
         $this->Course_ID = $Course_ID;
         $this->Course_Name = $Course_Name;
         $this->Course_Desc= $Course_Desc;
@@ -71,9 +67,6 @@ class LearningJourney {
     }
 
 
-    public function getLJRole_img() {
-        return $this->LJRole_img;
-    }
 
     public function getSkill_ID() {
         return $this->Skill_ID;
@@ -89,10 +82,6 @@ class LearningJourney {
 
     public function getLevel_of_Competencies() {
         return $this->Level_of_Competencies;
-    }
-
-    public function getSkill_img() {
-        return $this->Skill_img;
     }
 
     public function getCourse_ID() {

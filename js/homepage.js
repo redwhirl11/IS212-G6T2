@@ -12,13 +12,14 @@ const homepage = Vue.createApp({
     mounted:function()  {
             //calling LJ data
             LJurl="../db/getLearningJourney.php"
-            var Staff_ID = 00002
+            var Staff_ID = 150208
             const data ={Staff_ID:Staff_ID}
 
             axios.get(LJurl, {
                 params: data
             })
             .then(response => { 
+                console.log('Role',response.data);
                 var LJdata = response.data
                 this.status = response.data
                 this.getLJdetails(LJdata)
@@ -62,6 +63,7 @@ const homepage = Vue.createApp({
                         tempSkillDict[SkillId]= {SkillId:SkillId, SkillName: SkillName}
                     }
                     tempRoleDict[LJid] ={role:LJroleName, skill:tempSkillDict}
+                    
                     this.AllRoles_dict.push({LJid: LJid, LJrole:LJroleName, skill:tempSkillDict, StaffId:StaffId,RoleId:RoleId })
                 }
 
@@ -71,6 +73,7 @@ const homepage = Vue.createApp({
                         tempSkillDict[SkillId]= {SkillId:SkillId, SkillName: SkillName}                    }
                 }
             }
+            
             return this.AllRoles_dict
         },
         getCourseDetails(LJdata){
@@ -80,11 +83,14 @@ const homepage = Vue.createApp({
                 var SkillId = LJdata[i].Skill_ID; 
                 var CourseId = LJdata[i].Course_ID; 
                 var CourseName = LJdata[i].Course_Name;
+                //ft-edit
+                this.Allcourses_dict.push({LJid: LJid, SkillId:SkillId, CourseId:CourseId, CourseName:CourseName})
 
-                if(!tempCourselDict[CourseId]){
-                    tempCourselDict[CourseId] ={CourseName:CourseName}
-                    this.Allcourses_dict.push({LJid: LJid, SkillId:SkillId, CourseId:CourseId, CourseName:CourseName})
-                }
+                
+                // if(!tempCourselDict[CourseId]){
+                //     tempCourselDict[CourseId] ={CourseName:CourseName}
+                //     this.Allcourses_dict.push({LJid: LJid, SkillId:SkillId, CourseId:CourseId, CourseName:CourseName})
+                // }
             }
             return this.Allcourses_dict
         },

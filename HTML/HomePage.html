@@ -72,6 +72,7 @@
                     <div>
                         <ul v-for="skills in roles.skill">
                             <li><b>Skill : </b>{{skills.SkillName}}&nbsp|&nbsp
+                                
                                 <strong>Courses: </strong> 
                                 <span v-for="courses in Allcourses_dict">
                                     <span v-if="roles.LJid == courses.LJid && skills.SkillId==courses.SkillId">

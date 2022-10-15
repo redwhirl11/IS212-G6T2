@@ -10,7 +10,7 @@ class PostDAO {
          
          // STEP 2
          $sql = "SELECT
-                    LJ_ID, Staff_ID, LJRole_ID, LJRole_Name, LJRole_Description, Department, Key_Task, LJRole_img, skills.Skill_ID, Skill_Name, Type_of_Skills,Level_of_Competencies, Skill_img, course.Course_ID , Course_Name, Course_Desc,Course_Type, Course_Category  
+                    LJ_ID, Staff_ID, LJRole_ID, LJRole_Name, LJRole_Description, Department, Key_Task,skills.Skill_ID, Skill_Name, Type_of_Skills,Level_of_Competencies,  course.Course_ID , Course_Name, Course_Desc,Course_Type, Course_Category  
                 FROM learning_journey 
                 JOIN ljroles ON ljroles.LJRole_ID = learning_journey.SubmittedLJRole_ID
                 JOIN skills ON skills.Skill_ID = learning_journey.Submitted_Skill_ID
@@ -37,12 +37,10 @@ class PostDAO {
                      $row['LJRole_Description'],
                      $row['Department'],
                      $row['Key_Task'],
-                     $row['LJRole_img'],
                      $row['Skill_ID'],
                      $row['Skill_Name'],
                      $row['Type_of_Skills'],
                      $row['Level_of_Competencies'],
-                     $row['Skill_img'],
                      $row['Course_ID'],
                      $row['Course_Name'],
                      $row['Course_Desc'],
@@ -87,7 +85,6 @@ class PostDAO {
                     $row['Department'],
                     $row['Key_Task'],
                     $row['LJRole_Status'],
-                    $row['LJRole_img'],
                     $row['Skill_ID']
                     );
         }
@@ -107,7 +104,7 @@ class PostDAO {
         
         // STEP 2
         $sql = "SELECT
-                    LJRole_Name, LJRole_Description, Department, Key_Task,LJRole_img, Skill_Name, Type_of_Skills, Level_of_Competencies, skills.Skill_ID, Skill_img, skills.Course_ID, Course_Name, Course_Desc, Course_Type,Course_Category 
+                    LJRole_Name, LJRole_Description, Department, Key_Task, Skill_Name, Type_of_Skills, Level_of_Competencies, skills.Skill_ID,  skills.Course_ID, Course_Name, Course_Desc, Course_Type,Course_Category 
                 FROM ljroles
                 JOIN skills ON skills.Skill_ID = ljroles.Skill_ID  
                 JOIN course ON skills.Course_ID = course.Course_ID
@@ -130,12 +127,10 @@ class PostDAO {
                     $row['LJRole_Description'],
                     $row['Department'],
                     $row['Key_Task'],
-                    $row['LJRole_img'],
                     $row['Skill_ID'],
                     $row['Skill_Name'],
                     $row['Type_of_Skills'],
                     $row['Level_of_Competencies'],
-                    $row['Skill_img'],
                     $row['Course_ID'],
                     $row['Course_Name'],
                     $row['Course_Desc'],
@@ -160,13 +155,13 @@ class PostDAO {
         
         // STEP 2
         $sql = "SELECT
-                    LJ_ID, Staff_ID, LJRole_ID, LJRole_Name, LJRole_Description, Department, Key_Task, LJRole_img, skills.Skill_ID, Skill_Name, Type_of_Skills,Level_of_Competencies, Skill_img, course.Course_ID , Course_Name, Course_Desc,Course_Type, Course_Category  
+                    LJ_ID, Staff_ID, LJRole_ID, LJRole_Name, LJRole_Description, Department, Key_Task, skills.Skill_ID, Skill_Name, Type_of_Skills,Level_of_Competencies, course.Course_ID , Course_Name, Course_Desc,Course_Type, Course_Category  
                 FROM learning_journey 
                 JOIN ljroles ON ljroles.LJRole_ID = learning_journey.SubmittedLJRole_ID
                 JOIN skills ON skills.Skill_ID = learning_journey.Submitted_Skill_ID
                 JOIN course ON course.Course_ID = learning_journey.Submitted_CourseID
                 WHERE
-                Staff_ID= :Staff_ID and skills.Skill_ID =ljroles.Skill_ID and  skills.Course_ID = course.Course_ID"; 
+                Staff_ID= :Staff_ID and skills.Skill_ID =ljroles.Skill_ID and  skills.Course_ID = course.Course_ID and Course_Status = 'Active'"; 
         $stmt = $conn->prepare($sql);
 
         $stmt->bindParam(':Staff_ID', $Staff_ID, PDO::PARAM_STR);
@@ -187,12 +182,10 @@ class PostDAO {
                     $row['LJRole_Description'],
                     $row['Department'],
                     $row['Key_Task'],
-                    $row['LJRole_img'],
                     $row['Skill_ID'],
                     $row['Skill_Name'],
                     $row['Type_of_Skills'],
                     $row['Level_of_Competencies'],
-                    $row['Skill_img'],
                     $row['Course_ID'],
                     $row['Course_Name'],
                     $row['Course_Desc'],
@@ -299,6 +292,52 @@ class PostDAO {
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);
         $stmt->bindParam(':Staff_ID', $Staff_ID, PDO::PARAM_STR);
+
+        //STEP 3
+        $status = $stmt->execute();
+        
+        // STEP 4
+        $stmt = null;
+        $conn = null;
+
+        // STEP 5
+        return $status;
+    }
+
+    public function SoftDeleteSkill($Skill_ID) {
+        // STEP 1   
+        $connMgr = new ConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2
+        $sql = "UPDATE skills
+                SET Skill_Status = 'Inactive'
+                WHERE Skill_ID = :Skill_ID";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':Skill_ID', $Skill_ID, PDO::PARAM_STR);
+
+        //STEP 3
+        $status = $stmt->execute();
+        
+        // STEP 4
+        $stmt = null;
+        $conn = null;
+
+        // STEP 5
+        return $status;
+    }
+
+    public function SoftDeleteRole($LJRole_ID) {
+        // STEP 1   
+        $connMgr = new ConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2
+        $sql = "UPDATE ljroles
+                SET LJRole_Status = 'Inactive'
+                WHERE LJRole_ID =:LJRole_ID";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':LJRole_ID', $LJRole_ID, PDO::PARAM_STR);
 
         //STEP 3
         $status = $stmt->execute();

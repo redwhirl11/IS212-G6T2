@@ -16,7 +16,7 @@ function getAllRoles(){
             card += 
             `<div class="col-lg-4 col-md-4 col-sm-6">
               <div class="card">
-                <img class="card-img-top" src=" ${arrayUniqueByKey[i].LJRole_img} " alt="Card image cap">
+                <img class="card-img-top" src="../Icons/role.jpg" alt="Card image cap">
                   <div class="card-body">
                     <h5 class="card-title"> ${arrayUniqueByKey[i].LJRole_Name} </h5>
                     <p class="card-text">${arrayUniqueByKey[i].Key_Task}</p>

@@ -33,10 +33,12 @@ const app = Vue.createApp({
 
         //dynamic method
         const dataValue = localStorage.getItem('data');
-        console.log(dataValue[0],dataValue[2],dataValue[4]);  
-        this.LJ_ID = dataValue[0];
-        this.Staff_ID = dataValue[2];
-        this.SubmittedLJRole_ID = dataValue[4];
+        // console.log(dataValue[0],dataValue[2],dataValue[4]);  
+        const datalist = dataValue.split(',');
+        console.log(datalist);
+        this.LJ_ID = parseInt(datalist[0]);
+        this.Staff_ID = parseInt(datalist[1]);
+        this.SubmittedLJRole_ID = parseInt(datalist[2]);
         
 
         //relevant php file
@@ -65,13 +67,14 @@ const app = Vue.createApp({
         })
             .then(response => {
                 var LJDetails = response.data;
-                //console.log('LJDetails', LJDetails)
+                // console.log('LJDetails', LJDetails)
                 this.getSubmittedCourse_ID(LJDetails);
                 axios.get(RoleDetailsUrl, {
                     params: RoleDetaildata
                 })
                     .then(response => {
                         var RoleDetails = response.data;
+                        console.log(RoleDetails);
                         this.getRoleDetails(RoleDetails);
                         this.getSkillDetails(RoleDetails);
                         this.getCourseDetails(RoleDetails);
