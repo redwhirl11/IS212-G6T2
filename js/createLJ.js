@@ -29,14 +29,11 @@ const app = Vue.createApp({
         //hardcode method-- wait for kw to pass the data LJRole_ID,LJ_ID,Staff_ID
         const urlParams = new URLSearchParams(window.location.search);
         const indexValue = urlParams.get('roleID');
-        console.log(indexValue)
 
-        var LJRole_ID = indexValue
-        var LJ_ID = 00006
-        var Staff_ID = 150238
 
         //dynamic method
-        // const dataValue = localStorage.getItem('data');
+        const dataValue = localStorage.getItem('data');
+        console.log(dataValue)
         // // console.log(dataValue[0],dataValue[2],dataValue[4]);  
         // const datalist = dataValue.split(',');
         // console.log(datalist);
@@ -44,6 +41,10 @@ const app = Vue.createApp({
         // this.Staff_ID = parseInt(datalist[1]);
         // this.SubmittedLJRole_ID = parseInt(datalist[2]);
         
+        var LJRole_ID = indexValue
+        // var LJ_ID = 00006
+        var Staff_ID = parseInt(dataValue.split(',')[1])
+
         //relevant php file
         RoleDetailsUrl = '../db/getLJRoleDetails.php'
         RegCourseurl = '../db/getRegCourse.php'
