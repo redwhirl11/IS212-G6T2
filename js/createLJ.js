@@ -27,18 +27,18 @@ const app = Vue.createApp({
     },
     created() {
         //hardcode method-- wait for kw to pass the data LJRole_ID,LJ_ID,Staff_ID
-        // var LJRole_ID = 00002
-        // var LJ_ID = 00006
-        // var Staff_ID = 00002
+        var LJRole_ID = 00001
+        var LJ_ID = 00006
+        var Staff_ID = 00002
 
         //dynamic method
-        const dataValue = localStorage.getItem('data');
-        // console.log(dataValue[0],dataValue[2],dataValue[4]);  
-        const datalist = dataValue.split(',');
-        console.log(datalist);
-        this.LJ_ID = parseInt(datalist[0]);
-        this.Staff_ID = parseInt(datalist[1]);
-        this.SubmittedLJRole_ID = parseInt(datalist[2]);
+        // const dataValue = localStorage.getItem('data');
+        // // console.log(dataValue[0],dataValue[2],dataValue[4]);  
+        // const datalist = dataValue.split(',');
+        // console.log(datalist);
+        // this.LJ_ID = parseInt(datalist[0]);
+        // this.Staff_ID = parseInt(datalist[1]);
+        // this.SubmittedLJRole_ID = parseInt(datalist[2]);
         
 
         //relevant php file
@@ -46,14 +46,14 @@ const app = Vue.createApp({
         RegCourseurl = '../db/getRegCourse.php'
         LjDetailsurl = '../db/getSubmittedLJRoleDetails.php'
         //hardcode method
-        // const RoleDetaildata = { LJRole_ID: LJRole_ID }
-        // const LJDetaildata = { LJ_ID:LJ_ID }
-        // const RegCourseData = { Staff_ID: Staff_ID}
+        const RoleDetaildata = { LJRole_ID: LJRole_ID }
+        const LJDetaildata = { LJ_ID:LJ_ID }
+        const RegCourseData = { Staff_ID: Staff_ID}
         
         //dynamic method
-        const RoleDetaildata = { LJRole_ID: this.SubmittedLJRole_ID }
-        const LJDetaildata = { LJ_ID: this.LJ_ID  }
-        const RegCourseData = { Staff_ID: this.Staff_ID }
+        // const RoleDetaildata = { LJRole_ID: this.SubmittedLJRole_ID }
+        // const LJDetaildata = { LJ_ID: this.LJ_ID  }
+        // const RegCourseData = { Staff_ID: this.Staff_ID }
 
 
         ////hardcode method=get the default information 
@@ -289,4 +289,6 @@ const app = Vue.createApp({
 })
 
 const vm = app.mount('#learningJourney')
+
+
 
