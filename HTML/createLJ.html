@@ -46,7 +46,7 @@
                         <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="backBtn"
                             style="border-radius: 20px" onclick="history.back()">Back</button>
                         <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="saveBtn"
-                            style="border-radius: 20px" @click="saveLJ()">Save</button>
+                            style="border-radius: 20px" @click="saveLJ()">Submit</button>
                     </div>
                 </div>
                 <img src="../Icons/Vector 1.png" alt="Nature" class="responsive">
@@ -160,16 +160,19 @@
                                                             <!-- show completion status of the course -->
                                                             <span class="badge rounded-pill"
                                                                 style="background-color: #5EE1AA"
-                                                                v-if="course.CompletionStatus =='Complete' || course.CompletionStatus ==' Complete' || course.CompletionStatus =='Completed'"> {{course.CompletionStatus}}</span>&nbsp&nbsp
-                                                                <span class="badge rounded-pill"
+                                                                v-if="course.CompletionStatus =='Completed'"> {{course.CompletionStatus}}</span>&nbsp&nbsp
+                                                                <!-- <span class="badge rounded-pill"
                                                                 style="background-color:gold"
-                                                                v-else-if="course.CompletionStatus =='Not Complete'"> {{course.CompletionStatus}}</span>
+                                                                v-else-if="course.CompletionStatus =='Not Complete'"> {{course.CompletionStatus}}</span> -->
+                                                            <span class="badge rounded-pill"
+                                                            style="background-color: gold"
+                                                            v-else-if="course.CompletionStatus=='OnGoing'"> {{course.CompletionStatus}}</span>&nbsp&nbsp
                                                             <span class="badge rounded-pill"
                                                                 style="background-color: red"
                                                                 v-else-if="course.RegStatus=='Rejected'"> {{course.RegStatus}}</span>&nbsp&nbsp
                                                             <span class="badge rounded-pill"
-                                                                style="background-color: skyblue"
-                                                                v-else-if="course.RegStatus=='Waiting'"> {{course.RegStatus}} </span>&nbsp&nbsp
+                                                                style="background-color:#919CF8 "
+                                                                v-else-if="course.RegStatus=='Waitlist'"> {{course.RegStatus}} </span>&nbsp&nbsp
                                                             <!-- <span class="badge rounded-pill"
                                                                 style="background-color: #919CF8"
                                                                 v-else>Registered</span>&nbsp&nbsp -->

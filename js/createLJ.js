@@ -27,9 +27,13 @@ const app = Vue.createApp({
     },
     created() {
         //hardcode method-- wait for kw to pass the data LJRole_ID,LJ_ID,Staff_ID
-        var LJRole_ID = 00001
+        const urlParams = new URLSearchParams(window.location.search);
+        const indexValue = urlParams.get('roleID');
+        console.log(indexValue)
+
+        var LJRole_ID = indexValue
         var LJ_ID = 00006
-        var Staff_ID = 00002
+        var Staff_ID = 150238
 
         //dynamic method
         // const dataValue = localStorage.getItem('data');
@@ -40,14 +44,13 @@ const app = Vue.createApp({
         // this.Staff_ID = parseInt(datalist[1]);
         // this.SubmittedLJRole_ID = parseInt(datalist[2]);
         
-
         //relevant php file
         RoleDetailsUrl = '../db/getLJRoleDetails.php'
         RegCourseurl = '../db/getRegCourse.php'
         LjDetailsurl = '../db/getSubmittedLJRoleDetails.php'
         //hardcode method
         const RoleDetaildata = { LJRole_ID: LJRole_ID }
-        const LJDetaildata = { LJ_ID:LJ_ID }
+        // const LJDetaildata = { LJ_ID:LJ_ID }
         const RegCourseData = { Staff_ID: Staff_ID}
         
         //dynamic method
@@ -62,17 +65,17 @@ const app = Vue.createApp({
         // this.SubmittedLJRole_ID = LJRole_ID;
 
         //retrieve data from the php 
-        axios.get(LjDetailsurl, {
-            params: LJDetaildata
+        axios.get(RoleDetailsUrl, {
+            params: RoleDetaildata
         })
             .then(response => {
-                var LJDetails = response.data;
-                // console.log('LJDetails', LJDetails)
-                this.getSubmittedCourse_ID(LJDetails);
-                axios.get(RoleDetailsUrl, {
-                    params: RoleDetaildata
-                })
-                    .then(response => {
+                // var LJDetails = response.data;
+                // // console.log('LJDetails', LJDetails)
+                // this.getSubmittedCourse_ID(LJDetails);
+                // axios.get(RoleDetailsUrl, {
+                //     params: RoleDetaildata
+                // })
+                //     .then(response => {
                         var RoleDetails = response.data;
                         console.log(RoleDetails);
                         this.getRoleDetails(RoleDetails);
@@ -84,13 +87,13 @@ const app = Vue.createApp({
                         })
                             .then(response => {
                                 var RegCourse = response.data;
-                                // console.log('reg course', RegCourse)
+                                console.log('reg course', RegCourse)
                                 this.getRegStatus(RegCourse)
                                 console.log('course status', this.courseRegStatus_dict)
                                 // this.matchStatusWithCourse()
                             })
                     })
-            })
+            // })
     },
     methods: {
         getRoleDetails(RoleDetails) {
@@ -125,13 +128,13 @@ const app = Vue.createApp({
 
             return this.Allskill_dict;
         },
-        getSubmittedCourse_ID(LJDetails) {
-            for (i = 0; i < LJDetails.length; i++) {
-                var SubmittedC_ID = LJDetails[i].Course_ID;
-                this.SubmittedCourse_dict.push({ SubmittedC_ID: SubmittedC_ID })
-            }
-            return this.SubmittedCourse_dict;
-        },
+        // getSubmittedCourse_ID(LJDetails) {
+        //     for (i = 0; i < LJDetails.length; i++) {
+        //         var SubmittedC_ID = LJDetails[i].Course_ID;
+        //         this.SubmittedCourse_dict.push({ SubmittedC_ID: SubmittedC_ID })
+        //     }
+        //     return this.SubmittedCourse_dict;
+        // },
         getCourseDetails(RoleDetails) {
             //for each skillID
             for (var j = 0; j < this.Allskill_dict.length; j++) {
