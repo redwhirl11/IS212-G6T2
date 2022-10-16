@@ -2,7 +2,7 @@ function getAllRoles(){
     var url = "../db/getAllRoles.php"
     axios.get(url).
     then(response => {
-        console.log(response)
+        console.log(response.data)
 
         if (response.data.length == 0) {
           alert('No results found')

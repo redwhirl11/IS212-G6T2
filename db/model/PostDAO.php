@@ -86,7 +86,6 @@ class PostDAO {
                     $row['Department'],
                     $row['Key_Task'],
                     $row['LJRole_Status'],
-                    $row['LJRole_img'],
                     $row['Skill_ID']
                     );
         }

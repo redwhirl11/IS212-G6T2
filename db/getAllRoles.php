@@ -16,7 +16,6 @@ foreach( $posts as $post_object ) {
     $item["Department"] = $post_object->getDepartment();
     $item["Key_Task"] = $post_object->getKey_Task();
     $item["LJRole_Status"] = $post_object->getLJRole_Status();
-    $item["LJRole_img"] = $post_object->getLJRole_img();
     $item["Skill_ID"] = $post_object->getSkill_ID();
     $items[] = $item;
 }
