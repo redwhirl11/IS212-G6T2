@@ -43,7 +43,8 @@ const app = Vue.createApp({
         
         var LJRole_ID = indexValue
         // var LJ_ID = 00006
-        var Staff_ID = parseInt(dataValue.split(',')[1])
+        //var Staff_ID = parseInt(dataValue.split(',')[1])
+        var Staff_ID = 150208
 
         //relevant php file
         RoleDetailsUrl = '../db/getLJRoleDetails.php'
