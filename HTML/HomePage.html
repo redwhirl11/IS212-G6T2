@@ -82,10 +82,10 @@
                                     <span v-if="roles.LJid == courses.LJid && skills.SkillId==courses.SkillId">
                                         {{courses.CourseName}} &nbsp&nbsp
                                         <span class="badge rounded-pill" style="background-color: #5EE1AA" v-if="courses.CompletionStatus =='Completed'">Completed</span>&nbsp&nbsp
-                                        <span class="badge rounded-pill" style="background-color: #5EE1AA" v-else-if="courses.CompletionStatus =='Ongoing'">Ongoing</span>&nbsp&nbsp
+                                        <span class="badge rounded-pill" style="background-color: skyblue" v-else-if="courses.CompletionStatus =='OnGoing'">Ongoing</span>&nbsp&nbsp
                                         <span class="badge rounded-pill" style="background-color: red" v-else-if="courses.RegStatus=='Rejected'">Rejected</span>&nbsp&nbsp
-                                        <span class="badge rounded-pill" style="background-color: skyblue" v-else-if="courses.RegStatus=='Registered'">Registered</span>&nbsp&nbsp
-                                        <span class="badge rounded-pill" style="background-color: #919CF8" v-else-if="courses.RegStatus=='Waitlist'">Waiting</span>&nbsp&nbsp
+                                        <span class="badge rounded-pill" style="background-color:  #919CF8" v-else-if="courses.RegStatus=='Registered'">Registered</span>&nbsp&nbsp
+                                        <span class="badge rounded-pill" style="background-color: gold" v-else-if="courses.RegStatus=='Waitlist'">Waiting</span>&nbsp&nbsp
                                     </span>
                                 </span>
                             </li>
