@@ -242,6 +242,34 @@ class PostDAO {
         return $RegCourses;
     }
 
+    public function addLJRoleDetails($LJ_ID, $Staff_ID, $SubmittedLJRole_ID, $Submitted_Skill_ID, $Submitted_CourseID) {
+        // STEP 1
+        $connMgr = new ConnectionManager();
+        $conn = $connMgr->connect();
+        
+        // STEP 2
+        $sql = "INSERT into learning_journey (LJ_ID, Staff_ID, SubmittedLJRole_ID, Submitted_Skill_ID, Submitted_CourseID)
+                values (:LJ_ID, :Staff_ID, :SubmittedLJRole_ID, :Submitted_Skill_ID, :Submitted_CourseID)"; 
+        $stmt = $conn->prepare($sql);
+
+        $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);
+        $stmt->bindParam(':Staff_ID', $Staff_ID, PDO::PARAM_STR);
+        $stmt->bindParam(':SubmittedLJRole_ID', $SubmittedLJRole_ID, PDO::PARAM_STR);
+        $stmt->bindParam(':Submitted_Skill_ID', $Submitted_Skill_ID, PDO::PARAM_STR);
+        $stmt->bindParam(':Submitted_CourseID', $Submitted_CourseID, PDO::PARAM_STR);
+
+        // STEP 3
+        $status = $stmt->execute();
+        
+
+        // STEP 4
+        $stmt = null;
+        $conn = null;
+
+        // STEP 5
+        return $status;
+    }
+    
     public function saveEditedLJ($LJ_ID, $Staff_ID, $SubmittedLJRole_ID,$Submitted_Skill_ID,$Submitted_CourseID) {
         // STEP 1   
         $connMgr = new ConnectionManager();

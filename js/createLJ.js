@@ -43,8 +43,8 @@ const app = Vue.createApp({
         
         var LJRole_ID = indexValue
         // var LJ_ID = 00006
-        var Staff_ID = parseInt(dataValue.split(',')[1])
-        // var Staff_ID = 150208
+        //var Staff_ID = parseInt(dataValue.split(',')[1])
+        var Staff_ID = 150208
 
         //relevant php file
         RoleDetailsUrl = '../db/getLJRoleDetails.php'
@@ -186,15 +186,17 @@ const app = Vue.createApp({
                 confirmButtonColor: '#6A79F3'
             })
         },
-        saveLJ() {
+        submitLJ() {
+            console.log(Allcourse_dict)
+            console.log(Allskill_dict)
             Swal.fire({
-                title: 'Save your Learning Journey?',
-                text: "Please check information before saving!",
+                title: 'Submit your Learning Journey?',
+                text: "Please check information before submitting!",
                 icon: "warning",
                 showCancelButton: true,
                 cancelButtonColor: '#c7c6c5',
                 confirmButtonColor: '#6A79F3',
-                confirmButtonText: 'Yes, save it!',
+                confirmButtonText: 'Submit',
                 cancelButtonText: 'No, Cancel',
                 width: 'auto',
             }).then((result) => {
