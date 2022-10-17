@@ -122,7 +122,18 @@ const homepage = Vue.createApp({
             this.lj_id = '';
             this.staffid = '';
             this.roleid = '';
-        }    
+        },
+        getDataSendtoRole(LJid,StaffId,RoleId){
+            this.lj_id = LJid;
+            this.staffid = StaffId;
+            this.roleid = RoleId;
+            localStorage.setItem('data', [this.lj_id,this.staffid ,this.roleid ])
+
+            window.location.href = "role.html";
+            this.lj_id = '';
+            this.staffid = '';
+            this.roleid = '';
+        }        
     }
 })
 const homepagevm = homepage.mount("#homepage");
