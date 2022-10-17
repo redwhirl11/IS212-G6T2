@@ -186,17 +186,21 @@ const app = Vue.createApp({
                 confirmButtonColor: '#6A79F3'
             })
         },
-        saveLJ() {
+        submitLJ() {
+            console.log(this.Allcourse_dict)
+            console.log(this.Allskill_dict)
+
+            
             Swal.fire({
-                title: 'Save your Learning Journey?',
-                text: "Please check information before saving!",
+                title: 'Submit your Learning Journey?',
+                text: "Please check information before submitting!",
                 icon: "warning",
                 showCancelButton: true,
                 cancelButtonColor: '#c7c6c5',
                 confirmButtonColor: '#6A79F3',
-                confirmButtonText: 'Yes, save it!',
-                cancelButtonText: 'No, Cancel',
-                width: 'auto',
+                confirmButtonText: 'Submit',
+                cancelButtonText: 'Cancel',
+                width: 'auto'
             }).then((result) => {
                 if (result.isConfirmed) {
                     //check the latest selected courses
