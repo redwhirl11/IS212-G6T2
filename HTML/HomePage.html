@@ -43,8 +43,8 @@
                 With Learning Journey Planner, you can explore thousands of learning journeys tailored to your preferences and needs. 
             </p> 
         </div>
-        <div class="text-center" v-for="roles in AllRoles_dict.slice(0, 1)" style="padding-top: 40vw;">
-            <button class="button button1" @click="getDataSendtoRole(roles.LJid, roles.StaffId, roles.RoleId)">Create Learning Journey</button>
+        <div class="text-center" style="padding-top: 40vw;">
+            <button class="button button1" @click="getDataSendtoRole()">Create Learning Journey</button>
         </div>
     </div>
 
@@ -59,7 +59,9 @@
         <!-- Empty Data -->
         <div class="text-center" v-if="AllRoles_dict.length < 1">
             <p id="BottomDesc">Oh no! you do not have any learning journays at the moment :( </p>
-            <button class="button"  onclick="window.location.href='role.html'">Create Learning Journey</button>
+            <div class="text-center" v-for="roles in AllRoles_dict.slice(0, 1)" style="padding-top: 40vw;">
+                <button class="button button1" @click="getDataSendtoRole(roles.LJid, roles.StaffId, roles.RoleId)">Create Learning Journey</button>
+            </div>
         </div>
 
         <!-- With Learning Journey Data -->
