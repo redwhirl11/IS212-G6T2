@@ -113,13 +113,12 @@ const homepage = Vue.createApp({
         },
         getDataSend(LJid,StaffId,RoleId){
             this.lj_id = LJid;
-            this.staffid = StaffId;
             this.roleid = RoleId;
-            localStorage.setItem('data', [this.lj_id,this.staffid ,this.roleid ])
+            this.staffid = StaffId,
+            localStorage.setItem('data', [this.lj_id, this.staffid ,this.roleid ])
 
             window.location.href = "editLJ.html";
             this.lj_id = '';
-            this.staffid = '';
             this.roleid = '';
         },
         deleteLJ(LJId, StaffId) {
@@ -161,10 +160,10 @@ const homepage = Vue.createApp({
         },
         getDataSendtoRole(){
             
-            localStorage.setItem('data', [this.staffid])
+            localStorage.clear()
+            localStorage.setItem('createLJ', [this.staffid])
 
             window.location.href = "role.html";
-            this.staffid = '';
         },
 
     }
