@@ -122,7 +122,45 @@ const homepage = Vue.createApp({
             this.lj_id = '';
             this.staffid = '';
             this.roleid = '';
-        }    
+        },
+        deleteLJ(LJId, StaffId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonColor: '#c7c6c5',
+                confirmButtonColor: '#6A79F3',
+              }).then((result) => {
+                if (result.isConfirmed) {
+
+                url = "../db/deleteLJ.php"
+                const data = {
+                    LJ_ID: LJId,
+                    Staff_ID: StaffId
+                }
+                
+                axios.delete(url, {
+                    params: data
+                })
+                .then(response => { 
+                    
+                    })
+                .catch(error => {
+                    this.status = 'There was an error: ' + error.message 
+                }) 
+                
+                    swal.fire({title: "Deleted!", text: "Your learning journey has been deleted.", icon: 'success', type: 
+                    "success", confirmButtonColor: '#6A79F3'}).then(function(){ 
+                    location.reload();
+                    }
+                    )
+
+                }
+            })
+        }
     }
 })
+
 const homepagevm = homepage.mount("#homepage");
