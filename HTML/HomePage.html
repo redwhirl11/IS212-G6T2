@@ -26,7 +26,11 @@
 </head>
 <body>
 
-    <!-- upper portion display homepage -->
+   
+
+<div id="homepage">
+
+     <!-- upper portion display homepage -->
     <div class='contianer-fluid' style="padding-bottom: 10vw;" >
         <div>
             <img src="../Icons/Logo(Purple).png" id= 'logo'>
@@ -39,13 +43,13 @@
                 With Learning Journey Planner, you can explore thousands of learning journeys tailored to your preferences and needs. 
             </p> 
         </div>
-        <div class="text-center" style="padding-top: 40vw;" >
-            <button class="button button1" onclick="window.location.href='role.html'">Create Learning Journey</button>
+        <div class="text-center" v-for="roles in AllRoles_dict.slice(0, 1)" style="padding-top: 40vw;">
+            <button class="button button1" @click="getDataSendtoRole(roles.LJid, roles.StaffId, roles.RoleId)">Create Learning Journey</button>
         </div>
     </div>
 
      <!-- lower portion Create learning journey-->
-     <div class='contianer-fluid' id="homepage">
+     <div class='contianer-fluid'>
         <div>
             <img src="../Icons/Rectangle 6.png" id="semiRecImg" >
             <img src="../Icons/HomepageBottom.png" id="HomeBottomImg" >
@@ -85,7 +89,7 @@
                                         <span class="badge rounded-pill" style="background-color: skyblue" v-else-if="courses.CompletionStatus =='OnGoing'">Ongoing</span>&nbsp&nbsp
                                         <span class="badge rounded-pill" style="background-color: red" v-else-if="courses.RegStatus=='Rejected'">Rejected</span>&nbsp&nbsp
                                         <span class="badge rounded-pill" style="background-color:  #919CF8" v-else-if="courses.RegStatus=='Registered'">Registered</span>&nbsp&nbsp
-                                        <span class="badge rounded-pill" style="background-color: gold" v-else-if="courses.RegStatus=='Waitlist'">Waiting</span>&nbsp&nbsp
+                                        <span class="badge rounded-pill" style="background-color: orange" v-else-if="courses.RegStatus=='Waitlist'">Waitlist</span>&nbsp&nbsp
                                     </span>
                                 </span>
                             </li>
@@ -94,6 +98,9 @@
                 </div>
             </div>
         </div>
+    </div>
+
+</div>
 
 
     <!-- Custom JS-->

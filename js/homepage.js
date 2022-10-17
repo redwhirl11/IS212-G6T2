@@ -12,7 +12,7 @@ const homepage = Vue.createApp({
     mounted:function()  {
             //calling LJ data
             LJurl="../db/getLearningJourney.php"
-            var Staff_ID = 150208
+            var Staff_ID = 160282
             const data ={Staff_ID:Staff_ID}
 
             axios.get(LJurl, {
@@ -159,7 +159,19 @@ const homepage = Vue.createApp({
 
                 }
             })
-        }
+        },
+        getDataSendtoRole(LJid,StaffId,RoleId){
+            this.lj_id = LJid;
+            this.staffid = StaffId;
+            this.roleid = RoleId;
+            localStorage.setItem('data', [this.lj_id,this.staffid ,this.roleid ])
+
+            window.location.href = "role.html";
+            this.lj_id = '';
+            this.staffid = '';
+            this.roleid = '';
+        },
+
     }
 })
 
