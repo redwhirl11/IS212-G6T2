@@ -91,7 +91,7 @@ const app = Vue.createApp({
                                 var RegCourse = response.data;
                                 console.log('reg course', RegCourse)
                                 this.getRegStatus(RegCourse)
-                                console.log('course status', this.courseRegStatus_dict)
+                                // console.log('course status', this.courseRegStatus_dict)
                                 // this.matchStatusWithCourse()
                             })
                     })
@@ -181,9 +181,9 @@ const app = Vue.createApp({
                         <div class="col-6"> <strong> Course_Category: </strong>`+ Course_Category + `</div> 
                         <div class="col" style="overflow-x: hidden;word-wrap:break-word"> <strong> Course Description: </strong>`+ Course_Desc + `</div></div>`,
                 width: '40rem',
-                showCloseButton: true,
                 focusConfirm: true,
-                confirmButtonText: 'Back!'
+                confirmButtonText: 'Back!',
+                confirmButtonColor: '#6A79F3'
             })
         },
         saveLJ() {
@@ -255,23 +255,23 @@ const app = Vue.createApp({
                 }
             })
         },
-        getNewSelectedCourse() {
-            //reset the new_selected_course
-            this.new_selected_course = [];
+        // getNewSelectedCourse() {
+        //     //reset the new_selected_course
+        //     this.new_selected_course = [];
 
-            //find the latest selected courses by learner
-            for (var i = 0; i < this.Allcourse_dict.length; i++) {
-                var selectedCourse = this.Allcourse_dict[i].Course_ID
-                var selected = this.Allcourse_dict[i].checked
-                var skill = this.Allcourse_dict[i].Skill_ID
+        //     //find the latest selected courses by learner
+        //     for (var i = 0; i < this.Allcourse_dict.length; i++) {
+        //         var selectedCourse = this.Allcourse_dict[i].Course_ID
+        //         var selected = this.Allcourse_dict[i].checked
+        //         var skill = this.Allcourse_dict[i].Skill_ID
 
-                //if checkbox is checked(selected by the learner), add the skillID, courseID to the new_selected_course list
-                if (selected == true) {
-                    this.new_selected_course.push({ skill, selectedCourse })
-                }
-            }
-            return this.new_selected_course;
-        },
+        //         //if checkbox is checked(selected by the learner), add the skillID, courseID to the new_selected_course list
+        //         if (selected == true) {
+        //             this.new_selected_course.push({ skill, selectedCourse })
+        //         }
+        //     }
+        //     return this.new_selected_course;
+        // },
 
         getRegStatus(RegCourse) {
             for (i = 0; i < RegCourse.length; i++) {

@@ -160,8 +160,8 @@
 
                                                             <!-- show completion status of the course -->
                                                             <span class="badge rounded-pill"
-                                                                style="background-color: #5EE1AA"
-                                                                v-if="course.CompletionStatus =='Completed'"> {{course.CompletionStatus}}</span>&nbsp&nbsp
+                                                            style="background-color: #5EE1AA"
+                                                            v-if="course.CompletionStatus =='Completed'"> {{course.CompletionStatus}}</span>&nbsp&nbsp
                                                                 <!-- <span class="badge rounded-pill"
                                                                 style="background-color:gold"
                                                                 v-else-if="course.CompletionStatus =='Not Complete'"> {{course.CompletionStatus}}</span> -->
@@ -169,11 +169,15 @@
                                                             style="background-color: gold"
                                                             v-else-if="course.CompletionStatus=='OnGoing'"> {{course.CompletionStatus}}</span>&nbsp&nbsp
                                                             <span class="badge rounded-pill"
-                                                                style="background-color: red"
-                                                                v-else-if="course.RegStatus=='Rejected'"> {{course.RegStatus}}</span>&nbsp&nbsp
+                                                            style="background-color: orange "
+                                                            v-else-if="course.RegStatus=='Registered'"> {{course.RegStatus}} </span>&nbsp&nbsp
                                                             <span class="badge rounded-pill"
-                                                                style="background-color:#919CF8 "
-                                                                v-else-if="course.RegStatus=='Waitlist'"> {{course.RegStatus}} </span>&nbsp&nbsp
+                                                            style="background-color:#919CF8 "
+                                                            v-else-if="course.RegStatus=='Waitlist'"> {{course.RegStatus}} </span>&nbsp&nbsp
+                                                            <span class="badge rounded-pill"
+                                                            style="background-color: red"
+                                                            v-else-if="course.RegStatus=='Rejected'"> {{course.RegStatus}}</span>&nbsp&nbsp
+    
                                                             <!-- <span class="badge rounded-pill"
                                                                 style="background-color: #919CF8"
                                                                 v-else>Registered</span>&nbsp&nbsp -->
