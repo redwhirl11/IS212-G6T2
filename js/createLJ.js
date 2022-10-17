@@ -23,6 +23,8 @@ const app = Vue.createApp({
             submittedCourseID: '',
             checked: false,
             courseRegStatus_dict: []
+            
+
         };
     },
     created() {
@@ -32,7 +34,8 @@ const app = Vue.createApp({
 
 
         //dynamic method
-        const dataValue = localStorage.getItem('data');
+        const dataValue = localStorage.getItem('createLJ');
+        console.log(localStorage)
         console.log(dataValue)
         // // console.log(dataValue[0],dataValue[2],dataValue[4]);  
         // const datalist = dataValue.split(',');
