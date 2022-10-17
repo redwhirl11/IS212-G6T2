@@ -28,6 +28,9 @@
     <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma/bulma.css" rel="stylesheet">
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
+    <!-- js -->
+    <script  src="../js/softDeleteRole.js"></script>
+
     <style>
         #Header {
             padding-left: 100px;
@@ -77,6 +80,12 @@
         .badges {
             background-color: #919CF8;
             font-size: 16px;
+        }
+
+        #deleteButton {
+            background: none;
+            border: none;
+            color:gray;
         }
     </style>
 
@@ -141,7 +150,7 @@
                             <!-- Kai Wei your edit button is here -->
                             <span class="col-lg-2 col-md col-sm-2" style="color:gray">Edit</span>
                             <!-- Jing Wen your delete button is here -->
-                            <span class="col-lg col-md col-sm-2" style="color:gray">Delete</span>
+                            <span class="col-lg col-md col-sm-2"><button id="deleteButton" onclick="SoftDeleteRole()">Delete</button></span>
                         </div>
                         <div class="row my-2">
                             <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3">4 skills</div>
