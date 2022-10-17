@@ -408,6 +408,60 @@ class PostDAO {
         // STEP 5
         return $status;
     }
+
+    public function createSkill($Skill_ID,$Skill_Name,$Type_of_Skills,$Level_of_Competencies,$Skill_Status,$Course_ID) {
+        // STEP 1   
+        $connMgr = new ConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2
+        $sql = "INSERT INTO `skills` (`Skill_ID`, `Skill_Name`, `Type_of_Skills`, `Level_of_Competencies`, `Skill_Status`, `Course_ID`) VALUES (:Skill_ID, :Skill_Name, :Type_of_Skills, :Level_of_Competencies, :Skill_Status, :Course_ID);";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':Skill_ID', $Skill_ID, PDO::PARAM_STR);
+        $stmt->bindParam(':Skill_Name', $Skill_Name, PDO::PARAM_STR);
+        $stmt->bindParam(':Type_of_Skills', $Type_of_Skills, PDO::PARAM_STR);
+        $stmt->bindParam(':Level_of_Competencies', $Level_of_Competencies, PDO::PARAM_STR);
+        $stmt->bindParam(':Skill_Status', $Skill_Status, PDO::PARAM_STR);
+        $stmt->bindParam(':Course_ID', $Course_ID, PDO::PARAM_STR);
+
+        //STEP 3
+        $status = $stmt->execute();
+        
+        // STEP 4
+        $stmt = null;
+        $conn = null;
+
+        // STEP 5
+        return $status;
+    }
+
+    
+    public function createLJRole($LJRole_ID,$LJRole_Name,$LJRole_Description,$Department,$Key_Task,$LJRole_Status,$Skill_ID) {
+        // STEP 1   
+        $connMgr = new ConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2
+        $sql = "INSERT INTO `ljroles` (`LJRole_ID`, `LJRole_Name`, `LJRole_Description`, `Department`, `Key_Task`, `LJRole_Status`, `Skill_ID`) VALUES (:LJRole_ID, :LJRole_Name, :LJRole_Description, :Department, :Key_Task, :LJRole_Status, :Skill_ID)";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':LJRole_ID', $LJRole_ID, PDO::PARAM_STR);
+        $stmt->bindParam(':LJRole_Name', $LJRole_Name, PDO::PARAM_STR);
+        $stmt->bindParam(':LJRole_Description', $LJRole_Description, PDO::PARAM_STR);
+        $stmt->bindParam(':Department', $Department, PDO::PARAM_STR);
+        $stmt->bindParam(':Key_Task', $Key_Task, PDO::PARAM_STR);
+        $stmt->bindParam(':LJRole_Status', $LJRole_Status, PDO::PARAM_STR);
+        $stmt->bindParam(':Skill_ID', $Skill_ID, PDO::PARAM_STR);
+
+        //STEP 3
+        $status = $stmt->execute();
+        
+        // STEP 4
+        $stmt = null;
+        $conn = null;
+
+        // STEP 5
+        return $status;
+    }
     
 }
 
