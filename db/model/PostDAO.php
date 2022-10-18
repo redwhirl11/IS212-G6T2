@@ -203,6 +203,44 @@ class PostDAO {
         return $LearningJourney;
     }
 
+    public function getLJs() {
+        // STEP 1
+        $connMgr = new ConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2
+        $sql = "SELECT
+                     *
+                FROM learning_journey "; 
+        $stmt = $conn->prepare($sql);
+
+        // $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);
+
+        // STEP 3
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        // STEP 4
+        $AllLJs = []; // Indexed Array of Post objects
+        while( $row = $stmt->fetch() ) {
+            $AllLJs[] =
+                new AllLJs (
+                    $row['LJ_ID'],
+                    $row['Staff_ID'],
+                    $row['SubmittedLJRole_ID'],
+                    $row['Submitted_Skill_ID'],
+                    $row['Submitted_CourseID']
+                    );
+        }
+
+        // STEP 5
+        $stmt = null;
+        $conn = null;
+
+        // STEP 6
+        return $AllLJs;
+    }
+    
     public function getRegCourse($Staff_ID) {
         // STEP 1
         $connMgr = new ConnectionManager();

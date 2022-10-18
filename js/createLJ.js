@@ -14,6 +14,7 @@ const app = Vue.createApp({
             LJ_ID: '',
             Staff_ID: '',
             SubmittedLJRole_ID: '',
+            LatestLJ_ID: '',
             //AllXX_dict means retrieve from Role Details
             Allskill_dict: [],
             Allcourse_dict: [],
@@ -98,6 +99,15 @@ const app = Vue.createApp({
                                 // this.matchStatusWithCourse()
                             })
                     })
+
+        axios.get("../db/getLatestLJ_ID.php")
+        .then(response =>{
+            console.log(response.data)
+            this.LatestLJ_ID = response.data
+        })
+        .catch(error=>{
+            console.log(error.message)
+        })
             // })
     },
     methods: {
@@ -190,76 +200,97 @@ const app = Vue.createApp({
             })
         },
         submitLJ() {
-            console.log(Allcourse_dict)
-            console.log(Allskill_dict)
-            Swal.fire({
-                title: 'Submit your Learning Journey?',
-                text: "Please check information before submitting!",
-                icon: "warning",
-                showCancelButton: true,
-                cancelButtonColor: '#c7c6c5',
-                confirmButtonColor: '#6A79F3',
-                confirmButtonText: 'Submit',
-                cancelButtonText: 'No, Cancel',
-                width: 'auto',
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    //check the latest selected courses
-                    this.getNewSelectedCourse();
-                    console.log(this.new_selected_course);
-                    //if learner select >1 courses -> confirmation pop up
-                    if (this.new_selected_course.length > 0) {
-                        const Surl = '../db/deleteLJ.php'
-                        const data = {
-                            LJ_ID: this.LJ_ID, Staff_ID: this.Staff_ID
-                        }
-                        axios.get(Surl, {
-                            params: data
-                        })
-                            .then(response => {
-                                for (let i = 0; i < this.new_selected_course.length; i++) {
-                                    //save the latest selected courses to the database
-                                    const Surl = '../db/saveEditedLJ.php'
-                                    var Submitted_Skill_ID = parseInt(this.new_selected_course[i].skill)
-                                    var Submitted_CourseID = this.new_selected_course[i].selectedCourse
-                                    const data = {
-                                        LJ_ID: this.LJ_ID, Staff_ID: this.Staff_ID,
-                                        SubmittedLJRole_ID: this.SubmittedLJRole_ID,
-                                        Submitted_Skill_ID: Submitted_Skill_ID,
-                                        Submitted_CourseID: Submitted_CourseID,
-                                    }
-                                    axios.get(Surl, {
-                                        params: data
-                                    })
-        
-                                        .then(response => {
-                                            // console.log(response);
-                                            Swal.fire(
-                                                'Congratulations!',
-                                                'Your changes have been successfully saved!',
-                                                'success',
-                                            ).then(function() {
-                                                window.location.href = "homepage.html";
-                                            })
-                                        })
-        
-                                        .catch(error => {
-                                            console.log(error);
-                                            alert('Error: ${error}. <br/> Please Try Again Later')
-                                        })
-                                }
-                                
-                        })
-                    } else {
-                        Swal.fire(
-                            'Cancelled',
-                            'Oops, you must pick a least 1 course :(',
-                            'error',
-                        )
-                    }
+            let completed_check = false
+            console.log(this.Allcourse_dict)
+            console.log(this.Allskill_dict)
+            console.log(this.LatestLJ_ID)
+
+            for (let i = 0; i < this.Allcourse_dict.length; i++){
+                if (document.getElementById(this.Allcourse_dict[i].Course_ID).checked){
+                    completed_check = true
                 }
-            })
-        },
+            }
+            if (completed_check == false){
+                Swal.fire({
+                    title: 'No courses selected',
+                    icon: 'warning',
+                    focusConfirm: true,
+                    confirmButtonText: 'Back',
+                    confirmButtonColor: '#6A79F3',
+                    cancelButtonColor: '#d33',
+                })
+            }
+            else{
+                Swal.fire({
+                    title: 'Submit your Learning Journey?',
+                    text: "Please check information before submitting!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    cancelButtonColor: '#c7c6c5',
+                    confirmButtonColor: '#6A79F3',
+                    confirmButtonText: 'Submit',
+                    cancelButtonText: 'No, Cancel',
+                    width: 'auto',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        //check the latest selected courses
+                        this.getNewSelectedCourse();
+                        console.log(this.new_selected_course);
+                        //if learner select >1 courses -> confirmation pop up
+                        if (this.new_selected_course.length > 0) {
+                            const Surl = '../db/deleteLJ.php'
+                            const data = {
+                                LJ_ID: this.LJ_ID, Staff_ID: this.Staff_ID
+                            }
+                            axios.get(Surl, {
+                                params: data
+                            })
+                                .then(response => {
+                                    for (let i = 0; i < this.new_selected_course.length; i++) {
+                                        //save the latest selected courses to the database
+                                        const Surl = '../db/saveEditedLJ.php'
+                                        var Submitted_Skill_ID = parseInt(this.new_selected_course[i].skill)
+                                        var Submitted_CourseID = this.new_selected_course[i].selectedCourse
+                                        const data = {
+                                            LJ_ID: this.LJ_ID, Staff_ID: this.Staff_ID,
+                                            SubmittedLJRole_ID: this.SubmittedLJRole_ID,
+                                            Submitted_Skill_ID: Submitted_Skill_ID,
+                                            Submitted_CourseID: Submitted_CourseID,
+                                        }
+                                        axios.get(Surl, {
+                                            params: data
+                                        })
+            
+                                            .then(response => {
+                                                // console.log(response);
+                                                Swal.fire(
+                                                    'Congratulations!',
+                                                    'Your changes have been successfully saved!',
+                                                    'success',
+                                                ).then(function() {
+                                                    window.location.href = "homepage.html";
+                                                })
+                                            })
+            
+                                            .catch(error => {
+                                                console.log(error);
+                                                alert('Error: ${error}. <br/> Please Try Again Later')
+                                            })
+                                    }
+                                    
+                            })
+                        } else {
+                            Swal.fire(
+                                'Cancelled',
+                                'Oops, you must pick a least 1 course :(',
+                                'error',
+                            )
+                        }
+                    }
+                })
+            }
+        }
+            ,
         // getNewSelectedCourse() {
         //     //reset the new_selected_course
         //     this.new_selected_course = [];
