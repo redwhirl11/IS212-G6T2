@@ -88,7 +88,7 @@
 
 <body>
 
-    <div class='container-fluid' id="hrHomePage">
+    <div class='container-fluid' id="hrSkill">
         <div class="row" style="background:#6A79F3;">
             <div class="row position-relative">
                 <div class="row my-5">
@@ -134,14 +134,13 @@
             </div>
         </div>
 
-        <!-- All role cards-->
+        <!-- All skill cards-->
         <div class="row mt-4 ">
-            <div class="col-md-1 col-sm-1"></div>
-            <div class="col-lg-5 col-md-5 col-sm-6 my-3">
+            <div class="col-lg-5 col-md-8 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="skill in skillDict">
                 <div class="card p-2">
                     <div class="row card-body">
                         <div class="row my-2">
-                            <h4 class="col-8 col-lg-7 col-md-5 col-sm-1 card-title">Leadership</h4>
+                            <h4 class="col-8 col-lg-7 col-md-8 col-sm-1 card-title">{{skill.skillName}}</h4>
                             <!-- Kai Wei your edit button is here -->
                             <span class="col-lg-2 col-md col-sm-2" style="color:gray">Edit</span>
                             <!-- Jing Wen your delete button is here -->
@@ -152,41 +151,20 @@
                             <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3">3 courses</div>
                         </div> -->
                         <div class="row my-2">
-                            <div class="col"> <strong>Skill Type: </strong>  <span> General</span></div>
-                            <div class="col"> <strong>Competency Level:</strong> <span>Beginner</span></div>
+                            <div class="col"> <strong>Skill Type: </strong>  <span> {{skill.skillType}}</span></div>
+                            <div class="col"> <strong>Competency Level:</strong> <span>{{skill.level}}</span></div>
                         </div>
 
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5 col-md-5 col-sm-6 my-3">
-                <div class="card p-2">
-                    <div class="row card-body">
-                        <div class="row my-2">
-                            <h4 class="col-8 col-lg-7  col-md-5 col-sm-1 card-title">Design and Development</h4>
-                            <span class="col-lg-2 col-md col-sm-2" style="color:gray">Edit</span>
-                            <span class="col-lg col-md col-sm-2" style="color:gray">Delete</span>
-                        </div>
-                        <!-- <div class="row my-2">
-                            <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3">4 skills</div>
-                            <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3">3 courses</div>
-                        </div> -->
-                        <div class="row my-2">
-                            <div class="col"> <strong>Skill Type: </strong>  <span> Technical</span></div>
-                            <div class="col"> <strong>Competency Level:</strong> <span>Intermediate</span></div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col col-sm-1"></div>
 
         </div>
 
 
     </div>
 
-    <!-- <script src='../JS/EditLJ.js'></script> -->
+    <script src='../JS/hrSkill.js'></script>
 
 </body>
 
