@@ -52,19 +52,17 @@
             height: 34.8px;
         }
 
+        /* .roles{
+            margin-left:50px
+        } */
         .card:hover {
             box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
         }
 
-        /* 
+        
         a:hover {
             color: #6A79F3;
         }
-
-        a {
-            text-decoration: none;
-            color: black;
-        } */
 
         #searchBar {
             background: #4C5BDD;
@@ -140,58 +138,30 @@
         </div>
 
         <!-- All role cards-->
-        <div class="row mt-4 ">
-            <div class="col-md-1 col-sm-1"></div>
-            <div class="col-lg-5 col-md-5 col-sm-6 mt-2">
+        <div class="row mt-4">
+            <div class="col-lg-5 col-md-8 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="role in roleDict">
                 <div class="card p-2">
                     <div class="row card-body">
                         <div class="row my-2">
-                            <h4 class="col-8 col-lg-7 col-md-5 col-sm-1 card-title">Regional Data Analyst</h4>
+                            <h4 class="col-8 col-lg-7 col-md-6 col-sm-1 card-title">{{role.roleName}}</h4>
                             <!-- Kai Wei your edit button is here -->
                             <span class="col-lg-2 col-md col-sm-2" style="color:gray">Edit</span>
                             <!-- Jing Wen your delete button is here -->
                             <span class="col-lg col-md col-sm-2"><button id="deleteButton" onclick="SoftDeleteRole()">Delete</button></span>
                         </div>
                         <div class="row my-2">
-                            <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3">4 skills</div>
-                            <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3">3 courses</div>
+                            <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3 text-uppercase">{{role.dept}}</div>
+                            <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3">{{role.status}}</div>
                         </div>
                         <div class="row my-2">
                             <p>
-                                The Data Analyst partners with Regional Operations teams to provide analytical support
-                                to help the team achieve objectives. The Data Analyst masters both the data and business
-                                domains to play a key role in decision-making.
+                                {{role.desc}}
                             </p>
                         </div>
 
                     </div>
                 </div>
             </div>
-            <div class="col-lg-5 col-md-5 col-sm-6 mt-2">
-                <div class="card p-2">
-                    <div class="row card-body">
-                        <div class="row my-2">
-                            <h4 class="col-8 col-lg-7  col-md-5 col-sm-1 card-title">Regional Data Analyst</h4>
-                            <span class="col-lg-2 col-md col-sm-2" style="color:gray">Edit</span>
-                            <span class="col-lg col-md col-sm-2" style="color:gray">Delete</span>
-                        </div>
-                        <div class="row my-2">
-                            <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3">4 skills</div>
-                            <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3">3 courses</div>
-                        </div>
-                        <div class="row my-2">
-                            <p>
-                                The Data Analyst partners with Regional Operations teams to provide analytical support
-                                to help the team achieve objectives. The Data Analyst masters both the data and business
-                                domains to play a key role in decision-making.
-                            </p>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-            <div class="col col-sm-1"></div>
-
         </div>
 
 
