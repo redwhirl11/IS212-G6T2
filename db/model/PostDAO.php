@@ -97,6 +97,46 @@ class PostDAO {
         return $AllRoles;
     }
 
+    public function getAllSkills() {
+        // STEP 1
+        $connMgr = new ConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2
+        $sql = "SELECT
+                     *
+                FROM skills 
+                WHERE Skill_Status = 'Active'"; 
+        $stmt = $conn->prepare($sql);
+
+        // $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);
+
+        // STEP 3
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        // STEP 4
+        $AllSkills = []; // Indexed Array of Post objects
+        while( $row = $stmt->fetch() ) {
+            $AllSkills[] =
+                new AllSkills (
+                    $row['Skill_ID'],
+                    $row['Skill_Name'],
+                    $row['Type_of_Skills'],
+                    $row['Level_of_Competencies'],
+                    $row['Skill_Status'],
+                    $row['Course_ID']
+                    );
+        }
+
+        // STEP 5
+        $stmt = null;
+        $conn = null;
+
+        // STEP 6
+        return $AllSkills;
+    }
+
     public function getLJRoleDetails($LJRole_ID) {
         // STEP 1
         $connMgr = new ConnectionManager();
