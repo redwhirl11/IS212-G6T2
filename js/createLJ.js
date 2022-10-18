@@ -108,6 +108,9 @@ const app = Vue.createApp({
         .catch(error=>{
             console.log(error.message)
         })
+
+        this.Staff_ID = Staff_ID
+        this.SubmittedLJRole_ID = LJRole_ID
             // })
     },
     methods: {
@@ -204,6 +207,7 @@ const app = Vue.createApp({
             console.log(this.Allcourse_dict)
             console.log(this.Allskill_dict)
             console.log(this.LatestLJ_ID)
+            console.log(this.Staff_ID)
 
             for (let i = 0; i < this.Allcourse_dict.length; i++){
                 if (document.getElementById(this.Allcourse_dict[i].Course_ID).checked){
@@ -233,6 +237,56 @@ const app = Vue.createApp({
                     width: 'auto',
                 }).then((result) => {
                     if (result.isConfirmed) {
+
+                        const url = "../db/addRole.php"
+                        var LJ_ID = this.LatestLJ_ID + 1
+
+                        for (let x in this.Allcourse_dict){
+                            if (document.getElementById(this.Allcourse_dict[x].Course_ID).checked){
+                                var Submitted_Skill_ID = this.Allcourse_dict[x].Skill_ID
+                                var Submitted_CourseID = this.Allcourse_dict[x].Course_ID
+                                const data = {
+                                    LJ_ID: LJ_ID,
+                                    Staff_ID: this.Staff_ID,
+                                    SubmittedLJRole_ID: this.SubmittedLJRole_ID,
+                                    Submitted_Skill_ID: Submitted_Skill_ID,
+                                    Submitted_CourseID: Submitted_CourseID
+                                }
+                                axios.get(url, {
+                                    params: data
+                                })
+                                .then(response=>{
+                                    console.log(response.data)
+                                    if (response.data["status"] == "Course(s) was not added"){
+                                        Swal.fire({
+                                                title: response.data["status"],
+                                                text: 'Please refresh the page and try again.',
+                                                icon: 'warning',
+                                                focusConfirm: true,
+                                                confirmButtonText: 'Back',
+                                                confirmButtonColor: '#6A79F3',
+                                                cancelButtonColor: '#d33',
+                                            })
+                                    }
+                                    else{
+                                        Swal.fire({
+                                        icon:  'success',
+                                        title: 'Your learning journey has been successfully created!',
+                                        showConfirmButton: true,
+                                        confirmButtonColor: '#6A79F3',
+                                        }).then(function() {
+                                            window.location.href = "HomePage.html";
+                                        })
+                                    }
+                                })
+                            }
+                        }
+                    }
+                }) 
+            }
+        }                        
+                        
+                        /*
                         //check the latest selected courses
                         this.getNewSelectedCourse();
                         console.log(this.new_selected_course);
@@ -286,11 +340,9 @@ const app = Vue.createApp({
                                 'error',
                             )
                         }
-                    }
-                })
-            }
-        }
-            ,
+                        */
+
+        ,    
         // getNewSelectedCourse() {
         //     //reset the new_selected_course
         //     this.new_selected_course = [];
@@ -324,7 +376,7 @@ const app = Vue.createApp({
             }
             console.log('testing',this.Allcourse_dict)
             return this.Allcourse_dict
-        },
+        }
 
     }
 })
