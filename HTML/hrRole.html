@@ -147,7 +147,7 @@
                             <!-- Kai Wei your edit button is here -->
                             <span class="col-lg-2 col-md col-sm-2" style="color:gray">Edit</span>
                             <!-- Jing Wen your delete button is here -->
-                            <span class="col-lg col-md col-sm-2"><button id="deleteButton" onclick="SoftDeleteRole()">Delete</button></span>
+                            <span class="col-lg col-md col-sm-2"><button id="deleteButton" @click="SoftDeleteRole(role.roleId)">Delete</button></span>
                         </div>
                         <div class="row my-2">
                             <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3 text-uppercase">{{role.dept}}</div>
