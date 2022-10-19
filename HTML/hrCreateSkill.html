@@ -48,6 +48,9 @@
             width: 51.35px;
             height: 34.8px;
         }
+        .align-left {
+        text-align: left;
+        }
         /* body{
             background-color: #6A79F3;
         }
@@ -111,8 +114,8 @@
                 <div>
                     <h4><label for="inputSkillType" class="form-label">Type of Skill</label></h4>
                     <textarea class="form-control" v-model='Type_of_Skill' id="inputSkillType" maxlength="50" placeholder="Type in Skill's Type" rows="3"></textarea>
-                    <div id="desCount" style="float: right;">
-                        <span id="desCurr">0</span>/50
+                    <div id="TypeofSkillCount" style="float: right;">
+                        <span id="TypeofSkillCurr">0</span>/50
                     </div>
 
                 </div>
@@ -126,6 +129,14 @@
                     <h4><label for="inputCourses" class="form-label">Course(s) Assigned (KIV-Sprint 3)</label></h4>
                     <input type="text" class="form-control" id="inputCourses" v-model="Course_assign">
                 </div>
+                <div v-for="error in error_message">
+                    <ul>
+                        <li>
+                            {{error}}
+                        </li>
+                        
+                    </ul>
+                </div>
               </form>
         </div>
 
@@ -135,17 +146,17 @@
     <script>
     $('input').keyup(function() {
         var characterCount = $(this).val().length,
-            roleCurr = $('#roleCurr'),
-            roleNameCount = $('#roleNameCount');
-        roleCurr.text(characterCount);
+            skillCurr = $('#skillCurr'),
+            skillNameCount = $('#skillNameCount');
+        skillCurr.text(characterCount);
     });
 
-    $('#inputRoleDesc').keyup(function() {
+    $('#inputSkillType').keyup(function() {
         var desCharacterCount = $(this).val().length,
-            desCurr = $('#desCurr'),
-            desCount = $('#desCount');
+            TypeofSkillCurr = $('#TypeofSkillCurr'),
+            TypeofSkillCount = $('#TypeofSkillCount');
 
-        desCurr.text(desCharacterCount);
+        TypeofSkillCurr.text(desCharacterCount);
     });
 
     $('#inputKeyTask').keyup(function() {

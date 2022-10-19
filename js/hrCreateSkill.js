@@ -7,23 +7,15 @@ const app = Vue.createApp({
             Level_of_Competencies: '',
             Type_of_Skill: '',
             //modify in sprint 3, will hardcode for the course (for sprint 2)
-            Course_assign:'tch002'
+            Course_assign:'tch002',
+            error_message:[],
+            error_in_html:''
             
         };
     },
     methods: {
-        getAllRoles(){
-            const role = '../db/getAllRoles.php'
-            axios.get(role)
-                .then(response => {
-                    console.log(response.data)
-                })
-
-        },
         submitSkill() {
-            this.getAllRoles()
             if (this.Skill_Name !='' && this.Level_of_Competencies!= '' && this.Type_of_Skill!= '') {
-                console.log(this.Skill_Name);
                 const createSkill = '../db/createSkill.php'
                 const data = {
                     Skill_ID: this.Skill_ID,
@@ -37,7 +29,6 @@ const app = Vue.createApp({
                     params: data
                 })
                     .then(response => {
-                        console.log("yes");
                         Swal.fire(
                             'Congratulations!',
                             'You have created a new skill!',
@@ -49,14 +40,44 @@ const app = Vue.createApp({
                         alert('Error: ${error}. <br/> Please Try Again Later')
                     })
                 }else {
-                    Swal.fire(
-                        'Cancelled',
-                        'Oops, something went wrong!',
-                        'error',
-                    )
+                    this.getErrorMessage();
+                    this.changeErrorMsgintoHTML();
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        html: this.error_in_html
+                    })
+
+                    this.error_in_html='';
+                    this.error_message=[];
                 }
-            }
         },
+        getErrorMessage(){
+            if (this.Skill_Name ==''){
+                this.error_message.push('Invalid Skill Name')
+            }
+            if (this.Level_of_Competencies == ''){
+                this.error_message.push('You must select the level of competencies for the skill')
+            }
+            if (this.Type_of_Skill == ''){
+                this.error_message.push('You must input the type of skill')
+            }
+            return this.error_message
+        },
+        changeErrorMsgintoHTML(){
+            this.error_in_html = '<div class="align-left"><ul>';
+            for(var i=0;i<this.error_message.length;i++){
+                this.error_in_html += '<li>' + this.error_message[i] + '</li>'
+            }
+            this.error_in_html += '</ul></div>';
+            console.log(this.error_in_html);
+            return this.error_in_html;
+        }
+
+
+
+    }
+        
         
 
     
