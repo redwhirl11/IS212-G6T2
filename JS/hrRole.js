@@ -59,13 +59,19 @@ app = Vue.createApp({
               .then((result) => {
                 if (result.isConfirmed) {
                     var url = "../db/SoftDeleteRole.php"
-                    axios.get(url).
-                    then(response => {
+                    const data = {LJRole_ID: id}
+                    axios.get(url , {
+                        params: data
+                    })
+                    .then(response => {
                         console.log(response.data)
                         Swal.fire("Success! Role has been soft deleted.", {
                         icon: "success",
-                        });
+                        }).then(function() {
+                            window.location.href = "hrRole.html";
+                        })
                     })
+                    
                     .catch(error => {
                         console.log(error.message)
                     })
