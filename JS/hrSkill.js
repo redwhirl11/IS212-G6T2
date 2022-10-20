@@ -1,7 +1,10 @@
 app = Vue.createApp({
     data() {
         return {
-            skillDict: []
+            skillDict: [],
+            skillId : '',
+            status : '',
+            course : ''
         }
     },
 
@@ -16,7 +19,7 @@ app = Vue.createApp({
             const allSkillUrl = '../db/getSkills.php'
             axios.get(allSkillUrl).then(response => {
                 var allSkill = response.data
-                console.log(allSkill)
+                // console.log(allSkill)
 
                 var temp=[];
 
@@ -40,7 +43,19 @@ app = Vue.createApp({
             
             console.log(this.skillDict)
             return this.skillDict;
-        }
+        },
+        getDataSend(skillId,status,course){
+            this.skillId = skillId;
+            this.status = status;
+            this.course = course;
+            localStorage.setItem('data', [this.skillId,this.status ,this.course ])
+
+            window.location.href = "hrEditSkill.html";
+            this.skillId = '';
+            this.status = '';
+            this.course = '';
+        }  
+
     }
 })
 
