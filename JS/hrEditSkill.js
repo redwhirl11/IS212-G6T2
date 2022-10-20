@@ -33,6 +33,50 @@ app = Vue.createApp({
             }
         })
     },
+    methods: {
+        submitEditSkill() {
+            Swal.fire({
+                title: 'Save the Edited Skill?',
+                text: "Please check information before saving!",
+                icon: "warning",
+                showCancelButton: true,
+                cancelButtonColor: '#c7c6c5',
+                confirmButtonColor: '#6A79F3',
+                confirmButtonText: 'Yes, save it!',
+                cancelButtonText: 'No, Cancel',
+                width: 'auto',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    const UpdateUrl = '../db/updateSkill.php'
+                    const data = {
+                        Skill_ID: this.Skill_ID,
+                        Skill_Name: this.Skill_Name, 
+                        Skill_Status: this.Skill_Status, 
+                        Type_of_Skills: this.Skill_Type, 
+                        Level_of_Competencies: this.Skill_Level
+                    }
+                    axios.get(UpdateUrl, {
+                        params: data
+                    })
+                        .then(response => {
+                            Swal.fire(
+                                'Congratulations!',
+                                'You have successfully edited the skill!',
+                                'success',
+                            )
+                            this.error_in_html='';
+                            this.error_message=[];
+                        })
+                        .catch(error => {
+                            console.log(error);
+                            alert('Error: ${error}. <br/> Please Try Again Later')
+                        })
+
+                    
+                }
+            })
+        },
+    }
 })
 
 const vm = app.mount('#hrEditSkill')
