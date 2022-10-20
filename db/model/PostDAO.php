@@ -390,7 +390,7 @@ class PostDAO {
         return $status;
     }
 
-    public function updateSkill($Skill_ID,$Skill_Name,$Type_of_Skills,$Level_of_Competencies,$Skill_Status) {
+    public function updateSkill($Skill_ID,$Skill_Name,$Type_of_Skills,$Level_of_Competencies,$Skill_Status,$Course_ID) {
         // STEP 1   
         $connMgr = new ConnectionManager();
         $conn = $connMgr->connect();
@@ -398,7 +398,7 @@ class PostDAO {
         // STEP 2
         $sql = "UPDATE `skills` 
                 SET `Skill_Name` = :Skill_Name , `Type_of_Skills` = :Type_of_Skills 
-                , `Level_of_Competencies` = :Level_of_Competencies , `Skill_Status` = :Skill_Status
+                , `Level_of_Competencies` = :Level_of_Competencies , `Skill_Status` = :Skill_Status, `Course_ID` = :Course_ID
                 WHERE `Skill_ID` = :Skill_ID ";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':Skill_ID', $Skill_ID, PDO::PARAM_STR);
@@ -406,6 +406,7 @@ class PostDAO {
         $stmt->bindParam(':Type_of_Skills', $Type_of_Skills, PDO::PARAM_STR);
         $stmt->bindParam(':Level_of_Competencies', $Level_of_Competencies, PDO::PARAM_STR);
         $stmt->bindParam(':Skill_Status', $Skill_Status, PDO::PARAM_STR);
+        $stmt->bindParam(':Course_ID', $Course_ID, PDO::PARAM_STR);
 
         //STEP 3
         $status = $stmt->execute();
