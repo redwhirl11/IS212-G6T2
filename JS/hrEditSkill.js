@@ -53,8 +53,7 @@ app = Vue.createApp({
                         Skill_Name: this.Skill_Name, 
                         Skill_Status: this.Skill_Status, 
                         Type_of_Skills: this.Skill_Type, 
-                        Level_of_Competencies: this.Skill_Level,
-                        Course_ID:this.Skill_Course
+                        Level_of_Competencies: this.Skill_Level
                     }
                     axios.get(UpdateUrl, {
                         params: data
