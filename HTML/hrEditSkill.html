@@ -7,7 +7,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../Icons/Logo(Purple).png">
     <title>HR Edit Role</title>
-    <!-- <link rel="stylesheet" href="../CSS/editLJ.css"> -->
     <link href='https://fonts.googleapis.com/css?family=Inter:600,400' rel='stylesheet'>
 
     <!-- CSS only -->
@@ -48,16 +47,13 @@
             width: 51.35px;
             height: 34.8px;
         }
-        .align-left {
-        text-align: left;
-        }
 
     </style>
 </head>
 
 <body>
     
-    <div class='container-fluid' id="hrCreateSkill">
+    <div class='container-fluid' id="hrEditSkill">
         <div class="row" style="background:#6A79F3;">
             <div class="row position-relative">
                 <div class="row my-5">
@@ -71,7 +67,7 @@
                 </div>
                 <img src="../Icons/Vector 1.png" alt="background">
                 <p class="h1 position-absolute top-50 start-50 translate-middle" id="Header">
-                    Edit a skill:
+                    Edit a skill: {{Skill_Name}}
                 </p>
             </div>
         </div>
@@ -94,7 +90,7 @@
                 </div>
                 <div class="col-6">
                     <h4><label for="inputlevel" class="form-label">Level of Competencies</label></h4>
-                    <select id="inputlevel" class="form-select" v-model="Level_of_Competencies">
+                    <select id="inputlevel" class="form-select" v-model="Skill_Level">
                         <option disabled value="">Please select one</option>
                         <option value="Beginner">Beginner</option>
                         <option value="Intermediate">Intermediate</option>
@@ -103,7 +99,7 @@
                 </div>
                 <div>
                     <h4><label for="inputSkillType" class="form-label">Type of Skill</label></h4>
-                    <textarea class="form-control" v-model='Type_of_Skill' id="inputSkillType" maxlength="50" placeholder="Type in Skill's Type" rows="3"></textarea>
+                    <textarea class="form-control" v-model='Skill_Type' id="inputSkillType" maxlength="50" placeholder="Type in Skill's Type" rows="3"></textarea>
                     <div id="TypeofSkillCount" style="float: right;">
                         <span id="TypeofSkillCurr">0</span>/50
                     </div>
