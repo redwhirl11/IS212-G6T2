@@ -95,6 +95,7 @@ const app = Vue.createApp({
                                 var RegCourse = response.data;
                                 console.log('reg course', RegCourse)
                                 this.getRegStatus(RegCourse)
+                                this.checkCompletion()
                                 // console.log('course status', this.courseRegStatus_dict)
                                 // this.matchStatusWithCourse()
                             })
@@ -112,10 +113,6 @@ const app = Vue.createApp({
         this.Staff_ID = Staff_ID
         this.SubmittedLJRole_ID = LJRole_ID
             // })
-    },
-    mounted: function(){
-        console.log("Mounted")
-        this.$nextTick(this.checkCompletion())
     },
     methods: {
         getRoleDetails(RoleDetails) {
@@ -393,7 +390,7 @@ const app = Vue.createApp({
             //allcoursedict is undefined dk why
             for (let i = 0; i < this.Allcourse_dict.length; i++){
                 if (this.Allcourse_dict[i].CompletionStatus == "Completed"){
-                    console.log("completed")
+                    document.getElementById(this.Allcourse_dict[i].Course_ID).disabled = true
                 }
             }
             
