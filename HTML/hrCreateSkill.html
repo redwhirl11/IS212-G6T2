@@ -90,9 +90,10 @@
             <form class="row g-3 p-2">
                 <div class="col-6">
                     <h4><label for="inputSkill" class="form-label">Skill Name</label></h4>
-                    <input  v-model="Skill_Name" class="form-control" id="inputSkill"  maxlength="50"  >
-                    <div id="skillNameCount" style="float: right;">
-                        <span id="skillCurr">0</span>/50
+                    <textarea  v-model="Skill_Name" class="form-control" @input ="countSkillName(this.numSkillName)" rows="1"></textarea>
+                    <div style="float: right;">
+                        <span v-if ='numSkillName>=0'>{{numSkillName}}</span>  
+                        <span v-else style="color:red">Exceed Word Limit: {{50-numSkillName}}/50</span> 
                     </div>
                 </div>
                 <div class="col-6">
@@ -103,6 +104,15 @@
                     </select>
                 </div>
                 <div class="col-6">
+                    <h4><label class="form-label">Type of Skill</label></h4>
+                    <textarea class="form-control" v-model='Type_of_Skill' placeholder="Type in Skill's Type" rows="3" @input ="countSkillType(this.numSkillType)"></textarea>
+                    <div style="float: right;"> 
+                        <span v-if ='numSkillType>=0'>{{numSkillType}}</span>  
+                        <span v-else style="color:red">Exceed Word Limit: {{50-numSkillType}}/50</span> 
+                    </div>
+
+                </div>
+                <div class="col-6">
                     <h4><label for="inputlevel" class="form-label">Level of Competencies</label></h4>
                     <select id="inputlevel" class="form-select" v-model="Level_of_Competencies">
                         <option disabled value="">Please select one</option>
@@ -110,14 +120,6 @@
                         <option value="Intermediate">Intermediate</option>
                         <option value="Advanced">Advanced</option>
                     </select>
-                </div>
-                <div>
-                    <h4><label for="inputSkillType" class="form-label">Type of Skill</label></h4>
-                    <textarea class="form-control" v-model='Type_of_Skill' id="inputSkillType" maxlength="50" placeholder="Type in Skill's Type" rows="3"></textarea>
-                    <div id="TypeofSkillCount" style="float: right;">
-                        <span id="TypeofSkillCurr">0</span>/50
-                    </div>
-
                 </div>
                 <div class="col-6">
                     <h4><label for="inputRoles" class="form-label">Role(s) Assigned (KIV-Sprint 3)</label></h4>
@@ -143,31 +145,7 @@
 
     </div>
     <script src='../js/hrCreateSkill.js'></script>
-    <script>
-    $('input').keyup(function() {
-        var characterCount = $(this).val().length,
-            skillCurr = $('#skillCurr'),
-            skillNameCount = $('#skillNameCount');
-        skillCurr.text(characterCount);
-    });
 
-    $('#inputSkillType').keyup(function() {
-        var desCharacterCount = $(this).val().length,
-            TypeofSkillCurr = $('#TypeofSkillCurr'),
-            TypeofSkillCount = $('#TypeofSkillCount');
-
-        TypeofSkillCurr.text(desCharacterCount);
-    });
-
-    $('#inputKeyTask').keyup(function() {
-        var taskCharacterCount = $(this).val().length,
-            keyTaskCount = $('#keyTaskCount')
-            keyTaskCurr = $('#keyTaskCurr')
-        
-        keyTaskCurr.text(taskCharacterCount);
-    });
-
-    </script>
 
 </body>
 
