@@ -113,6 +113,10 @@ const app = Vue.createApp({
         this.SubmittedLJRole_ID = LJRole_ID
             // })
     },
+    mounted: function(){
+        console.log("Mounted")
+        this.$nextTick(this.checkCompletion())
+    },
     methods: {
         getRoleDetails(RoleDetails) {
             this.roleName = RoleDetails[0].LJRole_Name
@@ -284,7 +288,14 @@ const app = Vue.createApp({
                     }
                 }) 
             }
-        }                        
+        }/*
+        checkCompletion(){
+            for (let i = 0; i < this.Allcourse_dict.length; i++){
+                if (this.Allcourse_dict[i].CompletionStatus == "Completed"){
+                    console.log("completed")
+                }
+            }
+        }    */                    
                         
                         /*
                         //check the latest selected courses
@@ -376,6 +387,16 @@ const app = Vue.createApp({
             }
             console.log('testing',this.Allcourse_dict)
             return this.Allcourse_dict
+        },
+        checkCompletion(){
+            console.log(this.Allcourse_dict)
+            //allcoursedict is undefined dk why
+            for (let i = 0; i < this.Allcourse_dict.length; i++){
+                if (this.Allcourse_dict[i].CompletionStatus == "Completed"){
+                    console.log("completed")
+                }
+            }
+            
         }
 
     }
