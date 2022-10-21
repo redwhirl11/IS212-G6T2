@@ -65,7 +65,9 @@ const app = Vue.createApp({
                             'Congratulations!',
                             'You have created a new skill!',
                             'success',
-                        )
+                        ).then(function() {
+                            window.location.href = "hrSkill.html";
+                        })
                         this.error_in_html='';
                         this.error_message=[];
                     })
