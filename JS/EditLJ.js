@@ -290,6 +290,7 @@ const app = Vue.createApp({
             //allcoursedict is undefined dk why
             for (let i = 0; i < this.Allcourse_dict.length; i++){
                 if (this.Allcourse_dict[i].CompletionStatus == "Completed"){
+                    document.getElementById(this.Allcourse_dict[i].Course_ID).checked = true
                     document.getElementById(this.Allcourse_dict[i].Course_ID).disabled = true
                 }
             }
