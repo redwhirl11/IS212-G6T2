@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="../Icons/Logo(Purple).png">
-    <title>HR Edit Role</title>
+    <title>HR Edit Skill</title>
     <link href='https://fonts.googleapis.com/css?family=Inter:600,400' rel='stylesheet'>
 
     <!-- CSS only -->
@@ -67,18 +67,20 @@
                 </div>
                 <img src="../Icons/Vector 1.png" alt="background">
                 <p class="h1 position-absolute top-50 start-50 translate-middle" id="Header">
-                    Edit a skill: {{Skill_Name}}
+                    Edit a skill: {{Display_Skill_Name}}
                 </p>
             </div>
         </div>
         
         <div class="shadow p-3 mb-5 bg-white rounded" style="margin: auto; width: 90%;">
             <form class="row g-3 p-2">
+                <div><span style="color:red">* Required</span></div>
                 <div class="col-lg-6 col-md-6">
-                    <h4><label for="inputSkill" class="form-label">Skill Name</label></h4>
-                    <input  v-model="Skill_Name" class="form-control" id="inputSkill"  maxlength="50"  >
-                    <div id="skillNameCount" style="float: right;">
-                        <span id="skillCurr">0</span>/50
+                    <h4><label for="inputSkill" class="form-label">Skill Name<span style="color:red">*</span></label></h4>
+                    <input  v-model="Skill_Name" class="form-control" id="inputSkill" @input ="countSkillName(this.numSkillName)" rows="1"></textarea>
+                    <div style="float: right;">
+                        <span v-if ='numSkillName>=0'>{{numSkillName}}</span>  
+                        <span v-else style="color:red">Exceed Word Limit: {{50-numSkillName}}/50</span> 
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
@@ -89,15 +91,16 @@
                     </select>
                 </div>
                 <div class="col-lg-6 col-md-6">
-                    <h4><label for="inputSkillType" class="form-label">Type of Skill</label></h4>
-                    <textarea class="form-control" v-model='Skill_Type' id="inputSkillType" maxlength="50" placeholder="Type in Skill's Type"></textarea>
-                    <div id="TypeofSkillCount" style="float: right;">
-                        <span id="TypeofSkillCurr">0</span>/50
+                    <h4><label for="inputSkillType" class="form-label">Type of Skill <span style="color:red">*</span></label></h4>
+                    <textarea class="form-control" v-model='Type_of_Skills' id="inputSkillType" placeholder="Type in Skill's Type"@input ="countSkillType(this.numSkillType)"></textarea>
+                    <div style="float: right;"> 
+                        <span v-if ='numSkillType>=0'>{{numSkillType}}</span>  
+                        <span v-else style="color:red">Exceed Word Limit: {{50-numSkillType}}/50</span> 
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <h4><label for="inputlevel" class="form-label">Level of Competencies</label></h4>
-                    <select id="inputlevel" class="form-select" v-model="Skill_Level">
+                    <select id="inputlevel" class="form-select" v-model="Level_of_Competencies">
                         <option disabled value="">Please select one</option>
                         <option value="Beginner">Beginner</option>
                         <option value="Intermediate">Intermediate</option>
@@ -113,7 +116,15 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <h4><label for="inputCourses" class="form-label">Course(s) Assigned (KIV-Sprint 3)</label></h4>
-                    <input type="text" class="form-control" id="inputCourses" v-model="Course_assign">
+                    <input type="text" class="form-control" id="inputCourses" v-model="Skill_Course">
+                </div>
+                <div v-for="error in error_message">
+                    <ul>
+                        <li>
+                            {{error}}
+                        </li>
+                        
+                    </ul>
                 </div>
               </form>
         </div>
@@ -121,32 +132,6 @@
 
     </div>
     <script src='../js/hrEditSkill.js'></script>
-    <script>
-    $('input').keyup(function() {
-        var characterCount = $(this).val().length,
-            skillCurr = $('#skillCurr'),
-            skillNameCount = $('#skillNameCount');
-        skillCurr.text(characterCount);
-    });
-
-    $('#inputSkillType').keyup(function() {
-        var desCharacterCount = $(this).val().length,
-            TypeofSkillCurr = $('#TypeofSkillCurr'),
-            TypeofSkillCount = $('#TypeofSkillCount');
-
-        TypeofSkillCurr.text(desCharacterCount);
-    });
-
-    $('#inputKeyTask').keyup(function() {
-        var taskCharacterCount = $(this).val().length,
-            keyTaskCount = $('#keyTaskCount')
-            keyTaskCurr = $('#keyTaskCurr')
-        
-        keyTaskCurr.text(taskCharacterCount);
-    });
-
-    </script>
-
 </body>
 
 </html>
