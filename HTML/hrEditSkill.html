@@ -74,21 +74,28 @@
         
         <div class="shadow p-3 mb-5 bg-white rounded" style="margin: auto; width: 90%;">
             <form class="row g-3 p-2">
-                <div class="col-6">
+                <div class="col-lg-6 col-md-6">
                     <h4><label for="inputSkill" class="form-label">Skill Name</label></h4>
                     <input  v-model="Skill_Name" class="form-control" id="inputSkill"  maxlength="50"  >
                     <div id="skillNameCount" style="float: right;">
                         <span id="skillCurr">0</span>/50
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-lg-6 col-md-6">
                     <h4><label for="inputStatus" class="form-label">Skill Status</label></h4>
                     <select id="inputStatus" class="form-select" v-model="Skill_Status">
                         <option value ='Active'>Active</option>
                         <option value="Inactive">Inactive</option>
                     </select>
                 </div>
-                <div class="col-6">
+                <div class="col-lg-6 col-md-6">
+                    <h4><label for="inputSkillType" class="form-label">Type of Skill</label></h4>
+                    <textarea class="form-control" v-model='Skill_Type' id="inputSkillType" maxlength="50" placeholder="Type in Skill's Type"></textarea>
+                    <div id="TypeofSkillCount" style="float: right;">
+                        <span id="TypeofSkillCurr">0</span>/50
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6">
                     <h4><label for="inputlevel" class="form-label">Level of Competencies</label></h4>
                     <select id="inputlevel" class="form-select" v-model="Skill_Level">
                         <option disabled value="">Please select one</option>
@@ -97,21 +104,14 @@
                         <option value="Advanced">Advanced</option>
                     </select>
                 </div>
-                <div>
-                    <h4><label for="inputSkillType" class="form-label">Type of Skill</label></h4>
-                    <textarea class="form-control" v-model='Skill_Type' id="inputSkillType" maxlength="50" placeholder="Type in Skill's Type" rows="3"></textarea>
-                    <div id="TypeofSkillCount" style="float: right;">
-                        <span id="TypeofSkillCurr">0</span>/50
-                    </div>
-
-                </div>
-                <div class="col-6">
+                
+                <div class="col-lg-6 col-md-6">
                     <h4><label for="inputRoles" class="form-label">Role(s) Assigned (KIV-Sprint 3)</label></h4>
                     <input type="text" class="form-control" id="inputRoles">
                 </div>
-                <div class="col-6">
+                <div class="col-lg-6 col-md-6">
                 </div>
-                <div class="col-6">
+                <div class="col-lg-6 col-md-6">
                     <h4><label for="inputCourses" class="form-label">Course(s) Assigned (KIV-Sprint 3)</label></h4>
                     <input type="text" class="form-control" id="inputCourses" v-model="Course_assign">
                 </div>

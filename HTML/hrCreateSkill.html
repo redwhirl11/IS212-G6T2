@@ -88,31 +88,33 @@
         
         <div class="shadow p-3 mb-5 bg-white rounded" style="margin: auto; width: 90%;">
             <form class="row g-3 p-2">
-                <div class="col-6">
-                    <h4><label for="inputSkill" class="form-label">Skill Name</label></h4>
+                <div><span style="color:red">* Required</span></div>
+                <div class="col-lg-6 col-md-6">
+                    <h4><label for="inputSkill" class="form-label">Skill Name <span style="color:red">*</span></label></h4>
                     <textarea  v-model="Skill_Name" class="form-control" @input ="countSkillName(this.numSkillName)" rows="1"></textarea>
                     <div style="float: right;">
                         <span v-if ='numSkillName>=0'>{{numSkillName}}</span>  
                         <span v-else style="color:red">Exceed Word Limit: {{50-numSkillName}}/50</span> 
                     </div>
                 </div>
-                <div class="col-6">
+                <div class="col-lg-6 col-md-6">
                     <h4><label for="inputStatus" class="form-label">Skill Status</label></h4>
                     <select id="inputStatus" class="form-select" v-model="Skill_Status">
                         <option value ='Active'>Active</option>
                         <option value="Inactive">Inactive</option>
                     </select>
                 </div>
-                <div class="col-6">
-                    <h4><label class="form-label">Type of Skill</label></h4>
-                    <textarea class="form-control" v-model='Type_of_Skill' placeholder="Type in Skill's Type" rows="3" @input ="countSkillType(this.numSkillType)"></textarea>
+                
+                <div class="col-lg-6 col-md-6">
+                    <h4><label class="form-label">Type of Skill   <span style="color:red">*</span></label></h4>
+                    <textarea class="form-control" v-model='Type_of_Skill' placeholder="Type in Skill's Type"  @input ="countSkillType(this.numSkillType)"></textarea>
                     <div style="float: right;"> 
                         <span v-if ='numSkillType>=0'>{{numSkillType}}</span>  
                         <span v-else style="color:red">Exceed Word Limit: {{50-numSkillType}}/50</span> 
                     </div>
 
                 </div>
-                <div class="col-6">
+                <div class="col-lg-6 col-md-6">
                     <h4><label for="inputlevel" class="form-label">Level of Competencies</label></h4>
                     <select id="inputlevel" class="form-select" v-model="Level_of_Competencies">
                         <option disabled value="">Please select one</option>
@@ -121,13 +123,13 @@
                         <option value="Advanced">Advanced</option>
                     </select>
                 </div>
-                <div class="col-6">
+                <div class="col-lg-6 col-md-6">
                     <h4><label for="inputRoles" class="form-label">Role(s) Assigned (KIV-Sprint 3)</label></h4>
                     <input type="text" class="form-control" id="inputRoles">
                 </div>
-                <div class="col-6">
+                <div class="col-lg-6 col-md-6">
                 </div>
-                <div class="col-6">
+                <div class="col-lg-6 col-md-6">
                     <h4><label for="inputCourses" class="form-label">Course(s) Assigned (KIV-Sprint 3)</label></h4>
                     <input type="text" class="form-control" id="inputCourses" v-model="Course_assign">
                 </div>
