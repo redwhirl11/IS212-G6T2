@@ -21,27 +21,41 @@ app = Vue.createApp({
                 var allSkill = response.data
                 // console.log(allSkill)
 
-                var temp=[];
+                const map = new Map();
 
-                for (i=0;i<allSkill.length;i++){
-                    var skillId=allSkill[i].Skill_ID
-                    var skillName= allSkill[i].Skill_Name
-                    var skillType=allSkill[i].Type_of_Skills
-                    var level=allSkill[i].Level_of_Competencies
-                    var status=allSkill[i].Skill_Status
-                    var course=allSkill[i].Course_ID
+                // get the distinct skill from allSkill
+                for (const skill of allSkill) {
+                    var skillId=skill.Skill_ID
+                    var skillName= skill.Skill_Name
+                    var skillType=skill.Type_of_Skills
+                    var level=skill.Level_of_Competencies
+                    var status=skill.Skill_Status
+                    var course=skill.Course_ID
 
-                    if (!temp[skillId]){
-                        temp[skillId]={skillName:skillName,skillType:skillType,level:level,status:status,course:course}
-
-                        this.skillDict.push({skillId:skillId,skillName:skillName,skillType:skillType,level:level,status:status,course:course})
+                    if (!map.has(skillId)) {
+                        map.set(skillId, true);
+                        this.skillDict.push({ skillId:skillId,skillName:skillName,skillType:skillType,level:level,status:status,course:course,courses:[],noOfCourse:0 })
                     }
-                   
                 }
-                console.log('temp', temp)
+
+                // get the courses of each skill
+                for (i = 0; i < allSkill.length; i++) {
+                    skillId = allSkill[i].Skill_ID
+                    course= allSkill[i].Course_ID
+
+                    for (j = 0; j < this.skillDict.length; j++) {
+                        if (this.skillDict[j].skillId == skillId) {
+                            this.skillDict[j]['courses'].push(course)
+                            this.skillDict[j]['noOfCourse']+=1
+                        }
+                    }
+                }
+
+                console.log('final result', this.skillDict)
+
             })
             
-            console.log(this.skillDict)
+            // console.log(this.skillDict)
             return this.skillDict;
         },
         getDataSend(skillId,status,course){

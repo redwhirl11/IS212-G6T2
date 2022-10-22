@@ -141,16 +141,15 @@
                 <div class="card p-2">
                     <div class="row card-body">
                         <div class="row my-2">
-                            <h4 class="col-8 col-lg-7 col-md-8 col-sm-1 card-title">{{skill.skillName}}</h4>
+                            <h5 class="col-lg-7 col-md-6 col-sm-1 card-title">{{skill.skillName}}</h5>
                             <!-- Edit Button-->
                             <span class="col-lg-2 col-md col-sm-2" style="color:gray" @click="getDataSend(skill.skillId, skill.status, skill.course)">Edit</span>
                             <!-- Jing Wen your delete button is here -->
                             <span class="col-lg col-md col-sm-2" style="color:gray">Delete</span>
                         </div>
-                        <!-- <div class="row my-2">
-                            <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3">4 skills</div>
-                            <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3">3 courses</div>
-                        </div> -->
+                        <div class="row my-2">
+                            <div class="col-lg-3 col-md-3 col-sm-3 badge rounded-pill badges ms-2 pe-3"> {{skill.noOfCourse}} courses</div>
+                        </div>
                         <div class="row my-2">
                             <div class="col"> <strong>Skill Type: </strong>  <span> {{skill.skillType}}</span></div>
                             <div class="col"> <strong>Competency Level:</strong> <span>{{skill.level}}</span></div>
