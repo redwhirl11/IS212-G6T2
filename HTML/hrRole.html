@@ -29,7 +29,7 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
     <!-- js -->
-    <script  src="../js/softDeleteRole.js"></script>
+    <!-- <script  src="../js/softDeleteRole.js"></script> -->
 
     <style>
         #Header {
@@ -52,17 +52,14 @@
             height: 34.8px;
         }
 
-        /* .roles{
-            margin-left:50px
-        } */
         .card:hover {
             box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
         }
 
         
-        a:hover {
+        /* a:hover {
             color: #6A79F3;
-        }
+        } */
 
         #searchBar {
             background: #4C5BDD;
@@ -80,11 +77,6 @@
             font-size: 16px;
         }
 
-        #deleteButton {
-            background: none;
-            border: none;
-            color:gray;
-        }
     </style>
 
 </head>
@@ -147,11 +139,11 @@
                             <!-- Kai Wei your edit button is here -->
                             <span class="col-lg-2 col-md col-sm-2" style="color:gray">Edit</span>
                             <!-- Jing Wen your delete button is here -->
-                            <span class="col-lg col-md col-sm-2"><button id="deleteButton" @click="SoftDeleteRole(role.roleId)">Delete</button></span>
+                            <span class="col-lg col-md col-sm-2" @click="SoftDeleteRole(role.roleId)" style="color:gray"> Delete</span>
                         </div>
                         <div class="row my-2">
                             <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3 text-uppercase">{{role.dept}}</div>
-                            <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3">{{role.status}}</div>
+                            <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3">{{role.noOfSkill}} skills </div>
                         </div>
                         <div class="row my-2">
                             <p>

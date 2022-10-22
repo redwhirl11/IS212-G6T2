@@ -11,35 +11,47 @@ app = Vue.createApp({
     },
 
     methods: {
-        
+
         getAllRole() {
             const allRoleUrl = '../db/getAllRoles.php'
             axios.get(allRoleUrl).then(response => {
                 var allRole = response.data
-                console.log(allRole)
+                console.log('all Role', allRole)
 
-                var temp=[];
+                const map = new Map();
 
-                for (i=0;i<allRole.length;i++){
-                    var roleId=allRole[i].LJRole_ID
-                    var roleName= allRole[i].LJRole_Name
-                    var dept=allRole[i].Department
-                    var desc=allRole[i].LJRole_Description
-                    var task=allRole[i].Key_Task
-                    var status=allRole[i].LJRole_Status
-                    var skill=allRole[i].Skill_ID
+                // get the distinct roles from allRole
+                for (const role of allRole) {
+                    var name=role.LJRole_Name
+                    var dept = role.Department
+                    var desc = role.LJRole_Description
+                    var task = role.Key_Task
+                    var status = role.LJRole_Status
+                    var skill = role.Skill_ID
 
-                    if (!temp[roleId]){
-                        temp[roleId]={roleName:roleName,dept:dept,desc:desc,task:task,status:status,skill:skill}
-
-                        this.roleDict.push({roleId:roleId,roleName:roleName,dept:dept,desc:desc,task:task,status:status,skill:skill})
+                    if (!map.has(role.LJRole_ID)) {
+                        map.set(role.LJRole_ID, true);
+                        this.roleDict.push({ id: role.LJRole_ID,roleName:name, dept:dept,desc:desc,task:task,status:status,skill:skill,skills:[],noOfSkill:0 })
                     }
-                   
                 }
-                console.log('temp', temp)
+
+                // get the skills of each role
+                for (i = 0; i < allRole.length; i++) {
+                    roleId = allRole[i].LJRole_ID
+                    skill = allRole[i].Skill_ID
+
+                    for (j = 0; j < this.roleDict.length; j++) {
+                        if (this.roleDict[j].id == roleId) {
+                            this.roleDict[j]['skills'].push(skill)
+                            this.roleDict[j]['noOfSkill']+=1
+                        }
+                    }
+                }
+
+                console.log('final result', this.roleDict)
+
+                // correct result --> [3:[4,5,1],4:[6,7], 5:[7,4],6:[1,4,5,6,7]]
             })
-            
-            console.log(this.roleDict)
             return this.roleDict;
         },
 
@@ -54,31 +66,31 @@ app = Vue.createApp({
                 cancelButtonText: 'Cancel',
                 confirmButtonText: 'Yes',
                 showCancelButton: true,
-        
-              })
-              .then((result) => {
-                if (result.isConfirmed) {
-                    var url = "../db/SoftDeleteRole.php"
-                    const data = {LJRole_ID: id}
-                    axios.get(url , {
-                        params: data
-                    })
-                    .then(response => {
-                        console.log(response.data)
-                        Swal.fire("Success! Role has been soft deleted.", {
-                        icon: "success",
-                        }).then(function() {
-                            window.location.href = "hrRole.html";
+
+            })
+                .then((result) => {
+                    if (result.isConfirmed) {
+                        var url = "../db/SoftDeleteRole.php"
+                        const data = { LJRole_ID: id }
+                        axios.get(url, {
+                            params: data
                         })
-                    })
-                    
-                    .catch(error => {
-                        console.log(error.message)
-                    })
-                } else {
-                    Swal.fire("Role has not been soft deleted!");
-                }
-              });
+                            .then(response => {
+                                console.log(response.data)
+                                Swal.fire("Success! Role has been soft deleted.", {
+                                    icon: "success",
+                                }).then(function () {
+                                    window.location.href = "hrRole.html";
+                                })
+                            })
+
+                            .catch(error => {
+                                console.log(error.message)
+                            })
+                    } else {
+                        Swal.fire("Role has not been soft deleted!");
+                    }
+                });
         }
     }
 })
