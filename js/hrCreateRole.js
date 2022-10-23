@@ -1,72 +1,76 @@
 const app = Vue.createApp({
     data() {
         return {
-            Skill_ID: '',
-            Skill_Name:'',
-            Skill_Status: 'Active',
-            Level_of_Competencies: '',
-            Type_of_Skill: '',
+            Role_ID: '',
+            Role_Name:'',
+            Role_Status: 'Active',
+            role_desc: '',
+            Department: '',
+            key_tasks: '',
             error_message:[],
             error_in_html:'',
-            numSkillType:50,
-            numSkillName:50,
-            AllUniqueSkills:[],
-            //modify in sprint 3, will hardcode for the course (for sprint 2)
-            Course_assign:'tch002'
+            numRoleName:50,
+            numDepartment:50,
+            numrole_desc:225,
+            numkey_tasks:225,
+            AllUniqueRoles:[],
+            //modify in sprint 3, will hardcode for the skill (for sprint 2)
+            skills_required:'00007'
             
             
         };
     },
     created(){
-        const getAllSkills = '../db/getSkills.php'
-        axios.get(getAllSkills)
+        const getAllRoles = '../db/getAllRoles.php'
+        axios.get(getAllRoles)
             .then(response => {
-                var AllSkills = response.data;
-                this.getUniqueSkillName(AllSkills);
-                console.log(this.AllUniqueSkills);
+                var AllRoles = response.data;
+                this.getUniqueRoleName(AllRoles);
+                console.log(this.AllUniqueRoles);
             })
     },
     methods: {
-        getUniqueSkillName(AllSkills){
-            var tempSkillDict =[]
-            for (i = 0; i < AllSkills.length; i++){
-                //Skill Name preprosseing --> easier to compare (unique name) 
-                //lowercase the skillname
-                var SkillName = AllSkills[i].Skill_Name.toLowerCase()
+        getUniqueRoleName(AllRoles){
+            var tempRoleDict =[]
+            for (i = 0; i < AllRoles.length; i++){
+                //Role Name preprosseing --> easier to compare (unique name) 
+                //lowercase the rolename
+                var LJRole_Name = AllRoles[i].LJRole_Name.toLowerCase()
                 //remove all the spaces
-                SkillName = SkillName.replaceAll(' ', '');
-                if (!tempSkillDict[SkillName]) {
-                    tempSkillDict[SkillName] = {SkillName: SkillName}
-                    this.AllUniqueSkills.push({SkillName: SkillName})
+                LJRole_Name = LJRole_Name.replaceAll(' ', '');
+                if (!tempRoleDict[LJRole_Name]) {
+                    tempRoleDict[LJRole_Name] = {LJRole_Name: LJRole_Name}
+                    this.AllUniqueRoles.push({LJRole_Name: LJRole_Name})
                 }
             }
-            return this.AllUniqueSkills
+            return this.AllUniqueRoles
         },
-        submitSkill() {
+        submitLJRole() {
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
             
             //happy path in creating skill, no null value, no error msg
-            if (this.Skill_Name !='' && this.Level_of_Competencies!= '' && this.Type_of_Skill!= '' && this.error_message.length == 0) {
-                const createSkill = '../db/createSkill.php'
+            if (this.Role_Name !='' && this.Department!= ''  && this.error_message.length == 0) {
+                const createLJRole = '../db/createLJRole.php'
                 const data = {
-                    Skill_ID: this.Skill_ID,
-                    Skill_Name: this.Skill_Name, 
-                    Skill_Status: this.Skill_Status, 
-                    Level_of_Competencies: this.Level_of_Competencies, 
-                    Type_of_Skills: this.Type_of_Skill, 
-                    Course_ID: this.Course_assign
+                    LJRole_ID: this.Role_ID,
+                    LJRole_Name: this.Role_Name, 
+                    LJRole_Description: this.role_desc, 
+                    Department: this.Department, 
+                    Key_Task: this.key_tasks, 
+                    LJRole_Status:this.Role_Status,
+                    Skill_ID: this.skills_required
                 }
-                axios.get(createSkill, {
+                axios.get(createLJRole, {
                     params: data
                 })
                     .then(response => {
                         Swal.fire(
                             'Congratulations!',
-                            'You have created a new skill!',
+                            'You have created a new role!',
                             'success',
                         ).then(function() {
-                            window.location.href = "hrSkill.html";
+                            window.location.href = "hrRole.html";
                         })
                         this.error_in_html='';
                         this.error_message=[];
@@ -87,42 +91,49 @@ const app = Vue.createApp({
                 }
         },
         getErrorMessage(){
-            // if user didnt input for skill name
-            if (this.Skill_Name ==''){
-                this.error_message.push('Invalid Skill Name')
+            // if user didnt input for role name
+            if (this.Role_Name ==''){
+                this.error_message.push('Invalid Role Name')
             }else{
-                //if user did input the skill name but the char not from 3-50
-                if (this.numSkillName<0){
-                    this.error_message.push('The maximum number of characters for Skill Name has been reached')
+                //if user did input the role name but the char not from 3-50
+                if (this.numRoleName<0){
+                    this.error_message.push('The maximum number of characters for Role Name has been reached')
                 }
-                if (this.numSkillName>47){
-                    this.error_message.push('Skill name must have at least 3 characters')
+                if (this.numRoleName>47){
+                    this.error_message.push('Role Name must have at least 3 characters')
                 }
             }
-            // if user didnt select for level of competencies
-            if (this.Level_of_Competencies == ''){
-                this.error_message.push('You must select the level of competencies for the skill')
-            }
-            // if user didnt input for type of skill
-            if (this.Type_of_Skill == ''){
-                this.error_message.push('You must input the type of skill')
+            // if user didnt select for department
+            if (this.Department == ''){
+                this.error_message.push('You must input the department for the role')
             }else{
-                //if user did input the type of skill but the char not from 4-50
-                if (this.numSkillType<0){
-                    this.error_message.push('The maximum number of characters for Type of Skill has been reached')
+                //if user did input the department but the char not from 2-50
+                if (this.numDepartment<0){
+                    this.error_message.push('The maximum number of characters for Department has been reached')
                 }
-                if (this.numSkillType>46){
-                    this.error_message.push('Type of Skill must have at least 4 characters')
+                if (this.numDepartment>48){
+                    this.error_message.push('Department must have at least 2 characters')
                 }
+            }
+            
+            //if user did input the role description but the char more than 225
+            if (this.numrole_desc<0){
+                this.error_message.push('The maximum number of characters for Role Description has been reached')
             }
 
-            //check for duplicate Skill name
-            var tidyupSkillName = this.Skill_Name.toLowerCase();
-            tidyupSkillName= tidyupSkillName.replaceAll(' ', '');
-            index = this.AllUniqueSkills.map(object => object.SkillName).indexOf(tidyupSkillName);
+            //if user did input the key tasks but the char more than 225
+            if (this.numkey_tasks<0){
+                this.error_message.push('The maximum number of characters for Key Tasks has been reached')
+            }
+            
+
+            //check for duplicate Role name
+            var tidyupRoleName = this.Role_Name.toLowerCase();
+            tidyupRoleName= tidyupRoleName.replaceAll(' ', '');
+            index = this.AllUniqueRoles.map(object => object.LJRole_Name).indexOf(tidyupRoleName);
             console.log(index);
             if (index != -1 ){
-                this.error_message.push('Duplicate skill name, only unique skills are allowed!')
+                this.error_message.push('Duplicate role name, only unique role are allowed!')
             }
 
             return this.error_message
@@ -136,13 +147,22 @@ const app = Vue.createApp({
             //console.log(this.error_in_html);
             return this.error_in_html;
         },
-        countSkillType(){
-            this.numSkillType = 50-this.Type_of_Skill.length;
-            return this.numSkillType
+        countRoleName(){
+            this.numRoleName = 50-this.Role_Name.length;
+            return this.numRoleName
         },
-        countSkillName(){
-            this.numSkillName = 50-this.Skill_Name.length;
-            return this.numSkillName
+        countrole_desc(){
+            this.numrole_desc = 225-this.role_desc.length;
+            return this.numrole_desc
+        },
+        countDepartment(){
+            this.numDepartment = 50-this.Department.length;
+            return this.numDepartment
+        }
+        ,
+        countkey_tasks(){
+            this.numkey_tasks = 225-this.key_tasks.length;
+            return this.numkey_tasks
         }
 
     }

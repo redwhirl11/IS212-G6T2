@@ -76,7 +76,7 @@
                         <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="backBtn"
                         style="border-radius: 20px" onclick="history.back()">Back</button>
                         <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="submitBtn"
-                        style="border-radius: 20px" @click="submitSkill()" >Submit</button>
+                        style="border-radius: 20px" @click="submitLJRole()" >Submit</button>
                     </div>
                 </div>
                 <img src="../Icons/Vector 1.png" alt="background">
@@ -94,7 +94,7 @@
                     <textarea  v-model="Role_Name" class="form-control" @input ="countRoleName(this.numRoleName)" rows="1"></textarea>
                     <div style="float: right;">
                         <span v-if ='numRoleName>=0'>{{numRoleName}}</span>  
-                        <span v-else style="color:red">Exceed Word Limit: {{50-numSkillName}}/50</span> 
+                        <span v-else style="color:red">Exceed Word Limit: {{50-numRoleName}}/50</span> 
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6">
@@ -116,7 +116,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <h4><label for="inputdept" class="form-label">Department <span style="color:red">*</span></label></h4>
-                    <select id="inputdept" class="form-select" v-model="Department">
+                    <!-- <select id="inputdept" class="form-select" v-model="Department">
                         <option disabled selected value> -- Select a Department -- </option>
                         <option value="CEO">CEO</option>
                         <option value="Chairman">Chairman</option>
@@ -124,11 +124,17 @@
                         <option value="HR">HR</option>
                         <option value="Ops">Ops</option>
                         <option value="Sales">Sales</option>
-                    </select>
+                    </select> -->
+                    <textarea  v-model="Department" class="form-control" @input ="countDepartment(this.numDepartment)" rows="1"></textarea>
+                    <div style="float: right;">
+                        <span v-if ='numDepartment>=0'>{{numDepartment}}</span>  
+                        <span v-else style="color:red">Exceed Word Limit: {{50-numDepartment}}/50</span> 
+                    </div>
+                    
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <h4><label for="inputRoles" class="form-label">Skills Required (KIV-Sprint 3)</label></h4>
-                    <input type="text" class="form-control" id="inputRoles">
+                    <input type="text" class="form-control" id="inputRoles" v-model="skills_required">
                 </div>
                 <div class="col-lg-6 col-md-6">
                 </div>
@@ -142,21 +148,12 @@
                     </div>
 
                 </div>
-                
-                <!-- <div v-for="error in error_message">
-                    <ul>
-                        <li>
-                            {{error}}
-                        </li>
-                        
-                    </ul>
-                </div> -->
               </form>
         </div>
 
 
     </div>
-    <script src='../js/hrCreateSkill.js'></script>
+    <script src='../js/hrCreateRole.js'></script>
 
 
 </body>
