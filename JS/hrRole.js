@@ -7,6 +7,7 @@ app = Vue.createApp({
 
     created() {
         this.getAllRole()
+        this.getSkill()
         // console.log('testing')
     },
 
@@ -22,7 +23,7 @@ app = Vue.createApp({
 
                 // get the distinct roles from allRole
                 for (const role of allRole) {
-                    var name=role.LJRole_Name
+                    var name = role.LJRole_Name
                     var dept = role.Department
                     var desc = role.LJRole_Description
                     var task = role.Key_Task
@@ -31,7 +32,7 @@ app = Vue.createApp({
 
                     if (!map.has(role.LJRole_ID)) {
                         map.set(role.LJRole_ID, true);
-                        this.roleDict.push({ id: role.LJRole_ID,roleName:name, dept:dept,desc:desc,task:task,status:status,skill:skill,skills:[],noOfSkill:0 })
+                        this.roleDict.push({ id: role.LJRole_ID, roleName: name, dept: dept, desc: desc, task: task, status: status, skill: skill, skills: [], noOfSkill: 0 })
                     }
                 }
 
@@ -43,16 +44,46 @@ app = Vue.createApp({
                     for (j = 0; j < this.roleDict.length; j++) {
                         if (this.roleDict[j].id == roleId) {
                             this.roleDict[j]['skills'].push(skill)
-                            this.roleDict[j]['noOfSkill']+=1
+                            this.roleDict[j]['noOfSkill'] += 1
                         }
                     }
                 }
 
                 console.log('final result', this.roleDict)
-
-                // correct result --> [3:[4,5,1],4:[6,7], 5:[7,4],6:[1,4,5,6,7]]
             })
             return this.roleDict;
+        },
+
+        getSkill() {
+            const skillUrl = '../db/getSkills.php'
+            axios.get(skillUrl).then(response => {
+                var allSkill = response.data
+                // console.log(allSkill)
+
+                const map = new Map();
+                const skillList = []
+
+                for (const skill of allSkill) {
+                    var skillId = skill.Skill_ID
+                    var skillName = skill.Skill_Name
+
+                    if (!map.has(skillId)) {
+                        map.set(skillId, true);
+                        skillList.push({ skillId: skillId, skillName: skillName })
+                    }
+                }
+                console.log(skillList)
+
+                // for (i = 0; i < this.roleDict.length; i++) {
+                //     var skills = this.roleDict[i].skills
+                //     this.roleDict['skillName'] = []
+
+                //     for (j = 0; j < skillList.length; j++) {
+                //         console.log(skillList[j].skillId)
+                //     }
+                // }
+            })
+
         },
 
         SoftDeleteRole(id) {
