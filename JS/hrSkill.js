@@ -68,7 +68,45 @@ app = Vue.createApp({
             this.skillId = '';
             this.status = '';
             this.course = '';
-        }  
+        } ,
+        SoftDeleteSkill(id) {
+            console.log(id)
+
+            Swal.fire({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to see this skill!",
+                icon: "warning",
+                cancelButtonColor: '#c7c6c5',
+                cancelButtonText: 'Cancel',
+                confirmButtonText: 'Yes',
+                showCancelButton: true,
+        
+              })
+              .then((result) => {
+                if (result.isConfirmed) {
+                    var url = "../db/SoftDeleteSkill.php"
+                    const data = {Skill_ID: id}
+                    axios.get(url , {
+                        params: data
+                    })
+                    .then(response => {
+                        console.log(response.data)
+                        Swal.fire("Success! Skill has been soft deleted.", {
+                        icon: "success",
+                        }).then(function() {
+                            window.location.href = "hrSkill.html";
+                        })
+                    })
+                    
+                    .catch(error => {
+                        console.log(error.message)
+                    })
+                } else {
+                    Swal.fire("Skill has not been soft deleted!");
+                }
+              });
+        }
+
 
     }
 })
