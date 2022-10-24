@@ -91,8 +91,10 @@ app = Vue.createApp({
                     })
                     .then(response => {
                         console.log(response.data)
-                        Swal.fire("Success! Skill has been soft deleted.", {
-                        icon: "success",
+                        Swal.fire({
+                            title:"Success!",
+                            text: "Skill has been soft deleted.",
+                            icon: "success"
                         }).then(function() {
                             window.location.href = "hrSkill.html";
                         })
@@ -102,7 +104,10 @@ app = Vue.createApp({
                         console.log(error.message)
                     })
                 } else {
-                    Swal.fire("Skill has not been soft deleted!");
+                    Swal.fire({
+                        title: "Cancelled",
+                        text: "Skill has not been soft deleted!",
+                        icon: "info"});
                 }
               });
         }
