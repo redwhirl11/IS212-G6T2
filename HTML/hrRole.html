@@ -70,6 +70,12 @@
             background-color: #919CF8;
             font-size: 16px;
         }
+
+        #deleteButton, #editButton {
+            color: gray;
+            background: none;
+            border: none;
+        }
     </style>
 
 </head>
@@ -132,10 +138,9 @@
                         <div class="row my-2">
                             <h4 class="col-8 col-lg-7 col-md-6 col-sm-1 card-title">{{role.roleName}}</h4>
                             <!-- edit button -->
-                            <span class="col-lg-2 col-md col-sm-2" style="color:gray" @click="getDataSend(role.id, role.skill)">Edit</button></span>
+                            <span class="col-lg-2 col-md col-sm-2"><button id="editButton" @click="getDataSend(role.id, role.skill)">Edit</button></span>
                             <!-- delete button -->
-                            <span class="col-lg col-md col-sm-2" @click="SoftDeleteRole(role.roleId)"
-                                style="color:gray"> Delete</span>
+                            <span class="col-lg col-md col-sm-2"><button id="deleteButton" @click="SoftDeleteRole(role.id)">Delete</button></span>
                         </div>
                         <div class="row my-2">
                             <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3 text-uppercase">
