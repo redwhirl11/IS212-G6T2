@@ -159,9 +159,24 @@ app = Vue.createApp({
             this.error_in_html += '</ul></div>';
             //console.log(this.error_in_html);
             return this.error_in_html;
+        },
+        countRoleName(){
+            this.numRoleName = 50-this.Role_Name.length;
+            return this.numRoleName
+        },
+        countrole_desc(){
+            this.numrole_desc = 225-this.LJRole_Description.length;
+            return this.numrole_desc
         }
+        ,
+        countkey_tasks(){
+            this.numkey_tasks = 225-this.Key_Task.length;
+            return this.numkey_tasks
+        }
+
     }
 })
+
 
 
 const vm = app.mount('#hrEditRole')
