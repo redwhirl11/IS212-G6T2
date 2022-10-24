@@ -107,6 +107,11 @@ const app = Vue.createApp({
             if (this.Department == ''){
                 this.error_message.push('You must input the department for the role')
             }
+
+            // if user didnt assign skill to role
+            if (this.skills_required == ''){
+                this.error_message.push('You must assign a skill(s) to the role')
+            }
             
             //if user did input the role description but the char more than 225
             if (this.numrole_desc<0){
