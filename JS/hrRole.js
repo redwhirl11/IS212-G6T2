@@ -1,7 +1,9 @@
 app = Vue.createApp({
     data() {
         return {
-            roleDict: []
+            roleDict: [],
+            rollId: '',
+            skillId:'',
         }
     },
 
@@ -29,6 +31,8 @@ app = Vue.createApp({
                     var task = role.Key_Task
                     var status = role.LJRole_Status
                     var skill = role.Skill_ID
+                    this.rollId =role.LJRole_ID
+                    this.skillId =role.Skill_ID
 
                     if (!map.has(role.LJRole_ID)) {
                         map.set(role.LJRole_ID, true);
@@ -85,6 +89,15 @@ app = Vue.createApp({
             })
 
         },
+        getDataSend(rollId,skillId){
+            this.rollId = rollId;
+            this.skillId = skillId;
+            localStorage.setItem('data', [this.rollId,this.skillId ])
+
+            window.location.href = "hrEditRole.html";
+            this.rollId = '';
+            this.skillId = '';
+        } ,
 
         SoftDeleteRole(id) {
             console.log(id)

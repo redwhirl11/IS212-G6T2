@@ -131,9 +131,9 @@
                     <div class="row card-body">
                         <div class="row my-2">
                             <h4 class="col-8 col-lg-7 col-md-6 col-sm-1 card-title">{{role.roleName}}</h4>
-                            <!-- Kai Wei your edit button is here -->
-                            <span class="col-lg-2 col-md col-sm-2" style="color:gray">Edit</span>
-                            <!-- Jing Wen your delete button is here -->
+                            <!-- edit button -->
+                            <span class="col-lg-2 col-md col-sm-2" style="color:gray" @click="getDataSend(role.id, role.skill)">Edit</button></span>
+                            <!-- delete button -->
                             <span class="col-lg col-md col-sm-2" @click="SoftDeleteRole(role.roleId)"
                                 style="color:gray"> Delete</span>
                         </div>
