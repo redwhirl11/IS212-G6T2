@@ -116,7 +116,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <h4><label for="inputdept" class="form-label">Department <span style="color:red">*</span></label></h4>
-                    <!-- <select id="inputdept" class="form-select" v-model="Department">
+                    <select id="inputdept" class="form-select" v-model="Department">
                         <option disabled selected value> -- Select a Department -- </option>
                         <option value="CEO">CEO</option>
                         <option value="Chairman">Chairman</option>
@@ -124,12 +124,12 @@
                         <option value="HR">HR</option>
                         <option value="Ops">Ops</option>
                         <option value="Sales">Sales</option>
-                    </select> -->
-                    <textarea  v-model="Department" class="form-control" @input ="countDepartment(this.numDepartment)" rows="1"></textarea>
+                    </select>
+                    <!-- <textarea  v-model="Department" class="form-control" @input ="countDepartment(this.numDepartment)" rows="1"></textarea>
                     <div style="float: right;">
                         <span v-if ='numDepartment>=0'>{{numDepartment}}</span>  
                         <span v-else style="color:red">Exceed Word Limit: {{50-numDepartment}}/50</span> 
-                    </div>
+                    </div> -->
                     
                 </div>
                 <div class="col-lg-6 col-md-6">

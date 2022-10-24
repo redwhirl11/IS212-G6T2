@@ -106,14 +106,6 @@ const app = Vue.createApp({
             // if user didnt select for department
             if (this.Department == ''){
                 this.error_message.push('You must input the department for the role')
-            }else{
-                //if user did input the department but the char not from 2-50
-                if (this.numDepartment<0){
-                    this.error_message.push('The maximum number of characters for Department has been reached')
-                }
-                if (this.numDepartment>48){
-                    this.error_message.push('Department must have at least 2 characters')
-                }
             }
             
             //if user did input the role description but the char more than 225
