@@ -66,7 +66,7 @@
                 </div>
                 <img src="../Icons/Vector 1.png" alt="background">
                 <p class="h1 position-absolute top-50 start-50 translate-middle" id="Header">
-                    Edit a new role:
+                    Edit a new role: {{CurrentInput.LJRole_Name}}
                 </p>
             </div>
         </div>
@@ -84,7 +84,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <h4><label for="inputStatus" class="form-label">Role Status</label></h4>
-                    <select id="inputStatus" class="form-select" v-model="Role_Status">
+                    <select id="inputStatus" class="form-select" v-model="LJRole_Status">
                         <option value ='Active'>Active</option>
                         <option value="Inactive">Inactive</option>
                     </select>
@@ -92,7 +92,7 @@
                 
                 <div class="col-lg-12 col-md-12">
                     <h4><label class="form-label">Role Description</label></h4>
-                    <textarea class="form-control" v-model='role_desc' placeholder="Type in role description"  @input ="countrole_desc(this.numrole_desc)" rows = '3'></textarea>
+                    <textarea class="form-control" v-model='LJRole_Description' placeholder="Type in role description"  @input ="countrole_desc(this.numrole_desc)" rows = '3'></textarea>
                     <div style="float: right;"> 
                         <span v-if ='numrole_desc>=0'>{{numrole_desc}}</span>  
                         <span v-else style="color:red">Exceed Word Limit: {{225-numrole_desc}}/225</span> 
@@ -109,13 +109,7 @@
                         <option value="HR">HR</option>
                         <option value="Ops">Ops</option>
                         <option value="Sales">Sales</option>
-                    </select>
-                    <!-- <textarea  v-model="Department" class="form-control" @input ="countDepartment(this.numDepartment)" rows="1"></textarea>
-                    <div style="float: right;">
-                        <span v-if ='numDepartment>=0'>{{numDepartment}}</span>  
-                        <span v-else style="color:red">Exceed Word Limit: {{50-numDepartment}}/50</span> 
-                    </div> -->
-                    
+                    </select>                    
                 </div>
                 <div class="col-lg-6 col-md-6">
                     <h4><label for="inputRoles" class="form-label">Skills Required (KIV-Sprint 3)</label></h4>
@@ -126,7 +120,7 @@
 
                 <div class="col-lg-12 col-md-12">
                     <h4><label class="form-label">Key Tasks</label></h4>
-                    <textarea class="form-control" v-model='key_tasks' placeholder="Type in key tasks"  @input ="countkey_tasks(this.numkey_tasks)" rows = '3'></textarea>
+                    <textarea class="form-control" v-model='Key_Task' placeholder="Type in key tasks"  @input ="countkey_tasks(this.numkey_tasks)" rows = '3'></textarea>
                     <div style="float: right;"> 
                         <span v-if ='numkey_tasks>=0'>{{numkey_tasks}}</span>  
                         <span v-else style="color:red">Exceed Word Limit: {{225-numkey_tasks}}/225</span> 
