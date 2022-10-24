@@ -103,6 +103,12 @@ const app = Vue.createApp({
             if (this.Level_of_Competencies == ''){
                 this.error_message.push('You must select the level of competencies for the skill')
             }
+
+            // if user didnt input for courses assigned
+            if (this.Course_assign == ''){
+                this.error_message.push('You must assign a course(s) to the skill')
+            }
+
             // if user didnt input for type of skill
             if (this.Type_of_Skill == ''){
                 this.error_message.push('You must input the type of skill')
