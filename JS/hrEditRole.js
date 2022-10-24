@@ -44,7 +44,7 @@ app = Vue.createApp({
                 }
             }
             this.CurrentInput = this.CurrentInput[0]
-            console.log(this.CurrentInput)
+            // console.log(this.CurrentInput)
         })
     },
     methods: {
@@ -63,7 +63,7 @@ app = Vue.createApp({
                     }
                 else{
                     Swal.fire({
-                        title: 'Save the Edited Skill?',
+                        title: 'Save the Edited Role?',
                         text: "Please check information before saving!",
                         icon: "warning",
                         showCancelButton: true,
@@ -77,7 +77,7 @@ app = Vue.createApp({
                             const UpdateUrl = '../db/updateLJRole.php'
                             const data = {
                                 LJRole_ID: this.Role_ID,
-                                LJRole_Name: this.Skill_Name, 
+                                LJRole_Name: this.Role_Name, 
                                 LJRole_Description: this.LJRole_Description, 
                                 Department: this.Department, 
                                 Key_Task: this.Key_Task, 
