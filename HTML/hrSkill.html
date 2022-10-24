@@ -53,12 +53,12 @@
             box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
         }
 
-        
+
         a:hover {
             color: gray;
         }
 
-        a:active{
+        a:active {
             font-size: 1em;
         }
 
@@ -83,10 +83,20 @@
             font-size: 16px;
         }
 
-        #deleteButton, #editButton {
+        #deleteButton,
+        #editButton {
             background: none;
             border: none;
-            color:gray;
+            color: gray;
+        }
+
+        #courseNames {
+            display: none;
+            font-size:12px;
+        }
+
+        #courseBadge:hover ~ #courseNames {
+            display: block
         }
     </style>
 
@@ -108,11 +118,11 @@
                                         <a class="navbar-brand" href="../HTML/hrHome.html" style="color:white">Home</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link" href="../HTML/hrRole.html"
-                                            style="color:white">Role</a>
+                                        <a class="nav-link" href="../HTML/hrRole.html" style="color:white">Role</a>
                                     </li>
                                     <li class="nav-item">
-                                        <a class="nav-link active" aria-current="page" href="../HTML/hrSkill.html" style="color:white">Skill</a>
+                                        <a class="nav-link active" aria-current="page" href="../HTML/hrSkill.html"
+                                            style="color:white">Skill</a>
                                     </li>
                                 </ul>
                             </div>
@@ -128,13 +138,13 @@
                     </p>
                     <!-- search bar start -->
                     <form class="d-inline-flex mt-3 position-absolute translate-middle w-50" style="top:70%; left:55%">
-                        <input class="form-control me-3" type="search"
-                            placeholder="For E.g. Leadership, Communication" aria-label="Search"
-                            id="skillSearchBar">
-                            <!-- add new role btn Fang Ting -->
-                            <button class="btn btn-light" type="submit" style="border-radius: 40px;"><a class="nav-link" href="../HTML/hrCreateSkill.html">Add New Skill</a> </button>
-                        </form>
-                    
+                        <input class="form-control me-3" type="search" placeholder="For E.g. Leadership, Communication"
+                            aria-label="Search" id="skillSearchBar">
+                        <!-- add new role btn Fang Ting -->
+                        <button class="btn btn-light" type="submit" style="border-radius: 40px;"><a class="nav-link"
+                                href="../HTML/hrCreateSkill.html">Add New Skill</a> </button>
+                    </form>
+
 
                 </div>
 
@@ -149,15 +159,25 @@
                         <div class="row my-2">
                             <h5 class="col-lg-7 col-md-6 col-sm-1 card-title">{{skill.skillName}}</h5>
                             <!-- Edit Button-->
-                            <span class="col-lg-2 col-md col-sm-2"><button id="editButton" @click="getDataSend(skill.skillId, skill.status, skill.course)">Edit</button></span>
+                            <span class="col-lg-2 col-md col-sm-2"><button id="editButton"
+                                    @click="getDataSend(skill.skillId, skill.status, skill.course)">Edit</button></span>
                             <!-- Jing Wen your delete button is here -->
-                            <span class="col-lg col-md col-sm-2"><button id="deleteButton" @click="SoftDeleteSkill(skill.skillId)">Delete</button></span>
+                            <span class="col-lg col-md col-sm-2"><button id="deleteButton"
+                                    @click="SoftDeleteSkill(skill.skillId)">Delete</button></span>
                         </div>
                         <div class="row my-2">
-                            <div class="col-lg-3 col-md-3 col-sm-3 badge rounded-pill badges ms-2 pe-3"> {{skill.noOfCourse}} courses</div>
+                            <div class="col-lg-3 col-md-3 col-sm-3 badge rounded-pill badges ms-2 pe-3" id="courseBadge">
+                                {{skill.noOfCourse}} courses</div>
+                            <!-- display course names of the skill -->
+                            <span v-for="course in skill.courses" style="margin:0px" id="courseNames">
+                                <ul v-for="c in courseList" style="margin:0px">
+                                    <li v-if="course == c.courseId" style="margin:0px"> {{c.courseName}} </li>
+                                </ul>
+                            </span>
+
                         </div>
                         <div class="row my-2">
-                            <div class="col"> <strong>Skill Type: </strong>  <span> {{skill.skillType}}</span></div>
+                            <div class="col"> <strong>Skill Type: </strong> <span> {{skill.skillType}}</span></div>
                             <div class="col"> <strong>Competency Level:</strong> <span>{{skill.level}}</span></div>
                         </div>
 

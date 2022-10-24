@@ -4,12 +4,14 @@ app = Vue.createApp({
             skillDict: [],
             skillId : '',
             status : '',
-            course : ''
+            course : '',
+            courseList:[]
         }
     },
 
     created() {
         this.getAllSkill()
+        this.getAllCourse()
         // console.log('testing')
     },
 
@@ -58,6 +60,30 @@ app = Vue.createApp({
             // console.log(this.skillDict)
             return this.skillDict;
         },
+        getAllCourse(){
+            const courseUrl = '../db/getAllCourses.php'
+            axios.get(courseUrl).then(response => {
+                var allCourse = response.data
+                console.log(allCourse)
+
+                const map = new Map();
+               
+                for (const course of allCourse) {
+                    var courseId = course.Course_ID
+                    var courseName = course.Course_Name
+
+                    if (!map.has(courseId)) {
+                        map.set(courseId, true);
+                        this.courseList.push({courseId: courseId, courseName: courseName})
+                    }
+                }
+                console.log(this.courseList)
+            })
+
+            return this.courseList
+
+        },
+
         getDataSend(skillId,status,course){
             this.skillId = skillId;
             this.status = status;
