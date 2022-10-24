@@ -7,12 +7,11 @@ app = Vue.createApp({
             Skill_Name: '',
             Type_of_Skills: '',
             Level_of_Competencies:'',
-            Display_Skill_Name: '',
             error_message:[],
             error_in_html:'',
             numSkillType:0,
             numSkillName:0,
-            AllUniqueSkills:[],
+            CurrentInput:[],
         }
     },
 
@@ -27,81 +26,84 @@ app = Vue.createApp({
         allSkillUrl = '../db/getSkills.php'
         axios.get(allSkillUrl).then(response => {
             var allSkill = response.data
-            // this.getUniqueSkillName(allSkill);
 
             for (i=0;i<allSkill.length;i++){
+                //currently checking unique skillID + courseID + skill Status
                 if (this.Skill_ID === allSkill[i].Skill_ID && this.Skill_Status === allSkill[i].Skill_Status && this.Skill_Course===allSkill[i].Course_ID){
+                    this.CurrentInput.push(allSkill[i])
                     this.Skill_Name= allSkill[i].Skill_Name
-                    this.Display_Skill_Name = allSkill[i].Skill_Name
                     this.Type_of_Skills=allSkill[i].Type_of_Skills
                     this.Level_of_Competencies=allSkill[i].Level_of_Competencies
                     this.numSkillName= 50 - allSkill[i].Skill_Name.length
                     this.numSkillType= 50 - allSkill[i].Type_of_Skills.length
                 }
             }
+            this.CurrentInput = this.CurrentInput[0]
         })
     },
     methods: {
-        // getUniqueSkillName(AllSkills){
-        //     var tempSkillDict =[]
-        //     for (i = 0; i < AllSkills.length; i++){
-        //         //Skill Name preprosseing --> easier to compare (unique name) 
-        //         //lowercase the skillname
-        //         var SkillName = AllSkills[i].Skill_Name.toLowerCase()
-        //         //remove all the spaces
-        //         SkillName = SkillName.replaceAll(' ', '');
-        //         if (!tempSkillDict[SkillName]) {
-        //             tempSkillDict[SkillName] = {SkillName: SkillName}
-        //             this.AllUniqueSkills.push({SkillName: SkillName})
-        //         }
-        //     }
-        //     return this.AllUniqueSkills
-        // },
         submitEditSkill() {
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
             if (this.Skill_Name !='' && this.Level_of_Competencies!= '' && this.Type_of_Skills!= '' && this.error_message.length == 0) {
-                Swal.fire({
-                    title: 'Save the Edited Skill?',
-                    text: "Please check information before saving!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    cancelButtonColor: '#c7c6c5',
-                    confirmButtonColor: '#6A79F3',
-                    confirmButtonText: 'Yes, save it!',
-                    cancelButtonText: 'No, Cancel',
-                    width: 'auto',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        const UpdateUrl = '../db/updateSkill.php'
-                        const data = {
-                            Skill_ID: this.Skill_ID,
-                            Skill_Name: this.Skill_Name, 
-                            Skill_Status: this.Skill_Status, 
-                            Type_of_Skills: this.Type_of_Skills, 
-                            Level_of_Competencies: this.Level_of_Competencies
-                        }
-                        axios.get(UpdateUrl, {
-                            params: data
-                        })
-                            .then(response => {
-                                Swal.fire(
-                                    'Congratulations!',
-                                    'You have successfully edited the skill!',
-                                    'success',
-                                ).then(function() {
-                                    window.location.href = "hrSkill.html";
-                                })
-                                this.error_in_html='';
-                                this.error_message=[];
-                            })
-                            .catch(error => {
-                                console.log(error);
-                                alert('Error: ${error}. <br/> Please Try Again Later')
-                            })
-                        }
+                if(this.Skill_Name == this.CurrentInput.Skill_Name && this.Skill_Status == this.CurrentInput.Skill_Status &&this.Type_of_Skills == this.CurrentInput.Type_of_Skills && this.Level_of_Competencies == this.CurrentInput.Level_of_Competencies){
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'No changes found!',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        showConfirmButton: false
                     })
+                    }
+                else{
+                    Swal.fire({
+                        title: 'Save the Edited Skill?',
+                        text: "Please check information before saving!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        cancelButtonColor: '#c7c6c5',
+                        confirmButtonColor: '#6A79F3',
+                        confirmButtonText: 'Yes, save it!',
+                        cancelButtonText: 'No, Cancel',
+                        width: 'auto',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const UpdateUrl = '../db/updateSkill.php'
+                            const data = {
+                                Skill_ID: this.Skill_ID,
+                                Skill_Name: this.Skill_Name, 
+                            Skill_Name: this.Skill_Name, 
+                                Skill_Name: this.Skill_Name, 
+                                Skill_Status: this.Skill_Status, 
+                            Skill_Status: this.Skill_Status, 
+                                Skill_Status: this.Skill_Status, 
+                                Type_of_Skills: this.Type_of_Skills, 
+                            Type_of_Skills: this.Type_of_Skills, 
+                                Type_of_Skills: this.Type_of_Skills, 
+                                Level_of_Competencies: this.Level_of_Competencies
+                            }
+                            axios.get(UpdateUrl, {
+                                params: data
+                            })
+                                .then(response => {
+                                    Swal.fire(
+                                        'Congratulations!',
+                                        'You have successfully edited the skill!',
+                                        'success',
+                                    ).then(function() {
+                                        window.location.href = "hrSkill.html";
+                                    })
+                                    this.error_in_html='';
+                                    this.error_message=[];
+                                })
+                                .catch(error => {
+                                    console.log(error);
+                                    alert('Error: ${error}. <br/> Please Try Again Later')
+                                })
+                            }
+                        })
                 }
+            }
             else{                   
                 Swal.fire({
                     icon: 'error',
