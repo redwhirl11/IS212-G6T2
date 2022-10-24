@@ -8,6 +8,9 @@ app = Vue.createApp({
             Department: '',
             Key_Task: '',
             LJRole_Status: '',
+            skills_required:'00007',
+            error_message:[],
+            error_in_html:'',
             numRoleName:0,
             numrole_desc:0,
             numkey_tasks:0,
@@ -19,17 +22,15 @@ app = Vue.createApp({
         //fetch data from user selection
         const dataValue = localStorage.getItem('data');
         const datalist = dataValue.split(',');
-        console.log(datalist)
         this.Role_ID = datalist[0]
         this.Skill_ID= datalist[1]
 
         const allRoleUrl = '../db/getAllRoles.php'
         axios.get(allRoleUrl).then(response => {
             var allRole = response.data
-            console.log(allRole)
 
             for (i=0;i<allRole.length;i++){
-                //currently checking unique skillID + courseID + skill Status
+                //currently by checking Role_ID + first Skill_ID
                 if (this.Role_ID === allRole[i].LJRole_ID && this.Skill_ID === allRole[i].Skill_ID){
                     this.CurrentInput.push(allRole[i])
                     this.Role_Name= allRole[i].LJRole_Name
@@ -43,8 +44,113 @@ app = Vue.createApp({
                 }
             }
             this.CurrentInput = this.CurrentInput[0]
+            console.log(this.CurrentInput)
         })
     },
+    methods: {
+        submitEditRole() {
+            this.getErrorMessage();
+            this.changeErrorMsgintoHTML();
+            if (this.error_message.length == 0) {
+                Swal.fire({
+                    title: 'Save the Edited Skill?',
+                    text: "Please check information before saving!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    cancelButtonColor: '#c7c6c5',
+                    confirmButtonColor: '#6A79F3',
+                    confirmButtonText: 'Yes, save it!',
+                    cancelButtonText: 'No, Cancel',
+                    width: 'auto',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        const UpdateUrl = '../db/updateLJRole.php'
+                        const data = {
+                            LJRole_ID: this.Role_ID,
+                            LJRole_Name: this.Skill_Name, 
+                            LJRole_Description: this.LJRole_Description, 
+                            Department: this.Department, 
+                            Key_Task: this.Key_Task, 
+                            LJRole_Status: this.LJRole_Status, 
+                        }
+                        axios.get(UpdateUrl, {
+                            params: data
+                        })
+                            .then(response => {
+                                Swal.fire(
+                                    'Congratulations!',
+                                    'You have successfully edited the role!',
+                                    'success',
+                                ).then(function() {
+                                    window.location.href = "hrRole.html";
+                                })
+                                this.error_in_html='';
+                                this.error_message=[];
+                            })
+                            .catch(error => {
+                                console.log(error);
+                                alert('Error: ${error}. <br/> Please Try Again Later')
+                            })
+                        }
+                    })
+            }
+            else{                   
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    html: this.error_in_html
+                })
+
+                this.error_in_html='';
+                this.error_message=[];
+            }
+        },
+        getErrorMessage(){
+            // if user didnt input for role name
+            if (this.Role_Name ==''){
+                this.error_message.push('Invalid Role Name')
+            }else{
+                //if user did input the role name but the char not from 3-50
+                if (this.numRoleName<0){
+                    this.error_message.push('The maximum number of characters for Role Name has been reached')
+                }
+                if (this.numRoleName>47){
+                    this.error_message.push('Role Name must have at least 3 characters')
+                }
+            }
+            // if user didnt select for department
+            if (this.Department == ''){
+                this.error_message.push('You must input the department for the role')
+            }
+
+            // if user didnt assign skill to role
+            if (this.skills_required == ''){
+                this.error_message.push('You must assign a skill(s) to the role')
+            }
+            
+            //if user did input the role description but the char more than 225
+            if (this.numrole_desc<0){
+                this.error_message.push('The maximum number of characters for Role Description has been reached')
+            }
+
+            //if user did input the key tasks but the char more than 225
+            if (this.numkey_tasks<0){
+                this.error_message.push('The maximum number of characters for Key Tasks has been reached')
+            }
+            
+            return this.error_message
+        },
+        changeErrorMsgintoHTML(){
+            this.error_in_html = '<div class="align-left"><ul>';
+            for(var i=0;i<this.error_message.length;i++){
+                this.error_in_html += '<li>' + this.error_message[i] + '</li>'
+            }
+            this.error_in_html += '</ul></div>';
+            //console.log(this.error_in_html);
+            return this.error_in_html;
+        }
+    }
 })
+
 
 const vm = app.mount('#hrEditRole')
