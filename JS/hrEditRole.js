@@ -52,47 +52,58 @@ app = Vue.createApp({
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
             if (this.error_message.length == 0) {
-                Swal.fire({
-                    title: 'Save the Edited Skill?',
-                    text: "Please check information before saving!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    cancelButtonColor: '#c7c6c5',
-                    confirmButtonColor: '#6A79F3',
-                    confirmButtonText: 'Yes, save it!',
-                    cancelButtonText: 'No, Cancel',
-                    width: 'auto',
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        const UpdateUrl = '../db/updateLJRole.php'
-                        const data = {
-                            LJRole_ID: this.Role_ID,
-                            LJRole_Name: this.Skill_Name, 
-                            LJRole_Description: this.LJRole_Description, 
-                            Department: this.Department, 
-                            Key_Task: this.Key_Task, 
-                            LJRole_Status: this.LJRole_Status, 
-                        }
-                        axios.get(UpdateUrl, {
-                            params: data
-                        })
-                            .then(response => {
-                                Swal.fire(
-                                    'Congratulations!',
-                                    'You have successfully edited the role!',
-                                    'success',
-                                ).then(function() {
-                                    window.location.href = "hrRole.html";
-                                })
-                                this.error_in_html='';
-                                this.error_message=[];
-                            })
-                            .catch(error => {
-                                console.log(error);
-                                alert('Error: ${error}. <br/> Please Try Again Later')
-                            })
-                        }
+                if(this.Role_Name == this.CurrentInput.LJRole_Name && this.LJRole_Description == this.CurrentInput.LJRole_Description &&  this.Department == this.CurrentInput.Department &&this.Key_Task == this.CurrentInput.Key_Task && this.LJRole_Status == this.CurrentInput.LJRole_Status){
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'No changes found!',
+                        timer: 2000,
+                        timerProgressBar: true,
+                        showConfirmButton: false
                     })
+                    }
+                else{
+                    Swal.fire({
+                        title: 'Save the Edited Skill?',
+                        text: "Please check information before saving!",
+                        icon: "warning",
+                        showCancelButton: true,
+                        cancelButtonColor: '#c7c6c5',
+                        confirmButtonColor: '#6A79F3',
+                        confirmButtonText: 'Yes, save it!',
+                        cancelButtonText: 'No, Cancel',
+                        width: 'auto',
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            const UpdateUrl = '../db/updateLJRole.php'
+                            const data = {
+                                LJRole_ID: this.Role_ID,
+                                LJRole_Name: this.Skill_Name, 
+                                LJRole_Description: this.LJRole_Description, 
+                                Department: this.Department, 
+                                Key_Task: this.Key_Task, 
+                                LJRole_Status: this.LJRole_Status, 
+                            }
+                            axios.get(UpdateUrl, {
+                                params: data
+                            })
+                                .then(response => {
+                                    Swal.fire(
+                                        'Congratulations!',
+                                        'You have successfully edited the role!',
+                                        'success',
+                                    ).then(function() {
+                                        window.location.href = "hrRole.html";
+                                    })
+                                    this.error_in_html='';
+                                    this.error_message=[];
+                                })
+                                .catch(error => {
+                                    console.log(error);
+                                    alert('Error: ${error}. <br/> Please Try Again Later')
+                                })
+                            }
+                        })
+                }
             }
             else{                   
                 Swal.fire({
