@@ -121,8 +121,10 @@ app = Vue.createApp({
                         })
                             .then(response => {
                                 console.log(response.data)
-                                Swal.fire("Success! Role has been soft deleted.", {
-                                    icon: "success",
+                                Swal.fire({
+                                    title:"Success!",
+                                    text: "Role has been soft deleted.",
+                                    icon: "success"
                                 }).then(function () {
                                     window.location.href = "hrRole.html";
                                 })
@@ -132,7 +134,10 @@ app = Vue.createApp({
                                 console.log(error.message)
                             })
                     } else {
-                        Swal.fire("Role has not been soft deleted!");
+                        Swal.fire({
+                            title: "Cancelled",
+                            text: "Role has not been soft deleted!",
+                            icon: "info"});
                     }
                 });
         }
