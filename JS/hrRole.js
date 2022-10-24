@@ -4,13 +4,13 @@ app = Vue.createApp({
             roleDict: [],
             rollId: '',
             skillId:'',
+            skillList:[]
         }
     },
 
     created() {
         this.getAllRole()
         this.getSkill()
-        // console.log('testing')
     },
 
     methods: {
@@ -49,6 +49,7 @@ app = Vue.createApp({
                         if (this.roleDict[j].id == roleId) {
                             this.roleDict[j]['skills'].push(skill)
                             this.roleDict[j]['noOfSkill'] += 1
+                            // console.log('testing', this.skillList)
                         }
                     }
                 }
@@ -65,28 +66,20 @@ app = Vue.createApp({
                 // console.log(allSkill)
 
                 const map = new Map();
-                const skillList = []
-
+               
                 for (const skill of allSkill) {
                     var skillId = skill.Skill_ID
                     var skillName = skill.Skill_Name
 
                     if (!map.has(skillId)) {
                         map.set(skillId, true);
-                        skillList.push({ skillId: skillId, skillName: skillName })
+                        this.skillList.push({ skillId: skillId, skillName: skillName })
                     }
                 }
-                console.log(skillList)
-
-                // for (i = 0; i < this.roleDict.length; i++) {
-                //     var skills = this.roleDict[i].skills
-                //     this.roleDict['skillName'] = []
-
-                //     for (j = 0; j < skillList.length; j++) {
-                //         console.log(skillList[j].skillId)
-                //     }
-                // }
+                // console.log(this.skillList)
             })
+
+            return this.skillList
 
         },
         getDataSend(rollId,skillId){
