@@ -212,7 +212,14 @@ const app = Vue.createApp({
 
             for (let i = 0; i < this.Allcourse_dict.length; i++){
                 if (document.getElementById(this.Allcourse_dict[i].Course_ID).checked){
-                    completed_check = true
+                    if ("CompletionStatus" in this.Allcourse_dict[i]){
+                        if (this.Allcourse_dict[i].CompletionStatus != "Completed"){
+                            completed_check = true
+                        }
+                    }
+                    else{
+                        completed_check = true
+                    }
                 }
             }
             if (completed_check == false){
@@ -244,42 +251,84 @@ const app = Vue.createApp({
 
                         for (let x in this.Allcourse_dict){
                             if (document.getElementById(this.Allcourse_dict[x].Course_ID).checked){
-                                var Submitted_Skill_ID = this.Allcourse_dict[x].Skill_ID
-                                var Submitted_CourseID = this.Allcourse_dict[x].Course_ID
-                                const data = {
-                                    LJ_ID: LJ_ID,
-                                    Staff_ID: this.Staff_ID,
-                                    SubmittedLJRole_ID: this.SubmittedLJRole_ID,
-                                    Submitted_Skill_ID: Submitted_Skill_ID,
-                                    Submitted_CourseID: Submitted_CourseID
-                                }
-                                axios.get(url, {
-                                    params: data
-                                })
-                                .then(response=>{
-                                    console.log(response.data)
-                                    if (response.data["status"] == "Course(s) was not added"){
-                                        Swal.fire({
-                                                title: response.data["status"],
-                                                text: 'Please refresh the page and try again.',
-                                                icon: 'warning',
-                                                focusConfirm: true,
-                                                confirmButtonText: 'Back',
+                                if ("CompletionStatus" in this.Allcourse_dict[x]){
+                                    if (this.Allcourse_dict[x].CompletionStatus != "Completed"){
+                                        var Submitted_Skill_ID = this.Allcourse_dict[x].Skill_ID
+                                        var Submitted_CourseID = this.Allcourse_dict[x].Course_ID
+                                        const data = {
+                                            LJ_ID: LJ_ID,
+                                            Staff_ID: this.Staff_ID,
+                                            SubmittedLJRole_ID: this.SubmittedLJRole_ID,
+                                            Submitted_Skill_ID: Submitted_Skill_ID,
+                                            Submitted_CourseID: Submitted_CourseID
+                                        }
+                                        axios.get(url, {
+                                            params: data
+                                        })
+                                        .then(response=>{
+                                            console.log(response.data)
+                                            if (response.data["status"] == "Course(s) was not added"){
+                                                Swal.fire({
+                                                        title: response.data["status"],
+                                                        text: 'Please refresh the page and try again.',
+                                                        icon: 'warning',
+                                                        focusConfirm: true,
+                                                        confirmButtonText: 'Back',
+                                                        confirmButtonColor: '#6A79F3',
+                                                        cancelButtonColor: '#d33',
+                                                    })
+                                            }
+                                            else{
+                                                Swal.fire({
+                                                icon:  'success',
+                                                title: 'Your learning journey has been successfully created!',
+                                                showConfirmButton: true,
                                                 confirmButtonColor: '#6A79F3',
-                                                cancelButtonColor: '#d33',
-                                            })
-                                    }
-                                    else{
-                                        Swal.fire({
-                                        icon:  'success',
-                                        title: 'Your learning journey has been successfully created!',
-                                        showConfirmButton: true,
-                                        confirmButtonColor: '#6A79F3',
-                                        }).then(function() {
-                                            window.location.href = "HomePage.html";
+                                                }).then(function() {
+                                                    window.location.href = "HomePage.html";
+                                                })
+                                            }
                                         })
                                     }
-                                })
+                                }
+                                else{
+                                    var Submitted_Skill_ID = this.Allcourse_dict[x].Skill_ID
+                                    var Submitted_CourseID = this.Allcourse_dict[x].Course_ID
+                                    const data = {
+                                        LJ_ID: LJ_ID,
+                                        Staff_ID: this.Staff_ID,
+                                        SubmittedLJRole_ID: this.SubmittedLJRole_ID,
+                                        Submitted_Skill_ID: Submitted_Skill_ID,
+                                        Submitted_CourseID: Submitted_CourseID
+                                    }
+                                    axios.get(url, {
+                                        params: data
+                                    })
+                                    .then(response=>{
+                                        console.log(response.data)
+                                        if (response.data["status"] == "Course(s) was not added"){
+                                            Swal.fire({
+                                                    title: response.data["status"],
+                                                    text: 'Please refresh the page and try again.',
+                                                    icon: 'warning',
+                                                    focusConfirm: true,
+                                                    confirmButtonText: 'Back',
+                                                    confirmButtonColor: '#6A79F3',
+                                                    cancelButtonColor: '#d33',
+                                                })
+                                        }
+                                        else{
+                                            Swal.fire({
+                                            icon:  'success',
+                                            title: 'Your learning journey has been successfully created!',
+                                            showConfirmButton: true,
+                                            confirmButtonColor: '#6A79F3',
+                                            }).then(function() {
+                                                window.location.href = "HomePage.html";
+                                            })
+                                        }
+                                    })
+                                }
                             }
                         }
                     }
