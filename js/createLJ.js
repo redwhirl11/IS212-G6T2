@@ -225,6 +225,7 @@ const app = Vue.createApp({
             if (completed_check == false){
                 Swal.fire({
                     title: 'No courses selected',
+                    text: "You must pick at least 1 course",
                     icon: 'warning',
                     focusConfirm: true,
                     confirmButtonText: 'Back',
