@@ -4,7 +4,7 @@ const homepage = Vue.createApp({
             AllRoles_dict: [],
             Allcourses_dict: [],
             lj_id : '',
-            staffid : '',
+            staffid : 150208,
             roleid : ''
 
         }
@@ -12,9 +12,8 @@ const homepage = Vue.createApp({
     mounted:function()  {
             //calling LJ data
             LJurl="../db/getLearningJourney.php"
-            var Staff_ID = 150208
-            const data ={Staff_ID:Staff_ID}
-
+            const data ={Staff_ID:this.staffid}
+        
             axios.get(LJurl, {
                 params: data
             })
@@ -114,15 +113,60 @@ const homepage = Vue.createApp({
         },
         getDataSend(LJid,StaffId,RoleId){
             this.lj_id = LJid;
-            this.staffid = StaffId;
             this.roleid = RoleId;
-            localStorage.setItem('data', [this.lj_id,this.staffid ,this.roleid ])
+            this.staffid = StaffId,
+            localStorage.setItem('data', [this.lj_id, this.staffid ,this.roleid ])
 
             window.location.href = "editLJ.html";
             this.lj_id = '';
-            this.staffid = '';
             this.roleid = '';
-        }    
+        },
+        deleteLJ(LJId, StaffId) {
+            Swal.fire({
+                title: 'Are you sure?',
+                text: "You won't be able to revert this!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Yes, delete it!',
+                cancelButtonColor: '#c7c6c5',
+                confirmButtonColor: '#6A79F3',
+              }).then((result) => {
+                if (result.isConfirmed) {
+
+                url = "../db/deleteLJ.php"
+                const data = {
+                    LJ_ID: LJId,
+                    Staff_ID: StaffId
+                }
+                
+                axios.delete(url, {
+                    params: data
+                })
+                .then(response => { 
+                    
+                    })
+                .catch(error => {
+                    this.status = 'There was an error: ' + error.message 
+                }) 
+                
+                    swal.fire({title: "Deleted!", text: "Your learning journey has been deleted.", icon: 'success', type: 
+                    "success", confirmButtonColor: '#6A79F3'}).then(function(){ 
+                    location.reload();
+                    }
+                    )
+
+                }
+            })
+        },
+        getDataSendtoRole(){
+            
+            localStorage.clear()
+            localStorage.setItem('createLJ', [this.staffid])
+
+            window.location.href = "role.html";
+        },
+
     }
 })
+
 const homepagevm = homepage.mount("#homepage");

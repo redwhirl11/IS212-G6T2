@@ -16,13 +16,21 @@
 
     <!-- Vue -->
     <script src="https://unpkg.com/vue@next"></script>
+    
+    <!-- SweetAlert -->
+    <link href="//cdn.jsdelivr.net/npm/@sweetalert2/theme-bulma/bulma.css" rel="stylesheet">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.js"></script>
 
     <link rel="icon" href="../Icons/Logo(Purple).png">
     <title>HomePage</title>
 </head>
 <body>
 
-    <!-- upper portion display homepage -->
+   
+
+<div id="homepage">
+
+     <!-- upper portion display homepage -->
     <div class='contianer-fluid' style="padding-bottom: 10vw;" >
         <div>
             <img src="../Icons/Logo(Purple).png" id= 'logo'>
@@ -35,13 +43,13 @@
                 With Learning Journey Planner, you can explore thousands of learning journeys tailored to your preferences and needs. 
             </p> 
         </div>
-        <div class="text-center" style="padding-top: 40vw;" >
-            <button class="button button1" onclick="window.location.href='role.html'">Create Learning Journey</button>
+        <div class="text-center" style="padding-top: 40vw;">
+            <button class="button button1" @click="getDataSendtoRole()">Create Learning Journey</button>
         </div>
     </div>
 
      <!-- lower portion Create learning journey-->
-     <div class='contianer-fluid' id="homepage">
+     <div class='contianer-fluid'>
         <div>
             <img src="../Icons/Rectangle 6.png" id="semiRecImg" >
             <img src="../Icons/HomepageBottom.png" id="HomeBottomImg" >
@@ -51,7 +59,7 @@
         <!-- Empty Data -->
         <div class="text-center" v-if="AllRoles_dict.length < 1">
             <p id="BottomDesc">Oh no! you do not have any learning journays at the moment :( </p>
-            <button class="button"  onclick="window.location.href='role.html'">Create Learning Journey</button>
+            <button class="button" @click="getDataSendtoRole()">Create Learning Journey</button>
         </div>
 
         <!-- With Learning Journey Data -->
@@ -66,7 +74,7 @@
                         <span style="color: #4C5BDD;" @click="getDataSend(roles.LJid, roles.StaffId, roles.RoleId)">Edit</span>
                     </div>
                     <div class="col col-1">
-                        <span>Delete</span>
+                        <span @click="deleteLJ(roles.LJid, roles.StaffId)">Delete</span>
                     </div>
                     <strong>Chosen Skills & Courses: </strong> 
                     <div>
@@ -78,9 +86,10 @@
                                     <span v-if="roles.LJid == courses.LJid && skills.SkillId==courses.SkillId">
                                         {{courses.CourseName}} &nbsp&nbsp
                                         <span class="badge rounded-pill" style="background-color: #5EE1AA" v-if="courses.CompletionStatus =='Completed'">Completed</span>&nbsp&nbsp
+                                        <span class="badge rounded-pill" style="background-color: skyblue" v-else-if="courses.CompletionStatus =='OnGoing'">OnGoing</span>&nbsp&nbsp
                                         <span class="badge rounded-pill" style="background-color: red" v-else-if="courses.RegStatus=='Rejected'">Rejected</span>&nbsp&nbsp
-                                        <span class="badge rounded-pill" style="background-color: skyblue" v-else-if="courses.RegStatus=='Registered'">Registered</span>&nbsp&nbsp
-                                        <span class="badge rounded-pill" style="background-color: #919CF8" v-else>Waiting</span>&nbsp&nbsp
+                                        <span class="badge rounded-pill" style="background-color:  #919CF8" v-else-if="courses.RegStatus=='Registered'">Registered</span>&nbsp&nbsp
+                                        <span class="badge rounded-pill" style="background-color: orange" v-else-if="courses.RegStatus=='Waitlist'">Waitlist</span>&nbsp&nbsp
                                     </span>
                                 </span>
                             </li>
@@ -89,6 +98,9 @@
                 </div>
             </div>
         </div>
+    </div>
+
+</div>
 
 
     <!-- Custom JS-->
