@@ -10,6 +10,7 @@ $posts = $dao->getAllRoles();
 $items = [];
 foreach( $posts as $post_object ) {
     $item = [];
+    $item["LJRole_ID"] = $post_object->getLJRole_ID();
     $item["LJRole_Name"] = $post_object->getLJRole_Name();
     $item["LJRole_Description"] = $post_object->getLJRole_Description();
     $item["Department"] = $post_object->getDepartment();

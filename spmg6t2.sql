@@ -703,7 +703,7 @@ CREATE TABLE IF NOT EXISTS `ljroles` (
     `LJRole_ID` int(5) NOT NULL AUTO_INCREMENT,
     `LJRole_Name` varchar(50) NOT NULL,
     `LJRole_Description` varchar(225),
-    `Department` enum('CEO','Chairman','Finance','HR','Ops','Sales'),
+    `Department`  enum('CEO','Chairman','Finance','HR','Ops','Sales'),
     `Key_Task` varchar(225),
     `LJRole_Status` enum('Active','Inactive') default 'Active',
     `Skill_ID` int(5) NOT NULL,
