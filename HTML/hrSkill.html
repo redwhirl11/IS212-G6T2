@@ -184,7 +184,12 @@
                               <h6> Courses </h6>
                               <div v-for="course in skill.courses" style="margin:0px" id="courseNames">
                                 <ul v-for="c in courseList" style="margin:0px">
-                                    <li v-if="course == c.courseId" style="margin:0px"> {{c.courseName}} </li>
+                                    <div v-if="course == c.courseId" >
+                                        <li v-if="c.status=='Active'" style="margin:0px">  {{c.courseName}}</li>
+                                        <li v-else-if="c.status=='Retired'" style="margin:0px"> {{c.courseName}} <span class="badge bg-secondary">{{c.status}}</span></li>
+
+                                    </div>
+                                    
                                 </ul>
                             </div>
                         </div>

@@ -513,7 +513,7 @@ class PostDAO {
         $sql = "SELECT
                      *
                 FROM course
-                WHERE Course_Status = 'Active'"; 
+               "; 
         $stmt = $conn->prepare($sql);
 
         // $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);

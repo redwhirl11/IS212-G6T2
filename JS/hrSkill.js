@@ -71,10 +71,11 @@ app = Vue.createApp({
                 for (const course of allCourse) {
                     var courseId = course.Course_ID
                     var courseName = course.Course_Name
+                    var status=course.Course_Status
 
                     if (!map.has(courseId)) {
                         map.set(courseId, true);
-                        this.courseList.push({courseId: courseId, courseName: courseName})
+                        this.courseList.push({courseId: courseId, courseName: courseName,status:status})
                     }
                 }
                 console.log(this.courseList)
