@@ -95,7 +95,7 @@ const app = Vue.createApp({
                                 var RegCourse = response.data;
                                 console.log('reg course', RegCourse)
                                 this.getRegStatus(RegCourse)
-                                this.checkCompletion()
+                                //this.checkCompletion()
                                 // console.log('course status', this.courseRegStatus_dict)
                                 // this.matchStatusWithCourse()
                             })
@@ -435,18 +435,18 @@ const app = Vue.createApp({
             console.log('testing',this.Allcourse_dict)
             return this.Allcourse_dict
         },
+        //function to disable checkbox for completed courses
+        /*
         checkCompletion(){
             console.log(this.Allcourse_dict)
-            //allcoursedict is undefined dk why
             for (let i = 0; i < this.Allcourse_dict.length; i++){
                 if (this.Allcourse_dict[i].CompletionStatus == "Completed"){
-                    document.getElementById(this.Allcourse_dict[i].Course_ID).checked = true
                     document.getElementById(this.Allcourse_dict[i].Course_ID).disabled = true
                 }
             }
             
         }
-
+        */
     }
 })
 
