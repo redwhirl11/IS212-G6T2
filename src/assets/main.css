@@ -1,0 +1,34 @@
+/* @import './base.css'; */
+
+#app {
+  margin: 0 auto;
+}
+
+
+a,
+.green {
+  text-decoration: none;
+  color: hsla(160, 100%, 37%, 1);
+  transition: 0.4s;
+}
+
+#Header {
+  padding-left: 100px;
+  margin: auto;
+  font-family: 'Inter';
+  font-weight: 600;
+  font-size: 3.5vw;
+  line-height: 61px;
+  text-align: center;
+  letter-spacing: 0.01em;
+  color: #FFFFFF;
+}
+
+#logo {
+  position: absolute;
+  left: 77px;
+  top: 35.2px;
+  width: 51.35px;
+  height: 34.8px;
+}
+
