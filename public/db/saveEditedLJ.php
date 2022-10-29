@@ -3,14 +3,6 @@ require_once 'common.php';
 $status = false;
 $result = [];
 
-// $LJ_ID = 6;
-// $Staff_ID= 2;
-// $SubmittedLJRole_ID = 2;
-// $Submitted_Skill_ID = 1;
-// $Submitted_CourseID= 'C8';
-// $dao = new PostDAO();
-// $status = $dao->saveEditedLJ($LJ_ID, $Staff_ID, $SubmittedLJRole_ID,$Submitted_Skill_ID,$Submitted_CourseID);
-
 //dynamic method
 
 if( isset($_REQUEST['LJ_ID']) && isset($_REQUEST['Staff_ID']) && isset($_REQUEST['SubmittedLJRole_ID'])&& isset($_REQUEST['Submitted_Skill_ID']) && isset($_REQUEST['Submitted_CourseID']) ) {

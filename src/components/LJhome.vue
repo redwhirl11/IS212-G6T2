@@ -23,8 +23,9 @@ export default {
                 console.log('Role',response.data);
                 var LJdata = response.data
                 this.status = response.data
-                this.getLJdetails(LJdata)
                 this.getCourseDetails(LJdata);
+                this.getLJdetails(LJdata);
+                
                 
                 //calling registered course data
                 const RegCourseurl="http://localhost/IS212-G6T2/public/db/getRegCourse.php"
@@ -45,37 +46,86 @@ export default {
         },
     methods:{
         getLJdetails(LJdata){
-            var tempRoleDict = {};
-            var tempSkillDict = {};
-            for (let i=0; i<LJdata.length; i++){
-                var LJid = LJdata[i].LJ_ID; //a staff can hv zero-many LJ
-                var LJroleName = LJdata[i].LJRole_Name;
-                var SkillId = LJdata[i].Skill_ID; //a LJ can have zero-many skills
-                var SkillName = LJdata[i].Skill_Name;
-                var StaffId = LJdata[i].Staff_ID;
-                var RoleId = LJdata[i].LJRole_ID ;
-
-                //if it is a new LJ
-                if(!tempRoleDict[LJid]){
-                    var tempSkillDict ={};
-
-                    //if it is a new skills under that LJ
-                    if(! tempSkillDict[SkillId] ){
-                        tempSkillDict[SkillId]= {SkillId:SkillId, SkillName: SkillName}
-                    }
-                    tempRoleDict[LJid] ={role:LJroleName, skill:tempSkillDict}
-                    
-                    this.AllRoles_dict.push({LJid: LJid, LJrole:LJroleName, skill:tempSkillDict, StaffId:StaffId,RoleId:RoleId })
-                }
-
-                //if LJ already exist but another skills & course
-                else{
-                    if(! tempSkillDict[SkillId] ){
-                        tempSkillDict[SkillId]= {SkillId:SkillId, SkillName: SkillName}                    }
+            var uniqueLJDict = [];
+            
+            for(var i=0; i<LJdata.length; i++){
+                var LJid = LJdata[i].LJ_ID
+                if (!uniqueLJDict[LJid]){
+                    uniqueLJDict[LJid]= LJid
                 }
             }
-            
+            uniqueLJDict = uniqueLJDict.filter(elm => elm)
+            // console.log(uniqueLJDict.length);
+            for (var j=0; j<uniqueLJDict.length; j++){
+                var tempLJID = uniqueLJDict[j];
+                var tempSkillDict = [];
+                var tempLJRole = [];
+                var tempStaffID = [];
+                var tempLJRoleID = [];
+                var uniqueSkill = [];
+                for (var k=0;k<LJdata.length; k++){
+                    
+                    
+                    if (tempLJID == LJdata[k].LJ_ID){
+                        var skillid = LJdata[k].Skill_ID;
+                        if (!uniqueSkill[skillid]){
+                            uniqueSkill[skillid] = {skillid:skillid};
+                            tempSkillDict.push({SkillID:LJdata[k].Skill_ID, SkillName: LJdata[k].Skill_Name});
+                            tempLJRole.push(LJdata[k].LJRole_Name);
+                            tempStaffID.push(LJdata[k].Staff_ID);
+                            tempLJRoleID.push(LJdata[k].LJRole_ID);
+                        }
+                        
+                    }
+                    
+                }
+
+                this.AllRoles_dict.push({LJid: tempLJID, LJrole:tempLJRole[0], skill:tempSkillDict, StaffId:tempStaffID[0],RoleId:tempLJRoleID[0] })
+            }
+
             return this.AllRoles_dict
+            
+            
+            
+            // for (var i=0; i<LJdata.length; i++){
+            //     var LJid = LJdata[i].LJ_ID; //a staff can hv zero-many LJ
+            //     var LJroleName = LJdata[i].LJRole_Name;
+            //     var SkillId = LJdata[i].Skill_ID; //a LJ can have zero-many skills
+            //     var SkillName = LJdata[i].Skill_Name;
+            //     var StaffId = LJdata[i].Staff_ID;
+            //     var RoleId = LJdata[i].LJRole_ID ;
+            //     console.log("yes");
+            //     if (!uniqueRoleDict[LJid]) {
+
+            //         uniqueRoleDict[LJid].push({LJid: LJid});
+            //     }
+            // }
+                
+                
+                
+                // //if it is a new LJ
+                // if(!tempRoleDict[LJid]){
+                //     var tempSkillDict ={};
+
+                //     //if it is a new skills under that LJ
+                //     if(! tempSkillDict[SkillId] ){
+                //         tempSkillDict[SkillId]= {SkillId:SkillId, SkillName: SkillName}
+                //         console.log(tempSkillDict)
+                //     }
+                //     tempRoleDict[LJid] ={role:LJroleName, skill:tempSkillDict}
+                    
+                //     this.AllRoles_dict.push({LJid: LJid, LJrole:LJroleName, skill:tempSkillDict, StaffId:StaffId,RoleId:RoleId })
+                // }
+
+                // //if LJ already exist but another skills & course
+                // else{
+                //     if(! tempSkillDict[SkillId] ){
+                //         tempSkillDict[SkillId]= {SkillId:SkillId, SkillName: SkillName}
+                                        
+                //     }
+                // }
+                
+            
         },
         getCourseDetails(LJdata){
             var tempCourselDict = {};
@@ -84,7 +134,7 @@ export default {
                 var SkillId = LJdata[i].Skill_ID; 
                 var CourseId = LJdata[i].Course_ID; 
                 var CourseName = LJdata[i].Course_Name;
-                //ft-edit
+                
                 this.Allcourses_dict.push({LJid: LJid, SkillId:SkillId, CourseId:CourseId, CourseName:CourseName})
 
                 
@@ -93,6 +143,7 @@ export default {
                 //     this.Allcourses_dict.push({LJid: LJid, SkillId:SkillId, CourseId:CourseId, CourseName:CourseName})
                 // }
             }
+            console.log("course",this.Allcourses_dict)
             return this.Allcourses_dict
         },
         getCompletionStatus(RegCourse){
@@ -110,7 +161,7 @@ export default {
                     }
                 }
             }
-            console.log(this.Allcourses_dict);
+            //console.log(this.Allcourses_dict);
             return this.Allcourses_dict
         },
         getDataSend(LJid,StaffId,RoleId){
@@ -223,11 +274,14 @@ export default {
                     <strong>Chosen Skills & Courses: </strong> 
                     <div>
                         <ul v-for="skills in roles.skill">
+                            
                             <li><b>Skill : </b>{{skills.SkillName}}&nbsp|&nbsp
                                 
                                 <strong>Courses: </strong> 
                                 <span v-for="courses in Allcourses_dict">
-                                    <span v-if="roles.LJid == courses.LJid && skills.SkillId==courses.SkillId">
+                                    
+                                    
+                                    <span v-if="roles.LJid == courses.LJid && skills.SkillID==courses.SkillId">
                                         {{courses.CourseName}} &nbsp&nbsp
                                         <span class="badge rounded-pill" style="background-color: #5EE1AA" v-if="courses.CompletionStatus =='Completed'">Completed</span>&nbsp&nbsp
                                         <span class="badge rounded-pill" style="background-color: skyblue" v-else-if="courses.CompletionStatus =='OnGoing'">OnGoing</span>&nbsp&nbsp

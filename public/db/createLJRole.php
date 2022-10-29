@@ -3,17 +3,6 @@ require_once 'common.php';
 $status = false;
 $result = [];
 
-//hardcode method
-// $LJRole_ID = Null;
-// $LJRole_Name = 'test';
-// $LJRole_Description = 'test';
-// $Department = 'Ops';
-// $Key_Task = 'test';
-// $LJRole_Status = 'Active';
-// $Skill_ID = 2;
-
-// $dao = new PostDAO();
-// $status = $dao->createLJRole($LJRole_ID,$LJRole_Name,$LJRole_Description,$Department,$Key_Task,$LJRole_Status,$Skill_ID);
 
 //dynamic method
 if( isset($_REQUEST['LJRole_ID']) && isset($_REQUEST['LJRole_Name'])&& isset($_REQUEST['LJRole_Description']) && isset($_REQUEST['Department']) && isset($_REQUEST['Key_Task']) && isset($_REQUEST['LJRole_Status']) && isset($_REQUEST['Skill_ID'])   ) {

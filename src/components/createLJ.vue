@@ -214,14 +214,15 @@ export default {
 
             for (let i = 0; i < this.Allcourse_dict.length; i++){
                 if (document.getElementById(this.Allcourse_dict[i].Course_ID).checked){
-                    if ("CompletionStatus" in this.Allcourse_dict[i]){
-                        if (this.Allcourse_dict[i].CompletionStatus != "Completed"){
-                            completed_check = true
-                        }
-                    }
-                    else{
-                        completed_check = true
-                    }
+                    completed_check = true
+                    // if ("CompletionStatus" in this.Allcourse_dict[i]){
+                    //     if (this.Allcourse_dict[i].CompletionStatus != "Completed"){
+                    //         completed_check = true
+                    //     }
+                    // }
+                    // else{
+                    //     completed_check = true
+                    // }
                 }
             }
             if (completed_check == false){
@@ -248,6 +249,7 @@ export default {
                     width: 'auto',
                 }).then((result) => {
                     if (result.isConfirmed) {
+                        // console.log('yes');
 
                         const url = "http://localhost/IS212-G6T2/public/db/addRole.php"
                         var LJ_ID = this.LatestLJ_ID + 1
@@ -255,7 +257,7 @@ export default {
                         for (let x in this.Allcourse_dict){
                             if (document.getElementById(this.Allcourse_dict[x].Course_ID).checked){
                                 if ("CompletionStatus" in this.Allcourse_dict[x]){
-                                    if (this.Allcourse_dict[x].CompletionStatus != "Completed"){
+                                    if (this.Allcourse_dict[x].CompletionStatus == "Completed" || this.Allcourse_dict[x].CompletionStatus != "Completed"){
                                         var Submitted_Skill_ID = this.Allcourse_dict[x].Skill_ID
                                         var Submitted_CourseID = this.Allcourse_dict[x].Course_ID
                                         const data = {
@@ -288,7 +290,7 @@ export default {
                                                 showConfirmButton: true,
                                                 confirmButtonColor: '#6A79F3',
                                                 }).then(function() {
-                                                    window.location.href = "HomePage.html";
+                                                    window.location.href = "LJhome";
                                                 })
                                             }
                                         })
@@ -327,7 +329,7 @@ export default {
                                             showConfirmButton: true,
                                             confirmButtonColor: '#6A79F3',
                                             }).then(function() {
-                                                window.location.href = "HomePage.html";
+                                                window.location.href = "LJhome";
                                             })
                                         }
                                     })
@@ -382,7 +384,7 @@ export default {
                                                     'Your changes have been successfully saved!',
                                                     'success',
                                                 ).then(function() {
-                                                    window.location.href = "homepage.html";
+                                                    window.location.href = "LJhome";
                                                 })
                                             })
             
@@ -454,7 +456,7 @@ export default {
 </script>
 
 <template>
-    <div class="row">
+    <div class="row" style="background:#6A79F3;">
         <div class="row">
             <div class="col-lg-3 col-md-4 col-sm-5"><img id='logo' src="../Icons/Component 1.png"></div>
             <div class="col-lg-9 col-md-8 col-sm-7">
@@ -615,3 +617,45 @@ export default {
         </div>
     </div>
 </template>
+
+<style>
+.myHeader {
+    position: absolute;
+    width: 100%;
+    height: 70%;
+    left: 0px;
+    top: 0px;
+    background: #6A79F3;
+  }
+
+#Header {
+  position: absolute;
+  top: 196px;
+  padding-right: 100px;
+  padding-left: 100px ;
+  margin: auto;
+  font-family: 'Inter';
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 61px;
+  text-align: center;
+  letter-spacing: 0.01em;
+  color: #FFFFFF;
+  } 
+
+.accordion-header h1{
+  display: inline-block; 
+  font-family: 'Inter'; 
+  font-weight: 600; 
+  font-size: 20px;
+}
+
+
+  #logo {
+    position: absolute;
+    left: 77px;
+    top: 35.2px;
+    width: 51.35px;
+    height: 34.8px;
+  }
+</style>

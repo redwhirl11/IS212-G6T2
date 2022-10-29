@@ -3,11 +3,6 @@ require_once 'common.php';
 $status = false;
 $result = [];
 
-// $LJ_ID = 6;
-// $Staff_ID= 2;
-// $dao = new PostDAO();
-// $status = $dao->deleteEditedLJcourses($LJ_ID, $Staff_ID, $SubmittedLJRole_ID,$Submitted_Skill_ID,$Submitted_CourseID);
-
 //dynamic method
 
 if( isset($_REQUEST['LJ_ID']) && isset($_REQUEST['Staff_ID'])) {

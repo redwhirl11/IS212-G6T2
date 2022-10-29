@@ -159,13 +159,13 @@ export default {
                         <div class="navbar" id="navbarSupportedContent">
                             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                                 <li class="nav-item">
-                                    <a class="navbar-brand" href="../HTML/hrHome.html" style="color:white">Home</a>
+                                    <a class="navbar-brand" href="hrHome" style="color:white">Home</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="../HTML/hrRole.html" style="color:white">Role</a>
+                                    <a class="nav-link" href="hrRole" style="color:white">Role</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="../HTML/hrSkill.html"
+                                    <a class="nav-link active" aria-current="page" href="hrSkill"
                                         style="color:white">Skill</a>
                                 </li>
                             </ul>
@@ -186,7 +186,7 @@ export default {
                         aria-label="Search" id="skillSearchBar">
                     <!-- add new role btn Fang Ting -->
                     <button class="btn btn-light" type="submit" style="border-radius: 40px;"><a class="nav-link"
-                            href="../HTML/hrCreateSkill.html">Add New Skill</a> </button>
+                            href="hrCreateSkill">Add New Skill</a> </button>
                 </form>
 
 

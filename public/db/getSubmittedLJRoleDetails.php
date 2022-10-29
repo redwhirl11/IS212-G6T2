@@ -4,9 +4,6 @@ $dao = new PostDAO();
 
 $posts=[];
 
-// need to modify -- hardcode method
-// $LJ_ID = 00006;
-// $posts = $dao->getSubmittedRoleDetails($LJ_ID);
 
 //dynamic method
 if(isset($_REQUEST['LJ_ID'])){

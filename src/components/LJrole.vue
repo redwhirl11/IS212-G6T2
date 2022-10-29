@@ -1,7 +1,8 @@
 <script>
 import axios from 'axios';
 
-export function getAllRoles(){
+export default{
+  mounted:function(){
     var url = "http://localhost/IS212-G6T2/public/db/getAllRoles.php"
     axios.get(url).
     then(response => {
@@ -22,11 +23,11 @@ export function getAllRoles(){
             card += 
             `<div class="col-lg-4 col-md-4 col-sm-6">
               <div class="card">
-                <img class="card-img-top" src="../Icons/role.jpg" alt="Card image cap">
+                <img class="card-img-top" src="http://localhost/IS212-G6T2/src/Icons/role.jpg" alt="Card image cap">
                   <div class="card-body">
                     <h5 class="card-title"> ${arrayUniqueByKey[i].LJRole_Name} </h5>
                     <p class="card-text">${arrayUniqueByKey[i].Key_Task}</p>
-                    <a href="createLJ?roleID=${arrayUniqueByKey[i].LJRole_ID}" class="btn btn-primary" id="styled" onClick="populateHeader(${arrayUniqueByKey[i].LJRole_ID})">View More</a>
+                    <a href="createLJ?roleID=${arrayUniqueByKey[i].LJRole_ID}" class="btn btn-primary" id="styled" >View More</a>
                   </div>
               </div>
             </div>`
@@ -38,28 +39,32 @@ export function getAllRoles(){
     .catch(error => {
         console.log(error.message)
     })
-
+    
   }
+
+} 
 </script>
 
 <template>
+ 
     <div class='container-fluid' id="myHeader">
         <img id= 'logo' src="../Icons/Component 1.png">
         <img src="../Icons/Vector 1.png" alt="Nature" class="responsive">
 
-        <div class="container-fluid" id="container1">
+        <div class="container-fluid" id="container1" >
             <div class="h1" id="Header">
                 Step 1:  Select a job role that you are interested in 
             </div>
             
             <input class="form-control" id="search-bar" type="text" placeholder="For E.g. Business Analyst, Operations Manager">
-            <span><a href=""><img src="../images/search icon.png" id="search-icon" alt=""></a></span>
+            <span ><a href=""><img src="../images/search icon.png" id="search-icon" alt=""></a></span>
             <span><a href=""><img src="../images/Filter list.png" id="filterlist-icon" alt=""></a></span>
             <button type="button" class="btn btn-light" id="back-btn">Back</button>
         </div>
         
 
     </div>
+   
 
 
     <div class="container" id="content">
@@ -351,55 +356,6 @@ color: #FFFFFF;
 
   }
 }
-
-/* @media all and (max-width: 1476px){
-  #back-btn {
-    display:inline-block;
-    left: calc(100% - 220px);;
-  }
-}
-
-@media all and (max-width: 1390px){
-  .row{
-    width: fit-content;
-  }
-
-  #Header{
-    width: 50vw;
-    left: 25vw;
-    font-size: 5vh;
-  }
-
-  #search-bar{
-    width: 50vw;
-    left: 25vw;    
-  }
-
-  #search-icon{
-    left: 66vw;
-    size: 10vw;
-  }
-
-  #filterlist-icon{
-    left: 70vw;
-  }
-}
-
-@media all and (max-width: 948px){
-
-  #search-icon{
-    left: 62vw;
-    size: 10vw;
-  }
-
-  #filterlist-icon{
-    left: 67vw;
-  }
-
-  #search-bar::placeholder{
-    font-size: 1.5vw;
-  }
-} */
 
 
 </style>

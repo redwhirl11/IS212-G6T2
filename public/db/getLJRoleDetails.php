@@ -4,10 +4,6 @@ $dao = new PostDAO();
 
 $posts=[];
 
-// need to modify -- hardcode method
-// $LJRole_ID = 00002;
-// $posts = $dao->getLJRoleDetails($LJRole_ID);
-
 //dynamic method
 if(isset($_REQUEST['LJRole_ID'])){
     $LJRole_ID= $_REQUEST['LJRole_ID'];

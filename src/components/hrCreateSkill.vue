@@ -213,12 +213,6 @@ export default {
                 </select>
             </div>
             <div class="col-lg-6 col-md-6">
-                <h4><label for="inputRoles" class="form-label">Role(s) Assigned (KIV-Sprint 3)</label></h4>
-                <input type="text" class="form-control" id="inputRoles">
-            </div>
-            <div class="col-lg-6 col-md-6">
-            </div>
-            <div class="col-lg-6 col-md-6">
                 <h4><label for="inputCourses" class="form-label">Course(s) Assigned (KIV-Sprint 3)  <span style="color:red">*</span></label></h4>
                 <input type="text" class="form-control" id="inputCourses" v-model="Course_assign">
             </div>

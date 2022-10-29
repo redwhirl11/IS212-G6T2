@@ -28,14 +28,8 @@ export default {
         };
     },
     created() {
-        //hardcode method-- wait for kw to pass the data LJRole_ID,LJ_ID,Staff_ID
-        // var LJRole_ID = 00002
-        // var LJ_ID = 00006
-        // var Staff_ID = 00002
-
         //dynamic method
-        const dataValue = localStorage.getItem('data');
-        // console.log(dataValue[0],dataValue[2],dataValue[4]);  
+        const dataValue = localStorage.getItem('data'); 
         const datalist = dataValue.split(',');
         console.log(datalist);
         this.LJ_ID = parseInt(datalist[0]);
@@ -47,21 +41,11 @@ export default {
         const RoleDetailsUrl = 'http://localhost/IS212-G6T2/public/db/getLJRoleDetails.php'
         const RegCourseurl = 'http://localhost/IS212-G6T2/public/db/getRegCourse.php'
         const LjDetailsurl = 'http://localhost/IS212-G6T2/public/db/getSubmittedLJRoleDetails.php'
-        //hardcode method
-        // const RoleDetaildata = { LJRole_ID: LJRole_ID }
-        // const LJDetaildata = { LJ_ID:LJ_ID }
-        // const RegCourseData = { Staff_ID: Staff_ID}
         
         //dynamic method
         const RoleDetaildata = { LJRole_ID: this.SubmittedLJRole_ID }
         const LJDetaildata = { LJ_ID: this.LJ_ID  }
         const RegCourseData = { Staff_ID: this.Staff_ID }
-
-
-        ////hardcode method=get the default information 
-        // this.LJ_ID = LJ_ID;
-        // this.Staff_ID = Staff_ID;
-        // this.SubmittedLJRole_ID = LJRole_ID;
 
         //retrieve data from the php 
         axios.get(LjDetailsurl, {
@@ -69,7 +53,7 @@ export default {
         })
             .then(response => {
                 var LJDetails = response.data;
-                // console.log('LJDetails', LJDetails)
+                //console.log('LJDetails', LJDetails)
                 this.getSubmittedCourse_ID(LJDetails);
                 axios.get(RoleDetailsUrl, {
                     params: RoleDetaildata
@@ -108,7 +92,7 @@ export default {
         getSkillDetails(RoleDetails) {
             var temp_skill_dict = [];
             //for loop to get (multiple) skill's info 
-            for (i = 0; i < RoleDetails.length; i++) {
+            for (var i = 0; i < RoleDetails.length; i++) {
                 var SkillID = RoleDetails[i].Skill_ID;
                 var SkillName = RoleDetails[i].Skill_Name;
                 var Type_of_Skills = RoleDetails[i].Type_of_Skills;
@@ -141,7 +125,7 @@ export default {
                 var Skill_ID = this.Allskill_dict[j].Skill_ID
 
                 //for each skill in ljroles
-                for (i = 0; i < RoleDetails.length; i++) {
+                for (var i = 0; i < RoleDetails.length; i++) {
                     var SkillID = RoleDetails[i].Skill_ID;
                     var courseID = RoleDetails[i].Course_ID;
                     var courseName = RoleDetails[i].Course_Name;
@@ -232,7 +216,7 @@ export default {
                                                 'Your changes have been successfully saved!',
                                                 'success',
                                             ).then(function() {
-                                                window.location.href = "homepage.html";
+                                                window.location.href = "LJhome";
                                             })
                                         })
         
@@ -277,7 +261,7 @@ export default {
                 var Reg_Status = RegCourse[i].Reg_Status;
                 var Completion_Status = RegCourse[i].Completion_Status;
 
-                for (j = 0; j < this.Allcourse_dict.length; j++) {
+                for (var j = 0; j < this.Allcourse_dict.length; j++) {
                     if (this.Allcourse_dict[j].Course_ID == Course_ID) {
                         this.Allcourse_dict[j]['RegStatus'] = Reg_Status
                         this.Allcourse_dict[j]['CompletionStatus'] = Completion_Status

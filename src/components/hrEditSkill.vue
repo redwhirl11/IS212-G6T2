@@ -221,7 +221,7 @@ export default {
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
-                <h4><label for="inputlevel" class="form-label">Level of Competencies</label></h4>
+                <h4><label for="inputlevel" class="form-label">Level of Competencies <span style="color:red">*</span></label></h4>
                 <select id="inputlevel" class="form-select" v-model="Level_of_Competencies">
                     <option disabled value="">Please select one</option>
                     <option value="Beginner">Beginner</option>
@@ -231,13 +231,7 @@ export default {
             </div>
             
             <div class="col-lg-6 col-md-6">
-                <h4><label for="inputRoles" class="form-label">Role(s) Assigned (KIV-Sprint 3)</label></h4>
-                <input type="text" class="form-control" id="inputRoles">
-            </div>
-            <div class="col-lg-6 col-md-6">
-            </div>
-            <div class="col-lg-6 col-md-6">
-                <h4><label for="inputCourses" class="form-label">Course(s) Assigned (KIV-Sprint 3)</label></h4>
+                <h4><label for="inputCourses" class="form-label">Course(s) Assigned (KIV-Sprint 3)<span style="color:red">*</span></label></h4>
                 <input type="text" class="form-control" id="inputCourses" v-model="Skill_Course">
             </div>
             <div v-for="error in error_message">

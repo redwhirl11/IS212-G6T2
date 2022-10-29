@@ -3,10 +3,6 @@ require_once 'common.php';
 $status = false;
 $result = [];
 
-//hardcode method
-// $LJRole_ID = 2;
-// $dao = new PostDAO();
-// $status = $dao->SoftDeleteRole($LJRole_ID);
 
 //dynamic method
 if( isset($_REQUEST['LJRole_ID']) ) {
