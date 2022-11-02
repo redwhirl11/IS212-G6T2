@@ -9,12 +9,10 @@ export default {
             skillList:[]
         }
     },
-
     created() {
         this.getAllRole()
         this.getSkill()
     },
-
     methods: {
 
         getAllRole() {
@@ -135,7 +133,26 @@ export default {
                             icon: "info"});
                     }
                 });
-        }
+        }, 
+        searchRole() {
+            // Declare variables
+            var input, filter, ul, li, a, i, txtValue;
+            input = document.getElementById('myInput');
+            filter = input.value.toUpperCase();
+            ul = document.getElementById("myUL");
+            li = ul.getElementsByTagName('li');
+
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+                } else {
+                li[i].style.display = "none";
+                }
+            }
+            }
     }
 
 }
@@ -174,7 +191,7 @@ export default {
                     Let's keep the information <br> up-to-date for roles
                 </p>
                 <!-- search bar start -->
-                <div class="d-inline-flex mt-3 position-absolute translate-middle w-50" style="top:70%; left:55%">
+                <div class="d-inline-flex mt-3 position-absolute translate-middle w-50" style="top:70%; left:55%;">
                     <input class="form-control me-3" type="search"
                         placeholder="For E.g. Business Analyst, Operations Manager" aria-label="Search"
                         id="searchBar">
@@ -182,6 +199,17 @@ export default {
                     <button class="btn btn-light" type="submit" style="border-radius: 40px;"><a
                             class="nav-link active" style='color: black;padding:0' aria-current="page"
                             href="hrCreateRole">Add New Role</a> </button>
+                    
+                </div>
+                <div>
+                    <!--search list of all roles (have to hide it later on)-->
+                    <ul id="myUL">
+                        <li v-for="role in roleDict">
+                            <a href = "#">
+                                {{role.roleName}}
+                            </a>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
