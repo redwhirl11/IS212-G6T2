@@ -127,7 +127,7 @@ export default {
             //check for duplicate Skill name
             var tidyupSkillName = this.Skill_Name.toLowerCase();
             tidyupSkillName= tidyupSkillName.replaceAll(' ', '');
-            index = this.AllUniqueSkills.map(object => object.SkillName).indexOf(tidyupSkillName);
+            var index = this.AllUniqueSkills.map(object => object.SkillName).indexOf(tidyupSkillName);
             console.log(index);
             if (index != -1 ){
                 this.error_message.push('Duplicate skill name, only unique skills are allowed!')
