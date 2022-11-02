@@ -1,20 +1,81 @@
 <script>
 import axios from 'axios';
+import { CMultiSelect } from '@coreui/vue-pro'
 export default {
+    name: 'hrCreateSkill',  
+    props: {  
+        Skill_Name: {
+            type: String,
+            default: "blbala"
+        },
+        Type_of_Skill: {
+            type: String,
+            default: "blbala"
+        },
+        Level_of_Competencies: {
+            type: String,
+            default: "blbala"
+        },
+        Course_assign: {
+            type: String,
+            default: "tch002"
+        },
+        error: {
+            type: String,
+            default: ""
+        }
+    
+    },
     data() {
         return {
             Skill_ID: '',
-            Skill_Name:'',
+            // Skill_Name: this.Skill_Name,
             Skill_Status: 'Active',
-            Level_of_Competencies: '',
-            Type_of_Skill: '',
+            // Level_of_Competencies: '',
+            // Type_of_Skill: '',
             error_message:[],
             error_in_html:'',
+            errorm: this.error,
             numSkillType:50,
             numSkillName:50,
             AllUniqueSkills:[],
             //modify in sprint 3, will hardcode for the course (for sprint 2)
-            Course_assign:'tch002'
+            // Course_assign:'tch002'
+            options: [
+                {
+                value: 0,
+                text: 'Angular',
+                },
+                {
+                value: 1,
+                text: 'Bootstrap',
+                },
+                {
+                value: 2,
+                text: 'React.js',
+                },
+                {
+                value: 3,
+                text: 'Vue.js',
+                },
+                {
+                label: 'backend',
+                options: [
+                    {
+                    value: 4,
+                    text: 'Django',
+                    },
+                    {
+                    value: 5,
+                    text: 'Laravel',
+                    },
+                    {
+                    value: 6,
+                    text: 'Node.js',
+                    },
+                ],
+                },
+            ],
             
             
         };
@@ -92,6 +153,7 @@ export default {
             // if user didnt input for skill name
             if (this.Skill_Name ==''){
                 this.error_message.push('Invalid Skill Name')
+                this.errorm = 'Invalid Skill Name'
             }else{
                 //if user did input the skill name but the char not from 3-50
                 if (this.numSkillName<0){
@@ -104,16 +166,22 @@ export default {
             // if user didnt select for level of competencies
             if (this.Level_of_Competencies == ''){
                 this.error_message.push('You must select the level of competencies for the skill')
+                this.errorm = 'You must select the level of competencies for the skill'
+ 
             }
 
             // if user didnt input for courses assigned
             if (this.Course_assign == ''){
                 this.error_message.push('You must assign a course(s) to the skill')
+                this.errorm = 'You must assign a course(s) to the skill'
+
             }
 
             // if user didnt input for type of skill
             if (this.Type_of_Skill == ''){
                 this.error_message.push('You must input the type of skill')
+                this.errorm = 'You must input the type of skill'
+
             }else{
                 //if user did input the type of skill but the char not from 4-50
                 if (this.numSkillType<0){
@@ -158,6 +226,8 @@ export default {
 </script>
 <template>
     <div class="row" style="background:#6A79F3;">
+        <CMultiSelect :options="options" />
+
         <div class="row position-relative">
             <div class="row my-5">
                 <div class="col-lg-9 col-md-8"><img id='logo' src="../Icons/Component 1.png"></div>
