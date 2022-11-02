@@ -1,7 +1,11 @@
 <script>
 import axios from 'axios';
+import Multiselect from '@vueform/multiselect';
 export default {
     name: 'hrCreateRole',  
+    components: {
+        Multiselect,
+      },
     props: {  
         Department: {
             type: String,
@@ -33,12 +37,19 @@ export default {
             errorm: this.error,
             error_in_html:'',
             AllUniqueRoles:[],
+            AllUniqueSkill:[],
             numRoleName:50,
             numDepartment:50,
             numrole_desc:225,
             numkey_tasks:225,
+            value: null,
+            Skills_Options: []
                 // //modify in sprint 3, will hardcode for the skill (for sprint 2)
             // skills_required:'00007'
+            // [
+            // { value: 'batman', label: 'Batman' },
+            // { value: 'robin', label: 'Robin' },
+            // { value: 'joker', label: 'Joker' },]
 
         }
     },
@@ -47,14 +58,19 @@ export default {
         axios.get(getAllRoles)
             .then(response => {
                 var AllRoles = response.data;
-                console.log(AllRoles);
                 this.getUniqueRoleName(AllRoles);
-                console.log(this.AllUniqueRoles);
+                //console.log(this.AllUniqueRoles);
+                const getAllSkills = 'http://localhost/IS212-G6T2/public/db/getSkills.php'
+                axios.get(getAllSkills)
+                .then(response => {
+                var AllSkills = response.data;
+                this.getUniqueSkill(AllSkills);
+                console.log(this.Skills_Options);
+            })
             })
     },
     methods: {
         getUniqueRoleName(AllRoles){
-
             var tempRoleDict =[]
             for (var i = 0; i < AllRoles.length; i++){
                 //Role Name preprosseing --> easier to compare (unique name) 
@@ -68,6 +84,18 @@ export default {
                 }
             }
             return this.AllUniqueRoles
+        },
+        getUniqueSkill(AllSkills){
+            var tempSkillDict =[]
+            for (var i = 0; i < AllSkills.length; i++){
+                var Skill_Name = AllSkills[i].Skill_Name
+                var Skill_ID = AllSkills[i].Skill_ID
+                if (!tempSkillDict[Skill_Name]) {
+                    tempSkillDict[Skill_Name] = {value: Skill_ID,label: Skill_Name}
+                    this.Skills_Options.push({value: Skill_ID,label: Skill_Name})
+                }
+            }
+            return this.Skills_Options
         },
         submitLJRole() {
             console.log('yes');
@@ -251,16 +279,15 @@ export default {
                     <option value="Ops">Ops</option>
                     <option value="Sales">Sales</option>
                 </select>
-                <!-- <textarea  v-model="Department" class="form-control" @input ="countDepartment(this.numDepartment)" rows="1"></textarea>
-                <div style="float: right;">
-                    <span v-if ='numDepartment>=0'>{{numDepartment}}</span>  
-                    <span v-else style="color:red">Exceed Word Limit: {{50-numDepartment}}/50</span> 
-                </div> -->
                 
             </div>
             <div class="col-lg-6 col-md-6">
                 <h4><label for="inputRoles" class="form-label">Skills Required (KIV-Sprint 3) <span style="color:red">*</span></label></h4>
-                <input type="text" class="form-control" id="inputRoles" v-model="skills_required">
+                <!-- <input type="text" class="form-control" id="inputRoles" v-model="skills_required"> -->
+                <div>
+        <Multiselect v-model="value" mode="tags" :close-on-select="false" :searchable="true" :create-option="true" :options=Skills_Options
+/>
+    </div>
             </div>
             <div class="col-lg-6 col-md-6">
             </div>
@@ -278,9 +305,9 @@ export default {
     </div>
 </template>
 
-<style scoped>
+
 /* 
 #Header  && #logo under main.css
 */
+<style src="@vueform/multiselect/themes/default.css"></style>
 
-</style>
