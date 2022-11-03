@@ -6,13 +6,15 @@ export default {
             roleDict: [],
             rollId: '',
             skillId:'',
-            skillList:[]
+            skillList:[],
+            deletedRoleDict: []
         }
     },
 
     created() {
         this.getAllRole()
         this.getSkill()
+        this.getDeletedRole()
     },
 
     methods: {
@@ -157,7 +159,51 @@ export default {
             document.getElementById(statusSelected).style.display = "block";
             evt.currentTarget.className += " active";
 
-        }
+        },
+
+        getDeletedRole() {
+            const allRoleUrl = 'http://localhost/IS212-G6T2/public/db/getDeletedRoles.php'
+            axios.get(allRoleUrl).then(response => {
+                var deletedRole = response.data
+                console.log( 'deleted role', deletedRole)
+
+                const map = new Map();
+
+                // get the distinct roles from allRole
+                for (const role of deletedRole) {
+                    var name = role.LJRole_Name
+                    var dept = role.Department
+                    var desc = role.LJRole_Description
+                    var task = role.Key_Task
+                    var status = role.LJRole_Status
+                    var skill = role.Skill_ID
+                    this.rollId =role.LJRole_ID
+                    this.skillId =role.Skill_ID
+
+                    if (!map.has(role.LJRole_ID)) {
+                        map.set(role.LJRole_ID, true);
+                        this.deletedRoleDict.push({ id: role.LJRole_ID, roleName: name, dept: dept, desc: desc, task: task, status: status, skill: skill, skills: [], noOfSkill: 0 })
+                    }
+                }
+
+                // get the skills of each role
+                for (let i = 0; i < deletedRole.length; i++) {
+                    let roleId = deletedRole[i].LJRole_ID
+                    let skill = deletedRole[i].Skill_ID
+
+                    for (let j = 0; j < this.deletedRoleDict.length; j++) {
+                        if (this.deletedRoleDict[j].id == roleId) {
+                            this.deletedRoleDict[j]['skills'].push(skill)
+                            this.deletedRoleDict[j]['noOfSkill'] += 1
+                            // console.log('testing', this.skillList)
+                        }
+                    }
+                }
+
+                console.log('deleted final result', this.deletedRoleDict)
+                return this.deletedRoleDict;
+            })
+        },
     }
     
 }
@@ -269,8 +315,47 @@ export default {
 
     <!-- Deleted Role -->
     <div id="Deleted" class="tabcontent">
-        <!-- All role cards-->
-        <p>testing</p>
+        <!-- Deleted role cards-->
+        <div class="row mt-4">
+            <div class="col-lg-5 col-md-8 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="role in deletedRoleDict">
+                <div class="card p-2">
+                    <div class="row card-body">
+                        <div class="row my-2">
+                            <h4 class="col-8 col-lg-7 col-md-6 col-sm-1 card-title">{{role.roleName}}</h4>
+                            <!-- edit button -->
+                            <span class="col-lg-2 col-md col-sm-2"><button id="editButton" @click="getDataSend(role.id, role.skill)">Edit</button></span>
+                        </div>
+                        <div class="row my-2">
+                            <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3 text-uppercase">
+                                {{role.dept}}</div>
+                            <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3" id="skillBadge">
+                                {{role.noOfSkill}} skills
+                            </div>
+
+                            <!-- display skill names of the role -->
+                            <span v-for="skill in role.skills" style="margin:0px" id="skillNames" >
+                                <ul v-for="s in skillList" style="margin:0px">
+                                    <li v-if="skill == s.skillId" style="margin:0px" > {{s.skillName}} </li>
+                                </ul>
+                            </span>
+
+                        </div>
+                        <div class="row my-2">
+                            <h6>Description</h6>
+                            <p>
+                                {{role.desc}}
+                            </p>
+                        </div>
+                        <div class="row my-2">
+                            <h6>Key Tasks</h6>
+                            <div v-for="task in role.task.split('.')">
+                                <p style="text-decoration:none;margin:0px"> {{task}} </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
 </template>
