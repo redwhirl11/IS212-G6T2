@@ -246,7 +246,7 @@ export default {
      <!-- lower portion Create learning journey-->
      <div class='contianer-fluid'>
         <div>
-            <img src="../Icons/Rectangle 6.png" id="semiRecImg" >
+            <img src="../Icons/Rectangle6.png" id="semiRecImg" >
             <img src="../Icons/HomepageBottom.png" id="HomeBottomImg" >
             <p id="BottomHeader">Your learning journeys</p>
         </div>
