@@ -7,10 +7,10 @@ import hrRole from "../components/hrRole.vue";
     <div class="row" style="background:#6A79F3;">
         <div class="row position-relative">
             <div class="row my-5">
-                <div class="col-lg-10 col-md-9"><img id='logo' src="../Icons/Component 1.png"></div>
+                <div class="col-lg-10 col-md-9"><img id='logo' src="../Icons/Component1.png"></div>
                 <span class="col-lg col-md fs-5 fw-bold" style="color:white">Welcome, Jack </span>
             </div>
-            <img src="../Icons/Vector 1.png" alt="background">
+            <img src="../Icons/Vector1.png" alt="background">
             <p class="h1 position-absolute top-50 start-50 translate-middle" id="Header">
                 Please select a feature to start:
             </p>
@@ -24,7 +24,7 @@ import hrRole from "../components/hrRole.vue";
                 <a href="hrRole">
                     <div class="card-body">
                         <h4 class="card-title">Edit Roles</h4>
-                        <img src="../images/edit role.jpg" class="img-fluid" alt="">
+                        <img src="../images/editrole.jpg" class="img-fluid" alt="">
                     </div>
                 </a>
             </div>
@@ -35,7 +35,7 @@ import hrRole from "../components/hrRole.vue";
                 <a href="hrSkill">
                     <div class="card-body">
                         <h4 class="card-title">Edit Skills</h4>
-                        <img src="../images/edit skill.jpg" class="img-fluid" alt="">
+                        <img src="../images/editskill.jpg" class="img-fluid" alt="">
                     </div>
                 </a>
             </div>

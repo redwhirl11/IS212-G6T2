@@ -225,7 +225,7 @@ export default {
     <div class="row" style="background:#6A79F3;">
         <div class="row position-relative">
             <div class="row my-5">
-                <div class="col-lg-2 col-md-3"><img id='logo' src="../Icons/Component 1.png"></div>
+                <div class="col-lg-2 col-md-3"><img id='logo' src="../Icons/Component1.png"></div>
                 <!-- nav bar start -->
                 <nav class="col-lg-8 col-md-6 navbar navbar-expand-lg navbar-expand-md navbar-light">
                     <div class="container-fluid">
@@ -248,7 +248,7 @@ export default {
                 <!-- nav bar end -->
                 <span class="col-lg col-md fs-5 fw-bold" style="color:white">Welcome, Jack </span>
             </div>
-            <img src="../Icons/Vector 1.png" alt="background">
+            <img src="../Icons/Vector1.png" alt="background">
             <div class="row">
                 <p class="h1 position-absolute top-50 start-50 translate-middle" id="Header">
                     Let's keep the information <br> up-to-date for skills

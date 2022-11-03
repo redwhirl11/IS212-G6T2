@@ -292,7 +292,7 @@ export default {
     <div class="row" style="background:#6A79F3;">
         <div class="row my-5" >
             <div class="row">
-                <div class="col-lg-9 col-md-8"><img id='logo' src="../Icons/Component 1.png"></div>
+                <div class="col-lg-9 col-md-8"><img id='logo' src="../Icons/Component1.png"></div>
                 <div class="col-lg-3 col-md-4">
                     <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="backBtn"
                         style="border-radius: 20px" onclick="history.back()">Back</button>
@@ -300,7 +300,7 @@ export default {
                         style="border-radius: 20px" @click="saveLJ()">Submit</button>
                 </div>
             </div>
-            <img src="../Icons/Vector 1.png" alt="Nature" class="responsive">
+            <img src="../Icons/Vector1.png" alt="Nature" class="responsive">
             <!-- Role name -->
             <p class="h1 text-center" id="Header">
                 <span id="roleName">{{roleName}}</span> <br>
@@ -317,7 +317,7 @@ export default {
                         <button class="accordion-button" type="button" data-bs-toggle="collapse"
                             data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
                             aria-controls="panelsStayOpen-collapseOne">
-                            <img src="../Icons/Role Description.png"
+                            <img src="../Icons/RoleDescription.png"
                                 style="display: inline-block; width: 31px; height: 31px; margin-right: 15px;">
                             <h1>Role Description</h1>
                         </button>
