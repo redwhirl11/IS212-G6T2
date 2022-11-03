@@ -135,9 +135,31 @@ export default {
                             icon: "info"});
                     }
                 });
+        },
+        openStatus(evt, statusSelected) {
+            // Declare all variables
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            console.log(tabcontent)
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(statusSelected).style.display = "block";
+            evt.currentTarget.className += " active";
+
         }
     }
-
+    
 }
 </script>
 
@@ -182,55 +204,77 @@ export default {
                     <button class="btn btn-light" type="submit" style="border-radius: 40px;"><a
                             class="nav-link active" style='color: black;padding:0' aria-current="page"
                             href="hrCreateRole">Add New Role</a> </button>
+
+                    
                 </div>
+
+                <!-- Tab Button -->
+                <div class="tab">
+                        <button class="tablinks btn" @click="openStatus(event, 'Active')">Active</button>
+                        <button class="tablinks btn" @click="openStatus(event, 'Deleted')" style="margin-left:1px;">Deleted</button>
+                </div>
+
             </div>
         </div>
     </div>
-    <!-- All role cards-->
-    <div class="row mt-4">
-        <div class="col-lg-5 col-md-8 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="role in roleDict">
-            <div class="card p-2">
-                <div class="row card-body">
-                    <div class="row my-2">
-                        <h4 class="col-8 col-lg-7 col-md-6 col-sm-1 card-title">{{role.roleName}}</h4>
-                        <!-- edit button -->
-                        <span class="col-lg-2 col-md col-sm-2"><button id="editButton" @click="getDataSend(role.id, role.skill)">Edit</button></span>
-                        <!-- delete button -->
-                        <span class="col-lg col-md col-sm-2"><button id="deleteButton" @click="SoftDeleteRole(role.id)">Delete</button></span>
-                    </div>
-                    <div class="row my-2">
-                        <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3 text-uppercase">
-                            {{role.dept}}</div>
-                        <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3" id="skillBadge">
-                            {{role.noOfSkill}} skills
+
+    <!-- Active Role -->
+    <div id="Active" class="tabcontent">
+
+        <!-- All role cards-->
+        <div class="row mt-4">
+            <div class="col-lg-5 col-md-8 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="role in roleDict">
+                <div class="card p-2">
+                    <div class="row card-body">
+                        <div class="row my-2">
+                            <h4 class="col-8 col-lg-7 col-md-6 col-sm-1 card-title">{{role.roleName}}</h4>
+                            <!-- edit button -->
+                            <span class="col-lg-2 col-md col-sm-2"><button id="editButton" @click="getDataSend(role.id, role.skill)">Edit</button></span>
+                            <!-- delete button -->
+                            <span class="col-lg col-md col-sm-2"><button id="deleteButton" @click="SoftDeleteRole(role.id)">Delete</button></span>
                         </div>
+                        <div class="row my-2">
+                            <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3 text-uppercase">
+                                {{role.dept}}</div>
+                            <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3" id="skillBadge">
+                                {{role.noOfSkill}} skills
+                            </div>
 
-                        <!-- display skill names of the role -->
-                        <span v-for="skill in role.skills" style="margin:0px" id="skillNames" >
-                            <ul v-for="s in skillList" style="margin:0px">
-                                <li v-if="skill == s.skillId" style="margin:0px" > {{s.skillName}} </li>
-                            </ul>
-                        </span>
+                            <!-- display skill names of the role -->
+                            <span v-for="skill in role.skills" style="margin:0px" id="skillNames" >
+                                <ul v-for="s in skillList" style="margin:0px">
+                                    <li v-if="skill == s.skillId" style="margin:0px" > {{s.skillName}} </li>
+                                </ul>
+                            </span>
 
-                    </div>
-                    <div class="row my-2">
-                        <h6>Description</h6>
-                        <p>
-                            {{role.desc}}
-                        </p>
-                    </div>
-                    <div class="row my-2">
-                        <h6>Key Tasks</h6>
-                        <div v-for="task in role.task.split('.')">
-                            <p style="text-decoration:none;margin:0px"> {{task}} </p>
+                        </div>
+                        <div class="row my-2">
+                            <h6>Description</h6>
+                            <p>
+                                {{role.desc}}
+                            </p>
+                        </div>
+                        <div class="row my-2">
+                            <h6>Key Tasks</h6>
+                            <div v-for="task in role.task.split('.')">
+                                <p style="text-decoration:none;margin:0px"> {{task}} </p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+    </div>
+
+    <!-- Deleted Role -->
+    <div id="Deleted" class="tabcontent">
+        <!-- All role cards-->
+        <p>testing</p>
     </div>
 
 </template>
+
 
 <style scoped>
 /*  #Header  && #logo under main.css   */
@@ -268,5 +312,17 @@ export default {
 
     #skillBadge:hover ~ #skillNames {
         display: block
+    }
+
+    .tablinks {
+        background: #919cf8;
+        color: white;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+
+    .tablinks:hover {
+        background: rgb(255, 255, 255);
+
     }
 </style>
