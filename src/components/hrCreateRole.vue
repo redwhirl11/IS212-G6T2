@@ -282,7 +282,7 @@ export default {
                 
             </div>
             <div class="col-lg-6 col-md-6">
-                <h4><label for="inputRoles" class="form-label">Skills Required (KIV-Sprint 3) <span style="color:red">*</span></label></h4>
+                <h4><label for="inputRoles" class="form-label">Skills Required <span style="color:red">*</span></label></h4>
                 <!-- <input type="text" class="form-control" id="inputRoles" v-model="skills_required"> -->
                 <div>
         <Multiselect v-model="value" mode="tags" :close-on-select="false" :searchable="true" :create-option="true" :options=Skills_Options
