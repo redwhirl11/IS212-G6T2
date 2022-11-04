@@ -16,8 +16,8 @@ export default {
             default: ""
         },
         skills_required: {
-            type: String,
-            default: "00007"
+            type: Boolean,
+            default: false
         },
         error: {
             type: String,
@@ -42,9 +42,9 @@ export default {
             numDepartment:50,
             numrole_desc:225,
             numkey_tasks:225,
-            value: null,
+            value:null ,
+            skills: this.skills_required,
             Skills_Options: []
-                // //modify in sprint 3, will hardcode for the skill (for sprint 2)
             // skills_required:'00007'
             // [
             // { value: 'batman', label: 'Batman' },
@@ -59,13 +59,13 @@ export default {
             .then(response => {
                 var AllRoles = response.data;
                 this.getUniqueRoleName(AllRoles);
-                //console.log(this.AllUniqueRoles);
+                this.getLatestRole_ID(this.AllUniqueRoles);
                 const getAllSkills = 'http://localhost/IS212-G6T2/public/db/getSkills.php'
                 axios.get(getAllSkills)
                 .then(response => {
                 var AllSkills = response.data;
                 this.getUniqueSkill(AllSkills);
-                console.log(this.Skills_Options);
+                //console.log(this.Skills_Options);
             })
             })
     },
@@ -77,10 +77,12 @@ export default {
                 //lowercase the rolename
                 var LJRole_Name = AllRoles[i].LJRole_Name.toLowerCase()
                 //remove all the spaces
+
+                var LJRole_ID = AllRoles[i].LJRole_ID
                 LJRole_Name = LJRole_Name.replaceAll(' ', '');
                 if (!tempRoleDict[LJRole_Name]) {
                     tempRoleDict[LJRole_Name] = {LJRole_Name: LJRole_Name}
-                    this.AllUniqueRoles.push({LJRole_Name: LJRole_Name})
+                    this.AllUniqueRoles.push({LJRole_Name: LJRole_Name,LJRole_ID:LJRole_ID})
                 }
             }
             return this.AllUniqueRoles
@@ -97,41 +99,62 @@ export default {
             }
             return this.Skills_Options
         },
+        getLatestRole_ID(AllUniqueRoles){
+            var tempID_List =[]
+            for (var i = 0; i < AllUniqueRoles.length; i++){
+                tempID_List.push(AllUniqueRoles[i].LJRole_ID)
+            }
+            
+            return this.AllUniqueRoles
+        },
         submitLJRole() {
-            console.log('yes');
+            if (this.value != null) {
+                if (this.value.length > 0) {
+                    this.skills = true
+                }
+            }
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
             //happy path in creating skill, no null value, no error msg
-            if (this.Role_Name !='' && this.Department!= ''  && this.error_message.length == 0) {
-                const createLJRole = 'http://localhost/IS212-G6T2/public/db/createLJRole.php'
-                const data = {
-                    LJRole_ID: this.Role_ID,
-                    LJRole_Name: this.Role_Name, 
-                    LJRole_Description: this.role_desc, 
-                    Department: this.Department, 
-                    Key_Task: this.key_tasks, 
-                    LJRole_Status:this.Role_Status,
-                    Skill_ID: this.skills_required
-                }
-                axios.get(createLJRole, {
-                    params: data
-                })
-                    .then(response => {
-                        Swal.fire(
-                            'Congratulations!',
-                            'You have created a new role!',
-                            'success',
-                        ).then(function() {
-                            window.location.href = "hrRole";
+            if (this.Role_Name !='' && this.Department!= ''  && this.error_message.length == 0 && this.value.length > 0) {
+                // for loop the selected skills 
+                for (var i=0; i < this.value.length; i++){
+                    var Skill_id = this.value[i]
+                    const createLJRole = 'http://localhost/IS212-G6T2/public/db/createLJRole.php'
+                    const data = {
+                        LJRole_ID: this.Role_ID,
+                        LJRole_Name: this.Role_Name, 
+                        LJRole_Description: this.role_desc, 
+                        Department: this.Department, 
+                        Key_Task: this.key_tasks, 
+                        LJRole_Status:this.Role_Status,
+                        Skill_ID: Skill_id
+                    }
+                    axios.get(createLJRole, {
+                        params: data
+                    })
+                        .then(response => {
+                            Swal.fire(
+                                'Congratulations!',
+                                'You have created a new role!',
+                                'success',
+                            ).then(function() {
+                                window.location.href = "hrRole";
+                            })
+                            this.error_in_html='';
+                            this.error_message=[];
+                            this.skills = false;
+                            this.value = null;
+                            
+
+                            
                         })
-                        this.error_in_html='';
-                        this.error_message=[];
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        alert('Error: ${error}. <br/> Please Try Again Later')
-                    })
-                }else {                   
+                        .catch(error => {
+                            console.log(error);
+                            alert('Error: ${error}. <br/> Please Try Again Later')
+                        })
+                }
+            }else {                   
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
@@ -140,7 +163,8 @@ export default {
 
                     this.error_in_html='';
                     this.error_message=[];
-                }
+                    this.skills = false;
+            }
         },
         getErrorMessage(){
             // if user didnt input for role name
@@ -162,7 +186,7 @@ export default {
             }
 
             // if user didnt assign skill to role
-            if (this.skills_required == ''){
+            if (this.skills== false){
                 this.error_message.push('You must assign a skill(s) to the role')
                 this.errorm = "You must assign a skill(s) to the role"
             }
@@ -186,7 +210,7 @@ export default {
             if (index != -1 ){
                 this.error_message.push('Duplicate role name, only unique role are allowed!')
             }
-            console.log(this.errorm);
+            // console.log(this.errorm);
             return this.error_message
         },
         changeErrorMsgintoHTML(){

@@ -9,7 +9,7 @@ describe("hrCreateRole", () => {
       propsData: {
         Department: 'ceo',
         RoleName:'',
-        skills_required:'00007',
+        skills_required:true,
         // error: 'Invalid Role Name'
       }
     

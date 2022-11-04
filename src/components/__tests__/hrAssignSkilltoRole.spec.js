@@ -8,7 +8,8 @@ describe("hrCreateRole", () => {
   it("Null Value for skills_required", () => {
     const wrapper = mount(hrCreateRole,{
       propsData: {
-        skills_required:'',
+        RoleName:'CEO',
+        skills_required: false,
       }   
     })   
     //result from the function
@@ -24,7 +25,8 @@ describe("hrCreateRole", () => {
   it("Assign 1 skill to the role", () => {
     const wrapper = mount(hrCreateRole,{
       propsData: {
-        skills_required:'00007',
+        RoleName:'CEO',
+        skills_required:true,
       }   
     })   
     //result from the function
