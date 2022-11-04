@@ -13,6 +13,9 @@ export default {
         this.getAllRole()
         this.getSkill()
     },
+    mounted(){
+        this.searchRole()
+    },
     methods: {
 
         getAllRole() {
@@ -135,13 +138,13 @@ export default {
                 });
         }, 
         searchRole() {
+            
             // Declare variables
             var input, filter, ul, li, a, i, txtValue;
-            input = document.getElementById('myInput');
+            input = document.getElementById('searchBar');
             filter = input.value.toUpperCase();
             ul = document.getElementById("myUL");
             li = ul.getElementsByTagName('li');
-
             // Loop through all list items, and hide those who don't match the search query
             for (i = 0; i < li.length; i++) {
                 a = li[i].getElementsByTagName("a")[0];
@@ -194,7 +197,7 @@ export default {
                 <div class="d-inline-flex mt-3 position-absolute translate-middle w-50" style="top:70%; left:55%;">
                     <input class="form-control me-3" type="search"
                         placeholder="For E.g. Business Analyst, Operations Manager" aria-label="Search"
-                        id="searchBar">
+                        id="searchBar" v-on:keyup="searchRole()">
                     <!-- add new role btn Fang Ting -->
                     <button class="btn btn-light" type="submit" style="border-radius: 40px;"><a
                             class="nav-link active" style='color: black;padding:0' aria-current="page"
