@@ -458,13 +458,13 @@ export default {
 <template>
     <div class="row" style="background:#6A79F3;">
         <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-5"><img id='logo' src="../Icons/Component 1.png"></div>
+            <div class="col-lg-3 col-md-4 col-sm-5"><img id='logo' src="../Icons/Component1.png"></div>
             <div class="col-lg-9 col-md-8 col-sm-7">
                 <button type="button" class="btn btn-light float-end me-5 px-4 d-lg-inline-block " style="border-radius: 30px; margin-top: 27px; padding: 10px 25px 10px 25px" id="backBtn" onclick="history.back()">Back</button>
                 <button type="button" class= "btn btn-light float-end mx-3 px-4 d-lg-inline-block" style="border-radius: 30px; margin-top: 27px; padding: 10px 25px 10px 25px" id="saveBtn" @click="submitLJ()">Submit</button>
             </div>
         </div>
-        <img src="../Icons/Vector 1.png" alt="Nature" class="responsive">
+        <img src="../Icons/Vector1.png" alt="Nature" class="responsive">
         <!-- Role name -->
         <p id="Header">
             <span id="roleName">{{roleName}}</span> <br>
@@ -483,7 +483,7 @@ export default {
                             <button class="accordion-button" type="button" data-bs-toggle="collapse"
                                 data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
                                 aria-controls="panelsStayOpen-collapseOne">
-                                <img src="../Icons/Role Description.png"
+                                <img src="../Icons/RoleDescription.png"
                                     style="display: inline-block; width: 31px; height: 31px; margin-right: 15px;">
                                 <h1>Role Description</h1>
                             </button>
