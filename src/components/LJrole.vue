@@ -48,8 +48,8 @@ export default{
 <template>
  
     <div class='container-fluid' id="myHeader">
-        <img id= 'logo' src="../Icons/Component 1.png">
-        <img src="../Icons/Vector 1.png" alt="Nature" class="responsive">
+        <img id= 'logo' src="../Icons/Component1.png">
+        <img src="../Icons/Vector1.png" alt="Nature" class="responsive">
 
         <div class="container-fluid" id="container1" >
             <div class="h1" id="Header">
@@ -57,8 +57,8 @@ export default{
             </div>
             
             <input class="form-control" id="search-bar" type="text" placeholder="For E.g. Business Analyst, Operations Manager">
-            <span ><a href=""><img src="../images/search icon.png" id="search-icon" alt=""></a></span>
-            <span><a href=""><img src="../images/Filter list.png" id="filterlist-icon" alt=""></a></span>
+            <span ><a href=""><img src="../images/searchicon.png" id="search-icon" alt=""></a></span>
+            <span><a href=""><img src="../images/Filterlist.png" id="filterlist-icon" alt=""></a></span>
             <button type="button" class="btn btn-light" id="back-btn">Back</button>
         </div>
         

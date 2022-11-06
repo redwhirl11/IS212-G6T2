@@ -230,7 +230,7 @@ export default {
 
         <div class="row position-relative">
             <div class="row my-5">
-                <div class="col-lg-9 col-md-8"><img id='logo' src="../Icons/Component 1.png"></div>
+                <div class="col-lg-9 col-md-8"><img id='logo' src="../Icons/Component1.png"></div>
                 <div class="col-lg-3 col-md-4">
                     <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="backBtn"
                     style="border-radius: 20px" onclick="history.back()">Back</button>
@@ -238,7 +238,7 @@ export default {
                     style="border-radius: 20px" @click="submitSkill()" >Submit</button>
                 </div>
             </div>
-            <img src="../Icons/Vector 1.png" alt="background">
+            <img src="../Icons/Vector1.png" alt="background">
             <p class="h1 position-absolute top-50 start-50 translate-middle" id="Header">
                 Create a new skill:
             </p>
