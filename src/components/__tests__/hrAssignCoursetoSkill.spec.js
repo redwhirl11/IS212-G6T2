@@ -39,3 +39,20 @@ describe("hrCreateSkill", () => {
   
   });
 });
+
+// if user select inactive skill
+describe("hrCreateSkill", () => {
+  it("Assign inactive course to  skill", () => {
+    const wrapper = mount(hrCreateSkill,{
+      propsData: {
+        Course_assign:true,
+        course_status: false
+      }   
+    })   
+    //result from the function
+    wrapper.vm.getErrorMessage()    
+    //expected result
+    expect(wrapper.vm.errorm).toBe('You must select an active course');
+  
+  });
+});

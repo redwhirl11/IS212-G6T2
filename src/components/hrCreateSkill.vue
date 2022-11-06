@@ -23,6 +23,10 @@ export default {
             type: Boolean,
             default: false
         },
+        course_status: {
+            type: Boolean,
+            default: true
+        },
         error: {
             type: String,
             default: ""
@@ -83,9 +87,11 @@ export default {
             for (var i = 0; i < AllCourse.length; i++){
                 var Course_ID = AllCourse[i].Course_ID
                 var Course_Name = AllCourse[i].Course_Name
-                if (!tempCourseDict[Course_Name]) {
-                    tempCourseDict[Course_Name] = {value: Course_ID,label: Course_Name}
-                    this.Courses_Options.push({value: Course_ID,label: Course_Name})
+                if (AllCourse[i].Course_Status =="Active"){
+                    if (!tempCourseDict[Course_ID]) {
+                        tempCourseDict[Course_ID] = {value: Course_ID,label: Course_Name}
+                        this.Courses_Options.push({value: Course_ID,label: Course_Name})
+                    }
                 }
             }
             return this.Courses_Options
@@ -127,6 +133,8 @@ export default {
                 }
             }
             console.log(this.Skill_Name)
+            //todo - check inactive course selected
+
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
             
@@ -227,6 +235,10 @@ export default {
                 if (this.numSkillType>46){
                     this.error_message.push('Type of Skill must have at least 4 characters')
                 }
+            }            
+            if (this.course_status == false){
+                this.error_message.push('You must select an active course')
+                this.errorm = 'You must select an active course'
             }
 
             //check for duplicate Skill name
@@ -319,7 +331,7 @@ export default {
             </div>
             <div class="col-lg-6">
                 <h4><label for="inputCourses" class="form-label">Course(s) Assigned  <span style="color:red">*</span></label></h4>
-            <Multiselect v-model="value" mode="tags" class="multiselect-blue" :close-on-select="false" :searchable="true" :create-option="true" :options=Courses_Options />
+            <Multiselect v-model="value" mode="tags" class="multiselect-blue" :close-on-select="false" :searchable="true" :options=Courses_Options />
             </div>
             </form>
     </div>
