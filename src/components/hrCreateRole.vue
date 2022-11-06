@@ -22,6 +22,10 @@ export default {
         error: {
             type: String,
             default: ""
+        },
+        skills_status: {
+            type: Boolean,
+            default: true
         }
     
     },
@@ -46,13 +50,8 @@ export default {
             skills: this.skills_required,
             Skills_Options: [],
             saved_roleID:'',
-            checkAllRoles:[]
-            // skills_required:'00007'
-            // [
-            // { value: 'batman', label: 'Batman' },
-            // { value: 'robin', label: 'Robin' },
-            // { value: 'joker', label: 'Joker' },]
-
+            checkAllRoles:[],
+            skill_status: this.skills_status
         }
     },
     created(){
@@ -60,14 +59,22 @@ export default {
         axios.get(getAllRoles)
             .then(response => {
                 var AllRoles = response.data;
-                this.getUniqueRoleName(AllRoles);
+                // this.getUniqueRoleName(AllRoles);
                 const getAllSkills = 'http://localhost/IS212-G6T2/public/db/getSkills.php'
                 axios.get(getAllSkills)
-                .then(response => {
-                var AllSkills = response.data;
-                this.getUniqueSkill(AllSkills);
-                //console.log(this.Skills_Options);
-            })
+                    .then(response => {
+                    var AllSkills = response.data;
+                    this.getUniqueSkill(AllSkills);
+                    //console.log(this.Skills_Options);
+                    const getDeletedRoles = 'http://localhost/IS212-G6T2/public/db/getDeletedRoles.php'
+                    axios.get(getDeletedRoles)
+                        .then(response => {
+                            var deletedRoles = response.data;
+                            //concat 2 array - active and inactive roles
+                            var newRolesDict = AllRoles.concat(deletedRoles)
+                            this.getUniqueRoleName(newRolesDict);
+                        })
+                })
             })
     },
     methods: {
@@ -93,9 +100,10 @@ export default {
             for (var i = 0; i < AllSkills.length; i++){
                 var Skill_Name = AllSkills[i].Skill_Name
                 var Skill_ID = AllSkills[i].Skill_ID
+                var Skill_Status = AllSkills[i].Skill_Status
                 if (!tempSkillDict[Skill_Name]) {
                     tempSkillDict[Skill_Name] = {value: Skill_ID,label: Skill_Name}
-                    this.Skills_Options.push({value: Skill_ID,label: Skill_Name})
+                    this.Skills_Options.push({value: Skill_ID,label: Skill_Name, Skill_Status:Skill_Status})
                 }
             }
             return this.Skills_Options
@@ -131,17 +139,36 @@ export default {
                         }
                     }  
         },
+        checkSkillStatus(){
+            if (this.value != null) {             
+                for (var i = 0; i <this.value.length; i++){
+                    var selected_skill_id = this.value[i];
+                    for (var j = 0; j < this.Skills_Options.length; j++){
+                        var Skill_option_id = this.Skills_Options[j].value
+                        var Skill_option_status = this.Skills_Options[j].Skill_Status
+                        // console.log(selected_skill_id)
+                        if (selected_skill_id == Skill_option_id){
+                            if(Skill_option_status == 'Inactive'){
+                                this.skill_status = false
+                            }
+                        }
+                    }
+                }
+            }
+
+        },
         submitLJRole() {
             if (this.value != null) {
                 if (this.value.length > 0) {
                     this.skills = true
                 }
             }
+            this.checkSkillStatus();
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
+            
             //happy path in creating skill, no null value, no error msg
-            if (this.Role_Name !='' && this.Department!= ''  && this.error_message.length == 0 && this.value.length > 0) {
-                    
+            if (this.error_message.length == 0 && this.value.length > 0) {
                     
                     // Save the 1st Skill into db
                     const createLJRole = 'http://localhost/IS212-G6T2/public/db/createLJRole.php'
@@ -216,6 +243,13 @@ export default {
             }
         },
         getErrorMessage(){
+
+            // if selected skill status - inactive
+            if (this.skill_status == false){
+                this.error_message.push('You must select an active skill')
+                this.errorm = 'You must select an active skill'
+            }
+
             // if user didnt input for role name
             if (this.Role_Name ==''){
                 this.error_message.push('Invalid Role Name')

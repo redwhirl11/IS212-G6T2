@@ -610,6 +610,46 @@ class PostDAO {
         // STEP 6
         return $AllCourses;
     }
+    public function getDeletedRoles() {
+        // STEP 1
+        $connMgr = new ConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2
+        $sql = "SELECT
+                     *
+                FROM ljroles 
+                WHERE LJRole_Status = 'Inactive'"; 
+        $stmt = $conn->prepare($sql);
+
+        // $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);
+
+        // STEP 3
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        // STEP 4
+        $AllRoles = []; // Indexed Array of Post objects
+        while( $row = $stmt->fetch() ) {
+            $AllRoles[] =
+                new AllRoles (
+                    $row['LJRole_ID'],
+                    $row['LJRole_Name'],
+                    $row['LJRole_Description'],
+                    $row['Department'],
+                    $row['Key_Task'],
+                    $row['LJRole_Status'],
+                    $row['Skill_ID']
+                    );
+        }
+
+        // STEP 5
+        $stmt = null;
+        $conn = null;
+
+        // STEP 6
+        return $AllRoles;
+    }
 
     
     

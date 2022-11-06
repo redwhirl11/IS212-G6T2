@@ -37,7 +37,21 @@ describe("hrCreateRole", () => {
   });
 });
 
-// const byId = wrapper.find('#submitBTN')
-    // //CLICK id submitBTN
-    // expect(byId.element.id).toBe('submitBTN')    
-    //can call for data(parameter)
+// if user select inactive skill
+describe("hrCreateRole", () => {
+  it("Assign inactive skill to the role", () => {
+    const wrapper = mount(hrCreateRole,{
+      propsData: {
+        RoleName:'CEO',
+        skills_required:true,
+        skills_status: false
+      }   
+    })   
+    //result from the function
+    wrapper.vm.getErrorMessage()    
+    //expected result
+    expect(wrapper.vm.errorm).toBe('You must select an active skill');
+  
+  });
+});
+
