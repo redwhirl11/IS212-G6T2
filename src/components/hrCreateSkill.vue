@@ -42,6 +42,7 @@ export default {
             courses: this.Course_assign,
             value:null ,
             Courses_Options:[],
+            savedSkillId:'',
             
         };
     },
@@ -85,10 +86,39 @@ export default {
                 if (!tempCourseDict[Course_Name]) {
                     tempCourseDict[Course_Name] = {value: Course_ID,label: Course_Name}
                     this.Courses_Options.push({value: Course_ID,label: Course_Name})
-                    console.log(this.Courses_Options)
                 }
             }
             return this.Courses_Options
+        },
+        getSavedSkillID(CheckAllSkills){
+            for (var i = 0; i < CheckAllSkills.length; i++){
+                if (CheckAllSkills[i].Skill_Name == this.Skill_Name){
+                    this.savedSkillId = CheckAllSkills[i].Skill_ID;
+                    
+                }
+            }
+            return this.savedSkillId
+        },
+        saveOtherCourses(){
+            const createSkill = 'http://localhost/IS212-G6T2/public/db/createSkill.php'
+            console.log(this.savedSkillId);
+            if (this.value.length>1){
+                for (var j=1; j<this.value.length; j++){
+                    var Course_id = this.value[j]
+                    const data = {
+                        Skill_ID: this.savedSkillId,
+                        Skill_Name: this.Skill_Name, 
+                        Skill_Status: this.Skill_Status, 
+                        Level_of_Competencies: this.Level_of_Competencies, 
+                        Type_of_Skills: this.Type_of_Skill, 
+                        Course_ID: Course_id
+                    }
+                    
+                    axios.get(createSkill, {
+                        params: data
+                    })
+                }
+            } 
         },
         submitSkill() {
             if (this.value != null) {
@@ -96,11 +126,14 @@ export default {
                     this.courses = true
                 }
             }
+            console.log(this.Skill_Name)
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
             
             //happy path in creating skill, no null value, no error msg
             if (this.error_message.length == 0) {
+
+                // Save the 1st course into db
                 const createSkill = 'http://localhost/IS212-G6T2/public/db/createSkill.php'
                 const data = {
                     Skill_ID: this.Skill_ID,
@@ -114,7 +147,24 @@ export default {
                     params: data
                 })
                     .then(response => {
-                        Swal.fire(
+
+                        // get the saved skill id -- for next loop
+                        const CheckAllSkills = 'http://localhost/IS212-G6T2/public/db/getSkills.php'
+                        axios.get(CheckAllSkills)
+                        .then(response => {
+                            var CheckAllSkills = response.data;    
+                            // find the skill id by skill name                           
+                            this.getSavedSkillID(CheckAllSkills);
+                            this.saveOtherCourses();
+                            
+                    })
+
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        alert('Error: ${error}. <br/> Please Try Again Later')
+                    })
+                    Swal.fire(
                             'Congratulations!',
                             'You have created a new skill!',
                             'success',
@@ -124,11 +174,6 @@ export default {
                         this.error_in_html='';
                         this.error_message=[];
                         this.courses = false
-                    })
-                    .catch(error => {
-                        console.log(error);
-                        alert('Error: ${error}. <br/> Please Try Again Later')
-                    })
                 }else {                   
                     Swal.fire({
                         icon: 'error',
