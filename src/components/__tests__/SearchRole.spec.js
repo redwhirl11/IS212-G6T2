@@ -7,9 +7,7 @@ describe("hrCreateRole", () => {
   it("renders properly", () => {
     const wrapper = mount(hrCreateRole,{
       propsData: {
-        Department: 'ceo',
-        RoleName:'',
-        skills_required:'00007',
+        RoleName:''
         // error: 'Invalid Role Name'
       }
     
