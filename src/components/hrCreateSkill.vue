@@ -1,24 +1,27 @@
 <script>
 import axios from 'axios';
-import { CMultiSelect } from '@coreui/vue-pro'
+import Multiselect from '@vueform/multiselect';
 export default {
     name: 'hrCreateSkill',  
+    components: {
+        Multiselect,
+      },
     props: {  
         Skill_Name: {
             type: String,
-            default: "blbala"
+            default: ""
         },
         Type_of_Skill: {
             type: String,
-            default: "blbala"
+            default: ""
         },
         Level_of_Competencies: {
             type: String,
-            default: "blbala"
+            default: ""
         },
         Course_assign: {
-            type: String,
-            default: "tch002"
+            type: Boolean,
+            default: false
         },
         error: {
             type: String,
@@ -29,65 +32,34 @@ export default {
     data() {
         return {
             Skill_ID: '',
-            // Skill_Name: this.Skill_Name,
             Skill_Status: 'Active',
-            // Level_of_Competencies: '',
-            // Type_of_Skill: '',
             error_message:[],
             error_in_html:'',
             errorm: this.error,
             numSkillType:50,
             numSkillName:50,
             AllUniqueSkills:[],
-            //modify in sprint 3, will hardcode for the course (for sprint 2)
-            // Course_assign:'tch002'
-            options: [
-                {
-                value: 0,
-                text: 'Angular',
-                },
-                {
-                value: 1,
-                text: 'Bootstrap',
-                },
-                {
-                value: 2,
-                text: 'React.js',
-                },
-                {
-                value: 3,
-                text: 'Vue.js',
-                },
-                {
-                label: 'backend',
-                options: [
-                    {
-                    value: 4,
-                    text: 'Django',
-                    },
-                    {
-                    value: 5,
-                    text: 'Laravel',
-                    },
-                    {
-                    value: 6,
-                    text: 'Node.js',
-                    },
-                ],
-                },
-            ],
-            
+            courses: this.Course_assign,
+            value:null ,
+            Courses_Options:[],
             
         };
     },
     created(){
         const getAllSkills = 'http://localhost/IS212-G6T2/public/db/getSkills.php'
+        const getAllCourse = 'http://localhost/IS212-G6T2/public/db/getAllCourses.php'
         axios.get(getAllSkills)
             .then(response => {
                 var AllSkills = response.data;
                 this.getUniqueSkillName(AllSkills);
                 console.log(this.AllUniqueSkills);
             })
+        axios.get(getAllCourse)
+        .then(response => {
+            var AllCourse = response.data
+            console.log(AllCourse)
+            this.getUniqueCourse(AllCourse);
+        })
     },
     methods: {
         getUniqueSkillName(AllSkills){
@@ -105,12 +77,30 @@ export default {
             }
             return this.AllUniqueSkills
         },
+        getUniqueCourse(AllCourse){
+            var tempCourseDict =[]
+            for (var i = 0; i < AllCourse.length; i++){
+                var Course_ID = AllCourse[i].Course_ID
+                var Course_Name = AllCourse[i].Course_Name
+                if (!tempCourseDict[Course_Name]) {
+                    tempCourseDict[Course_Name] = {value: Course_ID,label: Course_Name}
+                    this.Courses_Options.push({value: Course_ID,label: Course_Name})
+                    console.log(this.Courses_Options)
+                }
+            }
+            return this.Courses_Options
+        },
         submitSkill() {
+            if (this.value != null) {
+                if (this.value.length > 0) {
+                    this.courses = true
+                }
+            }
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
             
             //happy path in creating skill, no null value, no error msg
-            if (this.Skill_Name !='' && this.Level_of_Competencies!= '' && this.Type_of_Skill!= '' && this.error_message.length == 0) {
+            if (this.error_message.length == 0) {
                 const createSkill = 'http://localhost/IS212-G6T2/public/db/createSkill.php'
                 const data = {
                     Skill_ID: this.Skill_ID,
@@ -118,7 +108,7 @@ export default {
                     Skill_Status: this.Skill_Status, 
                     Level_of_Competencies: this.Level_of_Competencies, 
                     Type_of_Skills: this.Type_of_Skill, 
-                    Course_ID: this.Course_assign
+                    Course_ID: this.value[0]
                 }
                 axios.get(createSkill, {
                     params: data
@@ -133,6 +123,7 @@ export default {
                         })
                         this.error_in_html='';
                         this.error_message=[];
+                        this.courses = false
                     })
                     .catch(error => {
                         console.log(error);
@@ -147,6 +138,7 @@ export default {
 
                     this.error_in_html='';
                     this.error_message=[];
+                    this.courses = false
                 }
         },
         getErrorMessage(){
@@ -171,7 +163,7 @@ export default {
             }
 
             // if user didnt input for courses assigned
-            if (this.Course_assign == ''){
+            if (this.courses == false){
                 this.error_message.push('You must assign a course(s) to the skill')
                 this.errorm = 'You must assign a course(s) to the skill'
 
@@ -226,8 +218,6 @@ export default {
 </script>
 <template>
     <div class="row" style="background:#6A79F3;">
-        <CMultiSelect :options="options" />
-
         <div class="row position-relative">
             <div class="row my-5">
                 <div class="col-lg-9 col-md-8"><img id='logo' src="../Icons/Component1.png"></div>
@@ -282,10 +272,19 @@ export default {
                     <option value="Advanced">Advanced</option>
                 </select>
             </div>
-            <div class="col-lg-6 col-md-6">
-                <h4><label for="inputCourses" class="form-label">Course(s) Assigned (KIV-Sprint 3)  <span style="color:red">*</span></label></h4>
-                <input type="text" class="form-control" id="inputCourses" v-model="Course_assign">
+            <div class="col-lg-6">
+                <h4><label for="inputCourses" class="form-label">Course(s) Assigned  <span style="color:red">*</span></label></h4>
+            <Multiselect v-model="value" mode="tags" class="multiselect-blue" :close-on-select="false" :searchable="true" :create-option="true" :options=Courses_Options />
             </div>
             </form>
     </div>
 </template>
+
+<style src="@vueform/multiselect/themes/default.css"></style>
+<style scoped>
+.multiselect-blue {
+  --ms-tag-bg: #D1FAE5;
+  --ms-tag-color: #4C5BDD;
+}
+
+</style>
