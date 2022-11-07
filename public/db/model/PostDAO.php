@@ -491,12 +491,7 @@ class PostDAO {
         $conn = $connMgr->connect();
 
         // STEP 2
-        $sql = "UPDATE `ljroles` SET `LJRole_Name` = :LJRole_Name, 
-        `LJRole_Description` = :LJRole_Description, 
-        `Department` = :Department,
-        `Key_Task` = :Key_Task,
-        `LJRole_Status` = :LJRole_Status
-         WHERE `LJRole_ID` = :LJRole_ID";
+        $sql = "INSERT INTO `ljroles` (`LJRole_ID`, `LJRole_Name`, `LJRole_Description`, `Department`, `Key_Task`, `LJRole_Status`, `Skill_ID`) VALUES (:LJRole_ID, :LJRole_Name, :LJRole_Description, :Department, :Key_Task, :LJRole_Status, :Skill_ID)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':LJRole_ID', $LJRole_ID, PDO::PARAM_STR);
         $stmt->bindParam(':LJRole_Name', $LJRole_Name, PDO::PARAM_STR);
