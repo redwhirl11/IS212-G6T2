@@ -226,9 +226,9 @@ export default {
 
 <template>
      <!-- upper portion display homepage -->
-     <div class='contianer-fluid' style="padding-bottom: 10vw;" >
-        <div>
-            <img src="../Icons/Logo(Purple).png" id= 'logo'>
+     <img  id= 'logo' src="../Icons/Logo(Purple).png">
+     <div class='row' style="padding-bottom: 10vw;" >
+        <div class="row position-relative">
             <img src="../Icons/HomepageVector.png" id="homebgImg">
             <p id="TopHeader">
                 <span style="color:black">Your</span> dream role <span style="color:black">is just a </span>learning journey <span style="color:black">away.</span>  
@@ -364,7 +364,6 @@ p{
 }
 
 #BottomHeader {
-    top: 59vw;
     font-weight: 600;
     font-size: 3.5vw;
     padding-top: 7vw;

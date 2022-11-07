@@ -1,5 +1,6 @@
 /* @import './base.css'; */
 
+
 #app {
   margin: 0 auto;
 }
@@ -13,7 +14,6 @@ a,
 }
 
 #Header {
-  padding-left: 100px;
   margin: auto;
   font-family: 'Inter';
   font-weight: 600;
@@ -26,9 +26,9 @@ a,
 
 #logo {
   position: absolute;
-  left: 77px;
-  top: 35.2px;
-  width: 51.35px;
-  height: 34.8px;
+  left: 6vw;
+  top: 5vh;
+  width: 3.5vw;
+  height: 2.5vw;
 }
 

@@ -1,21 +1,23 @@
-<!-- <script setup>
-import hrRole from "../components/hrRole.vue";
-</script> -->
+<script>
+    import Header from "../components/Header.vue";
+
+    export default {
+        name: "hrHome",
+        components: {
+            Header,
+            },
+        data() {
+        return {
+            msg: "Please select a feature to start:",
+        };
+        }
+    };
+
+</script>
 
 <!-- hr home page -->
-<template>
-    <div class="row" style="background:#6A79F3;">
-        <div class="row position-relative">
-            <div class="row my-5">
-                <div class="col-lg-10 col-md-9"><img id='logo' src="../Icons/Component1.png"></div>
-                <span class="col-lg col-md fs-5 fw-bold" style="color:white">Welcome, Jack </span>
-            </div>
-            <img src="../Icons/Vector1.png" alt="background">
-            <p class="h1 position-absolute top-50 start-50 translate-middle" id="Header">
-                Please select a feature to start:
-            </p>
-        </div>
-    </div>
+<template >
+    <Header :msg="msg" />
     <div class="row mt-4 ">
         <div class="col-sm-1"></div>
         <div class="col-lg-5 col-sm-5 mt-2">

@@ -142,10 +142,10 @@ export default {
 </script>
 
 <template>
+    <img id='logo' src="../Icons/Component1.png">
     <div class="row" style="background:#6A79F3;">
         <div class="row position-relative">
             <div class="row my-5">
-                <div class="col-lg-2 col-md-3"><img id='logo' src="../Icons/Component1.png"></div>
                 <!-- nav bar start -->
                 <nav class="col-lg-8 col-md-6 navbar navbar-expand-lg navbar-expand-md navbar-light">
                     <div class="container-fluid">

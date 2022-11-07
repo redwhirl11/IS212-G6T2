@@ -456,9 +456,9 @@ export default {
 </script>
 
 <template>
+    <img id='logo' src="../Icons/Component1.png">
     <div class="row" style="background:#6A79F3;">
         <div class="row">
-            <div class="col-lg-3 col-md-4 col-sm-5"><img id='logo' src="../Icons/Component1.png"></div>
             <div class="col-lg-9 col-md-8 col-sm-7">
                 <button type="button" class="btn btn-light float-end me-5 px-4 d-lg-inline-block " style="border-radius: 30px; margin-top: 27px; padding: 10px 25px 10px 25px" id="backBtn" onclick="history.back()">Back</button>
                 <button type="button" class= "btn btn-light float-end mx-3 px-4 d-lg-inline-block" style="border-radius: 30px; margin-top: 27px; padding: 10px 25px 10px 25px" id="saveBtn" @click="submitLJ()">Submit</button>
