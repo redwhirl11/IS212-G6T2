@@ -26,7 +26,12 @@ export default {
         skills_status: {
             type: Boolean,
             default: true
+        },
+        datavalue:{
+            type: String,
+            default: ""
         }
+        
     
     }, 
     data() {
@@ -53,15 +58,19 @@ export default {
             Skills_Options: [],
             saved_roleID:'',
             checkAllRoles:[],
-            skill_status: this.skills_status
+            skill_status: this.skills_status,
+            dataValue: this.datavalue
         }
     },
     created() {
         //fetch data from user selection
-        const dataValue = localStorage.getItem('data');
-        const datalist = dataValue.split(',');
+        if (localStorage.getItem('data')!= null){
+            this.dataValue = localStorage.getItem('data');        
+            
+        }
+        const datalist = this.dataValue.split(',');
         this.Role_ID = datalist[0]
-        this.Skill_ID= datalist[1]
+        
 
         const allRoleUrl = 'http://localhost/IS212-G6T2/public/db/getAllRoles.php'
         axios.get(allRoleUrl).then(response => {
@@ -180,6 +189,7 @@ export default {
                         timerProgressBar: true,
                         showConfirmButton: false
                     })
+                    
                     }
                 else{
                     Swal.fire({

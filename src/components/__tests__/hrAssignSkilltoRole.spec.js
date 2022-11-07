@@ -64,7 +64,11 @@ describe("hrEditRole", () => {
     const wrapper = mount(hrEditRole,{
       propsData: {
         RoleName:'CEO',
-        skills_required: false,
+        //current role id is 6
+        dataValue: '6',
+        //if hr deleted the current skill (empty skills required)
+        skills_required: false
+        
       }   
     })   
     //result from the function
@@ -81,7 +85,10 @@ describe("hrEditRole", () => {
     const wrapper = mount(hrEditRole,{
       propsData: {
         RoleName:'CEO',
-        skills_required:true,
+        datavalue: '6',
+        //if hr changed the skills required
+        skills_required:true
+        
       }   
     })   
     //result from the function
@@ -98,8 +105,12 @@ describe("hrEditRole", () => {
     const wrapper = mount(hrEditRole,{
       propsData: {
         RoleName:'CEO',
+        dataValue: '6,1',
+        //if hr changed the skills required
         skills_required:true,
-        skills_status: false
+        //selected skill is inactive
+        skills_status: false,
+        
       }   
     })   
     //result from the function
