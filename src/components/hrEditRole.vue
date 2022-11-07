@@ -23,6 +23,7 @@ export default {
     created() {
         //fetch data from user selection
         const dataValue = localStorage.getItem('data');
+        console.log('here', dataValue);
         const datalist = dataValue.split(',');
         this.Role_ID = datalist[0]
         this.Skill_ID= datalist[1]

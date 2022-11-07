@@ -87,6 +87,7 @@ export default {
 
         },
         getDataSend(rollId,skillId){
+            console.log('here',[rollId, skillId] )
             this.rollId = rollId;
             this.skillId = skillId;
             localStorage.setItem('data', [this.rollId,this.skillId ])
@@ -139,6 +140,7 @@ export default {
                 });
         },
         openStatus(evt, statusSelected) {
+            
             // Declare all variables
             var i, tabcontent, tablinks;
 
@@ -151,13 +153,16 @@ export default {
 
             // Get all elements with class="tablinks" and remove the class "active"
             tablinks = document.getElementsByClassName("tablinks");
+            console.log('tb',tablinks[1])
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
+                
             }
 
             // Show the current tab, and add an "active" class to the button that opened the tab
             document.getElementById(statusSelected).style.display = "block";
             evt.currentTarget.className += " active";
+            // console.log('see class list', document.getElementById(statusSelected).classList)
 
         },
 
@@ -256,7 +261,7 @@ export default {
 
                 <!-- Tab Button -->
                 <div class="tab">
-                        <button class="tablinks btn" @click="openStatus(event, 'Active')">Active</button>
+                        <button class="tablinks btn active" @click="openStatus(event, 'Active')">Active</button>
                         <button class="tablinks btn" @click="openStatus(event, 'Deleted')" style="margin-left:1px;">Deleted</button>
                 </div>
 
@@ -314,7 +319,7 @@ export default {
     </div>
 
     <!-- Deleted Role -->
-    <div id="Deleted" class="tabcontent">
+    <div id="Deleted" class="tabcontent" style="display: none;">
         <!-- Deleted role cards-->
         <div class="row mt-4">
             <div class="col-lg-5 col-md-8 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="role in deletedRoleDict">
@@ -396,18 +401,27 @@ export default {
     }
 
     #skillBadge:hover ~ #skillNames {
-        display: block
+        display: block;
     }
 
-    .tablinks {
+    .tab button {
         background: #919cf8;
         color: white;
         border-bottom-left-radius: 0px;
         border-bottom-right-radius: 0px;
     }
-
-    .tablinks:hover {
+    .tab button:hover {
         background: rgb(255, 255, 255);
-
     }
+
+    .tab button.active {
+        background: white;
+        color: black;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        border-style: none;
+    }
+
+  
+
 </style>
