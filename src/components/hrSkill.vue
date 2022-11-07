@@ -7,13 +7,15 @@ export default {
             skillId : '',
             status : '',
             course : '',
-            courseList:[]
+            courseList:[],
+            deletedSkillDict: []
         }
     },
 
     created() {
         this.getAllSkill()
         this.getAllCourse()
+        this.getDeletedSkill()
         // console.log('testing')
     },
 
@@ -139,6 +141,77 @@ export default {
                         icon: "info"});
                 }
               });
+        },
+
+        openStatus(evt, statusSelected) {
+            
+            // Declare all variables
+            var i, tabcontent, tablinks;
+
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            console.log(tabcontent)
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            console.log('tb',tablinks[1])
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+                
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(statusSelected).style.display = "block";
+            // evt.currentTarget.className += " active";
+            // console.log('see class list', document.getElementById(statusSelected).classList)
+
+        },
+
+        getDeletedSkill() {
+            const allSkillUrl = 'http://localhost/IS212-G6T2/public/db/getDeletedSkills.php'
+            axios.get(allSkillUrl).then(response => {
+                var allSkill = response.data
+                // console.log(allSkill)
+
+                const map = new Map();
+
+                // get the distinct skill from allSkill
+                for (const skill of allSkill) {
+                    var skillId=skill.Skill_ID
+                    var skillName= skill.Skill_Name
+                    var skillType=skill.Type_of_Skills
+                    var level=skill.Level_of_Competencies
+                    var status=skill.Skill_Status
+                    var course=skill.Course_ID
+
+                    if (!map.has(skillId)) {
+                        map.set(skillId, true);
+                        this.deletedSkillDict.push({ skillId:skillId,skillName:skillName,skillType:skillType,level:level,status:status,course:course,courses:[],noOfCourse:0 })
+                    }
+                }
+
+                // get the courses of each skill
+                for (let i = 0; i < allSkill.length; i++) {
+                    skillId = allSkill[i].Skill_ID
+                    course= allSkill[i].Course_ID
+
+                    for (let j = 0; j < this.deletedSkillDict.length; j++) {
+                        if (this.deletedSkillDict[j].skillId == skillId) {
+                            this.deletedSkillDict[j]['courses'].push(course)
+                            this.deletedSkillDict[j]['noOfCourse']+=1
+                        }
+                    }
+                }
+
+                console.log('final result', this.deletedSkillDict)
+
+            })
+            
+            // console.log(this.skillDict)
+            return this.deletedSkillDict;
         }
 
 
@@ -192,10 +265,19 @@ export default {
 
             </div>
 
+             <!-- Tab Button -->
+             <div class="tab">
+                <button class="tablinks btn active" @click="openStatus(event, 'Active')">Active</button>
+                <button class="tablinks btn" @click="openStatus(event, 'Deleted')" style="margin-left:1px;">Deleted</button>
+            </div>
+
+
         </div>
     </div>
 
     <!-- All skill cards-->
+    <div id="Active" class="tabcontent">
+
     <div class="row mt-4 ">
         <div class="col-lg-5 col-md-8 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="skill in skillDict">
             <div class="card p-2">
@@ -243,6 +325,60 @@ export default {
         </div>
 
     </div>
+    </div>
+
+    <!-- Deleted Skill -->
+    <div id="Deleted" class="tabcontent" style="display: none;">
+        <div class="row mt-4 ">
+            <div class="col-lg-5 col-md-8 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="skill in deletedSkillDict">
+                <div class="card p-2">
+                    <div class="row card-body">
+                        <div class="row my-2">
+                            <h5 class="col-lg-7 col-md-7 col-sm-1 card-title">{{skill.skillName}}</h5>
+                            <!-- Edit Button-->
+                            <span class="col-lg-2 col-md col-sm-2"><button id="editButton"
+                                    @click="getDataSend(skill.skillId, skill.status, skill.course)">Edit</button></span>
+                            <!-- Jing Wen your delete button is here -->
+                            <span class="col-lg col-md col-sm-2"><button id="deleteButton"
+                                    @click="SoftDeleteSkill(skill.skillId)">Delete</button></span>
+                        </div>
+                        <div class="row my-2">
+                            <!-- <div class="col-lg-3 col-md-3 col-sm-3 badge rounded-pill badges ms-2 pe-3" id="courseBadge">
+                                {{skill.noOfCourse}} courses</div> -->
+                                <div class="col-lg-3 col-md-3 col-sm badge rounded-pill badges ms-2 pe-3">
+                                    {{skill.skillType}}</div>
+                                <div class="col-xl-3 col-lg-4 col-md-3 col-sm badge rounded-pill badges ms-2 pe-3">
+                                    {{skill.level}}
+                                </div>
+
+                        </div>
+                        <!-- <div class="row my-2">
+                            <div class="col"> <strong>Skill Type: </strong> <span> {{skill.skillType}}</span></div>
+                            <div class="col"> <strong>Competency Level:</strong> <span>{{skill.level}}</span></div>
+                        </div> -->
+                        <div class="row my-2">
+                                <!-- display course names of the skill -->
+                                <h6> Courses </h6>
+                                <div v-for="course in skill.courses" style="margin:0px" id="courseNames">
+                                <ul v-for="c in courseList" style="margin:0px">
+                                    <div v-if="course == c.courseId" >
+                                        <li v-if="c.status=='Active'" style="margin:0px">  {{c.courseName}}</li>
+                                        <li v-else-if="c.status=='Retired'" style="margin:0px"> {{c.courseName}} <span class="badge bg-secondary">{{c.status}}</span></li>
+
+                                    </div>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
 </template>
 
 <style scoped>
@@ -285,6 +421,24 @@ export default {
         background: none;
         border: none;
         color: gray;
+    }
+
+    .tab button {
+        background: #919cf8;
+        color: white;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+    }
+    .tab button:hover {
+        background: rgb(255, 255, 255);
+    }
+
+    .tab button.active {
+        background: white;
+        color: black;
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
+        border-style: none;
     }
 
 </style>
