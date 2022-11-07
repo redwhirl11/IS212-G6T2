@@ -140,14 +140,15 @@ export default {
         searchRole() {
             
             // Declare variables
-            var input, filter, ul, li, a, i, txtValue;
+            var input, filter, li, a, i, txtValue;
             input = document.getElementById('searchBar');
             filter = input.value.toUpperCase();
-            ul = document.getElementById("myUL");
-            li = ul.getElementsByTagName('li');
+            li = document.getElementsByClassName('role-cards');
             // Loop through all list items, and hide those who don't match the search query
+
+            
             for (i = 0; i < li.length; i++) {
-                a = li[i].getElementsByTagName("a")[0];
+                a = li[i].getElementsByClassName("card-title")[0];
                 txtValue = a.textContent || a.innerText;
                 if (txtValue.toUpperCase().indexOf(filter) > -1) {
                 li[i].style.display = "";
@@ -155,6 +156,7 @@ export default {
                 li[i].style.display = "none";
                 }
             }
+            
             }
     }
 
@@ -204,22 +206,12 @@ export default {
                             href="hrCreateRole">Add New Role</a> </button>
                     
                 </div>
-                <div>
-                    <!--search list of all roles (have to hide it later on)-->
-                    <ul id="myUL">
-                        <li v-for="role in roleDict">
-                            <a href = "#">
-                                {{role.roleName}}
-                            </a>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </div>
     </div>
     <!-- All role cards-->
     <div class="row mt-4">
-        <div class="col-lg-5 col-md-8 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="role in roleDict">
+        <div class="role-cards col-lg-5 col-md-8 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="role in roleDict">
             <div class="card p-2">
                 <div class="row card-body">
                     <div class="row my-2">
