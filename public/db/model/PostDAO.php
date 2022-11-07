@@ -485,7 +485,7 @@ class PostDAO {
         return $status;
     }
 
-    public function updateLJRole($LJRole_ID,$LJRole_Name,$LJRole_Description,$Department,$Key_Task,$LJRole_Status) {
+    public function updateLJRole($LJRole_ID,$LJRole_Name,$LJRole_Description,$Department,$Key_Task,$LJRole_Status,$Skill_ID) {
         // STEP 1   
         $connMgr = new ConnectionManager();
         $conn = $connMgr->connect();
@@ -504,6 +504,7 @@ class PostDAO {
         $stmt->bindParam(':Department', $Department, PDO::PARAM_STR);
         $stmt->bindParam(':Key_Task', $Key_Task, PDO::PARAM_STR);
         $stmt->bindParam(':LJRole_Status', $LJRole_Status, PDO::PARAM_STR);
+        $stmt->bindParam(':Skill_ID', $Skill_ID, PDO::PARAM_STR);
 
         //STEP 3
         $status = $stmt->execute();
@@ -558,6 +559,28 @@ class PostDAO {
         $stmt->bindParam(':Key_Task', $Key_Task, PDO::PARAM_STR);
         $stmt->bindParam(':LJRole_Status', $LJRole_Status, PDO::PARAM_STR);
         $stmt->bindParam(':Skill_ID', $Skill_ID, PDO::PARAM_STR);
+
+        //STEP 3
+        $status = $stmt->execute();
+        
+        // STEP 4
+        $stmt = null;
+        $conn = null;
+
+        // STEP 5
+        return $status;
+    }
+
+    public function deleteLJRole($LJRole_ID) {
+        // STEP 1   
+        $connMgr = new ConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2
+        $sql = "DELETE FROM ljroles 
+                WHERE LJRole_ID = :LJRole_ID";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':LJRole_ID', $LJRole_ID, PDO::PARAM_STR);
 
         //STEP 3
         $status = $stmt->execute();

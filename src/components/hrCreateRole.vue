@@ -163,6 +163,7 @@ export default {
                     this.skills = true
                 }
             }
+            console.log(this.value);
             this.checkSkillStatus();
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
@@ -392,7 +393,7 @@ export default {
                 <h4><label for="inputRoles" class="form-label">Skills Required <span style="color:red">*</span></label></h4>
                 <!-- <input type="text" class="form-control" id="inputRoles" v-model="skills_required"> -->
                 <div>
-        <Multiselect v-model="value" mode="tags" :close-on-select="false" :searchable="true" :create-option="true" :options=Skills_Options
+        <Multiselect v-model="value" mode="tags" :close-on-select="false" :searchable="true" :options=Skills_Options
 />
     </div>
             </div>

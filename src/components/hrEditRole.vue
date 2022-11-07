@@ -1,23 +1,59 @@
 <script>
 import axios from 'axios';
+import Multiselect from '@vueform/multiselect';
 export default {
-    name: 'hrEditRole',  
+    name: 'hrEditRole', 
+    components: {
+        Multiselect,
+      },
+    props: {  
+        department: {
+            type: String,
+            default: ""
+        },
+        RoleName: {
+            type: String,
+            default: ""
+        },
+        skills_required: {
+            type: Boolean,
+            default: false
+        },
+        error: {
+            type: String,
+            default: ""
+        },
+        skills_status: {
+            type: Boolean,
+            default: true
+        }
+    
+    }, 
     data() {
         return {
-            Role_ID: '',
+            Role_Status: "", 
+            Role_ID: '',         
             Skill_ID:'',
-            Role_Name:'',
+            Role_Name:this.RoleName,
+            Department: this.department,
             LJRole_Description: '',
-            Department: '',
             Key_Task: '',
             LJRole_Status: '',
-            skills_required:'00007',
             error_message:[],
+            errorm: this.error,
             error_in_html:'',
+            AllUniqueSkill:[],
             numRoleName:0,
             numrole_desc:0,
             numkey_tasks:0,
             CurrentInput:[],
+            currentSkills:[],
+            value:null ,
+            skills: this.skills_required,
+            Skills_Options: [],
+            saved_roleID:'',
+            checkAllRoles:[],
+            skill_status: this.skills_status
         }
     },
     created() {
@@ -30,11 +66,10 @@ export default {
         const allRoleUrl = 'http://localhost/IS212-G6T2/public/db/getAllRoles.php'
         axios.get(allRoleUrl).then(response => {
             var allRole = response.data
-            console.log(allRole)
-
+            //console.log(allRole)
             for (let i=0;i<allRole.length;i++){
-                //currently by checking Role_ID + first Skill_ID
-                if (this.Role_ID === allRole[i].LJRole_ID && this.Skill_ID === allRole[i].Skill_ID){
+                //currently by checking Role_ID
+                if (this.Role_ID === allRole[i].LJRole_ID){
                     this.CurrentInput.push(allRole[i])
                     this.Role_Name= allRole[i].LJRole_Name
                     this.LJRole_Description=allRole[i].LJRole_Description
@@ -44,18 +79,100 @@ export default {
                     this.numRoleName= 50 - allRole[i].LJRole_Name.length
                     this.numrole_desc= 225 - allRole[i].LJRole_Description.length
                     this.numkey_tasks= 225 - allRole[i].Key_Task.length
+                    this.currentSkills.push(allRole[i].Skill_ID)
                 }
             }
             this.CurrentInput = this.CurrentInput[0]
-            // console.log(this.CurrentInput)
+            
+
+            const getAllSkills = 'http://localhost/IS212-G6T2/public/db/getSkills.php'
+            axios.get(getAllSkills)
+                    .then(response => {
+                    var AllSkills = response.data;
+                    this.getUniqueSkill(AllSkills);
+                    // console.log(this.Skills_Options);
+
+                    // display the current skills
+                    this.value = this.currentSkills
+
+                    
+                })
         })
     },
     methods: {
+        getUniqueSkill(AllSkills){
+            var tempSkillDict =[]
+            for (var i = 0; i < AllSkills.length; i++){
+                var Skill_Name = AllSkills[i].Skill_Name
+                var Skill_ID = AllSkills[i].Skill_ID
+                var Skill_Status = AllSkills[i].Skill_Status
+                if (!tempSkillDict[Skill_Name]) {
+                    tempSkillDict[Skill_Name] = {value: Skill_ID,label: Skill_Name}
+                    this.Skills_Options.push({value: Skill_ID,label: Skill_Name, Skill_Status:Skill_Status})
+                }
+            }
+            return this.Skills_Options
+        },
+        getSavedRoleID(checkAllRoles){
+            for (var i = 0; i < checkAllRoles.length; i++){
+                if (checkAllRoles[i].LJRole_Name == this.Role_Name){
+                    this.saved_roleID = checkAllRoles[i].LJRole_ID;
+                    
+                }
+            }
+            return this.saved_roleID
+        },
+        saveOtherSkills(){
+            const UpdateUrl = 'http://localhost/IS212-G6T2/public/db/updateLJRole.php'
+            console.log(this.saved_roleID);
+            if (this.value.length>1){
+                        for (var j=1; j<this.value.length; j++){
+                            var Skill_id = this.value[j]
+                            const data = {
+                            LJRole_ID: this.saved_roleID,
+                            LJRole_Name: this.Role_Name, 
+                            LJRole_Description: this.LJRole_Description, 
+                            Department: this.Department, 
+                            Key_Task: this.Key_Task, 
+                            LJRole_Status:this.LJRole_Status,
+                            Skill_ID: Skill_id
+                            }
+                            
+                            axios.get(UpdateUrl, {
+                                params: data
+                            })
+                        }
+                    }  
+        },
+        checkSkillStatus(){
+            if (this.value != null) {             
+                for (var i = 0; i <this.value.length; i++){
+                    var selected_skill_id = this.value[i];
+                    for (var j = 0; j < this.Skills_Options.length; j++){
+                        var Skill_option_id = this.Skills_Options[j].value
+                        var Skill_option_status = this.Skills_Options[j].Skill_Status
+                        // console.log(selected_skill_id)
+                        if (selected_skill_id == Skill_option_id){
+                            if(Skill_option_status == 'Inactive'){
+                                this.skill_status = false
+                            }
+                        }
+                    }
+                }
+            }
+
+        },
         submitEditRole() {
+            if (this.value != null) {
+                if (this.value.length > 0) {
+                    this.skills = true
+                }
+            }
+            this.checkSkillStatus();
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
             if (this.error_message.length == 0) {
-                if(this.Role_Name == this.CurrentInput.LJRole_Name && this.LJRole_Description == this.CurrentInput.LJRole_Description &&  this.Department == this.CurrentInput.Department &&this.Key_Task == this.CurrentInput.Key_Task && this.LJRole_Status == this.CurrentInput.LJRole_Status){
+                if(this.Role_Name == this.CurrentInput.LJRole_Name && this.LJRole_Description == this.CurrentInput.LJRole_Description &&  this.Department == this.CurrentInput.Department &&this.Key_Task == this.CurrentInput.Key_Task && this.LJRole_Status == this.CurrentInput.LJRole_Status &&this.value ==this.currentSkills){
                     Swal.fire({
                         icon: 'warning',
                         title: 'No changes found!',
@@ -77,33 +194,88 @@ export default {
                         width: 'auto',
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            const UpdateUrl = 'http://localhost/IS212-G6T2/public/db/updateLJRole.php'
-                            const data = {
-                                LJRole_ID: this.Role_ID,
-                                LJRole_Name: this.Role_Name, 
-                                LJRole_Description: this.LJRole_Description, 
-                                Department: this.Department, 
-                                Key_Task: this.Key_Task, 
-                                LJRole_Status: this.LJRole_Status, 
-                            }
-                            axios.get(UpdateUrl, {
-                                params: data
-                            })
-                                .then(response => {
-                                    Swal.fire(
-                                        'Congratulations!',
-                                        'You have successfully edited the role!',
-                                        'success',
-                                    ).then(function() {
-                                        window.location.href = "hrRole";
+                            console.log(this.value)
+                            if (this.value.length>0){
+                                const Deleteurl = 'http://localhost/IS212-G6T2/public/db/deleteLJRole.php'
+                                const data = {
+                                    LJRole_ID: this.Role_ID
+                                }
+                                axios.get(Deleteurl, {
+                                    params: data
+                                })
+                                    .then(response=>{
+                                        const UpdateUrl = 'http://localhost/IS212-G6T2/public/db/updateLJRole.php'
+
+                                        const data = {
+                                        LJRole_ID: this.Role_ID,
+                                        LJRole_Name: this.Role_Name, 
+                                        LJRole_Description: this.LJRole_Description, 
+                                        Department: this.Department, 
+                                        Key_Task: this.Key_Task, 
+                                        LJRole_Status:this.LJRole_Status,
+                                        Skill_ID: this.value[0]
+                                        }
+                                        axios.get(UpdateUrl, {
+                                            params: data
+                                        })
+                                        .then(response => {      
+                            
+                                        // get the saved ljrole id -- for next loop                    
+                                        const CheckAllRoles = 'http://localhost/IS212-G6T2/public/db/getAllRoles.php'
+                                        axios.get(CheckAllRoles)
+                                        .then(response => {
+                                            var checkAllRoles = response.data;    
+                                            // find the ljrole id by ljrole name   
+                                            console.log(checkAllRoles);                     
+                                            this.getSavedRoleID(checkAllRoles);
+                                            this.saveOtherSkills();
+                                            
+                                        })
                                     })
-                                    this.error_in_html='';
-                                    this.error_message=[];
+
+                                    })
+
+                                Swal.fire(
+                                    'Congratulations!',
+                                    'You have successfully edited the role!',
+                                    'success',
+                                ).then(function() {
+                                    window.location.href = "hrRole";
                                 })
-                                .catch(error => {
-                                    console.log(error);
-                                    alert('Error: ${error}. <br/> Please Try Again Later')
-                                })
+                                this.error_in_html='';
+                                this.error_message=[];
+                                this.skills = false;
+
+                            }
+                            // const UpdateUrl = 'http://localhost/IS212-G6T2/public/db/updateLJRole.php'
+                            // const data = {
+                            //     LJRole_ID: this.Role_ID,
+                            //     LJRole_Name: this.Role_Name, 
+                            //     LJRole_Description: this.LJRole_Description, 
+                            //     Department: this.Department, 
+                            //     Key_Task: this.Key_Task, 
+                            //     LJRole_Status: this.LJRole_Status, 
+                            //     Skill_ID: this.value[0]
+                            // }
+                            // axios.get(UpdateUrl, {
+                            //     params: data
+                            // })
+                            //     .then(response => {
+                            //         Swal.fire(
+                            //             'Congratulations!',
+                            //             'You have successfully edited the role!',
+                            //             'success',
+                            //         ).then(function() {
+                            //             window.location.href = "hrRole";
+                            //         })
+                            //         this.error_in_html='';
+                            //         this.error_message=[];
+                            //         this.skills = false;
+                            //     })
+                            //     .catch(error => {
+                            //         console.log(error);
+                            //         alert('Error: ${error}. <br/> Please Try Again Later')
+                            //     })
                             }
                         })
                 }
@@ -120,9 +292,16 @@ export default {
             }
         },
         getErrorMessage(){
+            // if selected skill status - inactive
+            if (this.skill_status == false){
+                this.error_message.push('You must select an active skill')
+                this.errorm = 'You must select an active skill'
+            }
+
             // if user didnt input for role name
             if (this.Role_Name ==''){
                 this.error_message.push('Invalid Role Name')
+                this.errorm = 'Invalid Role Name'
             }else{
                 //if user did input the role name but the char not from 3-50
                 if (this.numRoleName<0){
@@ -138,8 +317,9 @@ export default {
             }
 
             // if user didnt assign skill to role
-            if (this.skills_required == ''){
+            if (this.skills== false){
                 this.error_message.push('You must assign a skill(s) to the role')
+                this.errorm = "You must assign a skill(s) to the role"
             }
             
             //if user did input the role description but the char more than 225
@@ -241,8 +421,11 @@ export default {
                 </select>                    
             </div>
             <div class="col-lg-6 col-md-6">
-                <h4><label for="inputRoles" class="form-label">Skills Required (KIV-Sprint 3) <span style="color:red">*</span></label></h4>
-                <input type="text" class="form-control" id="inputRoles" v-model="skills_required">
+                <h4><label for="inputRoles" class="form-label">Skills Required <span style="color:red">*</span></label></h4>
+                
+                <div>
+        <Multiselect v-model="value" mode="tags" :close-on-select="false" :searchable="true" :options=Skills_Options
+/></div>
             </div>
             <div class="col-lg-6 col-md-6">
             </div>
@@ -260,9 +443,4 @@ export default {
     </div>
 </template>
 
-<style>
-/* 
-#Header  && #logo under main.css
-*/
-
-</style>
+<style src="@vueform/multiselect/themes/default.css"></style>
