@@ -210,13 +210,11 @@ export default {
             // if user didnt select for level of competencies
             if (this.Level_of_Competencies == ''){
                 this.error_message.push('You must select the level of competencies for the skill')
-                this.errorm = 'You must select the level of competencies for the skill'
 
             }
             // if user didnt input for type of skill
             if (this.Type_of_Skills == ''){
                 this.error_message.push('You must input the type of skill')
-                this.errorm = 'You must input the type of skill'
 
             }else{
                 //if user did input the type of skill but the char not from 4-50
