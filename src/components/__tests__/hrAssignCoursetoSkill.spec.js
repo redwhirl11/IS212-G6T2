@@ -65,7 +65,7 @@ describe("hrEditSkill", () => {
     const wrapper = mount(hrEditSkill,{
       propsData: {
         SkillName:'Communication',
-        dataValue:'4',
+        datavalue:'4',
         Course_assign:false,
       }   
     })   
@@ -83,7 +83,7 @@ describe("hrEditSkill", () => {
     const wrapper = mount(hrEditSkill,{
       propsData: {
         SkillName:'Communication',
-        dataValue:'4',
+        datavalue:'4',
         Course_assign:true
         
       }   
