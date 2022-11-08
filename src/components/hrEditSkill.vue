@@ -1,29 +1,73 @@
 <script>
 import axios from 'axios';
+import Multiselect from '@vueform/multiselect';
 export default {
+    name: 'hrEditSkill',
+    components: {
+        Multiselect,
+      },
+    props:{
+        SkillName: {
+            type: String,
+            default: ""
+        },
+        TypeofSkill: {
+            type: String,
+            default: ""
+        },
+        LevelofCompetencies: {
+            type: String,
+            default: ""
+        },
+        Course_assign: {
+            type: Boolean,
+            default: false
+        },
+        course_status: {
+            type: Boolean,
+            default: true
+        },
+        error: {
+            type: String,
+            default: ""
+        },
+        datavalue:{
+            type: String,
+            default: ""
+        }
+    
+    },
     data() {
         return {
             Skill_ID: '',
             Skill_Status:'',
-            Skill_Course:'',
-            Skill_Name: '',
-            Type_of_Skills: '',
-            Level_of_Competencies:'',
+            skill_courses :[],
+            Skill_Name: this.SkillName,
+            Type_of_Skills: this.TypeofSkill,
+            Level_of_Competencies:this.LevelofCompetencies,
             error_message:[],
+            errorm: this.error,
             error_in_html:'',
             numSkillType:0,
             numSkillName:0,
             CurrentInput:[],
+            currentCourses:[],
+            value:[],
+            courses: this.Course_assign,
+            Courses_Options:[],
+            dataValue: this.datavalue
         }
     },
 
     created() {
         //fetch data from user selection
-        const dataValue = localStorage.getItem('data');
-        const datalist = dataValue.split(',');
+        if(localStorage.getItem('data') != null){
+            this.dataValue=localStorage.getItem('data');
+        }
+        const datalist = this.dataValue.split(',');
+        console.log(datalist)
         this.Skill_ID = datalist[0]
         this.Skill_Status= datalist[1]
-        this.Skill_Course= datalist[2]
 
         const allSkillUrl = 'http://localhost/IS212-G6T2/public/db/getSkills.php'
         axios.get(allSkillUrl).then(response => {
@@ -31,20 +75,51 @@ export default {
 
             for (let i=0;i<allSkill.length;i++){
                 //currently checking unique skillID + courseID + skill Status
-                if (this.Skill_ID === allSkill[i].Skill_ID && this.Skill_Status === allSkill[i].Skill_Status && this.Skill_Course===allSkill[i].Course_ID){
+                if (this.Skill_ID === allSkill[i].Skill_ID){
                     this.CurrentInput.push(allSkill[i])
                     this.Skill_Name= allSkill[i].Skill_Name
                     this.Type_of_Skills=allSkill[i].Type_of_Skills
                     this.Level_of_Competencies=allSkill[i].Level_of_Competencies
                     this.numSkillName= 50 - allSkill[i].Skill_Name.length
                     this.numSkillType= 50 - allSkill[i].Type_of_Skills.length
+                    this.currentCourses.push(allSkill[i].Course_ID)
                 }
             }
             this.CurrentInput = this.CurrentInput[0]
+
+            const getAllCourse = 'http://localhost/IS212-G6T2/public/db/getAllCourses.php'
+            axios.get(getAllCourse)
+            .then(response => {
+                var AllCourse = response.data
+                console.log(AllCourse)
+                this.getUniqueCourse(AllCourse);
+                this.value = this.currentCourses
+            })
         })
+
     },
     methods: {
+        getUniqueCourse(AllCourse){
+            var tempCourseDict =[]
+            for (var i = 0; i < AllCourse.length; i++){
+                var Course_ID = AllCourse[i].Course_ID
+                var Course_Name = AllCourse[i].Course_Name
+                var Course_Status = AllCourse[i].Course_Status
+                if (Course_Status =="Active"){
+                    if (!tempCourseDict[Course_ID]) {
+                        tempCourseDict[Course_ID] = {value: Course_ID,label: Course_Name}
+                        this.Courses_Options.push({value: Course_ID,label: Course_Name,Course_Status:Course_Status})
+                    }
+                }
+            }
+            return this.Courses_Options
+        },
         submitEditSkill() {
+            if (this.value != null) {
+                if (this.value.length > 0) {
+                    this.courses = true
+                }
+            }
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
             if (this.Skill_Name !='' && this.Level_of_Competencies!= '' && this.Type_of_Skills!= '' && this.error_message.length == 0) {
@@ -97,6 +172,7 @@ export default {
                                     })
                                     this.error_in_html='';
                                     this.error_message=[];
+                                    this.courses = false
                                 })
                                 .catch(error => {
                                     console.log(error);
@@ -121,6 +197,7 @@ export default {
             // if user didnt input for skill name
             if (this.Skill_Name ==''){
                 this.error_message.push('Invalid Skill Name')
+                this.errorm = 'Invalid Skill Name'
             }else{
                 //if user did input the skill name but the char not from 3-50
                 if (this.numSkillName<0){
@@ -133,10 +210,14 @@ export default {
             // if user didnt select for level of competencies
             if (this.Level_of_Competencies == ''){
                 this.error_message.push('You must select the level of competencies for the skill')
+                this.errorm = 'You must select the level of competencies for the skill'
+
             }
             // if user didnt input for type of skill
             if (this.Type_of_Skills == ''){
                 this.error_message.push('You must input the type of skill')
+                this.errorm = 'You must input the type of skill'
+
             }else{
                 //if user did input the type of skill but the char not from 4-50
                 if (this.numSkillType<0){
@@ -146,14 +227,17 @@ export default {
                     this.error_message.push('Type of Skill must have at least 4 characters')
                 }
             }
+            if (this.course_status == false){
+                this.error_message.push('You must select an active course')
+                this.errorm = 'You must select an active course'
+            }
 
-            // //check for duplicate Skill name
-            // var tidyupSkillName = this.Skill_Name.toLowerCase();
-            // tidyupSkillName= tidyupSkillName.replaceAll(' ', '');
-            // index = this.AllUniqueSkills.map(object => object.SkillName).indexOf(tidyupSkillName);
-            // if (index != -1 ){
-            //     this.error_message.push('Duplicate skill name, skill already existed!')
-            // }
+            // if user didnt assign course to skill
+            if (this.courses== false){
+                this.error_message.push('You must assign a course(s) to the skill')
+                this.errorm = "You must assign a course(s) to the skill"
+            }
+
             return this.error_message
         },
         changeErrorMsgintoHTML(){
@@ -231,18 +315,19 @@ export default {
             </div>
             
             <div class="col-lg-6 col-md-6">
-                <h4><label for="inputCourses" class="form-label">Course(s) Assigned (KIV-Sprint 3)<span style="color:red">*</span></label></h4>
-                <input type="text" class="form-control" id="inputCourses" v-model="Skill_Course">
-            </div>
-            <div v-for="error in error_message">
-                <ul>
-                    <li>
-                        {{error}}
-                    </li>
-                    
-                </ul>
+                <h4><label for="inputCourses" class="form-label">Course(s) Assigned <span style="color:red">*</span></label></h4>
+                <Multiselect v-model='value' mode="tags" class="multiselect-blue" :close-on-select="false" :searchable="true" :options='Courses_Options' />
+
             </div>
             </form>
     </div>
 </template>
 
+<style src="@vueform/multiselect/themes/default.css"></style>
+<style scoped>
+.multiselect-blue {
+  --ms-tag-bg: #D1FAE5;
+  --ms-tag-color: #4C5BDD;
+}
+
+</style>

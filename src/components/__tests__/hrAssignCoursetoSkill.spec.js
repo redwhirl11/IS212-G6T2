@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 
 import { mount } from "@vue/test-utils";
 import hrCreateSkill from "../hrCreateSkill.vue";
+import hrEditSkill from "../hrEditSkill.vue";
 
 //Course_assign is null
 describe("hrCreateSkill", () => {
@@ -56,3 +57,43 @@ describe("hrCreateSkill", () => {
   
   });
 });
+
+//EDIT SKILL
+// Course_assign field is not empty
+describe("hrEditSkill", () => {
+  it("Assign 1 course to the skill", () => {
+    const wrapper = mount(hrEditSkill,{
+      propsData: {
+        SkillName:'Communication',
+        dataValue:'4',
+        Course_assign:false,
+      }   
+    })   
+    //result from the function
+    wrapper.vm.getErrorMessage()    
+    //expected result
+    expect(wrapper.vm.errorm).toBe('You must assign a course(s) to the skill');
+  
+  });
+});
+
+// Course_assign field is not empty
+describe("hrEditSkill", () => {
+  it("Assign 1 course to the skill", () => {
+    const wrapper = mount(hrEditSkill,{
+      propsData: {
+        SkillName:'Communication',
+        dataValue:'4',
+        Course_assign:true
+        
+      }   
+    })   
+    //result from the function
+    wrapper.vm.getErrorMessage()    
+    //expected result
+    expect(wrapper.vm.errorm).toBe('');
+  
+  });
+});
+
+// if user select inactive skill
