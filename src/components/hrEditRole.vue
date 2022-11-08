@@ -257,35 +257,7 @@ export default {
                                 this.skills = false;
 
                             }
-                            // const UpdateUrl = 'http://localhost/IS212-G6T2/public/db/updateLJRole.php'
-                            // const data = {
-                            //     LJRole_ID: this.Role_ID,
-                            //     LJRole_Name: this.Role_Name, 
-                            //     LJRole_Description: this.LJRole_Description, 
-                            //     Department: this.Department, 
-                            //     Key_Task: this.Key_Task, 
-                            //     LJRole_Status: this.LJRole_Status, 
-                            //     Skill_ID: this.value[0]
-                            // }
-                            // axios.get(UpdateUrl, {
-                            //     params: data
-                            // })
-                            //     .then(response => {
-                            //         Swal.fire(
-                            //             'Congratulations!',
-                            //             'You have successfully edited the role!',
-                            //             'success',
-                            //         ).then(function() {
-                            //             window.location.href = "hrRole";
-                            //         })
-                            //         this.error_in_html='';
-                            //         this.error_message=[];
-                            //         this.skills = false;
-                            //     })
-                            //     .catch(error => {
-                            //         console.log(error);
-                            //         alert('Error: ${error}. <br/> Please Try Again Later')
-                            //     })
+                            
                             }
                         })
                 }
