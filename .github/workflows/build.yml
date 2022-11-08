@@ -6,7 +6,7 @@ name: build CI
 on:
   push:
     branches:
-      - main_vue
+      - G6T2-37-reopen-an-inactive-skill
 
 jobs:
   build:
