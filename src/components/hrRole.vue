@@ -1,6 +1,11 @@
 <script>
 import axios from 'axios';
+import Header from "../components/Header.vue";
+
 export default {
+    components: {
+            Header,
+            },
     data() {
         return {
             roleDict: [],
@@ -142,49 +147,28 @@ export default {
 </script>
 
 <template>
-    <img id='logo' src="../Icons/Component1.png">
-    <div class="row" style="background:#6A79F3;">
-        <div class="row position-relative">
-            <div class="row my-5">
-                <!-- nav bar start -->
-                <nav class="col-lg-8 col-md-6 navbar navbar-expand-lg navbar-expand-md navbar-light">
-                    <div class="container-fluid">
-                        <div class="navbar" id="navbarSupportedContent">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a class="navbar-brand" href="hrHome" style="color:white">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="hrRole"
-                                        style="color:white">Role</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" aria-current="page" href="hrSkill" style="color:white">Skill</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-                <!-- nav bar end -->
-                <span class="col-lg col-md fs-5 fw-bold" style="color:white">Welcome, Jack </span>
-            </div>
-            <img src="../Icons/Vector1.png" alt="background">
-            <div class="row">
-                <p class="h1 position-absolute top-50 start-50 translate-middle" id="Header">
-                    Let's keep the information <br> up-to-date for roles
-                </p>
-                <!-- search bar start -->
-                <div class="d-inline-flex mt-3 position-absolute translate-middle w-50" style="top:70%; left:55%">
-                    <input class="form-control me-3" type="search"
-                        placeholder="For E.g. Business Analyst, Operations Manager" aria-label="Search"
-                        id="searchBar">
-                    <!-- add new role btn Fang Ting -->
-                    <button class="btn btn-light" type="submit" style="border-radius: 40px;"><a
-                            class="nav-link active" style='color: black;padding:0' aria-current="page"
-                            href="hrCreateRole">Add New Role</a> </button>
-                </div>
-            </div>
+    <Header msg="Let's keep the information" dept="up-to-date for roles" />
+   <!-- nav bar start -->
+   <div class="row" id= 'hrNavBar'>
+        <div class="col">
+            <a href="hrHome" style="color:white">Home</a>
         </div>
+        <div class="col">
+            <a href="hrRole" style="color:darkblue">Role</a>
+        </div>
+        <div class="col">
+            <a  href="hrSkill" style="color:white">Skill</a>
+        </div>
+    </div>
+    <!-- search bar start -->
+    <div class="d-inline-flex position-absolute translate-middle w-50" style="top:40%; left:55%">
+        <input class="form-control me-3" type="search"
+            placeholder="For E.g. Business Analyst, Operations Manager" aria-label="Search"
+            id="searchBar">
+        <!-- add new role btn Fang Ting -->
+        <button class="btn btn-light" type="submit" style="border-radius: 40px;"><a
+                class="nav-link active" style='color: black;padding:0' aria-current="page"
+                href="hrCreateRole">Add New Role</a> </button>
     </div>
     <!-- All role cards-->
     <div class="row mt-4">

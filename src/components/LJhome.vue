@@ -1,6 +1,11 @@
 <script>
 import axios from 'axios';
+import User from "../components/user.vue";
+
 export default {
+    components: {
+        User,
+        },
     data(){
         return {
             AllRoles_dict: [],
@@ -227,6 +232,7 @@ export default {
 <template>
      <!-- upper portion display homepage -->
      <img  id= 'logo' src="../Icons/Logo(Purple).png">
+     <User />
      <div class='row' style="padding-bottom: 10vw;" >
         <div class="row position-relative">
             <img src="../Icons/HomepageVector.png" id="homebgImg">
@@ -244,8 +250,8 @@ export default {
     </div>
 
      <!-- lower portion Create learning journey-->
-     <div class='contianer-fluid'>
-        <div>
+     <div class='row'>
+         <div>
             <img src="../Icons/Rectangle6.png" id="semiRecImg" >
             <img src="../Icons/HomepageBottom.png" id="HomeBottomImg" >
             <p id="BottomHeader">Your learning journeys</p>
@@ -354,7 +360,8 @@ p{
 }
 
 #semiRecImg{
-    height: 100%;
+    height: 150%;
+    right: 0.05%;
 }
 
 #HomeBottomImg{

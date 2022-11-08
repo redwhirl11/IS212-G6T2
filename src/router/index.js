@@ -5,6 +5,11 @@ const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
     {
+      path: "/",
+      name: "login",
+      component: () => import("../views/UserLogin.vue"),
+    }, 
+    {
       path: "/LJhome",
       name: "LJhome",
       component: () => import("../components/LJhome.vue"),
@@ -15,7 +20,6 @@ const router = createRouter({
       component: () => import("../components/editLJ.vue"),
     },
     {
-      //wth is this
       path: "/createLJ",
       name: "createLJ",
       component: () => import("../components/createLJ.vue"),
@@ -64,7 +68,7 @@ const router = createRouter({
       path: "/hrCreateSkill",
       name: "hrCreateSkill",
       component: () => import("../components/hrCreateSkill.vue"),
-    }
+    },
   ],
 });
 

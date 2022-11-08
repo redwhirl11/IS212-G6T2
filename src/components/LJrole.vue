@@ -1,7 +1,11 @@
 <script>
 import axios from 'axios';
+import Header from "../components/Header.vue";
 
 export default{
+  components: {
+            Header,
+            },
   mounted:function(){
     var url = "http://localhost/IS212-G6T2/public/db/getAllRoles.php"
     axios.get(url).
@@ -46,7 +50,8 @@ export default{
 </script>
 
 <template>
- 
+    <!-- <Header msg="Step 1:  Select a job role that you are interested in " /> -->
+
     <div class='container-fluid' id="myHeader">
         <img id= 'logo' src="../Icons/Component1.png">
         <img src="../Icons/Vector1.png" alt="Nature" class="responsive">
@@ -59,7 +64,7 @@ export default{
             <input class="form-control" id="search-bar" type="text" placeholder="For E.g. Business Analyst, Operations Manager">
             <span ><a href=""><img src="../images/searchicon.png" id="search-icon" alt=""></a></span>
             <span><a href=""><img src="../images/Filterlist.png" id="filterlist-icon" alt=""></a></span>
-            <button type="button" class="btn btn-light" id="back-btn">Back</button>
+            <button type="button" class="btn btn-light" id="back-btn" onclick="history.back()">Back</button>
         </div>
         
 

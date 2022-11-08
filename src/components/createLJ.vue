@@ -1,6 +1,11 @@
 <script>
 import axios from 'axios';
+import Header from "../components/Header.vue";
+
 export default {
+    components: {
+            Header,
+            },
     data() {
         return {
             roleName: '',
@@ -456,23 +461,18 @@ export default {
 </script>
 
 <template>
-    <img id='logo' src="../Icons/Component1.png">
-    <div class="row" style="background:#6A79F3;">
-        <div class="row">
-            <div class="col-lg-9 col-md-8 col-sm-7">
-                <button type="button" class="btn btn-light float-end me-5 px-4 d-lg-inline-block " style="border-radius: 30px; margin-top: 27px; padding: 10px 25px 10px 25px" id="backBtn" onclick="history.back()">Back</button>
-                <button type="button" class= "btn btn-light float-end mx-3 px-4 d-lg-inline-block" style="border-radius: 30px; margin-top: 27px; padding: 10px 25px 10px 25px" id="saveBtn" @click="submitLJ()">Submit</button>
-            </div>
+    <Header :msg=roleName dept="Dept : " :deptData=department />
+    <!-- button -->
+    <div class="row" id="btnTopRight">
+        <div class="col">
+            <button type="button" class="btn btn-light px-4" id="backBtn"
+            style="border-radius: 20px;" onclick="history.back()">Back</button>
         </div>
-        <img src="../Icons/Vector1.png" alt="Nature" class="responsive">
-        <!-- Role name -->
-        <p id="Header">
-            <span id="roleName">{{roleName}}</span> <br>
-            <span><strong>Dept: </strong> {{department}}</span>
-        </p>
+        <div class="col">
+            <button type="button" class="btn btn-light px-4" id="submitBtn"
+            style="border-radius: 20px;" @click="submitLJ()">Submit</button>
+        </div>
     </div>
-      
-
     <!-- Role Description -->
     <div>
         <div class="row mt-5 mx-5">

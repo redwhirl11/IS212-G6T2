@@ -5,7 +5,6 @@
   margin: 0 auto;
 }
 
-
 a,
 .green {
   text-decoration: none;
@@ -27,8 +26,33 @@ a,
 #logo {
   position: absolute;
   left: 6vw;
-  top: 5vh;
+  top: 3vh;
   width: 3.5vw;
   height: 2.5vw;
 }
 
+#btnTopRight{
+  position: absolute;
+  top: 9vh;
+  right: 1vw;
+  height: auto;
+  margin: 0.3vw;
+}
+#hrNavBar{
+  position: absolute;
+  left: 10vw;
+  top: 2vh;
+}
+@media screen and (max-width: 700px) {
+  #btnTopRight {
+    top: 7vh;
+    right:2px;
+  }
+  #backBtn, #submitBtn{
+    font-size: 2vw;
+    }
+}
+@media screen and (max-width: 400px) {
+  #btnTopRight {
+    top: 5vh;
+  }}

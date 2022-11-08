@@ -1,6 +1,11 @@
 <script>
 import axios from 'axios';
+import Header from "../components/Header.vue";
+
 export default {
+    components: {
+            Header,
+            },
     data() {
         return {
             Skill_ID: '',
@@ -176,21 +181,16 @@ export default {
 }
 </script>
 <template>
-    <img id='logo' src="../Icons/Component1.png">
-    <div class="row" style="background:#6A79F3;">
-        <div class="row position-relative">
-            <div class="row my-5">
-                <div class="col-lg-3 col-md-4">
-                    <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="backBtn"
-                    style="border-radius: 20px" onclick="history.back()">Back</button>
-                    <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="submitBtn"
-                    style="border-radius: 20px" @click="submitEditSkill()" >Submit</button>
-                </div>
-            </div>
-            <img src="../Icons/Vector1.png" alt="background">
-            <p class="h1 position-absolute top-50 start-50 translate-middle" id="Header">
-                Edit a skill: {{CurrentInput.Skill_Name}}
-            </p>
+    <Header action='Edit a skill: ' :msg= CurrentInput.Skill_Name />
+    <!-- button -->
+    <div class="row" id="btnTopRight">
+        <div class="col">
+            <button type="button" class="btn btn-light px-4" id="backBtn"
+            style="border-radius: 20px;" onclick="history.back()">Back</button>
+        </div>
+        <div class="col">
+            <button type="button" class="btn btn-light px-4" id="submitBtn"
+            style="border-radius: 20px;" @click="submitEditSkill()">Submit</button>
         </div>
     </div>
 
