@@ -96,4 +96,24 @@ describe("hrEditSkill", () => {
   });
 });
 
-// if user select inactive skill
+// if user select inactive course
+describe("hrEditSkill", () => {
+  it("Assign inactive course to the skill", () => {
+    const wrapper = mount(hrEditSkill,{
+      propsData: {
+        SkillName:'Communication',
+        datavalue:'4',
+        //if hr changed the skills required
+        Course_assign:true,
+        //selected skill is inactive
+        courses_status: false,
+        
+      }   
+    })   
+    //result from the function
+    wrapper.vm.getErrorMessage()    
+    //expected result
+    expect(wrapper.vm.errorm).toBe('You must select an active course');
+  
+  });
+});

@@ -5,10 +5,10 @@ $result = [];
 
 //dynamic method
 if( isset($_REQUEST['Skill_ID']) ) {
-    $LJRole_ID = $_REQUEST['LJRole_ID'];
+    $Skill_ID = $_REQUEST['Skill_ID'];
     
     $dao = new PostDAO();
-    $status = $dao->deleteLJSkill($LJRole_ID);
+    $status = $dao->deleteLJSkill($Skill_ID);
 }
 if ($status)
     $result["status"] = "Post deleted successfully";

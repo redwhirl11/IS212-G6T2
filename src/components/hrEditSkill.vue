@@ -23,7 +23,7 @@ export default {
             type: Boolean,
             default: false
         },
-        course_status: {
+        courses_status: {
             type: Boolean,
             default: true
         },
@@ -56,7 +56,8 @@ export default {
             courses: this.Course_assign,
             Courses_Options:[],
             dataValue: this.datavalue,
-            Course_ID:''
+            Course_ID:'',
+            course_status :this.courses_status
         }
     },
 
@@ -111,6 +112,9 @@ export default {
                         this.Courses_Options.push({value: Course_ID,label: Course_Name,Course_Status:Course_Status})
                     }
                 }
+                else{
+                    this.course_status =false
+                }
             }
             return this.Courses_Options
         },
@@ -132,9 +136,9 @@ export default {
                     const data = {
                         Skill_ID: this.savedSkillId,
                         Skill_Name: this.Skill_Name, 
-                        Skill_Status: this.Skill_Status, 
-                        Level_of_Competencies: this.Level_of_Competencies, 
-                        Type_of_Skills: this.Type_of_Skill, 
+                        Type_of_Skills: this.Type_of_Skills, 
+                        Level_of_Competencies: this.Level_of_Competencies,
+                        Skill_Status: this.Skill_Status,
                         Course_ID: Course_id
                     }
                     
