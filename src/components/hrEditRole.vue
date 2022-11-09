@@ -66,11 +66,9 @@ export default {
     },
     created() {
         //fetch data from user selection
-        if (localStorage.getItem('data')!= null){
-            this.dataValue = localStorage.getItem('data');        
-            
-        }
-        const datalist = this.dataValue.split(',');
+        const dataValue = localStorage.getItem('data');
+        console.log('here', dataValue);
+        const datalist = dataValue.split(',');
         this.Role_ID = datalist[0]
         
 
