@@ -106,13 +106,14 @@ export default {
                 var Course_ID = AllCourse[i].Course_ID
                 var Course_Name = AllCourse[i].Course_Name
                 var Course_Status = AllCourse[i].Course_Status
+                this.course_status =true
                 if (Course_Status =="Active"){
                     if (!tempCourseDict[Course_ID]) {
                         tempCourseDict[Course_ID] = {value: Course_ID,label: Course_Name}
                         this.Courses_Options.push({value: Course_ID,label: Course_Name,Course_Status:Course_Status})
                     }
                 }
-                else{
+                else if(Course_Status !="Active"){
                     this.course_status =false
                 }
             }

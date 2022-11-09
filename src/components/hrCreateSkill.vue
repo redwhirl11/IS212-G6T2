@@ -47,6 +47,7 @@ export default {
             value:null ,
             Courses_Options:[],
             savedSkillId:'',
+            courseStatus: this.course_status,
             
         };
     },
@@ -56,15 +57,20 @@ export default {
         axios.get(getAllSkills)
             .then(response => {
                 var AllSkills = response.data;
-                this.getUniqueSkillName(AllSkills);
-                console.log(this.AllUniqueSkills);
+                axios.get(getAllCourse)
+                .then(response => {
+                    var AllCourse = response.data
+                    this.getUniqueCourse(AllCourse);
+                    const getDeletedSkills = 'http://localhost/IS212-G6T2/public/db/getDeletedSkills.php'
+                    axios.get(getDeletedSkills)
+                        .then(response => {
+                            var deletedSkills = response.data;
+                            //concat 2 array - active and inactive skills
+                            var newSkillsDict = AllSkills.concat(deletedSkills)
+                            this.getUniqueSkillName(newSkillsDict);
+                        })
+                })
             })
-        axios.get(getAllCourse)
-        .then(response => {
-            var AllCourse = response.data
-            console.log(AllCourse)
-            this.getUniqueCourse(AllCourse);
-        })
     },
     methods: {
         getUniqueSkillName(AllSkills){
@@ -87,11 +93,15 @@ export default {
             for (var i = 0; i < AllCourse.length; i++){
                 var Course_ID = AllCourse[i].Course_ID
                 var Course_Name = AllCourse[i].Course_Name
+                this.courseStatus =true
                 if (AllCourse[i].Course_Status =="Active"){
                     if (!tempCourseDict[Course_ID]) {
                         tempCourseDict[Course_ID] = {value: Course_ID,label: Course_Name}
                         this.Courses_Options.push({value: Course_ID,label: Course_Name})
                     }
+                }
+                else if(AllCourse[i].Course_Status !="Active"){
+                    this.courseStatus =false
                 }
             }
             return this.Courses_Options
@@ -107,7 +117,7 @@ export default {
         },
         saveOtherCourses(){
             const createSkill = 'http://localhost/IS212-G6T2/public/db/createSkill.php'
-            console.log(this.savedSkillId);
+            // console.log(this.savedSkillId);
             if (this.value.length>1){
                 for (var j=1; j<this.value.length; j++){
                     var Course_id = this.value[j]
@@ -236,7 +246,7 @@ export default {
                     this.error_message.push('Type of Skill must have at least 4 characters')
                 }
             }            
-            if (this.course_status == false){
+            if (this.courseStatus == false){
                 this.error_message.push('You must select an active course')
                 this.errorm = 'You must select an active course'
             }
