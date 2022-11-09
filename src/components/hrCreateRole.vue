@@ -390,8 +390,8 @@ export default {
                 
             </div>
             <div class="col-lg-6 col-md-6">
-                <h4><label for="inputRoles" class="form-label">Skills Required <span style="color:red">*</span></label></h4>
-                <!-- <input type="text" class="form-control" id="inputRoles" v-model="skills_required"> -->
+                <h4><label for="inputRoles" class="form-label">Skills Required <span style="color:red">*</span> <span style="font-size: 14px;font-weight: normal">Cannot find Skills? <a href="hrCreateSkill">Create New Skill</a></span></label></h4>
+                
                 <div>
         <Multiselect v-model="value" mode="tags" :close-on-select="false" :searchable="true" :options=Skills_Options
 />
