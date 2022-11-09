@@ -52,10 +52,11 @@ export default {
             numSkillName:0,
             CurrentInput:[],
             currentCourses:[],
-            value:[],
+            value:null,
             courses: this.Course_assign,
             Courses_Options:[],
-            dataValue: this.datavalue
+            dataValue: this.datavalue,
+            Course_ID:''
         }
     },
 
@@ -91,7 +92,6 @@ export default {
             axios.get(getAllCourse)
             .then(response => {
                 var AllCourse = response.data
-                console.log(AllCourse)
                 this.getUniqueCourse(AllCourse);
                 this.value = this.currentCourses
             })
@@ -114,16 +114,47 @@ export default {
             }
             return this.Courses_Options
         },
+        getSavedSkillID(CheckAllSkills){
+            for (var i = 0; i < CheckAllSkills.length; i++){
+                if (CheckAllSkills[i].Skill_Name == this.Skill_Name){
+                    this.savedSkillId = CheckAllSkills[i].Skill_ID;
+                    
+                }
+            }
+            return this.savedSkillId
+        },
+        saveOtherCourses(){
+            const UpdateSkill  = 'http://localhost/IS212-G6T2/public/db/updateSkill.php'
+            console.log(this.savedSkillId);
+            if (this.value.length>1){
+                for (var j=1; j<this.value.length; j++){
+                    var Course_id = this.value[j]
+                    const data = {
+                        Skill_ID: this.savedSkillId,
+                        Skill_Name: this.Skill_Name, 
+                        Skill_Status: this.Skill_Status, 
+                        Level_of_Competencies: this.Level_of_Competencies, 
+                        Type_of_Skills: this.Type_of_Skill, 
+                        Course_ID: Course_id
+                    }
+                    
+                    axios.get(UpdateSkill, {
+                        params: data
+                    })
+                }
+            } 
+        },
         submitEditSkill() {
             if (this.value != null) {
                 if (this.value.length > 0) {
                     this.courses = true
                 }
             }
+            // this.checkSkillStatus();
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
-            if (this.Skill_Name !='' && this.Level_of_Competencies!= '' && this.Type_of_Skills!= '' && this.error_message.length == 0) {
-                if(this.Skill_Name == this.CurrentInput.Skill_Name && this.Skill_Status == this.CurrentInput.Skill_Status &&this.Type_of_Skills == this.CurrentInput.Type_of_Skills && this.Level_of_Competencies == this.CurrentInput.Level_of_Competencies){
+            if (this.error_message.length == 0) {
+                if(this.Skill_Name == this.CurrentInput.Skill_Name && this.Skill_Status == this.CurrentInput.Skill_Status &&this.Type_of_Skills == this.CurrentInput.Type_of_Skills && this.Level_of_Competencies == this.CurrentInput.Level_of_Competencies &&this.value ==this.currentCourses){
                     Swal.fire({
                         icon: 'warning',
                         title: 'No changes found!',
@@ -131,6 +162,7 @@ export default {
                         timerProgressBar: true,
                         showConfirmButton: false
                     })
+                    
                     }
                 else{
                     Swal.fire({
@@ -145,39 +177,53 @@ export default {
                         width: 'auto',
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            const UpdateUrl = 'http://localhost/IS212-G6T2/public/db/updateSkill.php'
-                            const data = {
-                                Skill_ID: this.Skill_ID,
-                                Skill_Name: this.Skill_Name, 
-                            Skill_Name: this.Skill_Name, 
-                                Skill_Name: this.Skill_Name, 
-                                Skill_Status: this.Skill_Status, 
-                            Skill_Status: this.Skill_Status, 
-                                Skill_Status: this.Skill_Status, 
-                                Type_of_Skills: this.Type_of_Skills, 
-                            Type_of_Skills: this.Type_of_Skills, 
-                                Type_of_Skills: this.Type_of_Skills, 
-                                Level_of_Competencies: this.Level_of_Competencies
-                            }
-                            axios.get(UpdateUrl, {
-                                params: data
-                            })
-                                .then(response => {
-                                    Swal.fire(
-                                        'Congratulations!',
-                                        'You have successfully edited the skill!',
-                                        'success',
-                                    ).then(function() {
-                                        window.location.href = "hrSkill";
+                            console.log(this.value[0])
+                            if (this.value.length>0){
+                                const Deleteurl = 'http://localhost/IS212-G6T2/public/db/deleteLJSkill.php'
+                                const data = {
+                                    Skill_ID: this.Skill_ID
+                                }
+                                axios.get(Deleteurl, {
+                                    params: data
+                                })
+                                    .then(response=>{
+                                        const UpdateUrl = 'http://localhost/IS212-G6T2/public/db/updateSkill.php'
+                                        const data = {
+                                            Skill_ID: this.Skill_ID,
+                                            Skill_Name: this.Skill_Name, 
+                                            Type_of_Skills: this.Type_of_Skills, 
+                                            Level_of_Competencies: this.Level_of_Competencies,
+                                            Skill_Status: this.Skill_Status, 
+                                            Course_ID: this.value[0]
+                                        }
+                                        axios.get(UpdateUrl, {
+                                            params: data
+                                        })
+                                        .then(response => {      
+                            
+                                        // get the saved skill id -- for next loop
+                                        const CheckAllSkills = 'http://localhost/IS212-G6T2/public/db/getSkills.php'
+                                        axios.get(CheckAllSkills)
+                                        .then(response => {
+                                            var CheckAllSkills = response.data;    
+                                            // find the skill id by skill name                           
+                                            this.getSavedSkillID(CheckAllSkills);
+                                            this.saveOtherCourses();
+                                        })
                                     })
-                                    this.error_in_html='';
-                                    this.error_message=[];
-                                    this.courses = false
+                                    })
+                                Swal.fire(
+                                    'Congratulations!',
+                                    'You have successfully edited the skill!',
+                                    'success',
+                                ).then(function() {
+                                    window.location.href = "hrSkill";
                                 })
-                                .catch(error => {
-                                    console.log(error);
-                                    alert('Error: ${error}. <br/> Please Try Again Later')
-                                })
+                                this.error_in_html='';
+                                this.error_message=[];
+                                this.courses = false;
+                            }
+                            
                             }
                         })
                 }
@@ -188,9 +234,9 @@ export default {
                     title: 'Oops...',
                     html: this.error_in_html
                 })
-
                 this.error_in_html='';
                 this.error_message=[];
+                this.courses = false;
             }
         },
         getErrorMessage(){

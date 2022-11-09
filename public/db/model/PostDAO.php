@@ -457,22 +457,20 @@ class PostDAO {
         return $status;
     }
 
-    public function updateSkill($Skill_ID,$Skill_Name,$Type_of_Skills,$Level_of_Competencies,$Skill_Status) {
+    public function updateSkill($Skill_ID,$Skill_Name,$Type_of_Skills,$Level_of_Competencies,$Skill_Status,$Course_ID) {
         // STEP 1   
         $connMgr = new ConnectionManager();
         $conn = $connMgr->connect();
 
         // STEP 2
-        $sql = "UPDATE `skills` 
-                SET `Skill_Name` = :Skill_Name , `Type_of_Skills` = :Type_of_Skills 
-                , `Level_of_Competencies` = :Level_of_Competencies , `Skill_Status` = :Skill_Status
-                WHERE `Skill_ID` = :Skill_ID ";
+        $sql = "INSERT INTO `skills` (`Skill_ID`, `Skill_Name`, `Type_of_Skills`, `Level_of_Competencies`, `Skill_Status`, `Course_ID`) VALUES (:Skill_ID, :Skill_Name, :Type_of_Skills, :Level_of_Competencies, :Skill_Status, :Course_ID);";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':Skill_ID', $Skill_ID, PDO::PARAM_STR);
         $stmt->bindParam(':Skill_Name', $Skill_Name, PDO::PARAM_STR);
         $stmt->bindParam(':Type_of_Skills', $Type_of_Skills, PDO::PARAM_STR);
         $stmt->bindParam(':Level_of_Competencies', $Level_of_Competencies, PDO::PARAM_STR);
         $stmt->bindParam(':Skill_Status', $Skill_Status, PDO::PARAM_STR);
+        $stmt->bindParam(':Course_ID', $Course_ID, PDO::PARAM_STR);
 
         //STEP 3
         $status = $stmt->execute();
@@ -610,6 +608,70 @@ class PostDAO {
         // STEP 6
         return $AllCourses;
     }
+
+    public function deleteLJSkill($Skill_ID) {
+        // STEP 1   
+        $connMgr = new ConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2
+        $sql = "DELETE FROM skills 
+                WHERE Skill_ID = :Skill_ID";
+        $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':Skill_ID', $Skill_ID, PDO::PARAM_STR);
+
+        //STEP 3
+        $status = $stmt->execute();
+        
+        // STEP 4
+        $stmt = null;
+        $conn = null;
+
+        // STEP 5
+        return $status;
+    }
+
+    public function getDeletedSkills() {
+        // STEP 1
+        $connMgr = new ConnectionManager();
+        $conn = $connMgr->connect();
+
+        // STEP 2
+        $sql = "SELECT
+                     *
+                FROM skills 
+                WHERE Skill_Status = 'Inactive'"; 
+        $stmt = $conn->prepare($sql);
+
+        // $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);
+
+        // STEP 3
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
+        // STEP 4
+        $AllSkills = []; // Indexed Array of Post objects
+        while( $row = $stmt->fetch() ) {
+            $AllSkills[] =
+                new AllSkills (
+                    $row['Skill_ID'],
+                    $row['Skill_Name'],
+                    $row['Type_of_Skills'],
+                    $row['Level_of_Competencies'],
+                    $row['Skill_Status'],
+                    $row['Course_ID']
+                    );
+        }
+
+        // STEP 5
+        $stmt = null;
+        $conn = null;
+
+        // STEP 6
+        return $AllSkills;
+    }
+
+    
 
     
     
