@@ -11,6 +11,7 @@ describe("hrCreateRole", () => {
     const wrapper = mount(hrCreateRole,{
       propsData: {
         RoleName:'CEO',
+        Department: 'CEO',
         skills_required: false,
       }   
     })   
@@ -24,10 +25,11 @@ describe("hrCreateRole", () => {
 
 // skills_required field is not empty
 describe("hrCreateRole", () => {
-  it("Assign 1 skill to the role", () => {
+  it("Assign at least 1 skill to the role", () => {
     const wrapper = mount(hrCreateRole,{
       propsData: {
         RoleName:'CEO',
+        Department: 'CEO',
         skills_required:true,
       }   
     })   
@@ -45,6 +47,7 @@ describe("hrCreateRole", () => {
     const wrapper = mount(hrCreateRole,{
       propsData: {
         RoleName:'CEO',
+        Department: 'CEO',
         skills_required:true,
         skills_status: false
       }   
@@ -64,6 +67,7 @@ describe("hrEditRole", () => {
     const wrapper = mount(hrEditRole,{
       propsData: {
         RoleName:'CEO',
+        department:'CEO',
         //current role id is 6
         dataValue: '6',
         //if hr deleted the current skill (empty skills required)
@@ -81,10 +85,11 @@ describe("hrEditRole", () => {
 
 // skills_required field is not empty
 describe("hrEditRole", () => {
-  it("Assign 1 skill to the role", () => {
+  it("Assign at least 1 skill to the role", () => {
     const wrapper = mount(hrEditRole,{
       propsData: {
         RoleName:'CEO',
+        department:'CEO',
         datavalue: '6',
         //if hr changed the skills required
         skills_required:true
@@ -105,7 +110,8 @@ describe("hrEditRole", () => {
     const wrapper = mount(hrEditRole,{
       propsData: {
         RoleName:'CEO',
-        dataValue: '6,1',
+        department:'CEO',
+        dataValue: '6',
         //if hr changed the skills required
         skills_required:true,
         //selected skill is inactive
