@@ -69,7 +69,7 @@ describe("hrEditRole", () => {
         RoleName:'CEO',
         department:'CEO',
         //current role id is 6
-        dataValue: '6',
+        datavalue: '6',
         //if hr deleted the current skill (empty skills required)
         skills_required: false
         
@@ -111,7 +111,7 @@ describe("hrEditRole", () => {
       propsData: {
         RoleName:'CEO',
         department:'CEO',
-        dataValue: '6',
+        datavalue: '6',
         //if hr changed the skills required
         skills_required:true,
         //selected skill is inactive
