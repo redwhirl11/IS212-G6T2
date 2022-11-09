@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 
 import { mount } from "@vue/test-utils";
-import hrEditRole from "../hrEditRole.vue";
+import hrEditDeletedRole from "../hrEditDeletedRole.vue";
 
 // Reference
 // //CREATE ROLE
@@ -125,7 +125,7 @@ import hrEditRole from "../hrEditRole.vue";
 // Error message: You have not changed your status to active.
 describe("hrEditRole", () => {
   it("Did Not Change Role Status to Active", () => {
-    const wrapper = mount(hrEditRole,{
+    const wrapper = mount(hrEditDeletedRole,{
       propsData: {
         //if skill is still inactive
         roles_status:false

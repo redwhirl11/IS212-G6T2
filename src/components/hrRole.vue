@@ -96,6 +96,16 @@ export default {
             this.skillId = '';
         } ,
 
+        getDeletedRoleDataSend(rollId,skillId){
+            this.rollId = rollId;
+            this.skillId = skillId;
+            localStorage.setItem('data', [this.rollId,this.skillId ])
+
+            window.location.href = "hrEditDeletedRole";
+            this.rollId = '';
+            this.skillId = '';
+        } ,
+
         SoftDeleteRole(id) {
             console.log(id)
 
@@ -314,7 +324,7 @@ export default {
     </div>
 
     <!-- Deleted Role -->
-    <div id="Deleted" class="tabcontent">
+    <div id="Deleted" class="tabcontent" style="display: none;">
         <!-- Deleted role cards-->
         <div class="row mt-4">
             <div class="col-lg-5 col-md-8 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="role in deletedRoleDict">
@@ -323,7 +333,7 @@ export default {
                         <div class="row my-2">
                             <h4 class="col-8 col-lg-7 col-md-6 col-sm-1 card-title">{{role.roleName}}</h4>
                             <!-- edit button -->
-                            <span class="col-lg-2 col-md col-sm-2"><button id="editButton" @click="getDataSend(role.id, role.skill)">Edit</button></span>
+                            <span class="col-lg-2 col-md col-sm-2"><button id="editButton" @click="getDeletedRoleDataSend(role.id, role.skill)">Edit</button></span>
                         </div>
                         <div class="row my-2">
                             <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3 text-uppercase">
