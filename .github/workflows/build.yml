@@ -6,7 +6,7 @@ name: build CI
 on:
   push:
     branches:
-      - main_vue
+      - G6T2-15-assign-skill-s-to-role-s
 
 jobs:
   build:
