@@ -338,9 +338,6 @@ export default {
                             <!-- Edit Button-->
                             <span class="col-lg-2 col-md col-sm-2"><button id="editButton"
                                     @click="getDataSend(skill.skillId, skill.status, skill.course)">Edit</button></span>
-                            <!-- Jing Wen your delete button is here -->
-                            <span class="col-lg col-md col-sm-2"><button id="deleteButton"
-                                    @click="SoftDeleteSkill(skill.skillId)">Delete</button></span>
                         </div>
                         <div class="row my-2">
                             <!-- <div class="col-lg-3 col-md-3 col-sm-3 badge rounded-pill badges ms-2 pe-3" id="courseBadge">
