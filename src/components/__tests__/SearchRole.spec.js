@@ -1,23 +1,14 @@
 import { describe, it, expect } from "vitest";
 
 import { mount } from "@vue/test-utils";
-import hrCreateRole from "../hrCreateRole.vue";
+import LJrole from "../LJrole.vue";
 
-describe("hrCreateRole", () => {
+describe("LJrole", () => {
   it("renders properly", () => {
-    const wrapper = mount(hrCreateRole,{
-      propsData: {
-        RoleName:''
-        // error: 'Invalid Role Name'
-      }
-    
+    const wrapper = mount(LJrole,{
     })
-    // const byId = wrapper.find('#submitBTN')
-    // //CLICK id submitBTN
-    // expect(byId.element.id).toBe('submitBTN')    
-    //can call for data(parameter)
     wrapper.vm.getErrorMessage()
-    expect(wrapper.vm.errorm).toBe('Invalid Role Name');
+    expect(wrapper.vm.errorm).toBe('');
   
   });
 });

@@ -2,6 +2,8 @@
 import axios from 'axios';
 
 export default{
+  name: 'LJrole', 
+
   mounted:function(){
     var url = "http://localhost/IS212-G6T2/public/db/getAllRoles.php"
     axios.get(url).
@@ -21,7 +23,7 @@ export default{
             console.log(arrayUniqueByKey[i].LJRole_ID)
 
             card += 
-            `<div class="col-lg-4 col-md-4 col-sm-6">
+            `<div class="col-lg-4 col-md-4 col-sm-6 role-cards">
               <div class="card">
                 <img class="card-img-top" src="http://localhost/IS212-G6T2/src/Icons/role.jpg" alt="Card image cap">
                   <div class="card-body">
@@ -40,6 +42,28 @@ export default{
         console.log(error.message)
     })
     
+    this.searchRole()
+  },
+  methods: {
+        searchRole() {  
+            // Declare variables
+            var input, filter, li, a, i, txtValue;
+            input = document.getElementById('search-bar');
+            filter = input.value.toUpperCase();
+            li = document.getElementsByClassName('role-cards');
+
+
+            // Loop through all list items, and hide those who don't match the search query
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByClassName("card-title")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+                } else {
+                li[i].style.display = "none";
+                }
+            }
+        }
   }
 
 } 
@@ -56,7 +80,7 @@ export default{
                 Step 1:  Select a job role that you are interested in 
             </div>
             
-            <input class="form-control" id="search-bar" type="text" placeholder="For E.g. Business Analyst, Operations Manager">
+            <input class="form-control" id="search-bar" type="text" placeholder="For E.g. Business Analyst, Operations Manager" v-on:keyup="searchRole()">
             <span ><a href=""><img src="../images/searchicon.png" id="search-icon" alt=""></a></span>
             <span><a href=""><img src="../images/Filterlist.png" id="filterlist-icon" alt=""></a></span>
             <button type="button" class="btn btn-light" id="back-btn">Back</button>

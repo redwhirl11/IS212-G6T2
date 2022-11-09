@@ -157,7 +157,8 @@ export default {
                 }
             }
             
-            }
+
+        }
     }
 
 }
