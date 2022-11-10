@@ -72,38 +72,31 @@ npm run test:unit
 ```
 
 ## Folder Structure
-| Files | Role | Purpose | Features | 
-| ------------- | :-----------: | ------------- | ------------- |
-| UserLogin.vue | both Learner & HR | User Landing Page  | Login with respective role |
-| hrHome.vue | HR | HR Landing Page  | Select tasks to perform (Edit Roles / Edit Skills) |
-| LJHome.vue  | Learner | Learner Landing Page  | View their Learning Journey with the roles, skills and courses that they have planned  |
-| LJrole.vue  | ^^  | View and Select Role  | View and search all the available active roles |
-| createLJ.vue  | Select Course   | Learner can choose the courses that they are interested in |
-| editLJ.vue  | Update Course(s) selected  | Learner can update the course(s) that they have previously planned in their Learning Journey |
-| hrRole.vue  | View Roles | HR can view both active and inactive roles under different tabs |
-| hrCreateRole.vue  | Create Roles  | HR can create new role |
-| hrEditRole.vue  | Update Roles | HR can update the data of the existing roles |
-| hrEditDeletedRole.vue  | Edit Soft Deleted Role | HR can reopen the soft deleted roles |
-| hrSkill.vue  | View Skills | HR can view both active and inactive skills under different tabs |
-| hrCreateSkill.vue  |  Create Skills | HR can create new skill |
-| hrEditSkill.vue  | Update Skills | HR can update the data of the existing skills |
-| hrEditDeletedSkill.vue  | Update Soft Deleted Skill | HR can reopen the soft deleted skills  |
+| Files | Role | Purpose | Features
+| ------------- | ----------- | ------------- | ------------- 
+| UserLogin.vue | Learner & HR | User Landing Page  | Login with respective role
+| LJHome.vue <td rowspan=4>Learner | Learner Landing Page  | View, edit, delete the Learning Journey with the roles, skills and courses that they have planned
+| LJrole.vue  | View and Select Role | View and search all the available active roles
+| createLJ.vue | Select Course | Choose the courses that learners are interested in
+| editLJ.vue | Update Course(s) selected  | Update the course(s) that they have previously planned in their Learning Journey
+| hrHome.vue <td rowspan=9>HR | HR Landing Page  | Select tasks to perform (Edit Roles / Edit Skills)
+| hrRole.vue | View Roles | View both active and inactive roles under different tabs
+| hrCreateRole.vue  | Create Roles  | Create new roles
+| hrEditRole.vue  | Update Roles | Update the existing roles data
+| hrEditDeletedRole.vue  | Edit Soft Deleted Role | Reopen the soft deleted roles
+| hrSkill.vue  | View Skills | View both active and inactive skills under different tabs
+| hrCreateSkill.vue  |  Create Skills | Create new skills
+| hrEditSkill.vue  | Update Skills | Update the existing skills data
+| hrEditDeletedSkill.vue  | Update Soft Deleted Skill | Reopen the soft deleted skills
 
 
 ## Vue Project Structure
-| File | Purpose |
+| Info | Directory |
 | ------------- | ------------- |
-| UserLogin.vue | User Landing Page  |
-| hrHome.vue | HR Landing Page  |
-| Content Cell  | Content Cell  |
-
-- database: public --> db
-- main pages: src --> views
-- components: src --> components
-- declare routing path: src --> router --> index.js
-
-## Clarifications on XXXX
-
+| Database | public --> db  |
+| Main pages | src --> views |
+| Components  | src --> components |
+| Path | src --> router --> index.js |
 
 
 ## Contact
