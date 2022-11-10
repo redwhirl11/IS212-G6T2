@@ -1,7 +1,16 @@
 <script>
 import axios from 'axios';
 export default {
-    name: 'hrEditDeletedRole',  
+    name: 'hrEditDeletedRole', 
+    components: {
+        Multiselect,
+      },
+    props: {  
+        LJRole_Status: {
+            type: String,
+            default: ""
+        }
+    }, 
     data() {
         return {
             Role_ID: '',
