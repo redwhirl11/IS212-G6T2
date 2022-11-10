@@ -64,6 +64,11 @@ const router = createRouter({
       path: "/hrEditDeletedRole",
       name: "hrEditDeletedRole",
       component: () => import("../components/hrEditDeletedRole.vue"),
+    },
+    {
+      path: "/hrEditDeletedSkill",
+      name: "hrEditDeletedSkill",
+      component: () => import("../components/hrEditDeletedSkill.vue"),
     }
 
   ],
