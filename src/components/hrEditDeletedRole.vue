@@ -141,7 +141,6 @@ export default {
         },
         getErrorMessage(){
             // if role status - inactive
-            console.log('emsg', this.errorm)
             if (this.rstatus == false){
                 // this.error_message.push('You have not changed your status to active.')
                 this.errorm = 'You have not changed your status to active.'
