@@ -16,7 +16,6 @@ export default {
             Skill_Name: '',
             Type_of_Skills: '',
             Level_of_Competencies:'',
-            // error_message:[],
             errorm: '',
             error_in_html:'',
             numSkillType:0,
@@ -129,7 +128,6 @@ export default {
                                         window.location.href = "hrSkill";
                                     })
                                     this.error_in_html='';
-                                    this.error_message=[];
                                     this.sstatus = true
                                 })
                                 .catch(error => {
@@ -141,15 +139,12 @@ export default {
                 }
 
             this.error_in_html='';
-            this.error_message=[];
             this.sstatus = true;
 
         },
         getErrorMessage(){
             // if skill status - inactive
-            console.log('emsg', this.errorm)
             if (this.sstatus == false){
-                // this.error_message.push('You have not changed your status to active.')
                 this.errorm = 'You have not changed your status to active.'
             }
             return this.errorm;
@@ -220,14 +215,6 @@ export default {
             <div class="col-lg-6 col-md-6">
                 <h4><label for="inputCourses" class="form-label">Course(s) Assigned (KIV-Sprint 3)<span style="color:red">*</span></label></h4>
                 <input type="text" class="form-control" id="inputCourses" v-model="Skill_Course" disabled>
-            </div>
-            <div v-for="error in error_message">
-                <ul>
-                    <li>
-                        {{error}}
-                    </li>
-                    
-                </ul>
             </div>
             </form>
     </div>
