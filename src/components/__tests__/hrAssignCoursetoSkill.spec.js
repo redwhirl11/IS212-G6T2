@@ -26,7 +26,7 @@ describe("hrCreateSkill", () => {
 
 // Course_assign field is not empty
 describe("hrCreateSkill", () => {
-  it("Assign 1 course to the skill", () => {
+  it("Assign at least 1 course to the skill", () => {
     const wrapper = mount(hrCreateSkill,{
       propsData: {
         Skill_Name: 'Frontend Development',
@@ -45,7 +45,7 @@ describe("hrCreateSkill", () => {
 
 // if user select inactive course
 describe("hrCreateSkill", () => {
-  it("Assign inactive course to  skill", () => {
+  it("Assign inactive course to skill", () => {
     const wrapper = mount(hrCreateSkill,{
       propsData: {
         Skill_Name: 'Frontend Development',
@@ -66,7 +66,7 @@ describe("hrCreateSkill", () => {
 //EDIT SKILL
 // Course_assign field is not empty
 describe("hrEditSkill", () => {
-  it("Assign 1 course to the skill", () => {
+  it("Null Value for Course_assign", () => {
     const wrapper = mount(hrEditSkill,{
       propsData: {
         datavalue:'4',
@@ -86,7 +86,7 @@ describe("hrEditSkill", () => {
 
 // Course_assign field is not empty
 describe("hrEditSkill", () => {
-  it("Assign 1 course to the skill", () => {
+  it("Assign at least 1 course to the skill", () => {
     const wrapper = mount(hrEditSkill,{
       propsData: {
         datavalue:'4',
