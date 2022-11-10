@@ -6,7 +6,7 @@ name: build CI
 on:
   push:
     branches:
-      - G6T2-36-reopen-an-inactive-role
+      - main_vue
 
 jobs:
   build:
