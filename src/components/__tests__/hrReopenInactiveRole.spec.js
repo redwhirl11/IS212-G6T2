@@ -127,8 +127,8 @@ describe("hrEditDeletedRole", () => {
   it("Did Not Change Role Status to Active", () => {
     const wrapper = mount(hrEditDeletedRole,{
       propsData: {
-        //if skill is still inactive
-        roles_status:false
+        //if role is still inactive
+        roles_status:'Inactive'
         
       }   
     })   
