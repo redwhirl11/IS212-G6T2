@@ -34,7 +34,7 @@ export default {
             this.dataValue = localStorage.getItem('data');        
             
             const datalist = this.dataValue.split(',');
-            console.log('data', datalist)
+            //console.log('data', datalist)
             this.Role_ID = datalist[0]
             this.Skill_ID = datalist[1]
         }
@@ -45,7 +45,7 @@ export default {
 
             for (let i=0;i<allRole.length;i++){
                 //currently by checking Role_ID + first Skill_ID
-                console.log('',)
+                // console.log('',)
                 if (this.Role_ID === allRole[i].LJRole_ID && this.Skill_ID === allRole[i].Skill_ID){
                     this.CurrentInput.push(allRole[i])
                     this.Role_Name= allRole[i].LJRole_Name
@@ -65,18 +65,18 @@ export default {
     methods: {
         checkRoleStatus(){
             if (this.LJRole_Status == 'Inactive') {
-                console.log('ljrole status', this.LJRole_Status)
-                console.log('rStatus', this.rstatus)
+                //console.log('ljrole status', this.LJRole_Status)
+                //console.log('rStatus', this.rstatus)
                 this.rstatus = false
             }
         },
         reopenInactiveRole() {
             this.checkRoleStatus();
-            console.log('role_status', this.rstatus)
-            console.log('ljrole_status', this.LJRole_Status)
+            // console.log('role_status', this.rstatus)
+            // console.log('ljrole_status', this.LJRole_Status)
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
-            console.log('errormsg', this.errorm)
+            // console.log('errormsg', this.errorm)
             if(this.rstatus != true) {
                 Swal.fire({
                         icon: 'warning',
@@ -125,7 +125,7 @@ export default {
 
                                 })
                                 .catch(error => {
-                                    console.log(error);
+                                    // console.log(error);
                                     alert('Error: ${error}. <br/> Please Try Again Later')
                                 })
                             }

@@ -31,7 +31,7 @@ export default {
             this.dataValue = localStorage.getItem('data');        
             
             const datalist = this.dataValue.split(',');
-            console.log('datalist', datalist)
+            // console.log('datalist', datalist)
             this.Skill_ID = datalist[0]
             this.Skill_Status= datalist[1]
             this.Skill_Course= datalist[2]
@@ -49,7 +49,7 @@ export default {
         axios.get(allSkillUrl).then(response => {
             var allSkill = response.data
 
-            console.log('response', allSkill)
+          
 
             for (let i=0;i<allSkill.length;i++){
                 //currently checking unique skillID + courseID + skill Status
@@ -68,15 +68,13 @@ export default {
     methods: {
         checkSkillStatus(){
             if (this.Skill_Status == 'Inactive') {
-                console.log('skill_status', this.Skill_Status)
-                console.log('sstatus', this.sstatus)
+        
                 this.sstatus = false
             }
         },
         reopenInactiveSkill() {
             this.checkSkillStatus();
-            console.log('sstatus', this.sstatus)
-            console.log('skill_status', this.Skill_Status)
+   
 
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
@@ -131,7 +129,7 @@ export default {
                                     this.sstatus = true
                                 })
                                 .catch(error => {
-                                    console.log(error);
+                       
                                     alert('Error: ${error}. <br/> Please Try Again Later')
                                 })
                             }
