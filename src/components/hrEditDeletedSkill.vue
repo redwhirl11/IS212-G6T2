@@ -122,7 +122,7 @@ export default {
                                 .then(response => {
                                     Swal.fire(
                                         'Congratulations!',
-                                        'You have successfully edited the skill!',
+                                        'You have successfully reopen this skill!',
                                         'success',
                                     ).then(function() {
                                         window.location.href = "hrSkill";
