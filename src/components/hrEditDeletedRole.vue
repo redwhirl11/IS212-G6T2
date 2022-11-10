@@ -16,7 +16,7 @@ export default {
             LJRole_Description: '',
             Department: '',
             Key_Task: '',
-            LJRole_Status: this.role_status,
+            LJRole_Status: '',
             skills_required:'00007',
             // error_message:[],
             errorm: '',
@@ -25,6 +25,7 @@ export default {
             numrole_desc:0,
             numkey_tasks:0,
             CurrentInput:[],
+            rstatus: this.role_status
         }
     },
     created() {
@@ -61,16 +62,19 @@ export default {
     methods: {
         checkRoleStatus(){
             if (this.LJRole_Status == 'Inactive') {
-                this.LJRole_Status = false
+                console.log('ljrole status', this.LJRole_Status)
+                console.log('rStatus', this.rstatus)
+                this.rstatus = false
             }
         },
         reopenInactiveRole() {
             this.checkRoleStatus();
-            console.log('role_status', this.LJRole_Status)
+            console.log('role_status', this.rstatus)
+            console.log('ljrole_status', this.LJRole_Status)
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
             console.log('errormsg', this.errorm)
-            if(this.errorm != null) {
+            if(this.rstatus != true) {
                 Swal.fire({
                         icon: 'warning',
                         title:  this.error_in_html,
@@ -112,7 +116,10 @@ export default {
                                         window.location.href = "hrRole";
                                     })
                                     this.error_in_html='';
-                                    this.error_message=[];
+                                    // this.error_message=[];
+                                    this.errorm='';
+                                    this.rstatus = true;
+
                                 })
                                 .catch(error => {
                                     console.log(error);
@@ -123,10 +130,16 @@ export default {
 
             }
 
+            this.error_in_html='';
+            // this.error_message=[];
+            this.errorm='';
+            this.rstatus = true;
+
         },
         getErrorMessage(){
             // if role status - inactive
-            if (this.LJRole_Status == false){
+            console.log('emsg', this.errorm)
+            if (this.rstatus == false){
                 // this.error_message.push('You have not changed your status to active.')
                 this.errorm = 'You have not changed your status to active.'
             }
