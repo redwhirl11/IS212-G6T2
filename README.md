@@ -6,9 +6,9 @@
     <a href="https://github.com/redwhirl11/IS212-G6T2"><strong>Project Link »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/redwhirl11/IS212-G6T2/actions">CI Pipeline</a>
+    <a href="https://github.com/redwhirl11/IS212-G6T2/actions">CI Pipeline</a>&nbsp&nbsp
     ·
-    <a href="https://github.com/redwhirl11/IS212-G6T2/graphs/contributors">Contributions</a>
+    <a href="https://github.com/redwhirl11/IS212-G6T2/graphs/contributors">Contributions</a>&nbsp&nbsp
     ·
     <a href="https://github.com/redwhirl11/IS212-G6T2/graphs/commit-activity">Commit Frequency</a>
   </p>
@@ -25,8 +25,8 @@ An agile software project that uses scrum process to manage coding activities wh
 
 ## Built With
 - [Vue][Vue-url]
-- Php
-- SQL
+- [PHP][PHP-url]
+- [SQL][SQL-url]
 - [Bootstrap][Bootstrap-url]
 
 
@@ -41,11 +41,12 @@ git clone https://github.com/redwhirl11/IS212-G6T2
 ```
 
 3. MySQL/phpMyAdmin Set Up
-  i. Start up your WAMP/MAMP
-  ii. Go to http://localhost/phpmyadmin/ > Login > Import
-  iii. "Choose File" to import and select "spmg6t2.sql" (under the IS212-G6T2 folder)
-  iv. Click "Go" to run the sql   
-
+  - i. Start up your WAMP/MAMP
+  - ii. Go to http://localhost/phpmyadmin/ > Login > Import
+  - iii. "Choose File" to import and select "spmg6t2.sql" (under the IS212-G6T2 folder)
+  - iv. Click "Go" to run the sql   
+  
+<br>
 ## Getting Started
 Make sure you have an up-to-date version of [Node.js](https://nodejs.org) installed, then run the following command in your IS212-G6T2 directory's command line:
 
@@ -71,6 +72,31 @@ npm run test:unit
 ```
 
 ## Folder Structure
+| Files | Role | Purpose | Features | 
+| ------------- | :-----------: | ------------- | ------------- |
+| UserLogin.vue | both Learner & HR | User Landing Page  | Login with respective role |
+| hrHome.vue | HR | HR Landing Page  | Select tasks to perform (Edit Roles / Edit Skills) |
+| LJHome.vue  | Learner | Learner Landing Page  | View their Learning Journey with the roles, skills and courses that they have planned  |
+| LJrole.vue  | ^^  | View and Select Role  | View and search all the available active roles |
+| createLJ.vue  | Select Course   | Learner can choose the courses that they are interested in |
+| editLJ.vue  | Update Course(s) selected  | Learner can update the course(s) that they have previously planned in their Learning Journey |
+| hrRole.vue  | View Roles | HR can view both active and inactive roles under different tabs |
+| hrCreateRole.vue  | Create Roles  | HR can create new role |
+| hrEditRole.vue  | Update Roles | HR can update the data of the existing roles |
+| hrEditDeletedRole.vue  | Edit Soft Deleted Role | HR can reopen the soft deleted roles |
+| hrSkill.vue  | View Skills | HR can view both active and inactive skills under different tabs |
+| hrCreateSkill.vue  |  Create Skills | HR can create new skill |
+| hrEditSkill.vue  | Update Skills | HR can update the data of the existing skills |
+| hrEditDeletedSkill.vue  | Update Soft Deleted Skill | HR can reopen the soft deleted skills  |
+
+
+## Vue Project Structure
+| File | Purpose |
+| ------------- | ------------- |
+| UserLogin.vue | User Landing Page  |
+| hrHome.vue | HR Landing Page  |
+| Content Cell  | Content Cell  |
+
 - database: public --> db
 - main pages: src --> views
 - components: src --> components
@@ -92,3 +118,5 @@ Tang Jing Wen- jwtang.2020@scis.smu.edu.sg</br>
 <!-- MARKDOWN LINKS & IMAGES -->
 [Vue-url]: https://vuejs.org/
 [Bootstrap-url]: https://getbootstrap.com
+[PHP-url]:https://www.php.net/downloads.php
+[SQL-url]:http://localhost/phpmyadmin/
