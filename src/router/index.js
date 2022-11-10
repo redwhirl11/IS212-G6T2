@@ -12,21 +12,21 @@ const router = createRouter({
     {
       path: "/LJhome",
       name: "LJhome",
-      component: () => import("../components/LJhome.vue"),
+      component: () => import("../views/LJhome.vue"),
     }, 
     {
       path: "/editLJ",
       name: "editLJ",
-      component: () => import("../components/editLJ.vue"),
+      component: () => import("../views/editLJ.vue"),
     },
     {
       path: "/createLJ",
       name: "createLJ",
-      component: () => import("../components/createLJ.vue"),
+      component: () => import("../views/createLJ.vue"),
     },{
       path: "/LJrole",
       name: "LJrole",
-      component: () => import("../components/LJrole.vue"),
+      component: () => import("../views/LJrole.vue"),
     },
     {
       path: "/hrHome",
@@ -36,43 +36,43 @@ const router = createRouter({
     {
       path: "/hrRole",
       name: "hrRole",
-      component: () => import("../components/hrRole.vue"),
+      component: () => import("../views/hrRole.vue"),
     },
     {
       path: "/hrCreateRole",
       name: "hrCreateRole",
-      component: () => import("../components/hrCreateRole.vue"),
+      component: () => import("../views/hrCreateRole.vue"),
     },
     {
       path: "/hrEditRole",
       name: "hrEditRole",
-      component: () => import("../components/hrEditRole.vue"),
+      component: () => import("../views/hrEditRole.vue"),
     }
     ,
     {
       path: "/hrSkill",
       name: "hrSkill",
-      component: () => import("../components/hrSkill.vue"),
+      component: () => import("../views/hrSkill.vue"),
     },
     {
       path: "/hrEditSkill",
       name: "hrEditSkill",
-      component: () => import("../components/hrEditSkill.vue"),
+      component: () => import("../views/hrEditSkill.vue"),
     },
     {
       path: "/hrCreateSkill",
       name: "hrCreateSkill",
-      component: () => import("../components/hrCreateSkill.vue"),
+      component: () => import("../views/hrCreateSkill.vue"),
     },
     {
       path: "/hrEditDeletedRole",
       name: "hrEditDeletedRole",
-      component: () => import("../components/hrEditDeletedRole.vue"),
+      component: () => import("../views/hrEditDeletedRole.vue"),
     },
     {
       path: "/hrEditDeletedSkill",
       name: "hrEditDeletedSkill",
-      component: () => import("../components/hrEditDeletedSkill.vue"),
+      component: () => import("../views/hrEditDeletedSkill.vue"),
     }
   ],
 });
