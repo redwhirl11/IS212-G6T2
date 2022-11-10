@@ -34,16 +34,18 @@ export default {
             this.dataValue = localStorage.getItem('data');        
             
             const datalist = this.dataValue.split(',');
+            console.log('data', datalist)
             this.Role_ID = datalist[0]
+            this.Skill_ID = datalist[1]
         }
 
         const allRoleUrl = 'http://localhost/IS212-G6T2/public/db/getDeletedRoles.php'
         axios.get(allRoleUrl).then(response => {
             var allRole = response.data
-            console.log(allRole)
 
             for (let i=0;i<allRole.length;i++){
                 //currently by checking Role_ID + first Skill_ID
+                console.log('',)
                 if (this.Role_ID === allRole[i].LJRole_ID && this.Skill_ID === allRole[i].Skill_ID){
                     this.CurrentInput.push(allRole[i])
                     this.Role_Name= allRole[i].LJRole_Name
@@ -57,8 +59,8 @@ export default {
                 }
             }
             this.CurrentInput = this.CurrentInput[0]
-            // console.log(this.CurrentInput)
         })
+        
     },
     methods: {
         checkRoleStatus(){
