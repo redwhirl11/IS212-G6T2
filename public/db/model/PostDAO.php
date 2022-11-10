@@ -566,26 +566,45 @@ class PostDAO {
         return $status;
     }
 
-    public function deleteLJRole($LJRole_ID) {
-        // STEP 1   
+    public function getDeletedRoles() {
+        // STEP 1
         $connMgr = new ConnectionManager();
         $conn = $connMgr->connect();
 
         // STEP 2
-        $sql = "DELETE FROM ljroles 
-                WHERE LJRole_ID = :LJRole_ID";
+        $sql = "SELECT
+                     *
+                FROM ljroles 
+                WHERE LJRole_Status = 'Inactive'"; 
         $stmt = $conn->prepare($sql);
-        $stmt->bindParam(':LJRole_ID', $LJRole_ID, PDO::PARAM_STR);
 
-        //STEP 3
-        $status = $stmt->execute();
-        
+        // $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);
+
+        // STEP 3
+        $stmt->execute();
+        $stmt->setFetchMode(PDO::FETCH_ASSOC);
+
         // STEP 4
+        $AllRoles = []; // Indexed Array of Post objects
+        while( $row = $stmt->fetch() ) {
+            $AllRoles[] =
+                new AllRoles (
+                    $row['LJRole_ID'],
+                    $row['LJRole_Name'],
+                    $row['LJRole_Description'],
+                    $row['Department'],
+                    $row['Key_Task'],
+                    $row['LJRole_Status'],
+                    $row['Skill_ID']
+                    );
+        }
+
+        // STEP 5
         $stmt = null;
         $conn = null;
 
-        // STEP 5
-        return $status;
+        // STEP 6
+        return $AllRoles;
     }
 
     
@@ -628,7 +647,8 @@ class PostDAO {
         // STEP 6
         return $AllCourses;
     }
-    public function getDeletedRoles() {
+
+    public function getDeletedSkills() {
         // STEP 1
         $connMgr = new ConnectionManager();
         $conn = $connMgr->connect();
@@ -636,8 +656,8 @@ class PostDAO {
         // STEP 2
         $sql = "SELECT
                      *
-                FROM ljroles 
-                WHERE LJRole_Status = 'Inactive'"; 
+                FROM skills 
+                WHERE Skill_Status = 'Inactive'"; 
         $stmt = $conn->prepare($sql);
 
         // $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);
@@ -647,17 +667,16 @@ class PostDAO {
         $stmt->setFetchMode(PDO::FETCH_ASSOC);
 
         // STEP 4
-        $AllRoles = []; // Indexed Array of Post objects
+        $AllSkills = []; // Indexed Array of Post objects
         while( $row = $stmt->fetch() ) {
-            $AllRoles[] =
-                new AllRoles (
-                    $row['LJRole_ID'],
-                    $row['LJRole_Name'],
-                    $row['LJRole_Description'],
-                    $row['Department'],
-                    $row['Key_Task'],
-                    $row['LJRole_Status'],
-                    $row['Skill_ID']
+            $AllSkills[] =
+                new AllSkills (
+                    $row['Skill_ID'],
+                    $row['Skill_Name'],
+                    $row['Type_of_Skills'],
+                    $row['Level_of_Competencies'],
+                    $row['Skill_Status'],
+                    $row['Course_ID']
                     );
         }
 
@@ -666,50 +685,8 @@ class PostDAO {
         $conn = null;
 
         // STEP 6
-        return $AllRoles;
+        return $AllSkills;
     }
-
-    public function getDeletedRoles() {
-        // STEP 1
-        $connMgr = new ConnectionManager();
-        $conn = $connMgr->connect();
-
-        // STEP 2
-        $sql = "SELECT
-                     *
-                FROM ljroles 
-                WHERE LJRole_Status = 'Inactive'"; 
-        $stmt = $conn->prepare($sql);
-
-        // $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);
-
-        // STEP 3
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
-        // STEP 4
-        $AllRoles = []; // Indexed Array of Post objects
-        while( $row = $stmt->fetch() ) {
-            $AllRoles[] =
-                new AllRoles (
-                    $row['LJRole_ID'],
-                    $row['LJRole_Name'],
-                    $row['LJRole_Description'],
-                    $row['Department'],
-                    $row['Key_Task'],
-                    $row['LJRole_Status'],
-                    $row['Skill_ID']
-                    );
-        }
-
-        // STEP 5
-        $stmt = null;
-        $conn = null;
-
-        // STEP 6
-        return $AllRoles;
-    }
-
 
     
     
