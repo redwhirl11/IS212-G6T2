@@ -59,11 +59,6 @@ const router = createRouter({
       path: "/hrCreateSkill",
       name: "hrCreateSkill",
       component: () => import("../components/hrCreateSkill.vue"),
-    },
-    {
-      path: "/hrCreateSkill",
-      name: "hrCreateSkill",
-      component: () => import("../components/hrCreateSkill.vue"),
     }
   ],
 });
