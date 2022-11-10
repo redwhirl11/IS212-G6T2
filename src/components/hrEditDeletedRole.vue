@@ -2,13 +2,10 @@
 import axios from 'axios';
 export default {
     name: 'hrEditDeletedRole', 
-    components: {
-        Multiselect,
-      },
     props: {  
-        LJRole_Status: {
-            type: String,
-            default: ""
+        role_status: {
+            type: Boolean,
+            default: true
         }
     }, 
     data() {
@@ -19,7 +16,7 @@ export default {
             LJRole_Description: '',
             Department: '',
             Key_Task: '',
-            LJRole_Status: this.LJRole_Status,
+            LJRole_Status: this.role_status,
             skills_required:'00007',
             // error_message:[],
             errorm: '',
@@ -62,7 +59,14 @@ export default {
         })
     },
     methods: {
+        checkRoleStatus(){
+            if (this.LJRole_Status == 'Inactive') {
+                this.LJRole_Status = false
+            }
+        },
         reopenInactiveRole() {
+            this.checkRoleStatus();
+            console.log('role_status', this.LJRole_Status)
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
             console.log('errormsg', this.errorm)
@@ -122,7 +126,7 @@ export default {
         },
         getErrorMessage(){
             // if role status - inactive
-            if (this.LJRole_Status == "Inactive"){
+            if (this.LJRole_Status == false){
                 // this.error_message.push('You have not changed your status to active.')
                 this.errorm = 'You have not changed your status to active.'
             }
