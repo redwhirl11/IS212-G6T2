@@ -179,7 +179,7 @@ export default {
 
                     })
                     .catch(error => {
-                        console.log(error);
+                        // console.log(error);
                         alert('Error: ${error}. <br/> Please Try Again Later')
                     })
                     Swal.fire(
@@ -255,7 +255,7 @@ export default {
             var tidyupSkillName = this.Skill_Name.toLowerCase();
             tidyupSkillName= tidyupSkillName.replaceAll(' ', '');
             var index = this.AllUniqueSkills.map(object => object.SkillName).indexOf(tidyupSkillName);
-            console.log(index);
+            // console.log(index);
             if (index != -1 ){
                 this.error_message.push('Duplicate skill name, only unique skills are allowed!')
             }

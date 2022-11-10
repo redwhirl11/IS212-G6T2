@@ -130,7 +130,7 @@ export default {
         },
         saveOtherCourses(){
             const UpdateSkill  = 'http://localhost/IS212-G6T2/public/db/updateSkill.php'
-            console.log(this.savedSkillId);
+            // console.log(this.savedSkillId);
             if (this.value.length>1){
                 for (var j=1; j<this.value.length; j++){
                     var Course_id = this.value[j]
@@ -182,7 +182,7 @@ export default {
                         width: 'auto',
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            console.log(this.value[0])
+                            // console.log(this.value[0])
                             if (this.value.length>0){
                                 const Deleteurl = 'http://localhost/IS212-G6T2/public/db/deleteLJSkill.php'
                                 const data = {

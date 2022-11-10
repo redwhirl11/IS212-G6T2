@@ -9,7 +9,9 @@ describe("hrCreateSkill", () => {
   it("Null Value for Course_assign", () => {
     const wrapper = mount(hrCreateSkill,{
       propsData: {
-        Type_of_Skill:'smth',
+        Skill_Name: 'Frontend Development',
+        Type_of_Skill:'Technical',
+        Level_of_Competencies:'Beginner',
         Course_assign:false,
       }   
     })
@@ -27,8 +29,8 @@ describe("hrCreateSkill", () => {
   it("Assign 1 course to the skill", () => {
     const wrapper = mount(hrCreateSkill,{
       propsData: {
-        Skill_Name:'Communication',
-        Type_of_Skill:'General',
+        Skill_Name: 'Frontend Development',
+        Type_of_Skill:'Technical',
         Level_of_Competencies:'Beginner',
         Course_assign:true,
       }   
@@ -41,13 +43,16 @@ describe("hrCreateSkill", () => {
   });
 });
 
-// if user select inactive skill
+// if user select inactive course
 describe("hrCreateSkill", () => {
   it("Assign inactive course to  skill", () => {
     const wrapper = mount(hrCreateSkill,{
       propsData: {
+        Skill_Name: 'Frontend Development',
+        Type_of_Skill:'Technical',
+        Level_of_Competencies:'Beginner',
         Course_assign:true,
-        course_status: false
+        course_status: false,
       }   
     })   
     //result from the function
@@ -64,8 +69,10 @@ describe("hrEditSkill", () => {
   it("Assign 1 course to the skill", () => {
     const wrapper = mount(hrEditSkill,{
       propsData: {
-        SkillName:'Communication',
         datavalue:'4',
+        SkillName:'Communication',
+        Type_of_Skill:'General',
+        Level_of_Competencies:'Beginner',
         Course_assign:false,
       }   
     })   
@@ -82,8 +89,10 @@ describe("hrEditSkill", () => {
   it("Assign 1 course to the skill", () => {
     const wrapper = mount(hrEditSkill,{
       propsData: {
-        SkillName:'Communication',
         datavalue:'4',
+        SkillName:'Communication',
+        Type_of_Skill:'General',
+        Level_of_Competencies:'Beginner',
         Course_assign:true
         
       }   
@@ -101,8 +110,10 @@ describe("hrEditSkill", () => {
   it("Assign inactive course to the skill", () => {
     const wrapper = mount(hrEditSkill,{
       propsData: {
-        SkillName:'Communication',
         datavalue:'4',
+        SkillName:'Communication',
+        Type_of_Skill:'General',
+        Level_of_Competencies:'Beginner',
         //if hr changed the skills required
         Course_assign:true,
         //selected skill is inactive
