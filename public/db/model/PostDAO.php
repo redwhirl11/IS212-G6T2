@@ -566,45 +566,26 @@ class PostDAO {
         return $status;
     }
 
-    public function getDeletedRoles() {
-        // STEP 1
+    public function deleteLJRole($LJRole_ID) {
+        // STEP 1   
         $connMgr = new ConnectionManager();
         $conn = $connMgr->connect();
 
         // STEP 2
-        $sql = "SELECT
-                     *
-                FROM ljroles 
-                WHERE LJRole_Status = 'Inactive'"; 
+        $sql = "DELETE FROM ljroles 
+                WHERE LJRole_ID = :LJRole_ID";
         $stmt = $conn->prepare($sql);
+        $stmt->bindParam(':LJRole_ID', $LJRole_ID, PDO::PARAM_STR);
 
-        // $stmt->bindParam(':LJ_ID', $LJ_ID, PDO::PARAM_STR);
-
-        // STEP 3
-        $stmt->execute();
-        $stmt->setFetchMode(PDO::FETCH_ASSOC);
-
+        //STEP 3
+        $status = $stmt->execute();
+        
         // STEP 4
-        $AllRoles = []; // Indexed Array of Post objects
-        while( $row = $stmt->fetch() ) {
-            $AllRoles[] =
-                new AllRoles (
-                    $row['LJRole_ID'],
-                    $row['LJRole_Name'],
-                    $row['LJRole_Description'],
-                    $row['Department'],
-                    $row['Key_Task'],
-                    $row['LJRole_Status'],
-                    $row['Skill_ID']
-                    );
-        }
-
-        // STEP 5
         $stmt = null;
         $conn = null;
 
-        // STEP 6
-        return $AllRoles;
+        // STEP 5
+        return $status;
     }
 
     

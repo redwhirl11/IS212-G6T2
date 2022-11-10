@@ -124,7 +124,7 @@ export default {
         },
         saveOtherSkills(){
             const createLJRole = 'http://localhost/IS212-G6T2/public/db/createLJRole.php'
-            console.log(this.saved_roleID);
+            //console.log(this.saved_roleID);
             if (this.value.length>1){
                         for (var j=1; j<this.value.length; j++){
                             var Skill_id = this.value[j]
@@ -168,7 +168,7 @@ export default {
                     this.skills = true
                 }
             }
-            console.log(this.value);
+            //console.log(this.value);
             this.checkSkillStatus();
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
@@ -295,7 +295,7 @@ export default {
             var tidyupRoleName = this.Role_Name.toLowerCase();
             tidyupRoleName= tidyupRoleName.replaceAll(' ', '');
             var index = this.AllUniqueRoles.map(object => object.LJRole_Name).indexOf(tidyupRoleName);
-            console.log(index);
+            //console.log(index);
             if (index != -1 ){
                 this.error_message.push('Duplicate role name, only unique role are allowed!')
             }
