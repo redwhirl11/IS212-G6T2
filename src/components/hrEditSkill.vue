@@ -1,34 +1,77 @@
 <script>
 import axios from 'axios';
 import Header from "../components/Header.vue";
+import Multiselect from '@vueform/multiselect';
 
 export default {
     components: {
             Header,
-            },
+        Multiselect,
+      },
+    props:{
+        SkillName: {
+            type: String,
+            default: ""
+        },
+        TypeofSkill: {
+            type: String,
+            default: ""
+        },
+        LevelofCompetencies: {
+            type: String,
+            default: ""
+        },
+        Course_assign: {
+            type: Boolean,
+            default: false
+        },
+        courses_status: {
+            type: Boolean,
+            default: true
+        },
+        error: {
+            type: String,
+            default: ""
+        },
+        datavalue:{
+            type: String,
+            default: ""
+        }
+    
+    },
     data() {
         return {
             Skill_ID: '',
             Skill_Status:'',
-            Skill_Course:'',
-            Skill_Name: '',
-            Type_of_Skills: '',
-            Level_of_Competencies:'',
+            skill_courses :[],
+            Skill_Name: this.SkillName,
+            Type_of_Skills: this.TypeofSkill,
+            Level_of_Competencies:this.LevelofCompetencies,
             error_message:[],
+            errorm: this.error,
             error_in_html:'',
             numSkillType:0,
             numSkillName:0,
             CurrentInput:[],
+            currentCourses:[],
+            value:null,
+            courses: this.Course_assign,
+            Courses_Options:[],
+            dataValue: this.datavalue,
+            Course_ID:'',
+            course_status :this.courses_status
         }
     },
 
     created() {
         //fetch data from user selection
-        const dataValue = localStorage.getItem('data');
-        const datalist = dataValue.split(',');
+        if(localStorage.getItem('data') != null){
+            this.dataValue=localStorage.getItem('data');
+        }
+        const datalist = this.dataValue.split(',');
+        // console.log(datalist)
         this.Skill_ID = datalist[0]
-        this.Skill_Status= datalist[1]
-        this.Skill_Course= datalist[2]
+        // this.Skill_Status= datalist[1]
 
         const allSkillUrl = 'http://localhost/IS212-G6T2/public/db/getSkills.php'
         axios.get(allSkillUrl).then(response => {
@@ -36,24 +79,90 @@ export default {
 
             for (let i=0;i<allSkill.length;i++){
                 //currently checking unique skillID + courseID + skill Status
-                if (this.Skill_ID === allSkill[i].Skill_ID && this.Skill_Status === allSkill[i].Skill_Status && this.Skill_Course===allSkill[i].Course_ID){
+                if (this.Skill_ID === allSkill[i].Skill_ID){
                     this.CurrentInput.push(allSkill[i])
                     this.Skill_Name= allSkill[i].Skill_Name
+                    this.Skill_Status= allSkill[i].Skill_Status
                     this.Type_of_Skills=allSkill[i].Type_of_Skills
                     this.Level_of_Competencies=allSkill[i].Level_of_Competencies
                     this.numSkillName= 50 - allSkill[i].Skill_Name.length
                     this.numSkillType= 50 - allSkill[i].Type_of_Skills.length
+                    this.currentCourses.push(allSkill[i].Course_ID)
                 }
             }
             this.CurrentInput = this.CurrentInput[0]
+
+            const getAllCourse = 'http://localhost/IS212-G6T2/public/db/getAllCourses.php'
+            axios.get(getAllCourse)
+            .then(response => {
+                var AllCourse = response.data
+                this.getUniqueCourse(AllCourse);
+                this.value = this.currentCourses
+            })
         })
+
     },
     methods: {
+        getUniqueCourse(AllCourse){
+            var tempCourseDict =[]
+            for (var i = 0; i < AllCourse.length; i++){
+                var Course_ID = AllCourse[i].Course_ID
+                var Course_Name = AllCourse[i].Course_Name
+                var Course_Status = AllCourse[i].Course_Status
+                this.course_status =true
+                if (Course_Status =="Active"){
+                    if (!tempCourseDict[Course_ID]) {
+                        tempCourseDict[Course_ID] = {value: Course_ID,label: Course_Name}
+                        this.Courses_Options.push({value: Course_ID,label: Course_Name,Course_Status:Course_Status})
+                    }
+                }
+                else if(Course_Status !="Active"){
+                    this.course_status =false
+                }
+            }
+            return this.Courses_Options
+        },
+        getSavedSkillID(CheckAllSkills){
+            for (var i = 0; i < CheckAllSkills.length; i++){
+                if (CheckAllSkills[i].Skill_Name == this.Skill_Name){
+                    this.savedSkillId = CheckAllSkills[i].Skill_ID;
+                    
+                }
+            }
+            return this.savedSkillId
+        },
+        saveOtherCourses(){
+            const UpdateSkill  = 'http://localhost/IS212-G6T2/public/db/updateSkill.php'
+            // console.log(this.savedSkillId);
+            if (this.value.length>1){
+                for (var j=1; j<this.value.length; j++){
+                    var Course_id = this.value[j]
+                    const data = {
+                        Skill_ID: this.savedSkillId,
+                        Skill_Name: this.Skill_Name, 
+                        Type_of_Skills: this.Type_of_Skills, 
+                        Level_of_Competencies: this.Level_of_Competencies,
+                        Skill_Status: this.Skill_Status,
+                        Course_ID: Course_id
+                    }
+                    
+                    axios.get(UpdateSkill, {
+                        params: data
+                    })
+                }
+            } 
+        },
         submitEditSkill() {
+            if (this.value != null) {
+                if (this.value.length > 0) {
+                    this.courses = true
+                }
+            }
+            // this.checkSkillStatus();
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
-            if (this.Skill_Name !='' && this.Level_of_Competencies!= '' && this.Type_of_Skills!= '' && this.error_message.length == 0) {
-                if(this.Skill_Name == this.CurrentInput.Skill_Name && this.Skill_Status == this.CurrentInput.Skill_Status &&this.Type_of_Skills == this.CurrentInput.Type_of_Skills && this.Level_of_Competencies == this.CurrentInput.Level_of_Competencies){
+            if (this.error_message.length == 0) {
+                if(this.Skill_Name == this.CurrentInput.Skill_Name && this.Skill_Status == this.CurrentInput.Skill_Status &&this.Type_of_Skills == this.CurrentInput.Type_of_Skills && this.Level_of_Competencies == this.CurrentInput.Level_of_Competencies &&this.value ==this.currentCourses){
                     Swal.fire({
                         icon: 'warning',
                         title: 'No changes found!',
@@ -61,6 +170,7 @@ export default {
                         timerProgressBar: true,
                         showConfirmButton: false
                     })
+                    
                     }
                 else{
                     Swal.fire({
@@ -75,38 +185,53 @@ export default {
                         width: 'auto',
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            const UpdateUrl = 'http://localhost/IS212-G6T2/public/db/updateSkill.php'
-                            const data = {
-                                Skill_ID: this.Skill_ID,
-                                Skill_Name: this.Skill_Name, 
-                            Skill_Name: this.Skill_Name, 
-                                Skill_Name: this.Skill_Name, 
-                                Skill_Status: this.Skill_Status, 
-                            Skill_Status: this.Skill_Status, 
-                                Skill_Status: this.Skill_Status, 
-                                Type_of_Skills: this.Type_of_Skills, 
-                            Type_of_Skills: this.Type_of_Skills, 
-                                Type_of_Skills: this.Type_of_Skills, 
-                                Level_of_Competencies: this.Level_of_Competencies
-                            }
-                            axios.get(UpdateUrl, {
-                                params: data
-                            })
-                                .then(response => {
-                                    Swal.fire(
-                                        'Congratulations!',
-                                        'You have successfully edited the skill!',
-                                        'success',
-                                    ).then(function() {
-                                        window.location.href = "hrSkill";
+                            // console.log(this.value[0])
+                            if (this.value.length>0){
+                                const Deleteurl = 'http://localhost/IS212-G6T2/public/db/deleteLJSkill.php'
+                                const data = {
+                                    Skill_ID: this.Skill_ID
+                                }
+                                axios.get(Deleteurl, {
+                                    params: data
+                                })
+                                    .then(response=>{
+                                        const UpdateUrl = 'http://localhost/IS212-G6T2/public/db/updateSkill.php'
+                                        const data = {
+                                            Skill_ID: this.Skill_ID,
+                                            Skill_Name: this.Skill_Name, 
+                                            Type_of_Skills: this.Type_of_Skills, 
+                                            Level_of_Competencies: this.Level_of_Competencies,
+                                            Skill_Status: this.Skill_Status, 
+                                            Course_ID: this.value[0]
+                                        }
+                                        axios.get(UpdateUrl, {
+                                            params: data
+                                        })
+                                        .then(response => {      
+                            
+                                        // get the saved skill id -- for next loop
+                                        const CheckAllSkills = 'http://localhost/IS212-G6T2/public/db/getSkills.php'
+                                        axios.get(CheckAllSkills)
+                                        .then(response => {
+                                            var CheckAllSkills = response.data;    
+                                            // find the skill id by skill name                           
+                                            this.getSavedSkillID(CheckAllSkills);
+                                            this.saveOtherCourses();
+                                        })
                                     })
-                                    this.error_in_html='';
-                                    this.error_message=[];
+                                    })
+                                Swal.fire(
+                                    'Congratulations!',
+                                    'You have successfully edited the skill!',
+                                    'success',
+                                ).then(function() {
+                                    window.location.href = "hrSkill";
                                 })
-                                .catch(error => {
-                                    console.log(error);
-                                    alert('Error: ${error}. <br/> Please Try Again Later')
-                                })
+                                this.error_in_html='';
+                                this.error_message=[];
+                                this.courses = false;
+                            }
+                            
                             }
                         })
                 }
@@ -117,15 +242,16 @@ export default {
                     title: 'Oops...',
                     html: this.error_in_html
                 })
-
                 this.error_in_html='';
                 this.error_message=[];
+                this.courses = false;
             }
         },
         getErrorMessage(){
             // if user didnt input for skill name
             if (this.Skill_Name ==''){
                 this.error_message.push('Invalid Skill Name')
+                this.errorm = 'Invalid Skill Name'
             }else{
                 //if user did input the skill name but the char not from 3-50
                 if (this.numSkillName<0){
@@ -138,10 +264,12 @@ export default {
             // if user didnt select for level of competencies
             if (this.Level_of_Competencies == ''){
                 this.error_message.push('You must select the level of competencies for the skill')
+
             }
             // if user didnt input for type of skill
             if (this.Type_of_Skills == ''){
                 this.error_message.push('You must input the type of skill')
+
             }else{
                 //if user did input the type of skill but the char not from 4-50
                 if (this.numSkillType<0){
@@ -151,14 +279,17 @@ export default {
                     this.error_message.push('Type of Skill must have at least 4 characters')
                 }
             }
+            if (this.course_status == false){
+                this.error_message.push('You must select an active course')
+                this.errorm = 'You must select an active course'
+            }
 
-            // //check for duplicate Skill name
-            // var tidyupSkillName = this.Skill_Name.toLowerCase();
-            // tidyupSkillName= tidyupSkillName.replaceAll(' ', '');
-            // index = this.AllUniqueSkills.map(object => object.SkillName).indexOf(tidyupSkillName);
-            // if (index != -1 ){
-            //     this.error_message.push('Duplicate skill name, skill already existed!')
-            // }
+            // if user didnt assign course to skill
+            if (this.courses== false){
+                this.error_message.push('You must assign a course(s) to the skill')
+                this.errorm = "You must assign a course(s) to the skill"
+            }
+
             return this.error_message
         },
         changeErrorMsgintoHTML(){
@@ -231,18 +362,19 @@ export default {
             </div>
             
             <div class="col-lg-6 col-md-6">
-                <h4><label for="inputCourses" class="form-label">Course(s) Assigned (KIV-Sprint 3)<span style="color:red">*</span></label></h4>
-                <input type="text" class="form-control" id="inputCourses" v-model="Skill_Course">
-            </div>
-            <div v-for="error in error_message">
-                <ul>
-                    <li>
-                        {{error}}
-                    </li>
-                    
-                </ul>
+                <h4><label for="inputCourses" class="form-label">Course(s) Assigned <span style="color:red">*</span></label></h4>
+                <Multiselect v-model='value' mode="tags" class="multiselect-blue" :close-on-select="false" :searchable="true" :options='Courses_Options' />
+
             </div>
             </form>
     </div>
 </template>
 
+<style src="@vueform/multiselect/themes/default.css"></style>
+<style scoped>
+.multiselect-blue {
+  --ms-tag-bg: #D1FAE5;
+  --ms-tag-color: #4C5BDD;
+}
+
+</style>

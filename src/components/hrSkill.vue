@@ -312,7 +312,7 @@ export default {
                         <h5 class="col-lg-7 col-md-7 col-sm-1 card-title">{{skill.skillName}}</h5>
                         <!-- Edit Button-->
                         <span class="col-lg-2 col-md col-sm-2"><button id="editButton"
-                                @click="getDataSend(skill.skillId, skill.status, skill.course)">Edit</button></span>
+                                @click="getDataSend(skill.skillId, skill.status, skill.courses)">Edit</button></span>
                         <!-- Jing Wen your delete button is here -->
                         <span class="col-lg col-md col-sm-2"><button id="deleteButton"
                                 @click="SoftDeleteSkill(skill.skillId)">Delete</button></span>
