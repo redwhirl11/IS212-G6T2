@@ -143,7 +143,6 @@ export default {
                     this.courses = true
                 }
             }
-            console.log(this.Skill_Name)
             //todo - check inactive course selected
 
             this.getErrorMessage();

@@ -232,6 +232,8 @@ export default {
                                 this.courses = false;
                             }
                             
+                            }else{
+                                this.courses=false
                             }
                         })
                 }

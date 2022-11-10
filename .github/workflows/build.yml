@@ -6,7 +6,7 @@ name: build CI
 on:
   push:
     branches:
-      - G6T2-16-assign-course-s-to-skill-s
+      - main_vue
 
 jobs:
   build:

@@ -260,6 +260,8 @@ export default {
 
                             }
                             
+                            }else{
+                                this.skills = false
                             }
                         })
                 }

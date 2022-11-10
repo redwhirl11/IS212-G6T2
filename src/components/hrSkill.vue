@@ -62,7 +62,7 @@ export default {
                     }
                 }
 
-                console.log('final result', this.skillDict)
+                // console.log('final result', this.skillDict)
 
             })
             
@@ -73,7 +73,6 @@ export default {
             const courseUrl = 'http://localhost/IS212-G6T2/public/db/getAllCourses.php'
             axios.get(courseUrl).then(response => {
                 var allCourse = response.data
-                console.log(allCourse)
 
                 const map = new Map();
                
@@ -87,7 +86,6 @@ export default {
                         this.courseList.push({courseId: courseId, courseName: courseName,status:status})
                     }
                 }
-                console.log(this.courseList)
             })
 
             return this.courseList
@@ -119,7 +117,6 @@ export default {
         } ,
 
         SoftDeleteSkill(id) {
-            console.log(id)
 
             Swal.fire({
                 title: "Are you sure?",
@@ -139,7 +136,6 @@ export default {
                         params: data
                     })
                     .then(response => {
-                        console.log(response.data)
                         Swal.fire({
                             title:"Success!",
                             text: "Skill has been soft deleted.",
@@ -150,7 +146,7 @@ export default {
                     })
                     
                     .catch(error => {
-                        console.log(error.message)
+                        // console.log(error.message)
                     })
                 } else {
                     Swal.fire({
@@ -168,14 +164,14 @@ export default {
 
             // Get all elements with class="tabcontent" and hide them
             tabcontent = document.getElementsByClassName("tabcontent");
-            console.log(tabcontent)
+            // console.log(tabcontent)
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
             }
 
             // Get all elements with class="tablinks" and remove the class "active"
             tablinks = document.getElementsByClassName("tablinks");
-            console.log('tb',tablinks[1])
+            // console.log('tb',tablinks[1])
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
                 
@@ -224,7 +220,7 @@ export default {
                     }
                 }
 
-                console.log('final result', this.deletedSkillDict)
+                // console.log('final result', this.deletedSkillDict)
 
             })
             

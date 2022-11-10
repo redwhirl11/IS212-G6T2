@@ -5,8 +5,8 @@ import Multiselect from '@vueform/multiselect';
 export default {
     name: 'hrCreateRole',  
     components: {
-        Header,
         Multiselect,
+        Header,
       },
     props: {  
         Department: {
@@ -31,9 +31,6 @@ export default {
         }
     
     },
-    components: {
-            Header,
-            },
     data(){
         return{
             Role_Status: "", 
@@ -124,7 +121,7 @@ export default {
         },
         saveOtherSkills(){
             const createLJRole = 'http://localhost/IS212-G6T2/public/db/createLJRole.php'
-            //console.log(this.saved_roleID);
+            // console.log(this.saved_roleID);
             if (this.value.length>1){
                         for (var j=1; j<this.value.length; j++){
                             var Skill_id = this.value[j]
@@ -168,7 +165,6 @@ export default {
                     this.skills = true
                 }
             }
-            //console.log(this.value);
             this.checkSkillStatus();
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
@@ -295,7 +291,6 @@ export default {
             var tidyupRoleName = this.Role_Name.toLowerCase();
             tidyupRoleName= tidyupRoleName.replaceAll(' ', '');
             var index = this.AllUniqueRoles.map(object => object.LJRole_Name).indexOf(tidyupRoleName);
-            //console.log(index);
             if (index != -1 ){
                 this.error_message.push('Duplicate role name, only unique role are allowed!')
             }
@@ -334,7 +329,7 @@ export default {
 </script>
 
 <template>
-    <Header action='Create a new role:' />
+    <Header action='Create a new role: ' />
     <!-- button -->
     <div class="row" id="btnTopRight">
         <div class="col">
@@ -346,7 +341,7 @@ export default {
             style="border-radius: 20px;" @click="submitLJRole()">Submit</button>
         </div>
     </div>
-    <!-- display -->
+
     <div class="shadow p-3 mb-5 bg-white rounded" style="margin: auto; width: 90%;">
         <form class="row g-3 p-2">
             <div><span style="color:red">* Required</span></div>
@@ -417,4 +412,3 @@ export default {
 #Header  && #logo under main.css
 */
 <style src="@vueform/multiselect/themes/default.css"></style>
-

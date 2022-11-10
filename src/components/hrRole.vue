@@ -28,7 +28,6 @@ export default {
             const allRoleUrl = 'http://localhost/IS212-G6T2/public/db/getAllRoles.php'
             axios.get(allRoleUrl).then(response => {
                 var allRole = response.data
-                console.log('all role', allRole)
 
                 const map = new Map();
 
@@ -63,7 +62,6 @@ export default {
                     }
                 }
 
-                console.log('final result', this.roleDict)
                 return this.roleDict;
             })
         },
@@ -92,7 +90,6 @@ export default {
 
         },
         getDataSend(rollId,skillId){
-            console.log('here',[rollId, skillId] )
             this.rollId = rollId;
             this.skillId = skillId;
             localStorage.setItem('data', [this.rollId,this.skillId ])
@@ -113,7 +110,6 @@ export default {
         } ,
 
         SoftDeleteRole(id) {
-            console.log(id)
 
             Swal.fire({
                 title: "Are you sure?",
@@ -133,7 +129,6 @@ export default {
                             params: data
                         })
                             .then(response => {
-                                console.log(response.data)
                                 Swal.fire({
                                     title:"Success!",
                                     text: "Role has been soft deleted.",
@@ -144,7 +139,6 @@ export default {
                             })
 
                             .catch(error => {
-                                console.log(error.message)
                             })
                     } else {
                         Swal.fire({
@@ -161,14 +155,12 @@ export default {
 
             // Get all elements with class="tabcontent" and hide them
             tabcontent = document.getElementsByClassName("tabcontent");
-            console.log(tabcontent)
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
             }
 
             // Get all elements with class="tablinks" and remove the class "active"
             tablinks = document.getElementsByClassName("tablinks");
-            console.log('tb',tablinks[1])
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
                 
@@ -185,7 +177,7 @@ export default {
             const allRoleUrl = 'http://localhost/IS212-G6T2/public/db/getDeletedRoles.php'
             axios.get(allRoleUrl).then(response => {
                 var deletedRole = response.data
-                console.log( 'deleted role', deletedRole)
+                // console.log( 'deleted role', deletedRole)
 
                 const map = new Map();
 
@@ -220,7 +212,7 @@ export default {
                     }
                 }
 
-                console.log('deleted final result', this.deletedRoleDict)
+                // console.log('deleted final result', this.deletedRoleDict)
                 return this.deletedRoleDict;
             })
         },
