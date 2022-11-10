@@ -6,10 +6,10 @@
 }
 
 a,
-.green {
+.black {
   text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
+  color: #020202;
+  font-size: 1.2vw;
 }
 
 #Header {
@@ -17,10 +17,20 @@ a,
   font-family: 'Inter';
   font-weight: 600;
   font-size: 3.5vw;
-  line-height: 61px;
+  line-height: 4vw;
   text-align: center;
-  letter-spacing: 0.01em;
   color: #FFFFFF;
+}
+
+.button {
+  border-radius: 40px;
+  width: 10vw;
+  height: 3vw;
+  border:0px;
+  font-size:1vw;
+  font-weight: 500;
+  background: white;
+  line-height: 1vw;
 }
 
 #logo {
@@ -43,6 +53,14 @@ a,
   left: 10vw;
   top: 2vh;
 }
+
+
+#search{
+  position:relative; 
+  top:-12vh;
+  left: 35%;
+}
+
 @media screen and (max-width: 700px) {
   #btnTopRight {
     top: 7vh;
@@ -56,3 +74,63 @@ a,
   #btnTopRight {
     top: 5vh;
   }}
+
+@media screen and (max-width: 900px) {
+  #search{
+    position:relative; 
+    top:-7vw;
+    left: 35%;
+
+  }
+}
+
+#searchBar {
+  background: #4C5BDD;
+  border-radius: 40px;
+  border-color: #4C5BDD;
+  color: white;
+  width: 27vw;
+  height: auto;
+  font-size:1vw;
+
+}
+
+#searchBar::placeholder {
+  color: #FFFFFF;
+
+}
+
+.tab{
+  position:relative; 
+  top:-5.8vw
+}
+@media screen and (max-width: 900px) {
+  .tab{
+  position:relative; 
+  top:-7vw
+}
+}
+@media screen and (max-width: 420px) {
+  .tab{
+  position:relative; 
+  top:-14vw
+}
+}
+.tab button {
+  background: #919cf8;
+  color: white;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  font-size: 1.2vw;
+}
+.tab button.active {
+  background: white;
+  color: black;
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+  border-style: none;
+}
+.tab button:hover {
+  background: rgb(255, 255, 255);
+}
+

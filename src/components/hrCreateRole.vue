@@ -1,11 +1,11 @@
 <script>
 import axios from 'axios';
 import Header from "../components/Header.vue";
-
 import Multiselect from '@vueform/multiselect';
 export default {
     name: 'hrCreateRole',  
     components: {
+        Header,
         Multiselect,
       },
     props: {  

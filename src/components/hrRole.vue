@@ -231,61 +231,10 @@ export default {
 
 <template>
     <Header msg="Let's keep the information" dept="up-to-date for roles" />
-   <!-- nav bar start -->
-   <div class="row" id= 'hrNavBar'>
+    <!-- nav bar start -->
+    <div class="row" id= 'hrNavBar'>
         <div class="col">
             <a href="hrHome" style="color:white">Home</a>
-    <div class="row" style="background:#6A79F3;">
-        <div class="row position-relative">
-            <div class="row my-5">
-                <div class="col-lg-2 col-md-3"><img id='logo' src="../Icons/Component 1.png"></div>
-                <!-- nav bar start -->
-                <nav class="col-lg-8 col-md-6 navbar navbar-expand-lg navbar-expand-md navbar-light">
-                    <div class="container-fluid">
-                        <div class="navbar" id="navbarSupportedContent">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a class="navbar-brand" href="hrHome" style="color:white">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="hrRole"
-                                        style="color:white">Role</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" aria-current="page" href="hrSkill" style="color:white">Skill</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-                <!-- nav bar end -->
-                <span class="col-lg col-md fs-5 fw-bold" style="color:white">Welcome, Jack </span>
-            </div>
-            <img src="../Icons/Vector 1.png" alt="background">
-            <div class="row">
-                <p class="h1 position-absolute top-50 start-50 translate-middle" id="Header">
-                    Let's keep the information <br> up-to-date for roles
-                </p>
-                <!-- search bar start -->
-                <div class="d-inline-flex mt-3 position-absolute translate-middle w-50" style="top:70%; left:55%">
-                    <input class="form-control me-3" type="search"
-                        placeholder="For E.g. Business Analyst, Operations Manager" aria-label="Search"
-                        id="searchBar">
-                    <!-- add new role btn Fang Ting -->
-                    <button class="btn btn-light" type="submit" style="border-radius: 40px;"><a
-                            class="nav-link active" style='color: black;padding:0' aria-current="page"
-                            href="hrCreateRole">Add New Role</a> </button>
-
-                    
-                </div>
-
-                <!-- Tab Button -->
-                <div class="tab">
-                        <button class="tablinks btn active" @click="openStatus(event, 'Active')">Active</button>
-                        <button class="tablinks btn" @click="openStatus(event, 'Deleted')" style="margin-left:1px;">Deleted</button>
-                </div>
-
-            </div>
         </div>
         <div class="col">
             <a href="hrRole" style="color:darkblue">Role</a>
@@ -294,31 +243,37 @@ export default {
             <a  href="hrSkill" style="color:white">Skill</a>
         </div>
     </div>
+
     <!-- search bar start -->
-    <div class="d-inline-flex position-absolute translate-middle w-50" style="top:40%; left:55%">
+    <div id='search' class="d-inline-flex">
         <input class="form-control me-3" type="search"
             placeholder="For E.g. Business Analyst, Operations Manager" aria-label="Search"
             id="searchBar">
         <!-- add new role btn Fang Ting -->
-        <button class="btn btn-light" type="submit" style="border-radius: 40px;"><a
-                class="nav-link active" style='color: black;padding:0' aria-current="page"
+        <button class="button" type="submit"><a aria-current="page"
                 href="hrCreateRole">Add New Role</a> </button>
     </div>
 
+    <!-- Tab Button -->
+    <div class="tab">
+        <button class="tablinks btn active" @click="openStatus(event, 'Active')">Active</button>
+        <button class="tablinks btn" @click="openStatus(event, 'Deleted')" style="margin-left:1px;">Deleted</button>
+    </div>
+
     <!-- Active Role -->
-    <div id="Active" class="tabcontent">
+    <div id="Active" class="tabcontent" style="position:relative; top:-60px">
 
         <!-- All role cards-->
-        <div class="row mt-4">
-            <div class="col-lg-5 col-md-8 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="role in roleDict">
+        <div class="row">
+            <div class="col-md-5 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="role in roleDict">
                 <div class="card p-2">
                     <div class="row card-body">
                         <div class="row my-2">
-                            <h4 class="col-8 col-lg-7 col-md-6 col-sm-1 card-title">{{role.roleName}}</h4>
+                            <h4 class="col-sm-8">{{role.roleName}}</h4>
                             <!-- edit button -->
-                            <span class="col-lg-2 col-md col-sm-2"><button id="editButton" @click="getDataSend(role.id, role.skill)">Edit</button></span>
+                            <span class="col-sm-2"><button id="editButton" @click="getDataSend(role.id, role.skill)">Edit</button></span>
                             <!-- delete button -->
-                            <span class="col-lg col-md col-sm-2"><button id="deleteButton" @click="SoftDeleteRole(role.id)">Delete</button></span>
+                            <span class="col-sm-2"><button id="deleteButton" @click="SoftDeleteRole(role.id)">Delete</button></span>
                         </div>
                         <div class="row my-2">
                             <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3 text-uppercase">
@@ -355,16 +310,16 @@ export default {
     </div>
 
     <!-- Deleted Role -->
-    <div id="Deleted" class="tabcontent" style="display: none;">
+    <div id="Deleted" class="tabcontent" style="display: none;position:relative; top:-60px">
         <!-- Deleted role cards-->
-        <div class="row mt-4">
-            <div class="col-lg-5 col-md-8 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="role in deletedRoleDict">
+        <div class="row">
+            <div class="col-md-5 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="role in deletedRoleDict">
                 <div class="card p-2">
                     <div class="row card-body">
                         <div class="row my-2">
-                            <h4 class="col-8 col-lg-7 col-md-6 col-sm-1 card-title">{{role.roleName}}</h4>
+                            <h4 class="col-sm-10">{{role.roleName}}</h4>
                             <!-- edit button -->
-                            <span class="col-lg-2 col-md col-sm-2"><button id="editButton" @click="getDeletedRoleDataSend(role.id, role.skill)">Edit</button></span>
+                            <span class="col-sm-2"><button id="editButton" @click="getDeletedRoleDataSend(role.id, role.skill)">Edit</button></span>
                         </div>
                         <div class="row my-2">
                             <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3 text-uppercase">
@@ -408,16 +363,7 @@ export default {
         box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
     }
 
-    #searchBar {
-        background: #4C5BDD;
-        border-radius: 40px;
-        border-color: #4C5BDD;
-        color: white
-    }
 
-    #searchBar::placeholder {
-        color: #FFFFFF;
-    }
 
     .badges {
         background-color: #919CF8;
@@ -439,25 +385,4 @@ export default {
     #skillBadge:hover ~ #skillNames {
         display: block;
     }
-
-    .tab button {
-        background: #919cf8;
-        color: white;
-        border-bottom-left-radius: 0px;
-        border-bottom-right-radius: 0px;
-    }
-    .tab button:hover {
-        background: rgb(255, 255, 255);
-    }
-
-    .tab button.active {
-        background: white;
-        color: black;
-        border-bottom-left-radius: 0px;
-        border-bottom-right-radius: 0px;
-        border-style: none;
-    }
-
-  
-
 </style>

@@ -344,19 +344,13 @@ p{
     line-height: 2vw;
 } 
 
-.button {
-    border-radius: 40px;
-    width: 16.5vw;
-    height: 4vw;
-    border:0px;
-    font-size:1vw;
-    font-weight: 500;
-    background: white;
-  }
+
 
 .button1 {
     background: #4C5BDD;
     color: #FFFFFF;
+    width: 16.5vw;
+    height: 4vw;
 }
 
 #semiRecImg{

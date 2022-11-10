@@ -240,81 +240,47 @@ export default {
 </script>
 
 <template>
-    <div class="row" style="background:#6A79F3;">
-        <div class="row position-relative">
-            <div class="row my-5">
-                <div class="col-lg-2 col-md-3"><img id='logo' src="../Icons/Component1.png"></div>
-                <!-- nav bar start -->
-                <nav class="col-lg-8 col-md-6 navbar navbar-expand-lg navbar-expand-md navbar-light">
-                    <div class="container-fluid">
-                        <div class="navbar" id="navbarSupportedContent">
-                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                                <li class="nav-item">
-                                    <a class="navbar-brand" href="hrHome" style="color:white">Home</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="hrRole" style="color:white">Role</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="hrSkill"
-                                        style="color:white">Skill</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </nav>
-                <!-- nav bar end -->
-                <span class="col-lg col-md fs-5 fw-bold" style="color:white">Welcome, Jack </span>
-            </div>
-            <img src="../Icons/Vector1.png" alt="background">
-            <div class="row">
-                <p class="h1 position-absolute top-50 start-50 translate-middle" id="Header">
-                    Let's keep the information <br> up-to-date for skills
-                </p>
-                <!-- search bar start -->
-                <form class="d-inline-flex mt-3 position-absolute translate-middle w-50" style="top:70%; left:55%">
-                    <input class="form-control me-3" type="search" placeholder="For E.g. Leadership, Communication"
-                        aria-label="Search" id="skillSearchBar">
-                    <!-- add new role btn Fang Ting -->
-                    <button class="btn btn-light" type="submit" style="border-radius: 40px;"><a class="nav-link"
-                            href="hrCreateSkill">Add New Skill</a> </button>
-                </form>
-
-
-            </div>
-
-             <!-- Tab Button -->
-             <div class="tab">
-                <button class="tablinks btn active" @click="openStatus(event, 'Active')">Active</button>
-                <button class="tablinks btn" @click="openStatus(event, 'Deleted')" style="margin-left:1px;">Deleted</button>
-            </div>
-
-
+    <Header msg="Let's keep the information" dept="up-to-date for skills" />
+    <!-- nav bar start -->
+    <div class="row" id= 'hrNavBar'>
+        <div class="col">
+            <a href="hrHome" style="color:white">Home</a>
+        </div>
+        <div class="col">
+            <a href="hrRole" style="color:white">Role</a>
+        </div>
+        <div class="col">
+            <a  href="hrSkill" style="color:darkblue">Skill</a>
         </div>
     </div>
     <!-- search bar start -->
-    <form class="d-inline-flex position-absolute translate-middle w-50" style="top:40%; left:55%">
-        <input class="form-control me-3" type="search" placeholder="For E.g. Leadership, Communication"
-            aria-label="Search" id="skillSearchBar">
-        <!-- add new role btn Fang Ting -->
-        <button class="btn btn-light" type="submit" style="border-radius: 40px;">
-            <a class="nav-link" href="hrCreateSkill">Add New Skill</a> 
-        </button>
-    </form>
-    <!-- All skill cards-->
-    <div id="Active" class="tabcontent">
+    <div id='search' class="d-inline-flex">
+        <input class="form-control me-3" type="search"
+            placeholder="For E.g. Business Analyst, Operations Manager" aria-label="Search"
+            id="searchBar">
+        <button class="button" type="submit"><a aria-current="page"
+                href="hrCreateSkill">Add New Skill</a> </button>
+    </div>
 
-    <div class="row mt-4 ">
-        <div class="col-lg-5 col-md-8 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="skill in skillDict">
+    <!-- Tab Button -->
+    <div class="tab">
+        <button class="tablinks btn active" @click="openStatus(event, 'Active')">Active</button>
+        <button class="tablinks btn" @click="openStatus(event, 'Deleted')" style="margin-left:1px;">Deleted</button>
+    </div>
+    <!-- All skill cards-->
+    <div id="Active" class="tabcontent"  style="position:relative; top:-60px">
+
+    <div class="row">
+        <div class="col-md-5 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="skill in skillDict">
             <div class="card p-2">
                 <div class="row card-body">
                     <div class="row my-2">
-                        <h5 class="col-lg-7 col-md-7 col-sm-1 card-title">{{skill.skillName}}</h5>
+                        <h5 class="col-sm-8">{{skill.skillName}}</h5>
                         <!-- Edit Button-->
-                        <span class="col-lg-2 col-md col-sm-2"><button id="editButton"
+                        <span class="col-sm-2"><button id="editButton"
                                 @click="getDataSend(skill.skillId, skill.status, skill.courses)">Edit</button></span>
-                        <!-- Jing Wen your delete button is here -->
-                        <span class="col-lg col-md col-sm-2"><button id="deleteButton"
+                        <!-- Delete button -->
+                        <span class="col-sm-2"><button id="deleteButton"
                                 @click="SoftDeleteSkill(skill.skillId)">Delete</button></span>
                     </div>
                     <div class="row my-2">
@@ -354,15 +320,16 @@ export default {
     </div>
 
     <!-- Deleted Skill -->
-    <div id="Deleted" class="tabcontent" style="display: none;">
-        <div class="row mt-4 ">
-            <div class="col-lg-5 col-md-8 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="skill in deletedSkillDict">
+    <div id="Deleted" class="tabcontent" style="display: none;position:relative; top:-60px">
+
+        <div class="row">
+            <div class="col-md-5 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="skill in deletedSkillDict">
                 <div class="card p-2">
                     <div class="row card-body">
                         <div class="row my-2">
-                            <h5 class="col-lg-7 col-md-7 col-sm-1 card-title">{{skill.skillName}}</h5>
+                            <h5 class="col-sm-10">{{skill.skillName}}</h5>
                             <!-- Edit Button-->
-                            <span class="col-lg-2 col-md col-sm-2"><button id="editButton"
+                            <span class="col-sm-2"><button id="editButton"
                                     @click="getDeletedSkillDataSend(skill.skillId, skill.status, skill.course)">Edit</button></span>
                         </div>
                         <div class="row my-2">
@@ -423,17 +390,6 @@ export default {
         color: black;
     }
 
-    #skillSearchBar {
-        background: #4C5BDD;
-        border-radius: 40px;
-        border-color: #4C5BDD;
-        color: white
-    }
-
-    #skillSearchBar::placeholder {
-        color: #FFFFFF;
-    }
-
     .badges {
         background-color: #919CF8;
         font-size: 16px;
@@ -445,23 +401,4 @@ export default {
         border: none;
         color: gray;
     }
-
-    .tab button {
-        background: #919cf8;
-        color: white;
-        border-bottom-left-radius: 0px;
-        border-bottom-right-radius: 0px;
-    }
-    .tab button:hover {
-        background: rgb(255, 255, 255);
-    }
-
-    .tab button.active {
-        background: white;
-        color: black;
-        border-bottom-left-radius: 0px;
-        border-bottom-right-radius: 0px;
-        border-style: none;
-    }
-
 </style>
