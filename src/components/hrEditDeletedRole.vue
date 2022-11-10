@@ -10,7 +10,7 @@ export default {
             LJRole_Description: '',
             Department: '',
             Key_Task: '',
-            LJRole_Status: '',
+            LJRole_Status: this.roles_status,
             skills_required:'00007',
             error_message:[],
             error_in_html:'',

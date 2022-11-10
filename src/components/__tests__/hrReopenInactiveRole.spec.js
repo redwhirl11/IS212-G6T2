@@ -123,7 +123,7 @@ import hrEditDeletedRole from "../hrEditDeletedRole.vue";
 
 // If user submit did not change status from inactive to active after pressing submit
 // Error message: You have not changed your status to active.
-describe("hrEditRole", () => {
+describe("hrEditDeletedRole", () => {
   it("Did Not Change Role Status to Active", () => {
     const wrapper = mount(hrEditDeletedRole,{
       propsData: {
@@ -133,7 +133,7 @@ describe("hrEditRole", () => {
       }   
     })   
     //result from the function
-    wrapper.vm.getErrorMessage()    
+    wrapper.vm.reopenInactiveRole()    
     //expected result
     expect(wrapper.vm.errorm).toBe('You have not changed your status to active.');
   
