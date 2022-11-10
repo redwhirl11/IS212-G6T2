@@ -133,7 +133,7 @@ describe("hrEditDeletedRole", () => {
       }   
     })   
     //result from the function
-    wrapper.vm.reopenInactiveRole()    
+    wrapper.vm.getErrorMessage()    
     //expected result
     expect(wrapper.vm.errorm).toBe('You have not changed your status to active.');
   

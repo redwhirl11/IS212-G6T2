@@ -12,7 +12,8 @@ export default {
             Key_Task: '',
             LJRole_Status: this.roles_status,
             skills_required:'00007',
-            error_message:[],
+            // error_message:[],
+            errorm: '',
             error_in_html:'',
             numRoleName:0,
             numrole_desc:0,
@@ -53,10 +54,13 @@ export default {
     },
     methods: {
         reopenInactiveRole() {
-            if(this.LJRole_Status == 'Inactive') {
+            this.getErrorMessage();
+            this.changeErrorMsgintoHTML();
+            console.log('errormsg', this.errorm)
+            if(this.errorm != null) {
                 Swal.fire({
                         icon: 'warning',
-                        title: 'You have not changed your status to active.',
+                        title:  this.error_in_html,
                         timer: 2000,
                         timerProgressBar: true,
                         showConfirmButton: false
@@ -106,7 +110,21 @@ export default {
 
             }
 
+        },
+        getErrorMessage(){
+            // if role status - inactive
+            if (this.LJRole_Status == "Inactive"){
+                // this.error_message.push('You have not changed your status to active.')
+                this.errorm = 'You have not changed your status to active.'
+            }
+            return this.errorm;
+        },
+        changeErrorMsgintoHTML(){
+            this.error_in_html = '<div class="align-left">' + this.errorm + '</div>' ;
+            //console.log(this.error_in_html);
+            return this.error_in_html;
         }
+
 
     }
 }
