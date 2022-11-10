@@ -133,7 +133,7 @@ export default {
         },
         saveOtherSkills(){
             const UpdateUrl = 'http://localhost/IS212-G6T2/public/db/updateLJRole.php'
-            console.log(this.saved_roleID);
+            //console.log(this.saved_roleID);
             if (this.value.length>1){
                         for (var j=1; j<this.value.length; j++){
                             var Skill_id = this.value[j]
@@ -204,7 +204,7 @@ export default {
                         width: 'auto',
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            console.log(this.value)
+                            //console.log(this.value)
                             if (this.value.length>0){
                                 const Deleteurl = 'http://localhost/IS212-G6T2/public/db/deleteLJRole.php'
                                 const data = {
@@ -236,7 +236,7 @@ export default {
                                         .then(response => {
                                             var checkAllRoles = response.data;    
                                             // find the ljrole id by ljrole name   
-                                            console.log(checkAllRoles);                     
+                                            //console.log(checkAllRoles);                     
                                             this.getSavedRoleID(checkAllRoles);
                                             this.saveOtherSkills();
                                             
