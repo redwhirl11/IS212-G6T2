@@ -29,12 +29,13 @@ export default {
         }
     },
     created() {
-        //fetch data from user selection
-        const dataValue = localStorage.getItem('data');
-        console.log('print the data value', dataValue)
-        const datalist = dataValue.split(',');
-        this.Role_ID = datalist[0]
-        this.Skill_ID= datalist[1]
+         //fetch data from user selection
+         if (localStorage.getItem('data')!= null){
+            this.dataValue = localStorage.getItem('data');        
+            
+            const datalist = this.dataValue.split(',');
+            this.Role_ID = datalist[0]
+        }
 
         const allRoleUrl = 'http://localhost/IS212-G6T2/public/db/getDeletedRoles.php'
         axios.get(allRoleUrl).then(response => {
