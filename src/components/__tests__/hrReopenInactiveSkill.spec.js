@@ -1,7 +1,7 @@
-// import { describe, it, expect } from "vitest";
+import { describe, it, expect } from "vitest";
 
-// import { mount } from "@vue/test-utils";
-// import hrCreateRole from "../hrCreateRole.vue";
+import { mount } from "@vue/test-utils";
+import hrEditDeletedSkill from "../hrEditDeletedSkill.vue";
 
 // describe("hrCreateRole", () => {
 //   it("renders properly", () => {
@@ -23,3 +23,38 @@
   
 //   });
 // });
+
+describe("hrEditDeletedSkill", () => {
+    it("Did Not Change Skill Status to Active", () => {
+      const wrapper = mount(hrEditDeletedSkill,{
+        propsData: {
+          //if role is still inactive
+          skill_status: false
+          
+        }   
+      })   
+      //result from the function
+      wrapper.vm.getErrorMessage()    
+      //expected result
+      expect(wrapper.vm.errorm).toBe('You have not changed your status to active.');
+    });
+  });
+  
+  // For happy path, hr change role status to active
+  describe("hrEditDeletedSkill", () => {
+    it("Change Skill Status to Active", () => {
+      const wrapper = mount(hrEditDeletedSkill,{
+        propsData: {
+          //if role is still active
+          skill_status: true
+          
+        }   
+      })   
+      //result from the function
+      wrapper.vm.getErrorMessage()    
+      //expected result
+      expect(wrapper.vm.errorm).toBe('');
+    
+    });
+  });
+  

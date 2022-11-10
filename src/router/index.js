@@ -61,9 +61,9 @@ const router = createRouter({
       component: () => import("../components/hrCreateSkill.vue"),
     },
     {
-      path: "/hrCreateSkill",
-      name: "hrCreateSkill",
-      component: () => import("../components/hrCreateSkill.vue"),
+      path: "/hrEditDeletedSkill",
+      name: "hrEditDeletedSkill",
+      component: () => import("../components/hrEditDeletedSkill.vue"),
     }
   ],
 });
