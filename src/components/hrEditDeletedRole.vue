@@ -52,28 +52,24 @@ export default {
         })
     },
     methods: {
-        submitEditRole() {
-            this.getErrorMessage();
-            this.changeErrorMsgintoHTML();
-            if (this.error_message.length == 0) {
-                if(this.Role_Name == this.CurrentInput.LJRole_Name && this.LJRole_Description == this.CurrentInput.LJRole_Description &&  this.Department == this.CurrentInput.Department &&this.Key_Task == this.CurrentInput.Key_Task && this.LJRole_Status == this.CurrentInput.LJRole_Status){
-                    Swal.fire({
+        reopenInactiveRole() {
+            if(this.LJRole_Status == 'Inactive') {
+                Swal.fire({
                         icon: 'warning',
-                        title: 'No changes found!',
+                        title: 'You have not changed your status to active.',
                         timer: 2000,
                         timerProgressBar: true,
                         showConfirmButton: false
                     })
-                    }
-                else{
-                    Swal.fire({
-                        title: 'Save the Edited Role?',
-                        text: "Please check information before saving!",
+            } else {
+                Swal.fire({
+                        title: 'Reopen this role?',
+                        // text: "Please check information before saving!",
                         icon: "warning",
                         showCancelButton: true,
                         cancelButtonColor: '#c7c6c5',
                         confirmButtonColor: '#6A79F3',
-                        confirmButtonText: 'Yes, save it!',
+                        confirmButtonText: 'Yes, reopen it!',
                         cancelButtonText: 'No, Cancel',
                         width: 'auto',
                     }).then((result) => {
@@ -93,7 +89,7 @@ export default {
                                 .then(response => {
                                     Swal.fire(
                                         'Congratulations!',
-                                        'You have successfully edited the role!',
+                                        'You have successfully reopen this role!',
                                         'success',
                                     ).then(function() {
                                         window.location.href = "hrRole";
@@ -107,75 +103,9 @@ export default {
                                 })
                             }
                         })
-                }
-            }
-            else{                   
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    html: this.error_in_html
-                })
 
-                this.error_in_html='';
-                this.error_message=[];
-            }
-        },
-        getErrorMessage(){
-            // if user didnt input for role name
-            if (this.Role_Name ==''){
-                this.error_message.push('Invalid Role Name')
-            }else{
-                //if user did input the role name but the char not from 3-50
-                if (this.numRoleName<0){
-                    this.error_message.push('The maximum number of characters for Role Name has been reached')
-                }
-                if (this.numRoleName>47){
-                    this.error_message.push('Role Name must have at least 3 characters')
-                }
-            }
-            // if user didnt select for department
-            if (this.Department == ''){
-                this.error_message.push('You must input the department for the role')
             }
 
-            // if user didnt assign skill to role
-            if (this.skills_required == ''){
-                this.error_message.push('You must assign a skill(s) to the role')
-            }
-            
-            //if user did input the role description but the char more than 225
-            if (this.numrole_desc<0){
-                this.error_message.push('The maximum number of characters for Role Description has been reached')
-            }
-
-            //if user did input the key tasks but the char more than 225
-            if (this.numkey_tasks<0){
-                this.error_message.push('The maximum number of characters for Key Tasks has been reached')
-            }
-            
-            return this.error_message
-        },
-        changeErrorMsgintoHTML(){
-            this.error_in_html = '<div class="align-left"><ul>';
-            for(var i=0;i<this.error_message.length;i++){
-                this.error_in_html += '<li>' + this.error_message[i] + '</li>'
-            }
-            this.error_in_html += '</ul></div>';
-            //console.log(this.error_in_html);
-            return this.error_in_html;
-        },
-        countRoleName(){
-            this.numRoleName = 50-this.Role_Name.length;
-            return this.numRoleName
-        },
-        countrole_desc(){
-            this.numrole_desc = 225-this.LJRole_Description.length;
-            return this.numrole_desc
-        }
-        ,
-        countkey_tasks(){
-            this.numkey_tasks = 225-this.Key_Task.length;
-            return this.numkey_tasks
         }
 
     }
@@ -191,7 +121,7 @@ export default {
                     <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="backBtn"
                     style="border-radius: 20px" onclick="history.back()">Back</button>
                     <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="submitBtn"
-                    style="border-radius: 20px" @click="submitEditRole()" >Submit</button>
+                    style="border-radius: 20px" @click="reopenInactiveRole()" >Submit</button>
                 </div>
             </div>
             <img src="../Icons/Vector1.png" alt="background">
@@ -206,7 +136,7 @@ export default {
             <div><span style="color:red">* Required</span></div>
             <div class="col-lg-6 col-md-6">
                 <h4><label for="inputRole" class="form-label">Role <span style="color:red">*</span></label></h4>
-                <textarea  v-model="Role_Name" class="form-control" @input ="countRoleName(this.numRoleName)" rows="1"></textarea>
+                <textarea  v-model="Role_Name" class="form-control" @input ="countRoleName(this.numRoleName)" rows="1" disabled></textarea>
                 <div style="float: right;">
                     <span v-if ='numRoleName>=0'>{{numRoleName}}</span>  
                     <span v-else style="color:red">Exceed Word Limit: {{50-numRoleName}}/50</span> 
@@ -222,7 +152,7 @@ export default {
             
             <div class="col-lg-12 col-md-12">
                 <h4><label class="form-label">Role Description</label></h4>
-                <textarea class="form-control" v-model='LJRole_Description' placeholder="Type in role description"  @input ="countrole_desc(this.numrole_desc)" rows = '3'></textarea>
+                <textarea class="form-control" v-model='LJRole_Description' placeholder="Type in role description"  @input ="countrole_desc(this.numrole_desc)" rows = '3' disabled></textarea>
                 <div style="float: right;"> 
                     <span v-if ='numrole_desc>=0'>{{numrole_desc}}</span>  
                     <span v-else style="color:red">Exceed Word Limit: {{225-numrole_desc}}/225</span> 
@@ -231,7 +161,7 @@ export default {
             </div>
             <div class="col-lg-6 col-md-6">
                 <h4><label for="inputdept" class="form-label">Department <span style="color:red">*</span></label></h4>
-                <select id="inputdept" class="form-select" v-model="Department">
+                <select id="inputdept" class="form-select" v-model="Department" disabled>
                     <option disabled selected value> -- Select a Department -- </option>
                     <option value="CEO">CEO</option>
                     <option value="Chairman">Chairman</option>
@@ -243,14 +173,14 @@ export default {
             </div>
             <div class="col-lg-6 col-md-6">
                 <h4><label for="inputRoles" class="form-label">Skills Required (KIV-Sprint 3) <span style="color:red">*</span></label></h4>
-                <input type="text" class="form-control" id="inputRoles" v-model="skills_required">
+                <input type="text" class="form-control" id="inputRoles" v-model="skills_required" disabled>
             </div>
             <div class="col-lg-6 col-md-6">
             </div>
 
             <div class="col-lg-12 col-md-12">
                 <h4><label class="form-label">Key Tasks</label></h4>
-                <textarea class="form-control" v-model='Key_Task' placeholder="Type in key tasks"  @input ="countkey_tasks(this.numkey_tasks)" rows = '3'></textarea>
+                <textarea class="form-control" v-model='Key_Task' placeholder="Type in key tasks"  @input ="countkey_tasks(this.numkey_tasks)" rows = '3' disabled></textarea>
                 <div style="float: right;"> 
                     <span v-if ='numkey_tasks>=0'>{{numkey_tasks}}</span>  
                     <span v-else style="color:red">Exceed Word Limit: {{225-numkey_tasks}}/225</span> 
