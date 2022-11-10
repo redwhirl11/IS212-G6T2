@@ -67,9 +67,9 @@ export default {
             this.dataValue=localStorage.getItem('data');
         }
         const datalist = this.dataValue.split(',');
-        console.log(datalist)
+        // console.log(datalist)
         this.Skill_ID = datalist[0]
-        this.Skill_Status= datalist[1]
+        // this.Skill_Status= datalist[1]
 
         const allSkillUrl = 'http://localhost/IS212-G6T2/public/db/getSkills.php'
         axios.get(allSkillUrl).then(response => {
@@ -80,6 +80,7 @@ export default {
                 if (this.Skill_ID === allSkill[i].Skill_ID){
                     this.CurrentInput.push(allSkill[i])
                     this.Skill_Name= allSkill[i].Skill_Name
+                    this.Skill_Status= allSkill[i].Skill_Status
                     this.Type_of_Skills=allSkill[i].Type_of_Skills
                     this.Level_of_Competencies=allSkill[i].Level_of_Competencies
                     this.numSkillName= 50 - allSkill[i].Skill_Name.length

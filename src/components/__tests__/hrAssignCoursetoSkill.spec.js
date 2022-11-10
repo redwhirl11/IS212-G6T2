@@ -71,8 +71,8 @@ describe("hrEditSkill", () => {
       propsData: {
         datavalue:'4',
         SkillName:'Communication',
-        Type_of_Skill:'General',
-        Level_of_Competencies:'Beginner',
+        TypeofSkill:'General',
+        LevelofCompetencies:'Beginner',
         Course_assign:false,
       }   
     })   
@@ -91,8 +91,8 @@ describe("hrEditSkill", () => {
       propsData: {
         datavalue:'4',
         SkillName:'Communication',
-        Type_of_Skill:'General',
-        Level_of_Competencies:'Beginner',
+        TypeofSkill:'General',
+        LevelofCompetencies:'Beginner',
         Course_assign:true
         
       }   
@@ -112,8 +112,8 @@ describe("hrEditSkill", () => {
       propsData: {
         datavalue:'4',
         SkillName:'Communication',
-        Type_of_Skill:'General',
-        Level_of_Competencies:'Beginner',
+        TypeofSkill:'General',
+        LevelofCompetencies:'Beginner',
         //if hr changed the skills required
         Course_assign:true,
         //selected skill is inactive
