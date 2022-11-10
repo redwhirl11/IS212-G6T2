@@ -128,7 +128,7 @@ describe("hrEditDeletedRole", () => {
     const wrapper = mount(hrEditDeletedRole,{
       propsData: {
         //if role is still inactive
-        roles_status:'Inactive'
+        LJRole_Status:'Inactive'
         
       }   
     })   
