@@ -101,7 +101,7 @@ export default {
             this.course = '';
         } ,
 
-        getDeletedDataSend(skillId,status,course){
+        getDeletedSkillDataSend(skillId,status,course){
             this.skillId = skillId;
             this.status = status;
             this.course = course;
@@ -350,7 +350,7 @@ export default {
                             <h5 class="col-lg-7 col-md-7 col-sm-1 card-title">{{skill.skillName}}</h5>
                             <!-- Edit Button-->
                             <span class="col-lg-2 col-md col-sm-2"><button id="editButton"
-                                    @click="getDeletedDataSend(skill.skillId, skill.status, skill.course)">Edit</button></span>
+                                    @click="getDeletedSkillDataSend(skill.skillId, skill.status, skill.course)">Edit</button></span>
                         </div>
                         <div class="row my-2">
                             <!-- <div class="col-lg-3 col-md-3 col-sm-3 badge rounded-pill badges ms-2 pe-3" id="courseBadge">

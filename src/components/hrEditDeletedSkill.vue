@@ -16,7 +16,8 @@ export default {
             Skill_Name: '',
             Type_of_Skills: '',
             Level_of_Competencies:'',
-            error_message:[],
+            // error_message:[],
+            errorm: '',
             error_in_html:'',
             numSkillType:0,
             numSkillName:0,
@@ -27,13 +28,23 @@ export default {
 
     created() {
         //fetch data from user selection
-        const dataValue = localStorage.getItem('data');
-        const datalist = dataValue.split(',');
-        this.Skill_ID = datalist[0]
-        this.Skill_Status= datalist[1]
-        this.Skill_Course= datalist[2]
+         if (localStorage.getItem('data')!= null){
+            this.dataValue = localStorage.getItem('data');        
+            
+            const datalist = this.dataValue.split(',');
+            console.log('datalist', datalist)
+            this.Skill_ID = datalist[0]
+            this.Skill_Status= datalist[1]
+            this.Skill_Course= datalist[2]
+        }
+        // //fetch data from user selection
+        // const dataValue = localStorage.getItem('data');
+        // const datalist = dataValue.split(',');
+        // this.Skill_ID = datalist[0]
+        // this.Skill_Status= datalist[1]
+        // this.Skill_Course= datalist[2]
 
-        console.log('datalist', datalist)
+        // console.log('datalist', datalist)
 
         const allSkillUrl = 'http://localhost/IS212-G6T2/public/db/getDeletedSkills.php'
         axios.get(allSkillUrl).then(response => {
@@ -56,28 +67,38 @@ export default {
         })
     },
     methods: {
-        submitEditSkill() {
+        checkSkillStatus(){
+            if (this.Skill_Status == 'Inactive') {
+                console.log('skill_status', this.Skill_Status)
+                console.log('sstatus', this.sstatus)
+                this.sstatus = false
+            }
+        },
+        reopenInactiveSkill() {
+            this.checkSkillStatus();
+            console.log('sstatus', this.sstatus)
+            console.log('skill_status', this.Skill_Status)
+
             this.getErrorMessage();
             this.changeErrorMsgintoHTML();
-            if (this.Skill_Name !='' && this.Level_of_Competencies!= '' && this.Type_of_Skills!= '' && this.error_message.length == 0) {
-                if(this.Skill_Name == this.CurrentInput.Skill_Name && this.Skill_Status == this.CurrentInput.Skill_Status &&this.Type_of_Skills == this.CurrentInput.Type_of_Skills && this.Level_of_Competencies == this.CurrentInput.Level_of_Competencies){
+            if (this.sstatus != true) {
                     Swal.fire({
                         icon: 'warning',
-                        title: 'No changes found!',
+                        title: this.error_in_html,
                         timer: 2000,
                         timerProgressBar: true,
                         showConfirmButton: false
                     })
-                    }
+                }
                 else{
                     Swal.fire({
-                        title: 'Save the Edited Skill?',
-                        text: "Please check information before saving!",
+                        title: 'Reopen this skill?',
+                        // text: "Please check information before saving!",
                         icon: "warning",
                         showCancelButton: true,
                         cancelButtonColor: '#c7c6c5',
                         confirmButtonColor: '#6A79F3',
-                        confirmButtonText: 'Yes, save it!',
+                        confirmButtonText: 'Yes, reopen it!',
                         cancelButtonText: 'No, Cancel',
                         width: 'auto',
                     }).then((result) => {
@@ -109,6 +130,7 @@ export default {
                                     })
                                     this.error_in_html='';
                                     this.error_message=[];
+                                    this.sstatus = true
                                 })
                                 .catch(error => {
                                     console.log(error);
@@ -117,72 +139,25 @@ export default {
                             }
                         })
                 }
-            }
-            else{                   
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    html: this.error_in_html
-                })
 
-                this.error_in_html='';
-                this.error_message=[];
-            }
+            this.error_in_html='';
+            this.error_message=[];
+            this.sstatus = true;
+
         },
         getErrorMessage(){
-            // if user didnt input for skill name
-            if (this.Skill_Name ==''){
-                this.error_message.push('Invalid Skill Name')
-            }else{
-                //if user did input the skill name but the char not from 3-50
-                if (this.numSkillName<0){
-                    this.error_message.push('The maximum number of characters for Skill Name has been reached')
-                }
-                if (this.numSkillName>47){
-                    this.error_message.push('Skill name must have at least 3 characters')
-                }
+            // if skill status - inactive
+            console.log('emsg', this.errorm)
+            if (this.sstatus == false){
+                // this.error_message.push('You have not changed your status to active.')
+                this.errorm = 'You have not changed your status to active.'
             }
-            // if user didnt select for level of competencies
-            if (this.Level_of_Competencies == ''){
-                this.error_message.push('You must select the level of competencies for the skill')
-            }
-            // if user didnt input for type of skill
-            if (this.Type_of_Skills == ''){
-                this.error_message.push('You must input the type of skill')
-            }else{
-                //if user did input the type of skill but the char not from 4-50
-                if (this.numSkillType<0){
-                    this.error_message.push('The maximum number of characters for Type of Skill has been reached')
-                }
-                if (this.numSkillType>46){
-                    this.error_message.push('Type of Skill must have at least 4 characters')
-                }
-            }
-
-            // //check for duplicate Skill name
-            // var tidyupSkillName = this.Skill_Name.toLowerCase();
-            // tidyupSkillName= tidyupSkillName.replaceAll(' ', '');
-            // index = this.AllUniqueSkills.map(object => object.SkillName).indexOf(tidyupSkillName);
-            // if (index != -1 ){
-            //     this.error_message.push('Duplicate skill name, skill already existed!')
-            // }
-            return this.error_message
+            return this.errorm;
         },
         changeErrorMsgintoHTML(){
-            this.error_in_html = '<div class="align-left"><ul>';
-            for(var i=0;i<this.error_message.length;i++){
-                this.error_in_html += '<li>' + this.error_message[i] + '</li>'
-            }
-            this.error_in_html += '</ul></div>';
+            this.error_in_html = '<div class="align-left">' + this.errorm + '</div>' ;
+            //console.log(this.error_in_html);
             return this.error_in_html;
-        },
-        countSkillType(){
-            this.numSkillType = 50-this.Type_of_Skills.length;
-            return this.numSkillType
-        },
-        countSkillName(){
-            this.numSkillName = 50-this.Skill_Name.length;
-            return this.numSkillName
         }
     }
 }
@@ -196,7 +171,7 @@ export default {
                     <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="backBtn"
                     style="border-radius: 20px" onclick="history.back()">Back</button>
                     <button type="button" class="btn btn-light mx-2 px-4 d-lg-inline-block" id="submitBtn"
-                    style="border-radius: 20px" @click="submitEditSkill()" >Submit</button>
+                    style="border-radius: 20px" @click="reopenInactiveSkill()" >Submit</button>
                 </div>
             </div>
             <img src="../Icons/Vector1.png" alt="background">
@@ -211,7 +186,7 @@ export default {
             <div><span style="color:red">* Required</span></div>
             <div class="col-lg-6 col-md-6">
                 <h4><label for="inputSkill" class="form-label">Skill Name<span style="color:red">*</span></label></h4>
-                <input  v-model="Skill_Name" class="form-control" id="inputSkill" @input ="countSkillName(this.numSkillName)" rows="1">
+                <input  v-model="Skill_Name" class="form-control" id="inputSkill" @input ="countSkillName(this.numSkillName)" rows="1" disabled>
                 <div style="float: right;">
                     <span v-if ='numSkillName>=0'>{{numSkillName}}</span>  
                     <span v-else style="color:red">Exceed Word Limit: {{50-numSkillName}}/50</span> 
@@ -226,7 +201,7 @@ export default {
             </div>
             <div class="col-lg-6 col-md-6">
                 <h4><label for="inputSkillType" class="form-label">Type of Skill <span style="color:red">*</span></label></h4>
-                <textarea class="form-control" v-model='Type_of_Skills' id="inputSkillType" placeholder="Type in Skill's Type" @input ="countSkillType(this.numSkillType)"></textarea>
+                <textarea class="form-control" v-model='Type_of_Skills' id="inputSkillType" placeholder="Type in Skill's Type" @input ="countSkillType(this.numSkillType)" disabled></textarea>
                 <div style="float: right;"> 
                     <span v-if ='numSkillType>=0'>{{numSkillType}}</span>  
                     <span v-else style="color:red">Exceed Word Limit: {{50-numSkillType}}/50</span> 
@@ -234,7 +209,7 @@ export default {
             </div>
             <div class="col-lg-6 col-md-6">
                 <h4><label for="inputlevel" class="form-label">Level of Competencies <span style="color:red">*</span></label></h4>
-                <select id="inputlevel" class="form-select" v-model="Level_of_Competencies">
+                <select id="inputlevel" class="form-select" v-model="Level_of_Competencies" disabled>
                     <option disabled value="">Please select one</option>
                     <option value="Beginner">Beginner</option>
                     <option value="Intermediate">Intermediate</option>
@@ -244,7 +219,7 @@ export default {
             
             <div class="col-lg-6 col-md-6">
                 <h4><label for="inputCourses" class="form-label">Course(s) Assigned (KIV-Sprint 3)<span style="color:red">*</span></label></h4>
-                <input type="text" class="form-control" id="inputCourses" v-model="Skill_Course">
+                <input type="text" class="form-control" id="inputCourses" v-model="Skill_Course" disabled>
             </div>
             <div v-for="error in error_message">
                 <ul>
