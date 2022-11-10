@@ -7,7 +7,7 @@ $dao = new PostDAO();
 
 $posts=[];
 
-$posts = $dao->getAllRoles();
+$posts = $dao->getDeletedRoles();
 
  // Get an Indexed Array of Post objects
 $items = [];
