@@ -325,23 +325,17 @@ export default {
         </div>
 
     </div>
-    <!-- All role cards-->
-    <div class="row mt-4">
-        <div class="role-cards col-lg-5 col-md-8 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="role in roleDict">
-            <div class="card p-2">
-                <div class="row card-body">
-                    <div class="row my-2">
-                        <h4 class="col-8 col-lg-7 col-md-6 col-sm-1 card-title">{{role.roleName}}</h4>
-                        <!-- edit button -->
-                        <span class="col-lg-2 col-md col-sm-2"><button id="editButton" @click="getDataSend(role.id, role.skill)">Edit</button></span>
-                        <!-- delete button -->
-                        <span class="col-lg col-md col-sm-2"><button id="deleteButton" @click="SoftDeleteRole(role.id)">Delete</button></span>
-                    </div>
-                    <div class="row my-2">
-                        <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3 text-uppercase">
-                            {{role.dept}}</div>
-                        <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3" id="skillBadge">
-                            {{role.noOfSkill}} skills
+    <!-- Deleted Role -->
+    <div id="Deleted" class="tabcontent" style="display: none;">
+        <!-- Deleted role cards-->
+        <div class="row mt-4">
+            <div class="col-lg-5 col-md-8 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="role in deletedRoleDict">
+                <div class="card p-2">
+                    <div class="row card-body">
+                        <div class="row my-2">
+                            <h4 class="col-8 col-lg-7 col-md-6 col-sm-1 card-title">{{role.roleName}}</h4>
+                            <!-- edit button -->
+                            <span class="col-lg-2 col-md col-sm-2"><button id="editButton" @click="getDeletedRoleDataSend(role.id, role.skill)">Edit</button></span>
                         </div>
                         <div class="row my-2">
                             <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3 text-uppercase">
