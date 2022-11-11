@@ -225,7 +225,7 @@ export default {
             </div>
             
             <div class="col-lg-6 col-md-6">
-                <h4><label for="inputCourses" class="form-label">Course(s) Assigned (KIV-Sprint 3)<span style="color:red">*</span></label></h4>
+                <h4><label for="inputCourses" class="form-label">Course(s) Assigned <span style="color:red">*</span></label></h4>
                 <input type="text" class="form-control" id="inputCourses" v-model="Skill_Course" disabled>
             </div>
             </form>

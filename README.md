@@ -74,7 +74,7 @@ npm run test:unit
 ## Folder Structure
 | Files | Role | Purpose | Features
 | ------------- | ----------- | ------------- | ------------- 
-| UserLogin.vue | Learner & HR | User Landing Page  | Login with respective role
+| UserLogin.vue | Learner & HR | User Landing Page  | Login with respective role.
 | LJHome.vue <td rowspan=4>Learner | Learner Landing Page  | View, edit and delete the Learning Journey that contains the selected roles, skills and courses.
 | LJrole.vue  | View and Select Role | View and search all the available active roles.
 | createLJ.vue | Select Course | Choose the course(s) of the role that learners are interested in.
