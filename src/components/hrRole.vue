@@ -153,7 +153,26 @@ export default {
             
             // Declare all variables
             var i, tabcontent, tablinks;
-        }, 
+        
+            // Get all elements with class="tabcontent" and hide them
+            tabcontent = document.getElementsByClassName("tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            // Get all elements with class="tablinks" and remove the class "active"
+            tablinks = document.getElementsByClassName("tablinks");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+                
+            }
+
+            // Show the current tab, and add an "active" class to the button that opened the tab
+            document.getElementById(statusSelected).style.display = "block";
+            // evt.currentTarget.className += " active";
+            // console.log('see class list', document.getElementById(statusSelected).classList)
+
+        },
         searchRole() {
             
             // Declare variables
@@ -175,28 +194,8 @@ export default {
             }
             
 
-        }
-    },
-
-            // Get all elements with class="tabcontent" and hide them
-            tabcontent = document.getElementsByClassName("tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
-
-            // Get all elements with class="tablinks" and remove the class "active"
-            tablinks = document.getElementsByClassName("tablinks");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-                
-            }
-
-            // Show the current tab, and add an "active" class to the button that opened the tab
-            document.getElementById(statusSelected).style.display = "block";
-            // evt.currentTarget.className += " active";
-            // console.log('see class list', document.getElementById(statusSelected).classList)
-
         },
+    
 
         getDeletedRole() {
             const allRoleUrl = 'http://localhost/IS212-G6T2/public/db/getDeletedRoles.php'
@@ -320,26 +319,8 @@ export default {
                             </div>
                         </div>
                     </div>
-                </nav>
-                <!-- nav bar end -->
-                <span class="col-lg col-md fs-5 fw-bold" style="color:white">Welcome, Jack </span>
             </div>
-            <img src="../Icons/Vector1.png" alt="background">
-            <div class="row">
-                <p class="h1 position-absolute top-50 start-50 translate-middle" id="Header">
-                    Let's keep the information <br> up-to-date for roles
-                </p>
-                <!-- search bar start -->
-                <div class="d-inline-flex mt-3 position-absolute translate-middle w-50" style="top:70%; left:55%;">
-                    <input class="form-control me-3" type="search"
-                        placeholder="For E.g. Business Analyst, Operations Manager" aria-label="Search"
-                        id="searchBar" v-on:keyup="searchRole()">
-                    <!-- add new role btn Fang Ting -->
-                    <button class="btn btn-light" type="submit" style="border-radius: 40px;"><a
-                            class="nav-link active" style='color: black;padding:0' aria-current="page"
-                            href="hrCreateRole">Add New Role</a> </button>
-                    
-                </div>
+
             </div>
         </div>
 
