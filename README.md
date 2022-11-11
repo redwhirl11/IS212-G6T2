@@ -47,7 +47,8 @@ git clone https://github.com/redwhirl11/IS212-G6T2
   - iv. Click "Go" to run the sql   
   
 <br>
-## Getting Started.
+
+## Getting Started
 Make sure you have an up-to-date version of [Node.js](https://nodejs.org) installed, then run the following command in your IS212-G6T2 directory's command line:
 
 ### install packages
@@ -74,20 +75,20 @@ npm run test:unit
 ## Folder Structure
 | Files | Role | Purpose | Features
 | ------------- | ----------- | ------------- | ------------- 
-| UserLogin.vue | Learner & HR | User Landing Page  | Login with respective role.
-| LJHome.vue <td rowspan=4>Learner | Learner Landing Page  | View, edit and delete the Learning Journey that contains the selected roles, skills and courses.
-| LJrole.vue  | View and Select Role | View and search all the available active roles.
-| createLJ.vue | Select Course | Choose the course(s) of the role that learners are interested in.
-| editLJ.vue | Update Course(s) selected  | Update the course(s) that they have previously planned in their Learning Journey.
-| hrHome.vue <td rowspan=9>HR | HR Landing Page  | Select tasks to perform (Edit Roles / Edit Skills).
-| hrRole.vue | View Roles | View both active and inactive roles under different tabs.
-| hrCreateRole.vue  | Create Roles  | Create new roles.
-| hrEditRole.vue  | Update Roles | Update the existing roles data.
-| hrEditDeletedRole.vue  | Edit Soft Deleted Role | Reopen the soft deleted roles.
-| hrSkill.vue  | View Skills | View both active and inactive skills under different tabs.
-| hrCreateSkill.vue  |  Create Skills | Create new skills.
-| hrEditSkill.vue  | Update Skills | Update the existing skills data.
-| hrEditDeletedSkill.vue  | Update Soft Deleted Skill | Reopen the soft deleted skills.
+| UserLogin.vue | Learner & HR | User Landing Page  | Login with respective role
+| LJHome.vue <td rowspan=4>Learner | Learner Landing Page  | View, edit and delete the Learning Journey that contains the selected roles, skills and courses
+| LJrole.vue  | View and Select Role | View and search all the available active roles
+| createLJ.vue | Select Course | Choose the course(s) of the role that learners are interested in
+| editLJ.vue | Update Course(s) selected  | Update the course(s) that they have previously planned in their Learning Journey
+| hrHome.vue <td rowspan=9>HR | HR Landing Page  | Select tasks to perform (Edit Roles / Edit Skills)
+| hrRole.vue | View Roles | View both active and inactive roles under different tabs
+| hrCreateRole.vue  | Create Roles  | Create new roles
+| hrEditRole.vue  | Update Roles | Update the existing roles data
+| hrEditDeletedRole.vue  | Edit Soft Deleted Role | Reopen the soft deleted roles
+| hrSkill.vue  | View Skills | View both active and inactive skills under different tabs
+| hrCreateSkill.vue  |  Create Skills | Create new skills
+| hrEditSkill.vue  | Update Skills | Update the existing skills data
+| hrEditDeletedSkill.vue  | Update Soft Deleted Skill | Reopen the soft deleted skills
 
 
 ## Vue Project Structure
