@@ -15,6 +15,10 @@ export default {
         currentinput:{
             type: Array,
             default:[]
+        },
+        currentinput_status:{
+            type: Boolean,
+            default: true
         }
     }, 
     data() {
@@ -34,7 +38,8 @@ export default {
             numrole_desc:0,
             numkey_tasks:0,
             CurrentInput:this.currentinput,
-            rstatus: this.role_status
+            rstatus: this.role_status,
+            current_status: this.currentinput_status
         }
     },
     created() {
@@ -56,7 +61,7 @@ export default {
                 //currently by checking Role_ID + first Skill_ID
                 // console.log('',)
                 
-                if(this.CurrentInput.length ==0){
+                if(this.current_status== true){
                     if (this.Role_ID === allRole[i].LJRole_ID && this.Skill_ID === allRole[i].Skill_ID){
                         this.CurrentInput.push(allRole[i])
                         this.Role_Name= allRole[i].LJRole_Name
