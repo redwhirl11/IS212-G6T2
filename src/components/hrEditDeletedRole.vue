@@ -73,9 +73,9 @@ export default {
                         this.numrole_desc= 225 - allRole[i].LJRole_Description.length
                         this.numkey_tasks= 225 - allRole[i].Key_Task.length
                     }
-                    this.CurrentInput = this.CurrentInput[0]
                 }
             }
+            this.CurrentInput = this.CurrentInput[0]
             
         })
         

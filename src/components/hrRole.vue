@@ -168,7 +168,7 @@ export default {
 
             // Show the current tab, and add an "active" class to the button that opened the tab
             document.getElementById(statusSelected).style.display = "block";
-            evt.currentTarget.className += " active";
+            // evt.currentTarget.className += " active";
             // console.log('see class list', document.getElementById(statusSelected).classList)
 
         },

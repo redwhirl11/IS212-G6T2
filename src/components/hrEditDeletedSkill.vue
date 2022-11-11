@@ -78,9 +78,9 @@ export default {
                         this.numSkillName= 50 - allSkill[i].Skill_Name.length
                         this.numSkillType= 50 - allSkill[i].Type_of_Skills.length
                     }
-                    this.CurrentInput = this.CurrentInput[0]
                 }
             }
+            this.CurrentInput = this.CurrentInput[0]
             // console.log(this.CurrentInput )
         })
     },
