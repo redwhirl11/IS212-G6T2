@@ -1,11 +1,13 @@
 <script>
 import axios from 'axios';
 import Header from "../components/Header.vue";
+import Multiselect from '@vueform/multiselect';
 
 export default {
     name: 'hrEditDeletedSkill', 
     components: {
             Header,
+            Multiselect,
             },
     props: {  
         skill_status: {
@@ -36,7 +38,11 @@ export default {
             numSkillName:0,
             CurrentInput:this.currentinput,
             sstatus: this.skill_status,
-            current_status: this.currentinput_status
+            current_status: this.currentinput_status,
+            currentCourses:[],
+            value:null,
+            courses: this.Course_assign,
+            Courses_Options:[],
 
         }
     },
@@ -52,14 +58,7 @@ export default {
             this.Skill_Status= datalist[1]
             this.Skill_Course= datalist[2]
         }
-        // //fetch data from user selection
-        // const dataValue = localStorage.getItem('data');
-        // const datalist = dataValue.split(',');
-        // this.Skill_ID = datalist[0]
-        // this.Skill_Status= datalist[1]
-        // this.Skill_Course= datalist[2]
 
-        // console.log('datalist', datalist)
 
         const allSkillUrl = 'http://localhost/IS212-G6T2/public/db/getDeletedSkills.php'
         axios.get(allSkillUrl).then(response => {
@@ -77,14 +76,41 @@ export default {
                         this.Level_of_Competencies=allSkill[i].Level_of_Competencies
                         this.numSkillName= 50 - allSkill[i].Skill_Name.length
                         this.numSkillType= 50 - allSkill[i].Type_of_Skills.length
+                        this.currentCourses.push(allSkill[i].Course_ID)
                     }
                 }
             }
             this.CurrentInput = this.CurrentInput[0]
             // console.log(this.CurrentInput )
+            const getAllCourse = 'http://localhost/IS212-G6T2/public/db/getAllCourses.php'
+            axios.get(getAllCourse)
+            .then(response => {
+                var AllCourse = response.data
+                this.getUniqueCourse(AllCourse);
+                this.value = this.currentCourses
+            })
         })
     },
     methods: {
+        getUniqueCourse(AllCourse){
+            var tempCourseDict =[]
+            for (var i = 0; i < AllCourse.length; i++){
+                var Course_ID = AllCourse[i].Course_ID
+                var Course_Name = AllCourse[i].Course_Name
+                var Course_Status = AllCourse[i].Course_Status
+                this.course_status =true
+                if (Course_Status =="Active"){
+                    if (!tempCourseDict[Course_ID]) {
+                        tempCourseDict[Course_ID] = {value: Course_ID,label: Course_Name}
+                        this.Courses_Options.push({value: Course_ID,label: Course_Name,Course_Status:Course_Status})
+                    }
+                }
+                else if(Course_Status !="Active"){
+                    this.course_status =false
+                }
+            }
+            return this.Courses_Options
+        },
         checkSkillStatus(){
             if (this.Skill_Status == 'Inactive') {
         
@@ -226,9 +252,12 @@ export default {
             
             <div class="col-lg-6 col-md-6">
                 <h4><label for="inputCourses" class="form-label">Course(s) Assigned <span style="color:red">*</span></label></h4>
-                <input type="text" class="form-control" id="inputCourses" v-model="Skill_Course" disabled>
+                <!-- <input type="text" class="form-control" id="inputCourses" v-model="Skill_Course" disabled> -->
+                <Multiselect v-model='value' mode="tags" class="multiselect-blue" :close-on-select="false" :searchable="true" :options='Courses_Options' />
             </div>
             </form>
     </div>
 </template>
+
+<style src="@vueform/multiselect/themes/default.css"></style>
 

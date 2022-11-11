@@ -1,11 +1,13 @@
 <script>
 import axios from 'axios';
 import Header from "../components/Header.vue";
+import Multiselect from '@vueform/multiselect';
 
 export default {
     name: 'hrEditDeletedRole', 
     components: {
-            Header,
+            Multiselect,
+            Header
             },
     props: {  
         role_status: {
@@ -39,7 +41,11 @@ export default {
             numkey_tasks:0,
             CurrentInput:this.currentinput,
             rstatus: this.role_status,
-            current_status: this.currentinput_status
+            current_status: this.currentinput_status,
+            currentSkills:[],
+            value:null ,
+            skills: this.skills_required,
+            Skills_Options: [],
         }
     },
     created() {
@@ -72,15 +78,41 @@ export default {
                         this.numRoleName= 50 - allRole[i].LJRole_Name.length
                         this.numrole_desc= 225 - allRole[i].LJRole_Description.length
                         this.numkey_tasks= 225 - allRole[i].Key_Task.length
+                        this.currentSkills.push(allRole[i].Skill_ID)
                     }
                 }
             }
             this.CurrentInput = this.CurrentInput[0]
             
+            const getAllSkills = 'http://localhost/IS212-G6T2/public/db/getSkills.php'
+            axios.get(getAllSkills)
+                    .then(response => {
+                    var AllSkills = response.data;
+                    this.getUniqueSkill(AllSkills);
+                    // console.log(this.Skills_Options);
+
+                    // display the current skills
+                    this.value = this.currentSkills
+
+                    
+                })
         })
         
     },
     methods: {
+        getUniqueSkill(AllSkills){
+            var tempSkillDict =[]
+            for (var i = 0; i < AllSkills.length; i++){
+                var Skill_Name = AllSkills[i].Skill_Name
+                var Skill_ID = AllSkills[i].Skill_ID
+                var Skill_Status = AllSkills[i].Skill_Status
+                if (!tempSkillDict[Skill_Name]) {
+                    tempSkillDict[Skill_Name] = {value: Skill_ID,label: Skill_Name}
+                    this.Skills_Options.push({value: Skill_ID,label: Skill_Name, Skill_Status:Skill_Status})
+                }
+            }
+            return this.Skills_Options
+        },
         checkRoleStatus(){
             if (this.LJRole_Status == 'Inactive') {
                 //console.log('ljrole status', this.LJRole_Status)
@@ -232,8 +264,11 @@ export default {
                 </select>                    
             </div>
             <div class="col-lg-6 col-md-6">
-                <h4><label for="inputRoles" class="form-label">Skills Required (KIV-Sprint 3) <span style="color:red">*</span></label></h4>
-                <input type="text" class="form-control" id="inputRoles" v-model="skills_required" disabled>
+                <h4><label for="inputRoles" class="form-label">Skills Required <span style="color:red">*</span></label></h4>
+                <!-- <input type="text" class="form-control" id="inputRoles" v-model="skills_required" disabled> -->
+                <div>
+        <Multiselect v-model="value" mode="tags" :close-on-select="false" :searchable="true" :options=Skills_Options
+/></div>
             </div>
             <div class="col-lg-6 col-md-6">
             </div>
@@ -251,9 +286,4 @@ export default {
     </div>
 </template>
 
-<style>
-/* 
-#Header  && #logo under main.css
-*/
-
-</style>
+<style src="@vueform/multiselect/themes/default.css"></style>
