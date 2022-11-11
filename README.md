@@ -47,7 +47,7 @@ git clone https://github.com/redwhirl11/IS212-G6T2
   - iv. Click "Go" to run the sql   
   
 <br>
-## Getting Started
+## Getting Started.
 Make sure you have an up-to-date version of [Node.js](https://nodejs.org) installed, then run the following command in your IS212-G6T2 directory's command line:
 
 ### install packages
