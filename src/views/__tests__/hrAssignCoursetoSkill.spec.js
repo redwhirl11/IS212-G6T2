@@ -4,7 +4,7 @@ import { mount } from "@vue/test-utils";
 import hrCreateSkill from "../hrCreateSkill.vue";
 import hrEditSkill from "../hrEditSkill.vue";
 
-//Course_assign is null
+//Course_assign is null_
 describe("hrCreateSkill", () => {
   it("Null Value for Course_assign", () => {
     const wrapper = mount(hrCreateSkill,{

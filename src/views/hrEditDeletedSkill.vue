@@ -11,7 +11,16 @@ export default {
         skill_status: {
             type: Boolean,
             default: true
+        },
+        currentinput:{
+            type: Array,
+            default:[]
+        },
+        currentinput_status:{
+            type: Boolean,
+            default: true
         }
+
     }, 
     data() {
         return {
@@ -25,8 +34,10 @@ export default {
             error_in_html:'',
             numSkillType:0,
             numSkillName:0,
-            CurrentInput:[],
-            sstatus: this.skill_status
+            CurrentInput:this.currentinput,
+            sstatus: this.skill_status,
+            current_status: this.currentinput_status
+
         }
     },
 
@@ -58,16 +69,19 @@ export default {
 
             for (let i=0;i<allSkill.length;i++){
                 //currently checking unique skillID + courseID + skill Status
-                if (this.Skill_ID === allSkill[i].Skill_ID && this.Skill_Status === allSkill[i].Skill_Status && this.Skill_Course===allSkill[i].Course_ID){
-                    this.CurrentInput.push(allSkill[i])
-                    this.Skill_Name= allSkill[i].Skill_Name
-                    this.Type_of_Skills=allSkill[i].Type_of_Skills
-                    this.Level_of_Competencies=allSkill[i].Level_of_Competencies
-                    this.numSkillName= 50 - allSkill[i].Skill_Name.length
-                    this.numSkillType= 50 - allSkill[i].Type_of_Skills.length
+                if(this.current_status == true){
+                    if (this.Skill_ID === allSkill[i].Skill_ID && this.Skill_Status === allSkill[i].Skill_Status && this.Skill_Course===allSkill[i].Course_ID){
+                        this.CurrentInput.push(allSkill[i])
+                        this.Skill_Name= allSkill[i].Skill_Name
+                        this.Type_of_Skills=allSkill[i].Type_of_Skills
+                        this.Level_of_Competencies=allSkill[i].Level_of_Competencies
+                        this.numSkillName= 50 - allSkill[i].Skill_Name.length
+                        this.numSkillType= 50 - allSkill[i].Type_of_Skills.length
+                    }
                 }
             }
             this.CurrentInput = this.CurrentInput[0]
+            // console.log(this.CurrentInput )
         })
     },
     methods: {
@@ -105,7 +119,7 @@ export default {
                         width: 'auto',
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            const UpdateUrl = 'http://localhost/IS212-G6T2/public/db/updateSkill.php'
+                            const UpdateUrl = 'http://localhost/IS212-G6T2/public/db/changetoActiveSkill.php'
                             const data = {
                                 Skill_ID: this.Skill_ID,
                                 Skill_Name: this.Skill_Name, 

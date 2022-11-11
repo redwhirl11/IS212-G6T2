@@ -15,13 +15,14 @@ export default {
             deletedRoleDict: []
         }
     },
-
     created() {
         this.getAllRole()
         this.getSkill()
         this.getDeletedRole()
     },
-
+    mounted(){
+        this.searchRole()
+    },
     methods: {
 
         getAllRole() {
@@ -152,7 +153,7 @@ export default {
             
             // Declare all variables
             var i, tabcontent, tablinks;
-
+        
             // Get all elements with class="tabcontent" and hide them
             tabcontent = document.getElementsByClassName("tabcontent");
             for (i = 0; i < tabcontent.length; i++) {
@@ -168,10 +169,33 @@ export default {
 
             // Show the current tab, and add an "active" class to the button that opened the tab
             document.getElementById(statusSelected).style.display = "block";
-            evt.currentTarget.className += " active";
+            // evt.currentTarget.className += " active";
             // console.log('see class list', document.getElementById(statusSelected).classList)
 
         },
+        searchRole() {
+            
+            // Declare variables
+            var input, filter, li, a, i, txtValue;
+            input = document.getElementById('searchBar');
+            filter = input.value.toUpperCase();
+            li = document.getElementsByClassName('role-cards');
+            // Loop through all list items, and hide those who don't match the search query
+
+            
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByClassName("card-title")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+                } else {
+                li[i].style.display = "none";
+                }
+            }
+            
+
+        },
+    
 
         getDeletedRole() {
             const allRoleUrl = 'http://localhost/IS212-G6T2/public/db/getDeletedRoles.php'
@@ -295,23 +319,29 @@ export default {
                             </div>
                         </div>
                     </div>
-                </div>
+            </div>
+
             </div>
         </div>
 
     </div>
-
-    <!-- Deleted Role -->
-    <div id="Deleted" class="tabcontent" style="display: none;position:relative; top:-60px">
-        <!-- Deleted role cards-->
-        <div class="row">
-            <div class="col-md-5 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="role in deletedRoleDict">
-                <div class="card p-2">
-                    <div class="row card-body">
-                        <div class="row my-2">
-                            <h4 class="col-sm-10">{{role.roleName}}</h4>
-                            <!-- edit button -->
-                            <span class="col-sm-2"><button id="editButton" @click="getDeletedRoleDataSend(role.id, role.skill)">Edit</button></span>
+    <!-- All role cards-->
+    <div class="row mt-4">
+        <div class="role-cards col-lg-5 col-md-8 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="role in roleDict">
+            <div class="card p-2">
+                <div class="row card-body">
+                    <div class="row my-2">
+                        <h4 class="col-8 col-lg-7 col-md-6 col-sm-1 card-title">{{role.roleName}}</h4>
+                        <!-- edit button -->
+                        <span class="col-lg-2 col-md col-sm-2"><button id="editButton" @click="getDataSend(role.id, role.skill)">Edit</button></span>
+                        <!-- delete button -->
+                        <span class="col-lg col-md col-sm-2"><button id="deleteButton" @click="SoftDeleteRole(role.id)">Delete</button></span>
+                    </div>
+                    <div class="row my-2">
+                        <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3 text-uppercase">
+                            {{role.dept}}</div>
+                        <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3" id="skillBadge">
+                            {{role.noOfSkill}} skills
                         </div>
                         <div class="row my-2">
                             <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3 text-uppercase">
