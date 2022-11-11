@@ -1,5 +1,6 @@
 {
   "name": "testing",
+  "type": "module",
   "version": "0.0.0",
   "scripts": {
     "dev": "vite",
@@ -15,6 +16,8 @@
     "cors": "^2.8.5",
     "jslint": "^0.12.1",
     "require": "^0.4.4",
+    "make-runnable": "^1.4.0",
+    "node-fetch": "^3.2.10",
     "vue": "^3.2.41",
     "vue-multiselect": "^2.1.6",
     "vue-router": "^4.1.5"

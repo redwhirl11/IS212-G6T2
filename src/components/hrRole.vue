@@ -15,13 +15,14 @@ export default {
             deletedRoleDict: []
         }
     },
-
     created() {
         this.getAllRole()
         this.getSkill()
         this.getDeletedRole()
     },
-
+    mounted(){
+        this.searchRole()
+    },
     methods: {
 
         getAllRole() {
@@ -152,6 +153,30 @@ export default {
             
             // Declare all variables
             var i, tabcontent, tablinks;
+        }, 
+        searchRole() {
+            
+            // Declare variables
+            var input, filter, li, a, i, txtValue;
+            input = document.getElementById('searchBar');
+            filter = input.value.toUpperCase();
+            li = document.getElementsByClassName('role-cards');
+            // Loop through all list items, and hide those who don't match the search query
+
+            
+            for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByClassName("card-title")[0];
+                txtValue = a.textContent || a.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+                } else {
+                li[i].style.display = "none";
+                }
+            }
+            
+
+        }
+    }
 
             // Get all elements with class="tabcontent" and hide them
             tabcontent = document.getElementsByClassName("tabcontent");
@@ -295,23 +320,47 @@ export default {
                             </div>
                         </div>
                     </div>
+                </nav>
+                <!-- nav bar end -->
+                <span class="col-lg col-md fs-5 fw-bold" style="color:white">Welcome, Jack </span>
+            </div>
+            <img src="../Icons/Vector1.png" alt="background">
+            <div class="row">
+                <p class="h1 position-absolute top-50 start-50 translate-middle" id="Header">
+                    Let's keep the information <br> up-to-date for roles
+                </p>
+                <!-- search bar start -->
+                <div class="d-inline-flex mt-3 position-absolute translate-middle w-50" style="top:70%; left:55%;">
+                    <input class="form-control me-3" type="search"
+                        placeholder="For E.g. Business Analyst, Operations Manager" aria-label="Search"
+                        id="searchBar" v-on:keyup="searchRole()">
+                    <!-- add new role btn Fang Ting -->
+                    <button class="btn btn-light" type="submit" style="border-radius: 40px;"><a
+                            class="nav-link active" style='color: black;padding:0' aria-current="page"
+                            href="hrCreateRole">Add New Role</a> </button>
+                    
                 </div>
             </div>
         </div>
 
     </div>
-
-    <!-- Deleted Role -->
-    <div id="Deleted" class="tabcontent" style="display: none;position:relative; top:-60px">
-        <!-- Deleted role cards-->
-        <div class="row">
-            <div class="col-md-5 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="role in deletedRoleDict">
-                <div class="card p-2">
-                    <div class="row card-body">
-                        <div class="row my-2">
-                            <h4 class="col-sm-10">{{role.roleName}}</h4>
-                            <!-- edit button -->
-                            <span class="col-sm-2"><button id="editButton" @click="getDeletedRoleDataSend(role.id, role.skill)">Edit</button></span>
+    <!-- All role cards-->
+    <div class="row mt-4">
+        <div class="role-cards col-lg-5 col-md-8 col-sm-6 mt-3 ms-lg-5 mx-md-auto" v-for="role in roleDict">
+            <div class="card p-2">
+                <div class="row card-body">
+                    <div class="row my-2">
+                        <h4 class="col-8 col-lg-7 col-md-6 col-sm-1 card-title">{{role.roleName}}</h4>
+                        <!-- edit button -->
+                        <span class="col-lg-2 col-md col-sm-2"><button id="editButton" @click="getDataSend(role.id, role.skill)">Edit</button></span>
+                        <!-- delete button -->
+                        <span class="col-lg col-md col-sm-2"><button id="deleteButton" @click="SoftDeleteRole(role.id)">Delete</button></span>
+                    </div>
+                    <div class="row my-2">
+                        <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3 text-uppercase">
+                            {{role.dept}}</div>
+                        <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3" id="skillBadge">
+                            {{role.noOfSkill}} skills
                         </div>
                         <div class="row my-2">
                             <div class="col-lg-3 col-md col-sm badge rounded-pill badges ms-2 pe-3 text-uppercase">
