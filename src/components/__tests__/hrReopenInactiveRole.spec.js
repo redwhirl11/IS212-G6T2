@@ -9,8 +9,10 @@ describe("hrEditDeletedRole", () => {
   it("Did Not Change Role Status to Active", () => {
     const wrapper = mount(hrEditDeletedRole,{
       propsData: {
+        currentinput:[{LJRole_ID: '8', LJRole_Name: 'CTO', LJRole_Description: '', Department: 'Chairman', Key_Task: '', LJRole_Status:'Inactive'}],
         //if role is still inactive
-        role_status: false
+        role_status: false,
+        currentinput_status: false
         
       }   
     })   
@@ -26,8 +28,10 @@ describe("hrEditDeletedRole", () => {
   it("Change Role Status to Active", () => {
     const wrapper = mount(hrEditDeletedRole,{
       propsData: {
+        currentinput:[{LJRole_ID: '8', LJRole_Name: 'CTO', LJRole_Description: '', Department: 'Chairman', Key_Task: '', LJRole_Status:'Inactive'}],
         //if role is still active
-        role_status: true
+        role_status: true,
+        currentinput_status: false
         
       }   
     })   

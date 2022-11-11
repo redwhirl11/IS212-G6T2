@@ -7,8 +7,10 @@ describe("hrEditDeletedSkill", () => {
     it("Did Not Change Skill Status to Active", () => {
       const wrapper = mount(hrEditDeletedSkill,{
         propsData: {
+          currentinput:[{Skill_ID: '6', Skill_Name: 'Finance', Type_of_Skills: 'Technical', Level_of_Competencies: 'Beginner', Skill_Status: 'Inactive'}],
           //if skill is still inactive
-          skill_status: false
+          skill_status: false,
+          currentinput_status: false
           
         }   
       })   
@@ -24,8 +26,10 @@ describe("hrEditDeletedSkill", () => {
     it("Change Role Status to Active", () => {
       const wrapper = mount(hrEditDeletedSkill,{
         propsData: {
+          currentinput:[{Skill_ID: '6', Skill_Name: 'Finance', Type_of_Skills: 'Technical', Level_of_Competencies: 'Beginner', Skill_Status: 'Inactive'}],
           //if skill is still active
-          skill_status: true
+          skill_status: true,
+          currentinput_status: false
           
         }   
       })   

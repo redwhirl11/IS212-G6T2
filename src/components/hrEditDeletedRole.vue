@@ -11,6 +11,10 @@ export default {
         role_status: {
             type: Boolean,
             default: true
+        },
+        currentinput:{
+            type: Array,
+            default:[]
         }
     }, 
     data() {
@@ -29,7 +33,7 @@ export default {
             numRoleName:0,
             numrole_desc:0,
             numkey_tasks:0,
-            CurrentInput:[],
+            CurrentInput:this.currentinput,
             rstatus: this.role_status
         }
     },
@@ -51,19 +55,23 @@ export default {
             for (let i=0;i<allRole.length;i++){
                 //currently by checking Role_ID + first Skill_ID
                 // console.log('',)
-                if (this.Role_ID === allRole[i].LJRole_ID && this.Skill_ID === allRole[i].Skill_ID){
-                    this.CurrentInput.push(allRole[i])
-                    this.Role_Name= allRole[i].LJRole_Name
-                    this.LJRole_Description=allRole[i].LJRole_Description
-                    this.Department=allRole[i].Department
-                    this.Key_Task=allRole[i].Key_Task
-                    this.LJRole_Status=allRole[i].LJRole_Status
-                    this.numRoleName= 50 - allRole[i].LJRole_Name.length
-                    this.numrole_desc= 225 - allRole[i].LJRole_Description.length
-                    this.numkey_tasks= 225 - allRole[i].Key_Task.length
+                
+                if(this.CurrentInput.length ==0){
+                    if (this.Role_ID === allRole[i].LJRole_ID && this.Skill_ID === allRole[i].Skill_ID){
+                        this.CurrentInput.push(allRole[i])
+                        this.Role_Name= allRole[i].LJRole_Name
+                        this.LJRole_Description=allRole[i].LJRole_Description
+                        this.Department=allRole[i].Department
+                        this.Key_Task=allRole[i].Key_Task
+                        this.LJRole_Status=allRole[i].LJRole_Status
+                        this.numRoleName= 50 - allRole[i].LJRole_Name.length
+                        this.numrole_desc= 225 - allRole[i].LJRole_Description.length
+                        this.numkey_tasks= 225 - allRole[i].Key_Task.length
+                    }
+                    this.CurrentInput = this.CurrentInput[0]
                 }
             }
-            this.CurrentInput = this.CurrentInput[0]
+            
         })
         
     },
@@ -116,7 +124,7 @@ export default {
                                 params: data
                             })
                                 .then(response => {
-                                    console.log(response)
+                                    // console.log(response)
                                     Swal.fire(
                                         'Congratulations!',
                                         'You have successfully reopen this role!',
