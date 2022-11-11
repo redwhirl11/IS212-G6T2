@@ -3,9 +3,9 @@
 <!-- Project Link: [https://github.com/redwhirl11/IS212-G6T2](https://github.com/redwhirl11/IS212-G6T2) -->
 <div align="center">
   <p align="center">
-    <a href="https://github.com/redwhirl11/IS212-G6T2"><strong>Project Link »</strong></a>
+    <a href="https://github.com/redwhirl11/IS212-G6T2"><strong>Project Link » &nbsp&nbsp   https://github.com/redwhirl11/IS212-G6T2 </strong></a>
     <br />
-    <br />
+    <br /> 
     <a href="https://github.com/redwhirl11/IS212-G6T2/actions">CI Pipeline</a>&nbsp&nbsp
     ·
     <a href="https://github.com/redwhirl11/IS212-G6T2/graphs/contributors">Contributions</a>&nbsp&nbsp
@@ -98,6 +98,7 @@ npm run test:unit
 | Main pages | src --> views |
 | Components  | src --> components |
 | Path | src --> router --> index.js |
+| Styling | src --> asseta --> main.css |
 
 
 ## Contact
