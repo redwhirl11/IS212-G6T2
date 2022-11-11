@@ -176,7 +176,7 @@ export default {
             
 
         }
-    }
+    },
 
             // Get all elements with class="tabcontent" and hide them
             tabcontent = document.getElementsByClassName("tabcontent");
