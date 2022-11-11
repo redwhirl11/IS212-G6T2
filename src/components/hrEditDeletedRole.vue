@@ -103,7 +103,7 @@ export default {
                         width: 'auto',
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            const UpdateUrl = 'http://localhost/IS212-G6T2/public/db/updateLJRole.php'
+                            const UpdateUrl = 'http://localhost/IS212-G6T2/public/db/changetoactiveRole.php'
                             const data = {
                                 LJRole_ID: this.Role_ID,
                                 LJRole_Name: this.Role_Name, 
@@ -116,6 +116,7 @@ export default {
                                 params: data
                             })
                                 .then(response => {
+                                    console.log(response)
                                     Swal.fire(
                                         'Congratulations!',
                                         'You have successfully reopen this role!',

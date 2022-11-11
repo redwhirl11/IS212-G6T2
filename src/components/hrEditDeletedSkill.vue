@@ -105,7 +105,7 @@ export default {
                         width: 'auto',
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            const UpdateUrl = 'http://localhost/IS212-G6T2/public/db/updateSkill.php'
+                            const UpdateUrl = 'http://localhost/IS212-G6T2/public/db/changetoActiveSkill.php'
                             const data = {
                                 Skill_ID: this.Skill_ID,
                                 Skill_Name: this.Skill_Name, 
@@ -161,7 +161,7 @@ export default {
 }
 </script>
 <template>
-    <Header action='Edit a skill: ' :msg= CurrentInput.Skill_Name />
+    <!-- <Header action='Edit a skill: ' :msg= CurrentInput.Skill_Name /> -->
     <!-- button -->
     <div class="row" id="btnTopRight">
         <div class="col">
