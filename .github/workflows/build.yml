@@ -6,7 +6,6 @@ name: build CI
 on:
   push:
     branches:
-      - main_vue
       - G6T2-33-code-refactoring
 
 jobs:
