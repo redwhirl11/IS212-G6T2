@@ -8,6 +8,8 @@
     <br /> 
     <a href="https://github.com/redwhirl11/IS212-G6T2/actions">CI Pipeline</a>&nbsp&nbsp
     ·
+    <a href="https://github.com/redwhirl11/IS212-G6T2/tree/main_vue/src/views/__tests__">Unit Tests</a>&nbsp&nbsp
+    ·
     <a href="https://github.com/redwhirl11/IS212-G6T2/graphs/contributors">Contributions</a>&nbsp&nbsp
     ·
     <a href="https://github.com/redwhirl11/IS212-G6T2/graphs/commit-activity">Commit Frequency</a>
@@ -94,11 +96,12 @@ npm run test:unit
 ## Vue Project Structure
 | Info | Directory |
 | ------------- | ------------- |
-| Database | public --> db  |
-| Main pages | src --> views |
-| Components  | src --> components |
-| Path | src --> router --> index.js |
-| Styling | src --> asseta --> main.css |
+| Database | public / db  |
+| Main pages | src / views |
+| Unit Tests | src/ views/ __tests __  |
+| Components  | src / components |
+| Path | src / router / index.js |
+| Styling | src / assets / main.css |
 
 
 ## Contact
